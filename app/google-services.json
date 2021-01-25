@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "243981349335",
+    "project_id": "ddyzd-cb69d",
+    "storage_bucket": "ddyzd-cb69d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243981349335:android:0b26f2dd92ec3ad30d1b92",
+        "android_client_info": {
+          "package_name": "com.example.ddyzd_android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "243981349335-4l9358k68tk5fi9ab3b7v12af4ubpfq5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkE0xHVjJIU77ENa8jEU_XaYw9lgZq2gA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "243981349335-4l9358k68tk5fi9ab3b7v12af4ubpfq5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "243981349335-o3drq80cfqiqh16uedpqovkp5f9vcbl4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.semicolon.DDYZD-V2"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
