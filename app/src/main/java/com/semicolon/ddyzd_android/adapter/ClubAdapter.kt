@@ -1,6 +1,7 @@
 package com.semicolon.ddyzd_android.adapter
 
 import android.media.Image
+import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +19,9 @@ class ClubAdapter (val clubAdapter: ArrayList<ClubProfiles>) : RecyclerView.Adap
         return CustomViewHolder(view).apply {
             itemView.setOnClickListener { // 클릭한 경우 여기다 적기
                 val pos = adapterPosition
-
+                val profileImage = clubAdapter.get(pos).image
+                val proflieExample= clubAdapter.get(pos).example
+                val proflieName = clubAdapter.get(pos).name
             }
 
         }
