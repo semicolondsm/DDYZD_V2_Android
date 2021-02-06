@@ -12,10 +12,5 @@ interface ApiService {
     @GET("club/list")
     fun clublist(
     ): Call<ArrayList<ClubData>>
-
-
-    @GET("club/list")
-    fun chatlist(
-            @Header("access-token") assesstoken : String
-    ):Call<ArrayList<ChatData>>
+    
 }
