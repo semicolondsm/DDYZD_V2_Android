@@ -1,6 +1,9 @@
 package com.semicolon.ddyzd_android
 
 import com.semicolon.ddyzd_android.model.ClubData
+import com.semicolon.ddyzd_android.model.ClubDetailData
+import com.semicolon.ddyzd_android.model.ClubPersonData
+import com.semicolon.ddyzd_android.model.ClubRecruitData
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Multipart
@@ -11,4 +14,18 @@ interface ApiService {
     fun clublist(
     ): Call<ArrayList<ClubData>>
 
+    @GET("club/{club_id}/info")
+    fun clubInformation(
+        @Query("club_id") clubId : String
+    ): Call<ArrayList<ClubDetailData>>
+
+    @GET("club/{club_id}/recruitment")
+    fun clubRecruit(
+            @Query("club_id")  clubId: String
+    ): Call<ClubRecruitData>
+
+    @GET("club/{club_id}/member")
+    fun clubPersonData(
+            @Query("club_id") clubId: String
+    ): Call<ArrayList<ClubPersonData>>
 }
