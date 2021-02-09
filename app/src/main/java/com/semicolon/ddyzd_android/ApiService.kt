@@ -4,6 +4,7 @@ import com.semicolon.ddyzd_android.model.ClubData
 import com.semicolon.ddyzd_android.model.ClubDetailData
 import com.semicolon.ddyzd_android.model.ClubPersonData
 import com.semicolon.ddyzd_android.model.ClubRecruitData
+import io.reactivex.rxjava3.core.Single
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Multipart
@@ -12,7 +13,7 @@ import retrofit2.http.Query
 interface ApiService {
     @GET("club/list")
     fun clublist(
-    ): Call<ArrayList<ClubData>>
+    ): io.reactivex.Single<Array<ClubData>>
 
     @GET("club/{club_id}/info")
     fun clubInformation(

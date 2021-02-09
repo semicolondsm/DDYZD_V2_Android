@@ -18,6 +18,8 @@ import com.semicolon.ddyzd_android.model.ClubData
 import com.semicolon.ddyzd_android.model.ClubProfiles
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
 import com.semicolon.ddyzd_android.ul.fragment.ClubList
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,20 +28,63 @@ import java.lang.System.load
 import java.net.HttpURLConnection
 import java.net.URL
 
-class ClubListViewModel(mainActivity: MainActivity.mainact) : ViewModel() {
-    lateinit var body : ArrayList<ClubData> // 동아리 전체
+class ClubListViewModel() : ViewModel() {
+    lateinit var body: Array<ClubData> // 동아리 전체
     var clubimage = mutableListOf<String>() // 동아리 이미지
     var clubname = mutableListOf<String>() // 동아리 이름
     var clubexample = mutableListOf<String>() //동아리 설명
-    val retro = BaseApi.serverbasic?.clublist()
-    var proflieList = mutableListOf<ClubProfiles>()
-    val liveData1 : MutableLiveData<String> = MutableLiveData()
-    // val view =Fragment1().view
     val list = ClubList().view?.findViewById<RecyclerView>(R.id.rv_proflie)
+    val adapter = BaseApi.getInstance()
+    var proflieList = mutableListOf<ClubProfiles>()
+    val liveData1: MutableLiveData<String> = MutableLiveData()
+    var size: Int = 0
+    var sub: Int = 0
+
+    val d = adapter.clublist()
+        .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
+        .doOnError {
+            println("error")
+        }
+        .unsubscribeOn(Schedulers.io())
+        .subscribe { result ->
+            println("${result} asdfasdfasdf")
+            body = result
+            clubListSet(body).apply {
+                println(body)
+            }
+        }
+
+
+    fun clubListSet(body: Array<ClubData>){
+        size = body.size
+        for(i in 0 until size){
+            clubimage.add(body[i].clubimage)
+            clubname.add(body[i].clubname)
+            clubexample.add(body[i].clubdescription)
+            proflieList.add(
+                ClubProfiles(R.drawable.ic_launcher_background, body[i].clubname, body[i].clubdescription)
+            )
+        }
+        println("${proflieList},가나다라마바").apply {
+            liveData1.value = "1"
+            list?.setHasFixedSize(true)
+            list?.layoutManager = LinearLayoutManager(ClubList().view?.context, LinearLayoutManager.VERTICAL,false)
+            list?.adapter = ClubAdapter(clubAdapter = proflieList as ArrayList<ClubProfiles>)
+        }
+    }
+
+
+
+    //val retro = BaseApi.serverbasic?.clublist()
+
+
+    // val view =Fragment1().view
+
+
     //val context = Fragment1().context
-    var size : Int = 0
-    var sub : Int = 0
-    val a = retro?.enqueue(object : Callback<ArrayList<ClubData>> {
+
+    /*val a = retro?.enqueue(object : Callback<ArrayList<ClubData>> {
         override fun onFailure(call: Call<ArrayList<ClubData>>, t: Throwable) {
             t.printStackTrace()
         }
@@ -71,7 +116,7 @@ class ClubListViewModel(mainActivity: MainActivity.mainact) : ViewModel() {
         //val a = view?.findViewById<Button>(R.id.btn1)
         //view?.findViewById<Button>(R.id.btn1)
         ch.set("바뀌나")
-    }
+    }*/
 
 
     val bottomNavigationView = BottomNavigationView.OnNavigationItemSelectedListener {
@@ -106,6 +151,7 @@ class ClubListViewModel(mainActivity: MainActivity.mainact) : ViewModel() {
 
 
             R.id.app ->{
+                println("가나다")
                 proflieList = mutableListOf()
                 for(i in 0 until size){
                     sub = body[i].clubtag.size
@@ -159,5 +205,7 @@ class ClubListViewModel(mainActivity: MainActivity.mainact) : ViewModel() {
         }
         true
     }
+
+
 
 }

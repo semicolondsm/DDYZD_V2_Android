@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -31,11 +32,8 @@ class ClubList: Fragment() {
 
     //lateinit var viewModel : Frag1ViewModel
     private lateinit var binding : ClublistBinding
-    companion object{
-        val viewModel = ClubListViewModel(MainActivity.mainActivity)
-    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
+        val viewModel = ClubListViewModel()
         //binding =Frag1Binding.inflate(inflater,container,false) // 이거는 안됨
         binding= DataBindingUtil.inflate(inflater, R.layout.clublist,container,false)
         binding.frag1 = viewModel
@@ -59,41 +57,8 @@ class ClubList: Fragment() {
         var clubimage = mutableListOf<String>() // 동아리 이미지
         var clubname = mutableListOf<String>() // 동아리 이름
         var clubexample = mutableListOf<String>() //동아리 설명
-        val retro = BaseApi.serverbasic?.clublist()
 
         val liveData1 : MutableLiveData<String> = MutableLiveData()
-
-        /*val a = retro?.enqueue(object : Callback<ArrayList<ClubData>> {
-            override fun onFailure(call: Call<ArrayList<ClubData>>, t: Throwable) {
-                t.printStackTrace()
-            }
-            override fun onResponse(call: Call<ArrayList<ClubData>>, response: Response<ArrayList<ClubData>>) {
-                body = response.body()!!
-                println(body)
-                val size = body.size
-                for(i in 0 until size){
-                    clubimage.add(body[i].clubimage)
-                    clubname.add(body[i].clubname)
-                    clubexample.add(body[i].clubdescription)
-                    proflieList.add(
-                        ClubProfiles(R.drawable.ic_launcher_background, body[i].clubname, body[i].clubdescription)
-                    )
-
-                    list?.layoutManager = LinearLayoutManager(this@Fragment1.context,
-                            LinearLayoutManager.VERTICAL,false)
-                    list?.setHasFixedSize(true)
-
-                    list?.adapter = ClubAdapter(clubAdapter = proflieList as ArrayList<ClubProfiles>)
-
-                    println("여기가 끝")
-                    if(list?.size ==size )
-                    liveData1.value = "1"
-                }
-
-
-            }
-
-        })*/
 
 
         viewModel.liveData1.observe(viewLifecycleOwner,Observer{
