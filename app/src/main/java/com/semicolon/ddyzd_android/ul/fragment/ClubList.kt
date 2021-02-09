@@ -2,38 +2,28 @@ package com.semicolon.ddyzd_android.ul.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.size
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.adapter.ClubAdapter
 import com.semicolon.ddyzd_android.databinding.ClublistBinding
-import com.semicolon.ddyzd_android.model.ClubData
 import com.semicolon.ddyzd_android.model.ClubProfiles
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
 import com.semicolon.ddyzd_android.viewmodel.ClubListViewModel
 
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-
-class ClubList: Fragment() {
+class ClubList(val navigator:MainActivity): Fragment() {
 
     //lateinit var viewModel : Frag1ViewModel
     private lateinit var binding : ClublistBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val viewModel = ClubListViewModel()
+        val viewModel = ClubListViewModel(navigator)
         //binding =Frag1Binding.inflate(inflater,container,false) // 이거는 안됨
         binding= DataBindingUtil.inflate(inflater, R.layout.clublist,container,false)
         binding.frag1 = viewModel
@@ -47,7 +37,7 @@ class ClubList: Fragment() {
             val proflieList = viewModel.proflieList
             list?.layoutManager = LinearLayoutManager(this@ClubList.context, LinearLayoutManager.VERTICAL,false)
             list?.setHasFixedSize(true)
-            list?.adapter = ClubAdapter(clubAdapter = proflieList as ArrayList<ClubProfiles>)
+            list?.adapter = ClubAdapter(clubAdapter = proflieList as ArrayList<ClubProfiles>,navigator = navigator)
         })
 
         val bottom =view.findViewById<BottomNavigationView>(R.id.bottomNavigationView)

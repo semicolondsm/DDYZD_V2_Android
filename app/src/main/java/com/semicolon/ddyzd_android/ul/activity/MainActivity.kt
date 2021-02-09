@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.liveData.observe(this, Observer{
             println("바뀌나")
             when (viewModel.liveData.value) {
-                "1" -> supportFragmentManager.beginTransaction().replace(R.id.fragment, ClubList()).commit()
+                "1" -> supportFragmentManager.beginTransaction().replace(R.id.fragment, ClubList(this)).commit()
                 "2" -> supportFragmentManager.beginTransaction().replace(R.id.fragment, Fragment2()).commit()
                 "3" -> supportFragmentManager.beginTransaction().replace(R.id.fragment, Fragment3()).commit()
             }

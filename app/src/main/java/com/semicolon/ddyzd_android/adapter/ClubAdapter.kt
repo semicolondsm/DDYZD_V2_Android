@@ -10,7 +10,10 @@ import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.model.ClubProfiles
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
 
-class ClubAdapter (val clubAdapter: ArrayList<ClubProfiles>) : RecyclerView.Adapter<ClubAdapter.CustomViewHolder>() //이거를 Frag1ViewModel에 연결을 하면 됨!!!
+class ClubAdapter(
+    val clubAdapter: ArrayList<ClubProfiles>,
+    val navigator: MainActivity
+) : RecyclerView.Adapter<ClubAdapter.CustomViewHolder>() //이거를 Frag1ViewModel에 연결을 하면 됨!!!
 {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClubAdapter.CustomViewHolder {
@@ -20,6 +23,7 @@ class ClubAdapter (val clubAdapter: ArrayList<ClubProfiles>) : RecyclerView.Adap
                 var name = clubAdapter[adapterPosition].name
                 var example = clubAdapter[adapterPosition].example
                 var image = clubAdapter[adapterPosition].image
+                navigator.changeActivity()
 
 
             }
