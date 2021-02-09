@@ -1,5 +1,6 @@
 package com.semicolon.ddyzd_android.ul.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -14,18 +15,11 @@ import com.semicolon.ddyzd_android.viewmodel.MainViewModel
 
 
 class MainActivity : AppCompatActivity() {
-
-
-    //lateinit var binding : ActivityMainBinding // 여기에 setonClinkListener 같은거 넣어야함
-
-    //var liveData: MutableLiveData<String> = MutableLiveData()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val viewModel = MainViewModel()
-        val binding: ActivityMainBinding =
-                DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.viewModel = viewModel
+        val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.vm = viewModel
         //val liveData = MainViewModel().liveData
         viewModel.liveData.observe(this, Observer{
             println("바뀌나")
@@ -36,8 +30,10 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-    companion object mainact{
-        val mainActivity =this
+    fun changeActivity(){
+        val intent = Intent(this, ClubDetails::class.java)
+        startActivity(intent)
     }
+
 
 }

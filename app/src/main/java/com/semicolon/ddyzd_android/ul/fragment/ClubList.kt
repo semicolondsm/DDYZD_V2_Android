@@ -38,27 +38,9 @@ class ClubList: Fragment() {
         binding= DataBindingUtil.inflate(inflater, R.layout.clublist,container,false)
         binding.frag1 = viewModel
         binding.lifecycleOwner = this
-
-        //binding.frag1 = viewModel
-        //binding = Frag1Binding.inflate(R.layout.frag1,container,false)
-
         val view = inflater.inflate(R.layout.clublist, container,false) // 이거는 됨
 
-        val recyclerView = viewModel.proflieList
-
-
-
-
-
-        var proflieList = mutableListOf<ClubProfiles>()
         val list = view?.findViewById<RecyclerView>(R.id.rv_proflie)
-
-        lateinit var body : ArrayList<ClubData> // 동아리 전체
-        var clubimage = mutableListOf<String>() // 동아리 이미지
-        var clubname = mutableListOf<String>() // 동아리 이름
-        var clubexample = mutableListOf<String>() //동아리 설명
-
-        val liveData1 : MutableLiveData<String> = MutableLiveData()
 
 
         viewModel.liveData1.observe(viewLifecycleOwner,Observer{

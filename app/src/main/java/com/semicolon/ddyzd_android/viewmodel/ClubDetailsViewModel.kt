@@ -3,6 +3,7 @@ package com.semicolon.ddyzd_android.viewmodel
 import android.util.Log
 import com.semicolon.ddyzd_android.ApiService
 import com.semicolon.ddyzd_android.BaseApi
+import com.semicolon.ddyzd_android.adapter.ClubAdapter
 import com.semicolon.ddyzd_android.model.ClubRecruitData
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers

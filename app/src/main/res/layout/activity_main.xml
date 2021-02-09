@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="viewModel"
+            name="vm"
             type="com.semicolon.ddyzd_android.viewmodel.MainViewModel" />
     </data>
 
@@ -30,7 +30,7 @@
             android:id="@+id/changeclub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{()->viewModel.changeclub()}"
+            android:onClick="@{()->vm.changeclub()}"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:text="fragment1"
@@ -42,7 +42,7 @@
             android:id="@+id/changechat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{()->viewModel.changechat()}"
+            android:onClick="@{()->vm.changechat()}"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:text="fragment2"
@@ -54,7 +54,7 @@
             android:id="@+id/changeelse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{()->viewModel.changeelse()}"
+            android:onClick="@{()->vm.changeelse()}"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:text="fragment3"

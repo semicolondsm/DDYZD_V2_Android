@@ -16,13 +16,13 @@ object BaseApi {
     val WRITE_TIMEOUT: Long = 15
     val READ_TIMEOUT: Long = 15
     val API_URL: String = "https://api.eungyeol.live/"
-    var mOKHttpClient: OkHttpClient
+    var OKHttpClient: OkHttpClient
     var mRetrofit: Retrofit
-    var mKotlinRetrofitInterface: ApiService
+    var KotlinRetrofitInterface: ApiService
     init {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        mOKHttpClient = OkHttpClient().newBuilder().apply {
+        OKHttpClient = OkHttpClient().newBuilder().apply {
             addInterceptor(httpLoggingInterceptor)
             connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
             writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
@@ -30,13 +30,13 @@ object BaseApi {
         }.build()
         mRetrofit = Retrofit.Builder().apply {
             baseUrl(API_URL)
-            client(mOKHttpClient)
+            client(OKHttpClient)
             addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             addConverterFactory(GsonConverterFactory.create())
         }.build()
-        mKotlinRetrofitInterface = mRetrofit.create()
+        KotlinRetrofitInterface = mRetrofit.create()
     }
     fun getInstance(): ApiService {
-        return mKotlinRetrofitInterface
+        return KotlinRetrofitInterface
     }
 }

@@ -40,7 +40,7 @@ class ClubListViewModel() : ViewModel() {
     var size: Int = 0
     var sub: Int = 0
 
-    val d = adapter.clublist()
+    val call = adapter.clublist()
         .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
         .doOnError {
@@ -48,14 +48,11 @@ class ClubListViewModel() : ViewModel() {
         }
         .unsubscribeOn(Schedulers.io())
         .subscribe { result ->
-            println("${result} asdfasdfasdf")
             body = result
             clubListSet(body).apply {
                 println(body)
             }
         }
-
-
     fun clubListSet(body: Array<ClubData>){
         size = body.size
         for(i in 0 until size){
@@ -66,59 +63,11 @@ class ClubListViewModel() : ViewModel() {
                 ClubProfiles(R.drawable.ic_launcher_background, body[i].clubname, body[i].clubdescription)
             )
         }
-        println("${proflieList},가나다라마바").apply {
             liveData1.value = "1"
             list?.setHasFixedSize(true)
             list?.layoutManager = LinearLayoutManager(ClubList().view?.context, LinearLayoutManager.VERTICAL,false)
             list?.adapter = ClubAdapter(clubAdapter = proflieList as ArrayList<ClubProfiles>)
-        }
     }
-
-
-
-    //val retro = BaseApi.serverbasic?.clublist()
-
-
-    // val view =Fragment1().view
-
-
-    //val context = Fragment1().context
-
-    /*val a = retro?.enqueue(object : Callback<ArrayList<ClubData>> {
-        override fun onFailure(call: Call<ArrayList<ClubData>>, t: Throwable) {
-            t.printStackTrace()
-        }
-        override fun onResponse(call: Call<ArrayList<ClubData>>, response: Response<ArrayList<ClubData>>) {
-
-
-            body = response.body()!!
-            println(body)
-            size = body.size
-            for(i in 0 until size){
-                clubimage.add(body[i].clubimage)
-                clubname.add(body[i].clubname)
-                clubexample.add(body[i].clubdescription)
-                proflieList.add(
-                        ClubProfiles(R.drawable.ic_launcher_background, body[i].clubname, body[i].clubdescription)
-                )
-            }
-            println("${proflieList},가나다라마바").apply {
-                liveData1.value = "1"
-                list?.setHasFixedSize(true)
-                list?.layoutManager = LinearLayoutManager(ClubList().view?.context, LinearLayoutManager.VERTICAL,false)
-                list?.adapter = ClubAdapter(clubAdapter = proflieList as ArrayList<ClubProfiles>)
-            }
-        }
-    })
-
-    val ch = ObservableField("바꾸기!")
-    fun btn(){
-        //val a = view?.findViewById<Button>(R.id.btn1)
-        //view?.findViewById<Button>(R.id.btn1)
-        ch.set("바뀌나")
-    }*/
-
-
     val bottomNavigationView = BottomNavigationView.OnNavigationItemSelectedListener {
         println("hgfkh")
         proflieList = mutableListOf<ClubProfiles>()
@@ -131,8 +80,6 @@ class ClubListViewModel() : ViewModel() {
                 }
                 liveData1.value = "1"
             }
-
-
             R.id.web ->{
                 proflieList = mutableListOf()
                 for(i in 0 until size){
@@ -147,11 +94,7 @@ class ClubListViewModel() : ViewModel() {
                 }
                 liveData1.value = "2"
             }
-
-
-
             R.id.app ->{
-                println("가나다")
                 proflieList = mutableListOf()
                 for(i in 0 until size){
                     sub = body[i].clubtag.size
@@ -165,9 +108,6 @@ class ClubListViewModel() : ViewModel() {
                 }
                 liveData1.value = "3"
             }
-
-
-
             R.id.imbe ->{
                 proflieList = mutableListOf()
                 for(i in 0 until size){
@@ -182,9 +122,6 @@ class ClubListViewModel() : ViewModel() {
                 }
                 liveData1.value = "4"
             }
-
-
-
             R.id.guitar ->{
                 proflieList = mutableListOf()
                 for(i in 0 until size){
@@ -199,13 +136,7 @@ class ClubListViewModel() : ViewModel() {
                 }
                 liveData1.value = "5"
             }
-
-
-
         }
         true
     }
-
-
-
 }
