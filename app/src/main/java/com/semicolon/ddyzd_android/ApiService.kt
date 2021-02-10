@@ -28,7 +28,7 @@ interface ApiService {
     ): Single<ClubRecruitData>
 
     @GET("club/{club_id}/member")
-    fun clubPersonData(
+    fun clubMenber(
             @Path("club_id") clubId: String
     ): Single<ArrayList<ClubPersonData>>
 }

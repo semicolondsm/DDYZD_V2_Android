@@ -33,6 +33,11 @@ class ClubDetailsViewModel {
     lateinit var major : ArrayList<Sub>
     lateinit var closeat : String
 
+    lateinit var name : ArrayList<String>
+    lateinit var profile_image : ArrayList<String>
+    lateinit var gcn : ArrayList<String>
+    lateinit var git : ArrayList<String>
+
 
     val callInfo = adapter.clubInfo(club_id,time())
         .observeOn(AndroidSchedulers.mainThread())
@@ -61,6 +66,18 @@ class ClubDetailsViewModel {
             major = result.major
             closeat = result.closeat
         }*/
+
+
+    val callMamber = adapter.clubMenber(club_id)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
+        .doOnError {
+            println("error")
+        }
+        .unsubscribeOn(Schedulers.io())
+        .subscribe { result ->
+               
+        }
 
     fun time(): String {
         val time = System.currentTimeMillis().toString() // 시간 받는거
