@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DDYZD_Android"
         android:usesCleartextTraffic="true">
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".ul.activity.LoginActivity"></activity>
         <activity android:name=".ul.activity.ClubDetails" />
         <activity android:name=".ul.activity.MainActivity">
             <intent-filter>

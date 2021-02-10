@@ -1,4 +1,4 @@
-package com.semicolon.ddyzd_android
+package com.semicolon.ddyzd_android.ul.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
