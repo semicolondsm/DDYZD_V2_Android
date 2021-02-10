@@ -1,23 +1,31 @@
 package com.semicolon.ddyzd_android.adapter
 
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.model.ClubProfiles
+import com.semicolon.ddyzd_android.ul.activity.MainActivity
 
-class ClubAdapter (val clubAdapter: ArrayList<ClubProfiles>) : RecyclerView.Adapter<ClubAdapter.CustomViewHolder>() //이거를 Frag1ViewModel에 연결을 하면 됨!!!
+class ClubAdapter(
+    val clubAdapter: ArrayList<ClubProfiles>,
+    val navigator: MainActivity
+) : RecyclerView.Adapter<ClubAdapter.CustomViewHolder>() //이거를 Frag1ViewModel에 연결을 하면 됨!!!
 {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClubAdapter.CustomViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_club,parent,false)
         return CustomViewHolder(view).apply {
             itemView.setOnClickListener { // 클릭한 경우 여기다 적기
-                val pos = adapterPosition
+
+                val club_id = clubAdapter[adapterPosition].club_id
+                BaseApi.club_id = club_id
+                navigator.changeActivity()
+
 
             }
 
