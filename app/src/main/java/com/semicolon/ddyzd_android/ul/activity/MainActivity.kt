@@ -11,11 +11,14 @@ import com.semicolon.ddyzd_android.ul.fragment.ClubList
 import com.semicolon.ddyzd_android.ul.fragment.Fragment2
 import com.semicolon.ddyzd_android.ul.fragment.Fragment3
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel
+import com.semicolon.dsm_sdk_v1.DsmSdk
 
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val instance=DsmSdk.instance
+        instance.initSDK("qwer","qwer","http://www.google.com")
         val viewModel = MainViewModel()
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.vm = viewModel

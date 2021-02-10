@@ -14,7 +14,6 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".ul.activity.ClubDetails" />
-        <activity android:name=".ClubList" />
         <activity android:name=".ul.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

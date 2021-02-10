@@ -1,4 +1,13 @@
 package com.semicolon.ddyzd_android.viewmodel
 
-class LoginViewModel {
+import androidx.lifecycle.ViewModel
+
+class LoginViewModel : ViewModel() {
+    fun startLogin() {
+
+    }
+
+    fun startWithoutLogin(){
+
+    }
 }
