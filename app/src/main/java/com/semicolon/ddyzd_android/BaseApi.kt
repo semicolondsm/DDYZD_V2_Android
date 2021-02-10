@@ -12,6 +12,7 @@ import retrofit2.create
 import java.util.concurrent.TimeUnit
 
 object BaseApi {
+    var club_id : String = ""
     val CONNECT_TIMEOUT: Long = 15
     val WRITE_TIMEOUT: Long = 15
     val READ_TIMEOUT: Long = 15

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.model.ClubProfiles
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
@@ -20,9 +21,9 @@ class ClubAdapter(
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_club,parent,false)
         return CustomViewHolder(view).apply {
             itemView.setOnClickListener { // 클릭한 경우 여기다 적기
-                var name = clubAdapter[adapterPosition].name
-                var example = clubAdapter[adapterPosition].example
-                var image = clubAdapter[adapterPosition].image
+
+                val club_id = clubAdapter[adapterPosition].club_id
+                BaseApi.club_id = club_id
                 navigator.changeActivity()
 
 

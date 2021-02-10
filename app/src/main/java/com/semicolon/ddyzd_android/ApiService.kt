@@ -4,29 +4,31 @@ import com.semicolon.ddyzd_android.model.ClubData
 import com.semicolon.ddyzd_android.model.ClubDetailData
 import com.semicolon.ddyzd_android.model.ClubPersonData
 import com.semicolon.ddyzd_android.model.ClubRecruitData
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.Single
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Multipart
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
     @GET("club/list")
-    fun clublist(
-    ): io.reactivex.Single<Array<ClubData>>
+    fun clublist(): Single<Array<ClubData>>
 
     @GET("club/{club_id}/info")
-    fun clubInformation(
-        @Query("club_id") clubId : String
-    ): Call<ArrayList<ClubDetailData>>
+    fun clubInfo(
+        @Path("club_id") club_id : String,
+        @Query ("time")time : String
+    ): Single<ClubDetailData>
 
     @GET("club/{club_id}/recruitment")
     fun clubRecruit(
-            @Query("club_id")  clubId: String
-    ): Call<ClubRecruitData>
+            @Path("club_id")  clubId: String,
+            @Query ("time")time : String
+    ): Single<ClubRecruitData>
 
     @GET("club/{club_id}/member")
     fun clubPersonData(
-            @Query("club_id") clubId: String
-    ): Call<ArrayList<ClubPersonData>>
+            @Path("club_id") clubId: String
+    ): Single<ArrayList<ClubPersonData>>
 }

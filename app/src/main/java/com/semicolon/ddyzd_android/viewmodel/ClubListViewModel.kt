@@ -14,17 +14,17 @@ import com.semicolon.ddyzd_android.ul.activity.MainActivity
 import com.semicolon.ddyzd_android.ul.fragment.ClubList
 import io.reactivex.schedulers.Schedulers
 
-class ClubListViewModel(val navigator: MainActivity) : ViewModel() {
+class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
     lateinit var body: Array<ClubData> // 동아리 전체
     var clubimage = mutableListOf<String>() // 동아리 이미지
     var clubname = mutableListOf<String>() // 동아리 이름
     var clubexample = mutableListOf<String>() //동아리 설명
-    val list = ClubList(navigator).view?.findViewById<RecyclerView>(R.id.rv_proflie)
-    val adapter = BaseApi.getInstance()
-    var proflieList = mutableListOf<ClubProfiles>()
-    val liveData1: MutableLiveData<String> = MutableLiveData()
-    var size: Int = 0
-    var sub: Int = 0
+    val list = ClubList(navigator).view?.findViewById<RecyclerView>(R.id.rv_proflie) //
+    private val adapter = BaseApi.getInstance() // api 연결시 사용
+    var proflieList = mutableListOf<ClubProfiles>() // 리스트 뷰에 들어갈 항목
+    val liveData1: MutableLiveData<String> = MutableLiveData() // 전공 분야 클릭시 바뀜
+    var size: Int = 0 // 리스트의 갯수
+    var sub: Int = 0 // 각 동아리의 전공 갯수
 
     val call = adapter.clublist()
         .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
@@ -50,7 +50,8 @@ class ClubListViewModel(val navigator: MainActivity) : ViewModel() {
                 ClubProfiles(
                     R.drawable.ic_launcher_background,
                     body[i].clubname,
-                    body[i].clubdescription
+                    body[i].clubdescription,
+                    body[i].clubid
                 )
             )
         }
@@ -67,7 +68,6 @@ class ClubListViewModel(val navigator: MainActivity) : ViewModel() {
     }
 
     val bottomNavigationView = BottomNavigationView.OnNavigationItemSelectedListener {
-        println("hgfkh")
         proflieList = mutableListOf<ClubProfiles>()
         when (it.itemId) {
             R.id.total -> {
@@ -76,7 +76,8 @@ class ClubListViewModel(val navigator: MainActivity) : ViewModel() {
                         ClubProfiles(
                             R.drawable.ic_launcher_background,
                             body[i].clubname,
-                            body[i].clubdescription
+                            body[i].clubdescription,
+                            body[i].clubid
                         )
                     )
                 }
@@ -92,7 +93,8 @@ class ClubListViewModel(val navigator: MainActivity) : ViewModel() {
                                 ClubProfiles(
                                     R.drawable.ic_launcher_background,
                                     body[i].clubname,
-                                    body[i].clubdescription
+                                    body[i].clubdescription,
+                                    body[i].clubid
                                 )
                             )
                         }
@@ -110,7 +112,8 @@ class ClubListViewModel(val navigator: MainActivity) : ViewModel() {
                                 ClubProfiles(
                                     R.drawable.ic_launcher_background,
                                     body[i].clubname,
-                                    body[i].clubdescription
+                                    body[i].clubdescription,
+                                    body[i].clubid
                                 )
                             )
                         }
@@ -128,7 +131,8 @@ class ClubListViewModel(val navigator: MainActivity) : ViewModel() {
                                 ClubProfiles(
                                     R.drawable.ic_launcher_background,
                                     body[i].clubname,
-                                    body[i].clubdescription
+                                    body[i].clubdescription,
+                                    body[i].clubid
                                 )
                             )
                         }
@@ -146,7 +150,8 @@ class ClubListViewModel(val navigator: MainActivity) : ViewModel() {
                                 ClubProfiles(
                                     R.drawable.ic_launcher_background,
                                     body[i].clubname,
-                                    body[i].clubdescription
+                                    body[i].clubdescription,
+                                    body[i].clubid
                                 )
                             )
                         }
