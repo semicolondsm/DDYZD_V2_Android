@@ -27,8 +27,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val instance=DsmSdk.instance
-        instance.initSDK("qwer","qwer","http://www.google.com")
         val viewModel = MainViewModel()
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.vm = viewModel
@@ -59,6 +57,8 @@ class MainActivity : AppCompatActivity() {
             userName=data!!.getStringExtra("get_name").toString()
             userEmail=data.getStringExtra("get_email").toString()
             userGcn=data.getStringExtra("get_gcn").toString()
+            val accessToken=data.getStringExtra("get_access_token").toString()
+            val refreshToken=data.getStringExtra("get_refresh_token").toString()
             if(data.getBooleanExtra("do_auto_login",false)){
                 editor.putString("get_name",userName)
                 editor.putString("get_email",userEmail)
