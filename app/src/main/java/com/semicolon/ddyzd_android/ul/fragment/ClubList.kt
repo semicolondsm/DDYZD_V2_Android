@@ -42,9 +42,7 @@ class ClubList(val navigator:MainActivity): Fragment() {
 
         val bottom =view.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         bottom.setOnNavigationItemSelectedListener(viewModel.bottomNavigationView)
-        return view.apply {
-            println("뷰 보기")
-        }
+        return view
     }
 
 
