@@ -10,12 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d74c4f64-89cd-4e09-ac8a-c75e7a91ba40" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/semicolon/ddyzd_android/viewmodel/MainFeedViewModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/chatting.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/semicolon/ddyzd_android/ul/activity/LoginActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/semicolon/ddyzd_android/ul/activity/LoginActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/semicolon/ddyzd_android/ul/activity/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/semicolon/ddyzd_android/ul/activity/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/semicolon/ddyzd_android/ul/fragment/Fragment2.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/semicolon/ddyzd_android/ul/fragment/MainFeed.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/feed_fragment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/feed_fragment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/feed_fragment.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
