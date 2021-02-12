@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.liveData.observe(this, Observer{
             when (viewModel.liveData.value) {
                 "1" -> supportFragmentManager.beginTransaction().replace(R.id.fragment, ClubList(this)).commit()
-                "2" -> supportFragmentManager.beginTransaction().replace(R.id.fragment, MainFeed()).commit()
+                "2" -> supportFragmentManager.beginTransaction().replace(R.id.fragment, MainFeed(this)).commit()
                 "3" -> supportFragmentManager.beginTransaction().replace(R.id.fragment, Fragment3()).commit()
             }
         })
@@ -80,6 +80,10 @@ class MainActivity : AppCompatActivity() {
     fun changeActivity(){
         val intent = Intent(this, ClubDetails::class.java)
         startActivity(intent)
+    }
+
+    fun startChatting(){
+        //여기에 채팅 시작하는 코드 넣어주세요
     }
 
 }

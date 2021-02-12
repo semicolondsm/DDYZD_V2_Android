@@ -11,7 +11,11 @@
   <component name="ChangeListManager">
     <list default="true" id="d74c4f64-89cd-4e09-ac8a-c75e7a91ba40" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/feed_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/feed_item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/semicolon/ddyzd_android/ul/activity/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/semicolon/ddyzd_android/ul/activity/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/semicolon/ddyzd_android/ul/fragment/MainFeed.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/semicolon/ddyzd_android/ul/fragment/MainFeed.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/semicolon/ddyzd_android/viewmodel/MainFeedViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/semicolon/ddyzd_android/viewmodel/MainFeedViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/feed_fragment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/feed_fragment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/feed_image_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/feed_image_item.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,10 +162,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="686" y="216" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1612966648440" />
-    <state x="537" y="266" key="AndroidCreateResourceFileDialog" timestamp="1613147359208">
+    <state x="537" y="266" key="AndroidCreateResourceFileDialog" timestamp="1613149812325">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="537" y="266" key="AndroidCreateResourceFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1613147359208" />
+    <state x="537" y="266" key="AndroidCreateResourceFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1613149812325" />
     <state x="773" y="248" key="AndroidCreateXmlResourceDialog" timestamp="1613147149341">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -203,19 +207,5 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1019" y="5" width="840" height="1034" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1612968207116" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="kotlin-function">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/semicolon/ddyzd_android/ul/activity/MainActivity.kt</url>
-          <line>79</line>
-          <properties class="com.semicolon.ddyzd_android.ul.activity.MainActivity" method="changeActivity">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
