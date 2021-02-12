@@ -68,7 +68,7 @@ class ClubDetailsViewModel {
         }*/
 
 
-    val callMamber = adapter.clubMenber(club_id)
+   /* val callMamber = adapter.clubMenber(club_id)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
         .doOnError {
@@ -77,7 +77,7 @@ class ClubDetailsViewModel {
         .unsubscribeOn(Schedulers.io())
         .subscribe { result ->
                
-        }
+        }*/
 
     fun time(): String {
         val time = System.currentTimeMillis().toString() // 시간 받는거
