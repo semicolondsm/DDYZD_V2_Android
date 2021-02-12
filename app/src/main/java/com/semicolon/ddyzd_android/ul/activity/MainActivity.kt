@@ -12,7 +12,6 @@ import com.semicolon.ddyzd_android.ul.fragment.MainFeed
 import com.semicolon.ddyzd_android.ul.fragment.Fragment3
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel
 
-
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
