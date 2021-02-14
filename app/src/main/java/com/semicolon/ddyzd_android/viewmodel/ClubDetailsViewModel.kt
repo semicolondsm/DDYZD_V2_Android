@@ -21,8 +21,8 @@ import java.util.concurrent.TimeUnit
 
 
 class ClubDetailsViewModel {
-    var club_id = BaseApi.club_id // 선택한 동아리 번호
-    val adapter = BaseApi.getInstance()
+    private var club_id = BaseApi.club_id // 선택한 동아리 번호
+    private val adapter = BaseApi.getInstance()
     lateinit var clubid : String // 클럽 아이디
     lateinit var clubName : String // 클럽이름
     lateinit var clubTag : ArrayList<String> // 클럽태그

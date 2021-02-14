@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.model.ChatListData
+import com.semicolon.ddyzd_android.model.ClubProfiles
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
 
 class ChatListAdapter(private val chatListAdapter: ArrayList<ChatListData>, val navigator: MainActivity) : RecyclerView.Adapter<ChatListAdapter.CustomViewHolder>(){
