@@ -46,10 +46,29 @@ class MainFeedAdapter(
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return if(feeds.value!=null){
+            feeds.value!!.size
+        }else{
+            0
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val obj=feeds.value?.get(position)
+        if(obj!=null){
+            if(obj.media!=null){
+                (holder as ImageFeedViewHolder).bind(position,viewModel)
+            }else{
+                (holder as MainFeedViewHolder).bind(position,viewModel)
+            }
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if(feeds.value?.get(position)?.media!=null){
+            1
+        }else{
+            0
+        }
     }
 }

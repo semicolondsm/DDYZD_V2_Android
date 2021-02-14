@@ -1,9 +1,6 @@
 package com.semicolon.ddyzd_android
 
-import com.semicolon.ddyzd_android.model.ClubData
-import com.semicolon.ddyzd_android.model.ClubDetailData
-import com.semicolon.ddyzd_android.model.ClubPersonData
-import com.semicolon.ddyzd_android.model.ClubRecruitData
+import com.semicolon.ddyzd_android.model.*
 import io.reactivex.Single
 import retrofit2.Call
 import retrofit2.http.GET
@@ -31,4 +28,9 @@ interface ApiService {
     fun clubMenber(
             @Path("club_id") clubId: String
     ): Single<ArrayList<ClubPersonData>>
+
+    @GET("feed/list?page={page}")
+    fun readFeed(
+        @Path("page")page:String
+    ):Single<ArrayList<MainFeedData>>
 }
