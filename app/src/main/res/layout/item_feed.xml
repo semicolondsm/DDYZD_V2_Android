@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout>
+    <data>
+        <variable
+            name="vm"
+            type="com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel" />
+        <variable
+            name="position"
+            type="Integer" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -73,26 +82,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
+                tools:text="Flag"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:text="Flag" />
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/imageView4"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                app:layout_constraintBottom_toTopOf="@+id/textView5"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
