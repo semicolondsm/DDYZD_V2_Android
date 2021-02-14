@@ -9,7 +9,6 @@ import com.semicolon.dsm_sdk_v1.DsmSdk
 
 class LoginActivity : AppCompatActivity() {
     lateinit var binding:ActivityLoginBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val instance= DsmSdk.instance
