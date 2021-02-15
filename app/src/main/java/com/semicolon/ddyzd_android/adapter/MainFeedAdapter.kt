@@ -42,6 +42,7 @@ class MainFeedAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(viewModel: MainFeedViewModel) {
             binding.vm = viewModel
+            binding.headerWebview.settings.javaScriptEnabled=true
             binding.headerWebview.loadUrl("https://semicolondsm.xyz/mobile/banner")
             binding.executePendingBindings()
         }
