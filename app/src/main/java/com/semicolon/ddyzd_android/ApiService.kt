@@ -3,10 +3,7 @@ package com.semicolon.ddyzd_android
 import com.semicolon.ddyzd_android.model.*
 import io.reactivex.Single
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Multipart
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface ApiService {
     @GET("club/list")
@@ -29,8 +26,15 @@ interface ApiService {
             @Path("club_id") clubId: String
     ): Single<ArrayList<ClubPersonData>>
 
+<<<<<<< HEAD
+    @GET("chat//list")
+    fun chatList(
+        @Header("refresh-token") refresh_token : String
+    ): Single<ArrayList<ChatListData>>
+=======
     @GET("feed/list")
     fun readFeed(
         @Query("page")page:String
     ):Single<ArrayList<MainFeedData>>
+>>>>>>> mainfeed
 }
