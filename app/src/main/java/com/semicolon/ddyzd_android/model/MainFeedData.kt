@@ -8,7 +8,7 @@ data class MainFeedData(
     @SerializedName("profileImage")val profileImage:String,
     @SerializedName("uploadAt")val uploadAt:String,
     @SerializedName("content")val content:String,
-    @SerializedName("media" )val media:Any,//나중에 바꾸자
+    @SerializedName("media" )val media:ArrayList<Any>,//나중에 바꾸자
     @SerializedName("flags")val flags:String,
     @SerializedName("flag")val flag:Boolean,
     @SerializedName("follow")val follow:Boolean

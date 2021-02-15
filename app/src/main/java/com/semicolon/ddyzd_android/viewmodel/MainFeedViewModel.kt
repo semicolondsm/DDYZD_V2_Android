@@ -34,6 +34,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
                 Log.d("피드",result.toString())
                 readFeed.addAll(result)
                 feeds.value = readFeed
+                feedAdapter.notifyDataSetChanged()
             }
     }
 

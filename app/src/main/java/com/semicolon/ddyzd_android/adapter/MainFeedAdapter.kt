@@ -79,7 +79,7 @@ class MainFeedAdapter(
         } else {
             val obj = feeds.value?.get(position)
             if (obj != null) {
-                if (obj.media != null) {
+                if (obj.media.size>0) {
                     (holder as ImageFeedViewHolder).bind(position, viewModel)
                 } else {
                     (holder as MainFeedViewHolder).bind(position, viewModel)
@@ -92,7 +92,7 @@ class MainFeedAdapter(
         Log.d("어답터",position.toString())
         return if (position == 0) {
             HEADER_FEED_TYPE
-        } else if (feeds.value?.get(position)?.media != null) {
+        } else if (feeds.value?.get(position)?.media?.size!! >0) {
             IMAGE_FEED_TYPE
         } else {
             MAIN_FEED_TYPE

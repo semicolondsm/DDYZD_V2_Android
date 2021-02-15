@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="@{vm.feeds[position].uploadAt}"
+                android:text="@{vm.feeds[position].uploadAt.substring(0,10)}"
                 tools:text="날짜"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView3"
