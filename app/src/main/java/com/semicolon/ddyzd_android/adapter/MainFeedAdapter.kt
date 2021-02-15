@@ -24,7 +24,7 @@ class MainFeedAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int, viewModel: MainFeedViewModel) {
             binding.vm = viewModel
-            binding.position = position
+            binding.position = position-1
             binding.executePendingBindings()
         }
     }
@@ -33,7 +33,7 @@ class MainFeedAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int, viewModel: MainFeedViewModel) {
             binding.vm = viewModel
-            binding.position = position
+            binding.position = position-1
             binding.executePendingBindings()
         }
     }
@@ -77,7 +77,7 @@ class MainFeedAdapter(
         if (position == 0) {
             (holder as HeaderFeedViewHolder).bind(viewModel)
         } else {
-            val obj = feeds.value?.get(position)
+            val obj = feeds.value?.get(position-1)
             if (obj != null) {
                 if (obj.media.size>0) {
                     (holder as ImageFeedViewHolder).bind(position, viewModel)
@@ -92,7 +92,7 @@ class MainFeedAdapter(
         Log.d("어답터",position.toString())
         return if (position == 0) {
             HEADER_FEED_TYPE
-        } else if (feeds.value?.get(position)?.media?.size!! >0) {
+        } else if (feeds.value?.get(position-1)?.media?.size!! >0) {
             IMAGE_FEED_TYPE
         } else {
             MAIN_FEED_TYPE
