@@ -54,13 +54,15 @@
                 app:layout_constraintBottom_toBottomOf="@+id/imageView3"
                 app:layout_constraintStart_toEndOf="@+id/imageView3"
                 app:layout_constraintTop_toTopOf="@+id/imageView3"
+                android:text="@{vm.feeds[position].clubName}"
                 tools:text="동아리 이름" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:text="@{vm.feeds[position].uploadAt}"
                 tools:text="날짜"
                 android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView3"

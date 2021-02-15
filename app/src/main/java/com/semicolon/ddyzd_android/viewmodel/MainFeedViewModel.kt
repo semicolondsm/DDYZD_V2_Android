@@ -1,5 +1,6 @@
 package com.semicolon.ddyzd_android.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.semicolon.ddyzd_android.BaseApi
@@ -29,7 +30,8 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
                 println("error")
             }
             .unsubscribeOn(Schedulers.io())
-            .subscribe() { result ->
+            .subscribe{ result ->
+                Log.d("피드",result.toString())
                 readFeed.addAll(result)
                 feeds.value = readFeed
             }
