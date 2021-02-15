@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startChatting(){
-        //여기에 채팅 시작하는 코드 넣어주세요
-    }
+        val intent = Intent(this, ClubDetails::class.java)
+        startActivity(intent)    }
 
 }
