@@ -1,5 +1,6 @@
 package com.semicolon.ddyzd_android.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.webkit.WebSettings
@@ -51,11 +52,15 @@ class MainFeedAdapter(
             val binding =
                 ItemFeedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             MainFeedViewHolder(binding)
-        } else {
+        } else if (viewType == IMAGE_FEED_TYPE) {
             val binding =
                 ItemImageFeedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             ImageFeedViewHolder(binding)
-
+        } else {
+            Log.d("어답터",viewType.toString())
+            val binding =
+                ItemFeedHeaderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            HeaderFeedViewHolder(binding)
         }
     }
 
@@ -63,7 +68,7 @@ class MainFeedAdapter(
         return if (feeds.value != null) {
             feeds.value!!.size
         } else {
-            0
+            1
         }
     }
 
@@ -71,21 +76,22 @@ class MainFeedAdapter(
         if (position == 0) {
             (holder as HeaderFeedViewHolder).bind(viewModel)
         } else {
-            val obj = feeds.value?.get(position - 1)
+            val obj = feeds.value?.get(position)
             if (obj != null) {
                 if (obj.media != null) {
-                    (holder as ImageFeedViewHolder).bind(position - 1, viewModel)
+                    (holder as ImageFeedViewHolder).bind(position, viewModel)
                 } else {
-                    (holder as MainFeedViewHolder).bind(position - 1, viewModel)
+                    (holder as MainFeedViewHolder).bind(position, viewModel)
                 }
             }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
+        Log.d("어답터",position.toString())
         return if (position == 0) {
             HEADER_FEED_TYPE
-        } else if (feeds.value?.get(position-1)?.media != null) {
+        } else if (feeds.value?.get(position)?.media != null) {
             IMAGE_FEED_TYPE
         } else {
             MAIN_FEED_TYPE
