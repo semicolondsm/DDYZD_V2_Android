@@ -1,4 +1,4 @@
-package com.semicolon.ddyzd_android.viewmodel
+package com.semicolon.ddyzd_android .viewmodel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -21,6 +21,21 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
         readFeed.clear()
         readFeeds()
         feedAdapter.notifyDataSetChanged()
+    }
+
+    fun flagClicked(id:String,position:Int){
+        Log.d("플래그",id)
+        adapter.flagClicked(id,"Bearer ${navigator.accessToken}").observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .doOnError {
+                Log.d("플래그",it.message!!)
+                navigator.startLogin()
+            }
+            .unsubscribeOn(Schedulers.io())
+            .subscribe{result->
+                feeds.value?.get(position)?.flag =true
+                feeds.value?.get(position)?.flags+=1
+            }
     }
 
     fun readFeeds() {

@@ -13,6 +13,8 @@ import com.semicolon.ddyzd_android.ul.fragment.Fragment3
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
+    private val LOGIN_REQUEST_CODE=12
+    var accessToken=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val viewModel = MainViewModel()
@@ -36,6 +38,11 @@ class MainActivity : AppCompatActivity() {
 
     fun startChatting(){
         //여기에 채팅 시작하는 코드 넣어주세요
+    }
+
+    fun startLogin(){
+        val intent=Intent(this,LoginActivity::class.java)
+        startActivityForResult(intent,LOGIN_REQUEST_CODE)
     }
 
 }
