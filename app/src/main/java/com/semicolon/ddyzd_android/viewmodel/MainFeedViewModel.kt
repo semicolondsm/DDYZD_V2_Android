@@ -32,9 +32,11 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
                 navigator.startLogin()
             }
             .unsubscribeOn(Schedulers.io())
-            .subscribe{result->
+            .doOnSuccess{
                 feeds.value?.get(position)?.flag =true
-                feeds.value?.get(position)?.flags+=1
+                var flag=feeds.value?.get(position)?.flags?.toInt()!!
+                flag+=1
+                feeds.value?.get(position)?.flags=flag.toString()
             }
     }
 

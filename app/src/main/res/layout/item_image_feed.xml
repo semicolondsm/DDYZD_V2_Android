@@ -130,6 +130,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view2"
+                android:onClick="@{()->vm.flagClicked(vm.feeds[position].feedId,position)}"
                 app:flag="@{vm.feeds[position].flag}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

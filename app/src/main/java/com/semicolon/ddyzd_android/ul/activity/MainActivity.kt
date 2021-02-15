@@ -30,6 +30,15 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode==LOGIN_REQUEST_CODE){
+            if (data != null) {
+                accessToken=data.getStringExtra("get_access_token").toString()
+            }
+        }
+    }
+
 
     fun changeActivity(){
         val intent = Intent(this, ClubDetails::class.java)
