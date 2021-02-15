@@ -29,8 +29,8 @@ interface ApiService {
             @Path("club_id") clubId: String
     ): Single<ArrayList<ClubPersonData>>
 
-    @GET("feed/list?page={page}")
+    @GET("feed/list")
     fun readFeed(
-        @Path("page")page:String
+        @Query("page")page:String
     ):Single<ArrayList<MainFeedData>>
 }

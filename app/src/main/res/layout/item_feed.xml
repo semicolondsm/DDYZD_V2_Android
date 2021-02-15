@@ -66,12 +66,13 @@
                 app:layout_constraintStart_toEndOf="@+id/imageView3"
                 app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
+                android:text="@{vm.feeds[position].content}"
                 tools:text="내용내용내용내용내용"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
