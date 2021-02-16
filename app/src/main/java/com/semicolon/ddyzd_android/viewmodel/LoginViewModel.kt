@@ -2,8 +2,8 @@ package com.semicolon.ddyzd_android.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.semicolon.ddyzd_android.ul.activity.ChatList
 import com.semicolon.ddyzd_android.ul.activity.LoginActivity
+import com.semicolon.ddyzd_android.ul.activity.MainActivity
 import com.semicolon.dsm_sdk_v1.DTOtoken
 import com.semicolon.dsm_sdk_v1.DTOuser
 import com.semicolon.dsm_sdk_v1.DsmSdk
@@ -41,7 +41,8 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity) : ViewMod
         accessToken: String,
         refreshToken: String
     ) {
-        context.finish(name, email, gcn, accessToken, refreshToken)
+        context.finish(name, email, gcn, accessToken, refreshToken).apply {
+        }
     }
 
     fun startWithoutLogin() {
