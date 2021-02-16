@@ -6,7 +6,6 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="어답터" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
@@ -33,12 +32,26 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/app/DDYZD_Android.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/DDYZD_Android.app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
 <<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/semicolon/ddyzd_android/adapter/MainFeedAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/semicolon/ddyzd_android/adapter/MainFeedAdapter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_feed_header.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_feed_header.xml" afterDir="false" />
 >>>>>>> mainfeed
 =======
+>>>>>>> mainpage
+=======
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/semicolon/ddyzd_android/BaseApi.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/semicolon/ddyzd_android/BaseApi.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/semicolon/ddyzd_android/bindingadapter/MainFeedBindingAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/semicolon/ddyzd_android/bindingadapter/MainFeedBindingAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/semicolon/ddyzd_android/ul/activity/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/semicolon/ddyzd_android/ul/activity/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/semicolon/ddyzd_android/viewmodel/MainFeedViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/semicolon/ddyzd_android/viewmodel/MainFeedViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_feed.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_feed.xml" afterDir="false" />
 >>>>>>> mainpage
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,6 +59,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -57,6 +71,9 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Pixel_3_API_30]" />
 >>>>>>> mainfeed
 =======
+>>>>>>> mainpage
+=======
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Nexus_4_API_30]" />
 >>>>>>> mainpage
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
@@ -73,9 +90,12 @@
 =======
         <option value="Kotlin Data Class" />
         <option value="layoutResourceFile" />
-        <option value="Kotlin Class" />
         <option value="Kotlin Object" />
+<<<<<<< HEAD
 >>>>>>> mainfeed
+=======
+        <option value="Kotlin Class" />
+>>>>>>> mainpage
       </list>
     </option>
   </component>
@@ -91,8 +111,8 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_3_API_30" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-02-15T03:08:51.268Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Nexus_4_API_30" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2021-02-16T00:12:42.401Z" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -118,6 +138,7 @@
       <recent name="com.semicolon.ddyzd_android.ul.activity" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Github\DDYZD_V2_Android\app\src\main\res\drawable" />
       <recent name="D:\Github\DDYZD_V2_Android\app\src\main\res\drawable-v24" />
     </key>
   </component>
@@ -202,6 +223,7 @@
   </component>
   <component name="WindowStateProjectService">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <state x="704" y="166" key="#com.intellij.ide.util.MemberChooser" timestamp="1613148815607">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -213,12 +235,21 @@
     <state x="1173" y="170" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1613151852347" />
 >>>>>>> mainfeed
     <state x="624" y="206" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1612879551700">
+=======
+    <state x="1173" y="170" key="#com.intellij.ide.util.MemberChooser" timestamp="1613436643831">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1173" y="170" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1613436643831" />
+    <state x="624" y="206" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1613445021129">
+>>>>>>> mainpage
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="624" y="206" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/-1920.9.1920.1040@0.0.1920.1040" timestamp="1612879551700" />
-    <state x="686" y="216" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog" timestamp="1612966648440">
+    <state x="624" y="206" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1613445021129" />
+    <state x="686" y="216" width="578" height="607" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog" timestamp="1613364829108">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+<<<<<<< HEAD
     <state x="686" y="216" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1612966648440" />
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -256,6 +287,9 @@
     </state>
     <state width="1863" height="266" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.9.1920.1040@0.0.1920.1040" timestamp="1613138639157" />
 =======
+=======
+    <state x="686" y="216" width="578" height="607" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1613364829108" />
+>>>>>>> mainpage
     <state x="537" y="266" key="AndroidCreateResourceFileDialog" timestamp="1613151425434">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -264,32 +298,36 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="773" y="248" key="AndroidCreateXmlResourceDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1613147149341" />
-    <state x="687" y="216" key="FileChooserDialogImpl" timestamp="1613354668315">
+    <state x="687" y="216" key="FileChooserDialogImpl" timestamp="1613365133304">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="687" y="216" key="FileChooserDialogImpl/0.0.1920.1040/-1920.9.1920.1040@0.0.1920.1040" timestamp="1612955731197" />
-    <state x="687" y="216" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1613354668315" />
-    <state width="900" height="298" key="GridCell.Tab.0.bottom" timestamp="1613359835528">
+    <state x="687" y="216" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1613365133304" />
+    <state width="1863" height="141" key="GridCell.Tab.0.bottom" timestamp="1613453604826">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1863" height="266" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.9.1920.1040@0.0.1920.1040" timestamp="1612957356049" />
-    <state width="900" height="298" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1613359835528" />
-    <state width="900" height="298" key="GridCell.Tab.0.center" timestamp="1613359835528">
+    <state width="1863" height="141" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1613453604826" />
+    <state width="1863" height="141" key="GridCell.Tab.0.center" timestamp="1613453604826">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1863" height="266" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.9.1920.1040@0.0.1920.1040" timestamp="1612957356049" />
-    <state width="900" height="298" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1613359835528" />
-    <state width="900" height="298" key="GridCell.Tab.0.left" timestamp="1613359835528">
+    <state width="1863" height="141" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1613453604826" />
+    <state width="1863" height="141" key="GridCell.Tab.0.left" timestamp="1613453604826">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1863" height="266" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.9.1920.1040@0.0.1920.1040" timestamp="1612957356049" />
-    <state width="900" height="298" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1613359835528" />
-    <state width="900" height="298" key="GridCell.Tab.0.right" timestamp="1613359835528">
+    <state width="1863" height="141" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1613453604826" />
+    <state width="1863" height="141" key="GridCell.Tab.0.right" timestamp="1613453604826">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1863" height="266" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.9.1920.1040@0.0.1920.1040" timestamp="1612957356049" />
+<<<<<<< HEAD
     <state width="900" height="298" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1613359835528" />
 >>>>>>> mainfeed
+=======
+    <state width="1863" height="141" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1613453604826" />
+>>>>>>> mainpage
     <state x="351" y="78" key="SettingsEditor" timestamp="1611049790850">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -302,9 +340,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="532" y="236" key="run.anything.popup/0.0.1920.1040/-1920.9.1920.1040@0.0.1920.1040" timestamp="1612884579896" />
-    <state x="1019" y="5" width="840" height="1034" key="search.everywhere.popup" timestamp="1612968207116">
+    <state x="1019" y="5" width="840" height="1034" key="search.everywhere.popup" timestamp="1613375234640">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1019" y="5" width="840" height="1034" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1612968207116" />
+    <state x="1019" y="5" width="840" height="1034" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1613375234640" />
   </component>
 </project>

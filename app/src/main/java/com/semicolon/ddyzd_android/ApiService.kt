@@ -26,15 +26,18 @@ interface ApiService {
             @Path("club_id") clubId: String
     ): Single<ArrayList<ClubPersonData>>
 
-<<<<<<< HEAD
     @GET("chat//list")
     fun chatList(
         @Header("refresh-token") refresh_token : String
     ): Single<ArrayList<ChatListData>>
-=======
     @GET("feed/list")
     fun readFeed(
         @Query("page")page:String
     ):Single<ArrayList<MainFeedData>>
->>>>>>> mainfeed
+
+    @PUT("feed/{feed_id}/flag")
+    fun flagClicked(
+        @Header("Authorization")accesToken:String,
+        @Path("feed_id")feed_id:String
+    ):Single<Any>
 }

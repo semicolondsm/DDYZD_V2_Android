@@ -1,9 +1,11 @@
 package com.semicolon.ddyzd_android.ul.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebSettings
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.semicolon.ddyzd_android.R
