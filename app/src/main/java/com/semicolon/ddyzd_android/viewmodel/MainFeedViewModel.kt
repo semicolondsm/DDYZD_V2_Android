@@ -72,7 +72,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
                 feeds.value = readFeed
                 feedAdapter.notifyDataSetChanged()
                 callApi.value = callApi.value?.plus(1)
-                Log.d("불러옴",callApi.value.toString())
+                Log.d("불러옴",result.toString())
             }.subscribe()
     }
 
