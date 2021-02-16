@@ -3,7 +3,13 @@
     <data>
         <variable
             name="vm"
-            type="MainFeedViewModel" />
+            type="com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel" />
+        <variable
+            name="position"
+            type="Integer"/>
+        <variable
+            name="pagePositotion"
+            type="Integer" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -11,14 +17,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/chatting" />
+        app:slideImageUrl="@{vm.feeds[position].media[pagePositotion]}"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

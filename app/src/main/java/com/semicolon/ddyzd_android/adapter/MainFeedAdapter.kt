@@ -19,6 +19,7 @@ class MainFeedAdapter(
     private val MAIN_FEED_TYPE = 0
     private val IMAGE_FEED_TYPE = 1
     private val HEADER_FEED_TYPE = 2
+    lateinit var pageAdapter:FeedPagerAdapter
 
     inner class MainFeedViewHolder(private val binding: ItemFeedBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -80,6 +81,7 @@ class MainFeedAdapter(
             val obj = feeds.value?.get(position-1)
             if (obj != null) {
                 if (obj.media.size>0) {
+                    pageAdapter=FeedPagerAdapter(feeds.value?.get(position-1)!!.media,viewModel,position-1)
                     (holder as ImageFeedViewHolder).bind(position, viewModel)
                 } else {
                     (holder as MainFeedViewHolder).bind(position, viewModel)
