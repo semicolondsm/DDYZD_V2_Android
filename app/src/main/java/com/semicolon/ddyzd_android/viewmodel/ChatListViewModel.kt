@@ -61,9 +61,10 @@ class ChatListViewModel(navigater : ChatList) : ViewModel(){
 
      @SuppressLint("CheckResult")
      fun callChatList(navigater: ChatList, accessToken : String){
-         val time =System.currentTimeMillis()
-         println(time)
-        apiAdapter.chatList(time,"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjF9.q0xFOcoDPBJlX-mO0WkxqKUFLUmr9v_JG_oJqiS95ss")
+
+
+
+        apiAdapter.chatList("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjF9.q0xFOcoDPBJlX-mO0WkxqKUFLUmr9v_JG_oJqiS95ss")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
