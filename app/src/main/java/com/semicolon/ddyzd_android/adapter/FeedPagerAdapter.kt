@@ -13,13 +13,13 @@ class FeedPagerAdapter(private val images: List<String>,private val viewModel: M
     inner class ImageViewHolder(private val imageView: ItemPageImageBinding) :
         RecyclerView.ViewHolder(imageView.root) {
         fun bind(position: Int,viewModel: MainFeedViewModel){
-            /*TabLayoutMediator(
+            TabLayoutMediator(
                 imageBinding.indicator,
                 imageBinding.imageView4
             ){
                     _, position ->
                 imageBinding.imageView4.currentItem = position
-            }.attach()*/
+            }.attach()
             imageView.position=feedPosition
             imageView.vm=viewModel
             imageView.pagePositotion=position
