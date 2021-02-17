@@ -17,8 +17,8 @@ class FeedPagerAdapter(private val images: List<String>,private val viewModel: M
                 imageBinding.indicator,
                 imageBinding.imageView4
             ){
-                    _, position ->
-                imageBinding.imageView4.currentItem = position
+                    tab, position ->
+                imageBinding.imageView4.currentItem = tab.position
             }.attach()
             imageView.position=feedPosition
             imageView.vm=viewModel
