@@ -7,7 +7,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class MainViewModel :ViewModel(){
+    val accessToken=MutableLiveData<String>()
+    fun onCreate(refreshToken:String){
+        if(refreshToken.isNotEmpty()){
+            readAccessToken(refreshToken)
+        }
+    }
 
+    private fun readAccessToken(refreshToken: String){
+
+    }
 
     val liveData : MutableLiveData<String> = MutableLiveData()
     //val liveVisible = MutableLiveData<Boolean>() // 보이는 것
