@@ -1,6 +1,7 @@
 package com.semicolon.ddyzd_android.ul.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +14,14 @@ import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 
 class MainFeed(val navigator:MainActivity): Fragment() {
     lateinit var binding:FragmentFeedBinding
+    val viewModel=MainFeedViewModel(navigator)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.onCreate()
+        Log.d("불러옴","ㅇㅇ")
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding=DataBindingUtil.inflate(inflater,R.layout.fragment_feed,container,false)
-        val viewModel=MainFeedViewModel(navigator)
-        viewModel.onCreate()
         binding.vm= viewModel
         binding.lifecycleOwner=this
         return binding.root

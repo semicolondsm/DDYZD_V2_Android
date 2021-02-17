@@ -3,7 +3,6 @@ package com.semicolon.ddyzd_android.viewmodel
 import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.semicolon.ddyzd_android.ul.activity.ChatList
 import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.ul.activity.LoginActivity
 import com.semicolon.ddyzd_android.ul.activity.MainActivity

@@ -51,8 +51,13 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
                 if (response.isSuccessful) {
                     feeds.value?.get(position)?.flag = !feeds.value?.get(position)?.flag!!
                     var flag = feeds.value?.get(position)?.flags!!.toInt()
-                    flag += 1
+                    if(feeds.value?.get(position)?.flag!!){
+                        flag += 1
+                    }else{
+                        flag-=1
+                    }
                     feeds.value?.get(position)?.flags = flag.toString()
+                    feedAdapter.notifyDataSetChanged()
                 } else {
                     Log.e("token",response.raw().toString())
                     startLogin()
@@ -68,7 +73,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
     }
 
     fun readFeeds() {
-        adapter.readFeed(callApi.toString())
+        adapter.readFeed("Bearer $accessToken",callApi.toString())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .unsubscribeOn(Schedulers.io())
