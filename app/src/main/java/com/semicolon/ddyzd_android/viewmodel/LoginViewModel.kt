@@ -18,27 +18,24 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity) : ViewMod
             } else if (token != null) {
                 accessToken = token.access_token
                 refreshToken = token.refresh_token
-
             }
         }
+        
         val loginCallback: (DTOuser?) -> Unit = {
             val userName = it?.name
-            val userEmail = it?.name
+            val userEmail = it?.email
             val userGcn = it?.gcn
             if (it != null) {
-                finishLogin(userName!!, userEmail!!, userGcn!!, accessToken, refreshToken)
+                finishLogin(userName!!, userEmail!!, userGcn!!)
             }
         }
         instance.loginWithAuth(context, tokenCallback, loginCallback)
     }
 
-
     private fun finishLogin(
         name: String,
         email: String,
-        gcn: String,
-        accessToken: String,
-        refreshToken: String
+        gcn: String
     ) {
         context.finish(name, email, gcn, accessToken, refreshToken)
     }
