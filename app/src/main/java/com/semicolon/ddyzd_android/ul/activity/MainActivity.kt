@@ -3,6 +3,8 @@ package com.semicolon.ddyzd_android.ul.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.semicolon.ddyzd_android.R
@@ -11,8 +13,18 @@ import com.semicolon.ddyzd_android.ul.fragment.ClubList
 import com.semicolon.ddyzd_android.ul.fragment.MainFeed
 import com.semicolon.ddyzd_android.ul.fragment.Fragment3
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel
+import io.reactivex.rxjava3.exceptions.UndeliverableException
+import io.reactivex.rxjava3.plugins.RxJavaPlugins
+import java.io.IOException
+import java.net.SocketException
 
 class MainActivity : AppCompatActivity() {
+    private val LOGIN_REQUEST_CODE=12
+    companion object{
+        var accessToken=""
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val viewModel = MainViewModel()
@@ -26,6 +38,18 @@ class MainActivity : AppCompatActivity() {
                 "3" -> supportFragmentManager.beginTransaction().replace(R.id.fragment, Fragment3()).commit()
             }
         })
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode==LOGIN_REQUEST_CODE){
+            if (data != null) {
+                accessToken=data.getStringExtra("get_access_token").toString()
+                Log.d("토큰",accessToken)
+                Log.d("토큰",data.getStringExtra("get_email").toString())
+            }
+        }
     }
 
 
@@ -35,7 +59,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startChatting(){
-        //여기에 채팅 시작하는 코드 넣어주세요
+        val intent = Intent(this, ChatList::class.java)
+        startActivity(intent)
+    }
+
+    fun startLogin(){
+        val intent=Intent(this,LoginActivity::class.java)
+        startActivityForResult(intent,LOGIN_REQUEST_CODE)
+    }
+
+    fun showToast(message:String){
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show()
     }
 
 }

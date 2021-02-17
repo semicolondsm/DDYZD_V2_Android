@@ -17,8 +17,7 @@ class ClubAdapter(val clubAdapter: ArrayList<ClubProfiles>, val navigator: MainA
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):CustomViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_club,parent,false)
         return CustomViewHolder(view).apply {
-            itemView.setOnClickListener { // 클릭한 경우 여기다 적기
-
+            itemView.setOnClickListener {
                 val club_id = clubAdapter[adapterPosition].club_id
                 BaseApi.club_id = club_id
                 navigator.changeActivity()

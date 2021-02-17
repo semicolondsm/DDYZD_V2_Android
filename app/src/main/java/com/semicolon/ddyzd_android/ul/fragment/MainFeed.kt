@@ -16,7 +16,6 @@ class MainFeed(val navigator:MainActivity): Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding=DataBindingUtil.inflate(inflater,R.layout.fragment_feed,container,false)
         val viewModel=MainFeedViewModel(navigator)
-        viewModel.callApi.value=0
         viewModel.onCreate()
         binding.vm= viewModel
         binding.lifecycleOwner=this
