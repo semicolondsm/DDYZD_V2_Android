@@ -18,9 +18,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 
-class ChatListViewModel(navigater : ChatList) : ViewModel(){
+class ChatListViewModel(navigater: ChatList) : ViewModel() {
     val list: RecyclerView = navigater.findViewById(R.id.chatRecyclerView)
-    private val apiAdapter  = BaseApi.getInstance()
+    private val apiAdapter = BaseApi.getInstance()
 
     var clubImage = mutableListOf<Int>() // 동아리 이미지
     var clubName = mutableListOf<String>() // 동아리 이름
@@ -29,44 +29,41 @@ class ChatListViewModel(navigater : ChatList) : ViewModel(){
     var roomId = mutableListOf<String>()
     var clubId = mutableListOf<String>()
     val CODE = 1
-
-    var size : Int = 0
+    var size: Int = 0
     var chatList = mutableListOf<ChatListData>()
-
     //val a = println("${accessToken},${refreshToken}")
+    lateinit var chatListBody: ArrayList<ChatListData>
+    init{
+        callChatList(navigater)
+    }
 
-    lateinit var chatListBody : ArrayList<ChatListData>
-
-    val a = callChatList(navigater)
-
-     @SuppressLint("CheckResult")
-     fun callChatList(navigater: ChatList){
-         println("$accessToken ㄱㅁㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅁㅁㄴㅇㅁ")
+    @SuppressLint("CheckResult")
+    fun callChatList(navigater: ChatList) {
+        println("$accessToken ㄱㅁㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅁㅁㄴㅇㅁ")
         apiAdapter.chatList("Bearer $accessToken")
-
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                {response ->
-                    if(response.isSuccessful){
+                { response ->
+                    if (response.isSuccessful) {
+                        println("이거가 되네")
                         response.body()?.let { inputList(it) }
-                    }
-                    else{
+                    } else {
                         navigater.startLogin()
                         println("${accessToken} 이거를 확인해야되!!!")
                         println("${response.message()} hj")
                         navigater.finish()
                     }
-                },{throwable->
-                    println("${throwable.message}")
+                }, { throwable ->
+                    println("이거${throwable.message}")
                 }
             )
     }
 
 
-    fun inputList(chatListBody : ArrayList<ChatListData>){
+    fun inputList(chatListBody: ArrayList<ChatListData>) {
         size = chatListBody.size
-        for (i in 0 until size){
+        for (i in 0 until size) {
             clubImage.add(chatListBody[i].clubImage)
             clubName.add(chatListBody[i].clubName)
             lastMessage.add(chatListBody[i].lastMessage)
@@ -76,12 +73,19 @@ class ChatListViewModel(navigater : ChatList) : ViewModel(){
 
             chatList.add(
                 ChatListData(
-                    roomid = roomId[i], clubid = clubId[i], clubName = clubName[i], clubImage = clubImage[i]  , lastdata = lastDate[i],
-                    lastMessage = lastMessage[i])
+                    roomid = roomId[i],
+                    clubid = clubId[i],
+                    clubName = clubName[i],
+                    clubImage = clubImage[i],
+                    lastdata = lastDate[i],
+                    lastMessage = lastMessage[i]
+                )
             )
             list?.setHasFixedSize(true)
-            list?.layoutManager = LinearLayoutManager(ChatList().application, LinearLayoutManager.VERTICAL, false)
-            list?.adapter = ChatListAdapter(chatList as ArrayList<ChatListData>,navigator = MainActivity())
+            list?.layoutManager =
+                LinearLayoutManager(ChatList().application, LinearLayoutManager.VERTICAL, false)
+            list?.adapter =
+                ChatListAdapter(chatList as ArrayList<ChatListData>, navigator = MainActivity())
         }
     }
 

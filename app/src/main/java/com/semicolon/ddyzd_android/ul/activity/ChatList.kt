@@ -21,11 +21,9 @@ class ChatList : AppCompatActivity() {
 
         binding  = DataBindingUtil.setContentView(this, R.layout.activity_chat_list)
         val viewModel = ChatListViewModel(this)
-
-
         binding.vm = viewModel
         setContentView(binding.root)
-        println("${accessToken}")
+        println("이거 $accessToken")
     }
     fun startLogin(){
         val intent=Intent(this,LoginActivity::class.java)

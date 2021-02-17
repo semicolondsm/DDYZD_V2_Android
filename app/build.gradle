@@ -86,7 +86,6 @@ dependencies {
 
     // 기본 Kotlin 확장
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:2.0.4'
 // OkHttp3
     implementation 'com.squareup.okhttp3:okhttp:4.2.2'
@@ -110,6 +109,5 @@ dependencies {
 
     //RxDogtag
     implementation("com.uber.rxdogtag2:rxdogtag:2.0.1")
-
     implementation 'me.relex:circleindicator:2.1.4'
 }
