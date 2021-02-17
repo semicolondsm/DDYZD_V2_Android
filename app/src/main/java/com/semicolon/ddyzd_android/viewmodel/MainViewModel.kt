@@ -36,7 +36,6 @@ class MainViewModel(val navigator:MainActivity) :ViewModel(){
     }
 
     val liveData : MutableLiveData<String> = MutableLiveData()
-    //val liveVisible = MutableLiveData<Boolean>() // 보이는 것
     fun changeclub() {
         liveData.value = "1"
     }

@@ -35,10 +35,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initSharedPreference()
         readAutoLogin()
-        viewModel.onCreate(refreshToken)
-        observeAccessToken()
         val binding: ActivityMainBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_main)
+        viewModel.onCreate(refreshToken)
+        observeAccessToken()
+
         binding.vm = viewModel
         setContentView(binding.root)
         viewModel.liveData.observe(this, Observer {
@@ -56,19 +57,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeAccessToken() {
         viewModel.accessToken.observe(this, Observer {
-            accessToken=it
+            Log.d("토큰",it)
+            accessToken = it
         })
     }
 
-    private fun readAutoLogin(){
-        refreshToken=startShared.getString("get_refresh_token","").toString()
+    private fun readAutoLogin() {
+        refreshToken = startShared.getString("get_refresh_token", "").toString()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == LOGIN_REQUEST_CODE) {
             if (data != null) {
-                accessToken = data.getStringExtra("get_access_token").toString()
+                viewModel.accessToken.value = data.getStringExtra("get_access_token").toString()
                 refreshToken = data.getStringExtra("get_refresh_token").toString()
                 editor.putString("get_refresh_token", refreshToken)
                 editor.apply()
