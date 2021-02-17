@@ -33,17 +33,23 @@ interface ApiService {
 
     @GET("feed/list")
     fun readFeed(
+        @Header("Authorization")accessToken:String,
         @Query("page")page:String
     ):Single<ArrayList<MainFeedData>>
 
     @PUT("feed/{feed_id}/flag")
     fun flagClicked(
-        @Header("Authorization")accesToken:String,
+        @Header("Authorization")accessToken:String,
         @Path("feed_id")feed_id:String
     ):Single<Response<Any>>
+
     @GET("users/token")
     fun readToken(
         @Header("access-token")token:String
     ):Single<Response<TokensData>>
 
+    @GET("users/refresh")
+    fun readAccessToken(
+        @Header("refresh-token")refreshToken:String
+    ):Single<Response<AccessTokenData>>
 }
