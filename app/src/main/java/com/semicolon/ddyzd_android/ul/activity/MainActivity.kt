@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
                 Log.d("토큰",accessToken)
                 Log.d("토큰",data.getStringExtra("get_email").toString())
             }
+
         }
     }
 
