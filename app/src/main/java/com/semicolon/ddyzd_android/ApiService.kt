@@ -40,4 +40,8 @@ interface ApiService {
         @Header("Authorization")accesToken:String,
         @Path("feed_id")feed_id:String
     ):Single<Any>
+    @GET("users/token")
+    fun readToken(
+        @Header("access-token")token:String
+    ):Single<TokensData>
 }
