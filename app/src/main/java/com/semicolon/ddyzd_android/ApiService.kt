@@ -48,4 +48,8 @@ interface ApiService {
         @Header("access-token")token:String
     ):Single<Response<TokensData>>
 
+    @GET("users/refresh")
+    fun readAccessToken(
+        @Header("refresh-token")refreshToken:String
+    ):Single<Response<AccessTokenData>>
 }

@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     private val LOGIN_REQUEST_CODE = 12
     private lateinit var startShared: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
-    val viewModel = MainViewModel()
+    val viewModel = MainViewModel(this)
     var refreshToken = ""
 
     companion object {
