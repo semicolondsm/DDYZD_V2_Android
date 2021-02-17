@@ -25,9 +25,10 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity) : ViewMod
                 readToken(accessToken)
             }
         }
+        
         val loginCallback: (DTOuser?) -> Unit = {
             val userName = it?.name
-            val userEmail = it?.name
+            val userEmail = it?.email
             val userGcn = it?.gcn
             if (it != null) {
                 finishLogin(userName!!, userEmail!!, userGcn!!)
@@ -57,6 +58,6 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity) : ViewMod
     }
 
     fun startWithoutLogin() {
-
+        context.finish()
     }
 }

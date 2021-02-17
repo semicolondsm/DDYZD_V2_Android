@@ -43,6 +43,8 @@ class MainActivity : AppCompatActivity() {
         if(requestCode==LOGIN_REQUEST_CODE){
             if (data != null) {
                 accessToken=data.getStringExtra("get_access_token").toString()
+                Log.d("토큰",accessToken)
+                Log.d("토큰",data.getStringExtra("get_email").toString())
             }
         }
     }

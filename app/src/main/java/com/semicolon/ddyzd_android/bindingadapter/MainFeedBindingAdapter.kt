@@ -4,7 +4,9 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.adapters.ListenerUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.semicolon.ddyzd_android.R
+import com.semicolon.ddyzd_android.adapter.FeedPagerAdapter
 import com.semicolon.ddyzd_android.adapter.MainFeedAdapter
 import com.semicolon.ddyzd_android.bindingadapter.MainFeedBindingAdapter.onScrollListener
 
@@ -27,6 +29,15 @@ object MainFeedBindingAdapter {
         }
         if(listener!=null){
             recyclerView.addOnScrollListener(listener)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("mainPageAdapter")
+    fun pageAdapter(viewPager2: ViewPager2,adapter:FeedPagerAdapter){
+        if(adapter!=null){
+            viewPager2.adapter=adapter
+            viewPager2.orientation=ViewPager2.ORIENTATION_HORIZONTAL
         }
     }
 }

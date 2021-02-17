@@ -3,6 +3,7 @@ package com.semicolon.ddyzd_android
 import com.semicolon.ddyzd_android.model.*
 import io.reactivex.Single
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
@@ -39,7 +40,7 @@ interface ApiService {
     fun flagClicked(
         @Header("Authorization")accesToken:String,
         @Path("feed_id")feed_id:String
-    ):Single<Any>
+    ):Single<Response<Any>>
     @GET("users/token")
     fun readToken(
         @Header("access-token")token:String

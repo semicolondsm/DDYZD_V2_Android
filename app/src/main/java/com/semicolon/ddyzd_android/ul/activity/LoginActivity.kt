@@ -3,6 +3,7 @@ package com.semicolon.ddyzd_android.ul.activity
 import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.semicolon.ddyzd_android.databinding.ActivityLoginBinding
 import com.semicolon.ddyzd_android.viewmodel.LoginViewModel
 import com.semicolon.dsm_sdk_v1.DsmSdk
@@ -19,6 +20,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
     fun finish(name:String,email:String,gcn:String,accessToken:String,refreshToken:String){
+        Log.d("토큰","finish:$accessToken")
         intent.putExtra("get_name",name)
         intent.putExtra("get_email",email)
         intent.putExtra("get_gcn",gcn)

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.webkit.WebSettings
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.tabs.TabLayoutMediator
 import com.semicolon.ddyzd_android.databinding.ItemFeedBinding
 import com.semicolon.ddyzd_android.databinding.ItemFeedHeaderBinding
 import com.semicolon.ddyzd_android.databinding.ItemImageFeedBinding
@@ -19,6 +20,7 @@ class MainFeedAdapter(
     private val MAIN_FEED_TYPE = 0
     private val IMAGE_FEED_TYPE = 1
     private val HEADER_FEED_TYPE = 2
+    lateinit var pageAdapter:FeedPagerAdapter
 
     inner class MainFeedViewHolder(private val binding: ItemFeedBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -32,6 +34,7 @@ class MainFeedAdapter(
     inner class ImageFeedViewHolder(private val binding: ItemImageFeedBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int, viewModel: MainFeedViewModel) {
+            pageAdapter=FeedPagerAdapter(feeds.value?.get(position-1)!!.media,viewModel,position-1,binding)
             binding.vm = viewModel
             binding.position = position-1
             binding.executePendingBindings()
@@ -89,7 +92,6 @@ class MainFeedAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        Log.d("어답터",position.toString())
         return if (position == 0) {
             HEADER_FEED_TYPE
         } else if (feeds.value?.get(position-1)?.media?.size!! >0) {
