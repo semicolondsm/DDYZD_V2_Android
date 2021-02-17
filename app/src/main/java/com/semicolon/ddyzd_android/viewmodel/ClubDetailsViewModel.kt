@@ -38,6 +38,7 @@ class ClubDetailsViewModel {
     lateinit var gcn : ArrayList<String>
     lateinit var git : ArrayList<String>
 
+    val time = System.currentTimeMillis().toString()
 
     val callInfo = adapter.clubInfo(club_id,time())
         .observeOn(AndroidSchedulers.mainThread())
@@ -55,7 +56,7 @@ class ClubDetailsViewModel {
             description = result.description
         }
 
-    /*val callRecruitment = adapter.clubRecruit(club_id,System.currentTimeMillis().toString()) // 401에러
+    val callRecruitment = adapter.clubRecruit(time,club_id) // 401에러
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
         .doOnError{
@@ -65,7 +66,7 @@ class ClubDetailsViewModel {
         .subscribe{ result->
             major = result.major
             closeat = result.closeat
-        }*/
+        }
 
 
    /* val callMamber = adapter.clubMenber(club_id)

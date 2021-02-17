@@ -56,8 +56,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startChatting(){
-        val intent = Intent(this, ClubDetails::class.java)
-        startActivity(intent)    }
+        val intent = Intent(this, ChatList::class.java)
+        startActivity(intent)
+    }
 
     fun startLogin(){
         val intent=Intent(this,LoginActivity::class.java)
@@ -66,7 +67,6 @@ class MainActivity : AppCompatActivity() {
 
     fun showToast(message:String){
         Toast.makeText(this,message,Toast.LENGTH_SHORT).show()
-
     }
 
 }

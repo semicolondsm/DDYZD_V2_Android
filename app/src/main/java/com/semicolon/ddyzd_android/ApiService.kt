@@ -12,14 +12,13 @@ interface ApiService {
 
     @GET("club/{club_id}/info")
     fun clubInfo(
-        @Path("club_id") club_id : String,
-        @Query ("time")time : String
+        @Path("club_id") club_id : String
+
     ): Single<ClubDetailData>
 
     @GET("club/{club_id}/recruitment")
     fun clubRecruit(
-            @Path("club_id")  clubId: String,
-            @Query ("time")time : String
+        @Path("club_id")  clubId: String
     ): Single<ClubRecruitData>
 
     @GET("club/{club_id}/member")
@@ -29,8 +28,9 @@ interface ApiService {
 
     @GET("chat//list")
     fun chatList(
-        @Header("refresh-token") refresh_token : String
-    ): Single<ArrayList<ChatListData>>
+        @Header("access-token") access_token : String
+    ): Single<Response<ArrayList<ChatListData>>>
+
     @GET("feed/list")
     fun readFeed(
         @Query("page")page:String
@@ -45,4 +45,5 @@ interface ApiService {
     fun readToken(
         @Header("access-token")token:String
     ):Single<TokensData>
+
 }
