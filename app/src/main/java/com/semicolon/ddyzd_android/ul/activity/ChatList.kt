@@ -1,9 +1,7 @@
 package com.semicolon.ddyzd_android.ul.activity
 
-import android.R.attr.data
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.semicolon.ddyzd_android.R
