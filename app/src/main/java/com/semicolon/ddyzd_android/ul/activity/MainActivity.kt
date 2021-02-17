@@ -75,6 +75,7 @@ class MainActivity : AppCompatActivity() {
                 editor.putString("get_refresh_token", refreshToken)
                 editor.apply()
             }
+
         }
     }
 

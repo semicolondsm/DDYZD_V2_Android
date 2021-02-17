@@ -3,17 +3,17 @@ package com.semicolon.ddyzd_android.ul.activity
 import android.R.attr.data
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.databinding.ActivityChatListBinding
+import com.semicolon.ddyzd_android.ul.activity.MainActivity.Companion.accessToken
 import com.semicolon.ddyzd_android.viewmodel.ChatListViewModel
 
 
 class ChatList : AppCompatActivity() {
-    var accessToken = ""
-    var refreshToken = ""
-    val CODE = 1
+    val CODE = 12
     lateinit var binding : ActivityChatListBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,22 +25,11 @@ class ChatList : AppCompatActivity() {
 
         binding.vm = viewModel
         setContentView(binding.root)
-        println("${accessToken},${refreshToken}")
+        println("${accessToken}")
     }
-
-    fun inentLoginActivity(CODE : Int){
-        val intent : Intent = Intent(applicationContext, LoginActivity().javaClass)
-        startActivityForResult(intent, CODE)
+    fun startLogin(){
+        val intent=Intent(this,LoginActivity::class.java)
+        startActivityForResult(intent,CODE)
     }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == CODE){
-            accessToken = data?.getStringExtra("get_access_token").toString()
-            refreshToken = data?.getStringExtra("get_access_token").toString()
-            binding.vm?.callChatList(this,accessToken)
-        }
-    }
-
 
 }
