@@ -17,13 +17,10 @@ class ChatList : AppCompatActivity() {
     lateinit var binding : ActivityChatListBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //val instance= DsmSdk.instance
-
-        binding  = DataBindingUtil.setContentView(this, R.layout.activity_chat_list)
+        binding = ActivityChatListBinding.inflate(layoutInflater)
         val viewModel = ChatListViewModel(this)
         binding.vm = viewModel
         setContentView(binding.root)
-        println("이거 $accessToken")
     }
     fun startLogin(){
         val intent=Intent(this,LoginActivity::class.java)

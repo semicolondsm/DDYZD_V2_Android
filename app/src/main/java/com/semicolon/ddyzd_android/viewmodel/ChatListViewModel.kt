@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 
 class ChatListViewModel(navigater: ChatList) : ViewModel() {
-    val list: RecyclerView = navigater.findViewById(R.id.chatRecyclerView)
+    val list: RecyclerView = ChatList().findViewById(R.id.chatRecyclerView)
     private val apiAdapter = BaseApi.getInstance()
 
     var clubImage = mutableListOf<Int>() // 동아리 이미지

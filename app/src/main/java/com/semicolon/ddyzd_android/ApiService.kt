@@ -28,7 +28,7 @@ interface ApiService {
 
     @GET("chat/list")
     fun chatList(
-        @Header("access-token") access_token : String
+        @Header("Authorization") access_token : String
     ): Single<Response<ArrayList<ChatListData>>>
 
     @GET("feed/list")
