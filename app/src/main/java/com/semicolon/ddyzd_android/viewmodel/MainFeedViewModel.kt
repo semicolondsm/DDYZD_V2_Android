@@ -1,5 +1,6 @@
 package com.semicolon.ddyzd_android.viewmodel
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +11,7 @@ import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.adapter.MainFeedAdapter
 import com.semicolon.ddyzd_android.model.MainFeedData
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
+import com.semicolon.ddyzd_android.ul.activity.MainActivity.Companion.accessToken
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlin.reflect.cast
@@ -39,18 +41,20 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
         feedAdapter.notifyDataSetChanged()
     }
 
+    @SuppressLint("CheckResult")
     fun flagClicked(id: String, position: Int) {
         Log.d("클릭", "id:$id")
-        adapter.flagClicked(id, "Bearer ${navigator.accessToken}")
+        adapter.flagClicked("Bearer $accessToken",id)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ response ->
                 if (response.isSuccessful) {
                     feeds.value?.get(position)?.flag = !feeds.value?.get(position)?.flag!!
-                    var flag = feeds.value?.get(position)?.flags?.toInt()!!
+                    var flag = feeds.value?.get(position)?.flags!!.toInt()
                     flag += 1
                     feeds.value?.get(position)?.flags = flag.toString()
                 } else {
+                    Log.e("token",response.raw().toString())
                     startLogin()
                 }
             },{throwable->

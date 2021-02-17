@@ -40,7 +40,7 @@ class ClubDetailsViewModel {
 
     val time = System.currentTimeMillis().toString()
 
-    val callInfo = adapter.clubInfo(club_id,time())
+    val callInfo = adapter.clubInfo(club_id)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
         .doOnError {
@@ -56,7 +56,7 @@ class ClubDetailsViewModel {
             description = result.description
         }
 
-    val callRecruitment = adapter.clubRecruit(time,club_id) // 401에러
+    val callRecruitment = adapter.clubRecruit(club_id) // 401에러
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
         .doOnError{

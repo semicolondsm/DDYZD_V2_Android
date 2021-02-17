@@ -2,6 +2,7 @@ package com.semicolon.ddyzd_android.bindingadapter
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.MutableLiveData
 import com.semicolon.ddyzd_android.R
 
 object FlagBindingAdapter {

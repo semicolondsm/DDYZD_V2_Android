@@ -44,6 +44,6 @@ interface ApiService {
     @GET("users/token")
     fun readToken(
         @Header("access-token")token:String
-    ):Single<TokensData>
+    ):Single<Response<TokensData>>
 
 }

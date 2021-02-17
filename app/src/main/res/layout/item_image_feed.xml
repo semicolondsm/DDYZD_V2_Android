@@ -19,12 +19,8 @@
             android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="8dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -90,7 +86,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="3dp"
                     android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
                     android:text="@{vm.feeds[position].flags+`개의 flags`}"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView6"
                     app:layout_constraintTop_toBottomOf="@+id/view2"
                     tools:text="Flag" />
@@ -118,7 +116,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView4"
                     app:mainPageAdapter="@{vm.feedAdapter.pageAdapter}"
-                    app:srcCompat="@drawable/ic_launcher_background"/>
+                    app:srcCompat="@drawable/ic_launcher_background" />
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/indicator"
@@ -140,13 +138,13 @@
                     android:layout_height="20dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:contentDescription="flag"
                     android:onClick="@{()->vm.flagClicked(vm.feeds[position].feedId,position)}"
                     app:flag="@{vm.feeds[position].flag}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/view2"
-                    android:contentDescription="flag" />
+                    app:layout_constraintTop_toBottomOf="@+id/view2" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>

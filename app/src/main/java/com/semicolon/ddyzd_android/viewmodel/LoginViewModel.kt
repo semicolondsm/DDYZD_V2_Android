@@ -1,5 +1,6 @@
 package com.semicolon.ddyzd_android.viewmodel
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.semicolon.ddyzd_android.ul.activity.ChatList
@@ -26,7 +27,7 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity) : ViewMod
                 readToken(accessToken)
             }
         }
-        
+
         val loginCallback: (DTOuser?) -> Unit = {
             val userName = it?.name
             val userEmail = it?.email
@@ -38,16 +39,23 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity) : ViewMod
         instance.loginWithAuth(context, tokenCallback, loginCallback)
     }
 
-    private fun readToken(accessToken:String){
+    @SuppressLint("CheckResult")
+    private fun readToken(accessToken: String) {
         adapter.readToken("Bearer $accessToken")
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .doOnError {
-                Log.e("토큰","토큰오류")
-            }.doOnSuccess {
-                this.accessToken=it.accessToken
-                this.refreshToken=it.refreshToken
-            }.subscribe()
+            .subscribe({ response ->
+                if (response.isSuccessful) {
+                    Log.d("토큰",response.body()!!.toString())
+                    this.refreshToken = response.body()!!.refreshToken
+                    this.accessToken = response.body()!!.accessToken
+                    MainActivity.accessToken= response.body()!!.accessToken
+                } else {
+                    Log.e("token", response.message())
+                }
+            }, {
+                Log.e("token", it.toString())
+            })
     }
 
     private fun finishLogin(
@@ -55,8 +63,8 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity) : ViewMod
         email: String,
         gcn: String
     ) {
-        context.finish(name, email, gcn, accessToken, refreshToken).apply {
-        }
+        Log.d("토큰",accessToken)
+        context.finish(name, email, gcn, accessToken, refreshToken)
     }
 
     fun startWithoutLogin() {

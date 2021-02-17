@@ -20,7 +20,10 @@ import java.net.SocketException
 
 class MainActivity : AppCompatActivity() {
     private val LOGIN_REQUEST_CODE=12
-    var accessToken=""
+    companion object{
+        var accessToken=""
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
