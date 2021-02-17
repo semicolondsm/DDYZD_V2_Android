@@ -44,6 +44,6 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity) : ViewMod
     }
 
     fun startWithoutLogin() {
-
+        context.finish()
     }
 }
