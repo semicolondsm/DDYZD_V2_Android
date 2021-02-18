@@ -67,6 +67,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun reLoadFeeds(){
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment, MainFeed(this)).commit()
+    }
+
     private fun observeAccessToken() {
         viewModel.accessToken.observe(this, Observer {
             Log.d("토큰", it)
@@ -87,8 +92,7 @@ class MainActivity : AppCompatActivity() {
                 Log.d("토큰","결국받은코드:$refreshToken")
                 editor.putString("get_refresh_token", refreshToken)
                 editor.apply()
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment, MainFeed(this)).commit()
+                reLoadFeeds()
             }
             else {
                 Log.d("토큰", "null로 결국 받았네")

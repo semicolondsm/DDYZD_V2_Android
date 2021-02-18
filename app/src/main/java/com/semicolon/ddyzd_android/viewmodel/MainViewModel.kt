@@ -30,6 +30,7 @@ class MainViewModel(val navigator:MainActivity) :ViewModel(){
                 Log.d("토큰","자동로그인:${it.raw().toString()}")
                 if(it.isSuccessful){
                     accessToken.value=it.body()!!.accessToken
+                    navigator.reLoadFeeds()
                 }
             },{
                 navigator.startLogin()
