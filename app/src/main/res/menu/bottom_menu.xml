@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/nav_home"
+        android:enabled="true"
+        android:title="홈"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/nav_club"
+        android:enabled="true"
+        android:title="동아리"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/nav_my"
+        android:enabled="true"
+        android:title="마이페이지"
+        app:showAsAction="ifRoom"/>
+
+</menu>

@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
             DataBindingUtil.setContentView(this, R.layout.activity_main)
         viewModel.onCreate(refreshToken)
         observeAccessToken()
-
         binding.vm = viewModel
         setContentView(binding.root)
         viewModel.liveData.observe(this, Observer {
