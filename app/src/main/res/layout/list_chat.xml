@@ -7,10 +7,14 @@
         <variable
             name="position"
             type="Integer" />
+        <variable
+            name="navi"
+            type="com.semicolon.ddyzd_android.ul.activity.ChatList" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:onClick="@{()->vm.goChatting(vm.list[position],navi)"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/club_name"
         android:layout_width="match_parent"
@@ -40,7 +44,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:chatImageUrl="@{vm.callChatList[position].clubimage}"
+                app:chatImageUrl="@{vm.list[position].clubimage}"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
@@ -49,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:text="@{vm.callChatList[position].clubname}"
+                android:text="@{vm.list[position].clubname}"
                 app:layout_constraintStart_toEndOf="@+id/image"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="동아리 이름" />
@@ -61,7 +65,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@{vm.callChatList[position].lastdate}"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/image"
                 app:layout_constraintTop_toTopOf="parent"
