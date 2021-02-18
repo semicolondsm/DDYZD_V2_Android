@@ -22,9 +22,7 @@ import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 
 class ChatListViewModel(navigater: ChatList) : ViewModel() {
-    //val list: RecyclerView = ChatList().findViewById(R.id.chatRecyclerView)
     private val apiAdapter = BaseApi.getInstance()
-
     private var readChatList = mutableListOf<ChatListData>()
     val list = MutableLiveData<List<ChatListData>>()
     val clubListAdapter = ChatListAdapter(list,this)
@@ -48,8 +46,8 @@ class ChatListViewModel(navigater: ChatList) : ViewModel() {
         apiAdapter.chatList("Bearer $accessToken")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { response ->
+            .subscribe({
+                    response ->
                     if (response.isSuccessful) {
                         response.body()?.let { readChatList.addAll(it) }
                         list.value = readChatList
@@ -63,29 +61,8 @@ class ChatListViewModel(navigater: ChatList) : ViewModel() {
                 }
             )
     }
-
-
-    fun inputList(chatListBody: ArrayList<ChatListData>) {
-        size = chatListBody.size
-        for (i in 0 until size) {
-            clubImage.add(chatListBody[i].clubimage)
-            clubName.add(chatListBody[i].clubname)
-            lastMessage.add(chatListBody[i].lastmessage)
-            //lastDate.add(chatListBody[i].lastdata)
-            roomId.add(chatListBody[i].roomid)
-            clubId.add(chatListBody[i].clubid)
-
-            chatList.add(
-                ChatListData(
-                    roomid = roomId[i],
-                    clubid = clubId[i],
-                    clubname = clubName[i],
-                    clubimage = clubImage[i],
-                    //lastdata = lastDate[i],
-                    lastmessage = lastMessage[i]
-                )
-            )
-        }
+    fun goChatting(position : Int){
+        position
     }
 
 }

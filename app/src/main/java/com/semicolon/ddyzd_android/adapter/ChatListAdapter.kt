@@ -22,7 +22,6 @@ import com.semicolon.ddyzd_android.viewmodel.ChatListViewModel
 import kotlin.math.sign
 
 class ChatListAdapter(private val list: MutableLiveData<List<ChatListData>>, val viewModel: ChatListViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
-
     inner class ImageViewHolder(private val binding : ListChatBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int, viewModel: ChatListViewModel){
             binding.vm = viewModel
@@ -30,24 +29,20 @@ class ChatListAdapter(private val list: MutableLiveData<List<ChatListData>>, val
             binding.executePendingBindings()
         }
     }
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
          val binding = ListChatBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ImageViewHolder(binding)
     }
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if(list.value !=null){
             (holder as ChatListAdapter.ImageViewHolder).bind(position, viewModel)
         }
     }
-
     override fun getItemCount(): Int {
         return if (list.value != null) {
             list.value!!.size
         } else {
-            1
+            0
         }
     }
 }
