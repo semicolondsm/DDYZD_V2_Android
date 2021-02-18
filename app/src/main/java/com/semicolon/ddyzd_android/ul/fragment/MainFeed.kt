@@ -12,16 +12,12 @@ import com.semicolon.ddyzd_android.databinding.FragmentFeedBinding
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
 import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 
-class MainFeed(val navigator:MainActivity): Fragment() {
+class MainFeed(navigator:MainActivity): Fragment() {
     lateinit var binding:FragmentFeedBinding
-    val viewModel=MainFeedViewModel(navigator)
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.onCreate()
-        Log.d("불러옴","ㅇㅇ")
-    }
+    private val viewModel=MainFeedViewModel(navigator)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding=DataBindingUtil.inflate(inflater,R.layout.fragment_feed,container,false)
+        viewModel.onCreate()
         binding.vm= viewModel
         binding.lifecycleOwner=this
         return binding.root

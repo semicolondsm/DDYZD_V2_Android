@@ -32,32 +32,50 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         initSharedPreference()
         readAutoLogin()
+        viewModel.onCreate(refreshToken)
+        super.onCreate(savedInstanceState)
         val binding: ActivityMainBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_main)
-        viewModel.onCreate(refreshToken)
-        observeAccessToken()
 
+        observeAccessToken()
         binding.vm = viewModel
         setContentView(binding.root)
-        viewModel.liveData.observe(this, Observer {
-            when (viewModel.liveData.value) {
-                "1" -> supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment, ClubList(this)).commit()
-                "2" -> supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment, MainFeed(this)).commit()
-                "3" -> supportFragmentManager.beginTransaction().replace(R.id.fragment, Fragment3())
-                    .commit()
-            }
-        })
+        supportFragmentManager.beginTransaction()
+            .add(R.id.fragment, MainFeed(this)).commit()
+        binding.bottomNavigation.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.nav_home -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment, MainFeed(this)).commit()
+                    return@setOnNavigationItemSelectedListener true
+                }
 
+                R.id.nav_club -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment, ClubList(this)).commit()
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.nav_my -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment, Fragment3()).commit()
+                    return@setOnNavigationItemSelectedListener true
+                }
+                else->return@setOnNavigationItemSelectedListener false
+            }
+        }
+
+    }
+
+    fun reLoadFeeds(){
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment, MainFeed(this)).commit()
     }
 
     private fun observeAccessToken() {
         viewModel.accessToken.observe(this, Observer {
-            Log.d("토큰",it)
+            Log.d("토큰", it)
             accessToken = it
         })
     }
@@ -72,8 +90,13 @@ class MainActivity : AppCompatActivity() {
             if (data != null) {
                 viewModel.accessToken.value = data.getStringExtra("get_access_token").toString()
                 refreshToken = data.getStringExtra("get_refresh_token").toString()
+                Log.d("토큰","결국받은코드:$refreshToken")
                 editor.putString("get_refresh_token", refreshToken)
                 editor.apply()
+                reLoadFeeds()
+            }
+            else {
+                Log.d("토큰", "null로 결국 받았네")
             }
 
         }

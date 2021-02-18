@@ -73,12 +73,13 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
     }
 
     fun readFeeds() {
+        Log.d("불러옴","accessToken:$accessToken")
         adapter.readFeed("Bearer $accessToken",callApi.toString())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .unsubscribeOn(Schedulers.io())
             .doOnError {
-                println("error")
+                navigator.showToast("인터넷 연결을 확인해주세요")
             }
             .doOnSuccess { result ->
                 readFeed.addAll(result)
