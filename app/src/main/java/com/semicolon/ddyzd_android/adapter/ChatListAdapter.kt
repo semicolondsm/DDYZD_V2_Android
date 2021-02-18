@@ -21,18 +21,8 @@ import com.semicolon.ddyzd_android.ul.activity.MainActivity
 import com.semicolon.ddyzd_android.viewmodel.ChatListViewModel
 import kotlin.math.sign
 
-class ChatListAdapter(private val chatListAdapter: MutableLiveData<List<ChatListData>>, val viewModel: ChatListViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class ChatListAdapter(private val list: MutableLiveData<List<ChatListData>>, val viewModel: ChatListViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
-    private val TEXT_TYPE = 0
-    private val IMAGE_TYPE = 1
-
-    inner class TextViewHolder(private val binding :ListChatBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(position: Int, viewModel: ChatListViewModel) {
-            binding.vm = viewModel
-            binding.position = position
-            binding.executePendingBindings()
-        }
-    }
     inner class ImageViewHolder(private val binding : ListChatBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int, viewModel: ChatListViewModel){
             binding.vm = viewModel
@@ -43,44 +33,21 @@ class ChatListAdapter(private val chatListAdapter: MutableLiveData<List<ChatList
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when(viewType){
-            TEXT_TYPE->{
-                val binding = ListChatBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                TextViewHolder(binding)
-            }
-            else -> {
-                val binding = ListChatBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                ImageViewHolder(binding)
-            }
-        }
-
+         val binding = ListChatBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ImageViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val obj = chatListAdapter.value?.get(position-1)
-        when(position){
-                obj?.clubimage-> {
-                    (holder as ChatListAdapter.ImageViewHolder).bind(position, viewModel)
-                }
-            else ->{
-                (holder as ChatListAdapter.TextViewHolder).bind(position, viewModel)
-            }
+        if(list.value !=null){
+            (holder as ChatListAdapter.ImageViewHolder).bind(position, viewModel)
         }
     }
 
     override fun getItemCount(): Int {
-        return chatListAdapter.value!!.size
-    }
-
-
-    override fun getItemViewType(position: Int): Int {
-        return when(position){
-            chatListAdapter.value?.get(position-1)?.clubimage -> {
-                IMAGE_TYPE
-            }
-            else -> {
-                TEXT_TYPE
-            }
+        return if (list.value != null) {
+            list.value!!.size
+        } else {
+            1
         }
     }
 }
