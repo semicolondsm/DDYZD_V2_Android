@@ -13,13 +13,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNavigationView"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            app:menu="@menu/clubnavi"
-            tools:ignore="MissingConstraints" />
 
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/club_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/background_light"
+            android:elevation="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/design_default_color_primary"
+            app:tabTextColor="@color/black" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_proflie"
@@ -31,6 +38,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bottomNavigationView" />
+            app:layout_constraintTop_toBottomOf="@+id/club_tab_layout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
