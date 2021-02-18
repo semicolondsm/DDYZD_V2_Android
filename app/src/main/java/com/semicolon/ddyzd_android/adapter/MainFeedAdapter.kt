@@ -13,10 +13,7 @@ import com.semicolon.ddyzd_android.databinding.ItemImageFeedBinding
 import com.semicolon.ddyzd_android.model.MainFeedData
 import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 
-class MainFeedAdapter(
-    private val feeds: MutableLiveData<List<MainFeedData>>,
-    private val viewModel: MainFeedViewModel
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MainFeedAdapter(private val feeds: MutableLiveData<List<MainFeedData>>, private val viewModel: MainFeedViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val MAIN_FEED_TYPE = 0
     private val IMAGE_FEED_TYPE = 1
     private val HEADER_FEED_TYPE = 2

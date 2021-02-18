@@ -56,7 +56,7 @@ class ClubDetailsViewModel {
             description = result.description
         }
 
-    val callRecruitment = adapter.clubRecruit(club_id) // 401에러
+    val callRecruitment = adapter.clubRecruit(club_id)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
         .doOnError{
