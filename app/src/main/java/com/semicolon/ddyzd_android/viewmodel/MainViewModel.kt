@@ -27,7 +27,7 @@ class MainViewModel(val navigator:MainActivity) :ViewModel(){
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
-                Log.d("토큰","자동로그인:${it.raw().toString()}")
+                Log.d("토큰","자동로그인:${it.raw()}")
                 if(it.isSuccessful){
                     accessToken.value=it.body()!!.accessToken
                 }
