@@ -16,6 +16,9 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity) : ViewMod
     var accessToken = ""
     var refreshToken = ""
     val adapter = BaseApi.getInstance()
+    lateinit var userName:String
+    lateinit var userEmail:String
+    lateinit var userGcn:String
     fun startLogin() {
         val tokenCallback: (DTOtoken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
@@ -23,16 +26,16 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity) : ViewMod
             } else if (token != null) {
                 accessToken = token.access_token
                 refreshToken = token.refresh_token
-                readToken(accessToken)
+                Log.d("토큰","어스토큰:${token.access_token}")
             }
         }
 
         val loginCallback: (DTOuser?) -> Unit = {
-            val userName = it?.name
-            val userEmail = it?.email
-            val userGcn = it?.gcn
             if (it != null) {
-                finishLogin(userName!!, userEmail!!, userGcn!!)
+                userName = it.name
+                userEmail = it.email
+                userGcn = it.gcn
+                readToken(accessToken)
             }
         }
         instance.loginWithAuth(context, tokenCallback, loginCallback)
@@ -45,10 +48,10 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity) : ViewMod
             .subscribeOn(Schedulers.io())
             .subscribe({ response ->
                 if (response.isSuccessful) {
-                    Log.d("토큰",response.body()!!.toString())
-                    this.refreshToken = response.body()!!.refreshToken
-                    this.accessToken = response.body()!!.accessToken
-                    MainActivity.accessToken= response.body()!!.accessToken
+                    Log.d("토큰","리스폰스:${response.body()!!.toString()}")
+                    val refreshToken = response.body()!!.refreshToken
+                    val accessToken = response.body()!!.accessToken
+                    finishLogin(userName, userEmail, userGcn,refreshToken,accessToken)
                 } else {
                     Log.e("token", response.message())
                 }
@@ -60,9 +63,11 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity) : ViewMod
     private fun finishLogin(
         name: String,
         email: String,
-        gcn: String
+        gcn: String,
+        refreshToken:String,
+        accessToken: String
     ) {
-        Log.d("토큰",accessToken)
+        Log.d("토큰","ready to finish:$accessToken")
         context.finish(name, email, gcn, accessToken, refreshToken)
     }
 

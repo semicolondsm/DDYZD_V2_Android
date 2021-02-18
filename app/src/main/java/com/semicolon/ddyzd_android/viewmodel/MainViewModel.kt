@@ -23,15 +23,13 @@ class MainViewModel(val navigator:MainActivity) :ViewModel(){
 
     @SuppressLint("CheckResult")
     private fun readAccessToken(refreshToken: String){
-        adapter.readAccessToken(refreshToken)
+        adapter.readAccessToken("Bearer $refreshToken")
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
-                Log.d("토큰",it.raw().toString())
+                Log.d("토큰","자동로그인:${it.raw().toString()}")
                 if(it.isSuccessful){
                     accessToken.value=it.body()!!.accessToken
-                }else{
-                    navigator.startLogin()
                 }
             },{
                 navigator.startLogin()

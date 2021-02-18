@@ -74,7 +74,7 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
 
     //DsmAuth
-    implementation 'com.semicolon.dsm_sdk_v1:dsmauth:1.2.8'
+    implementation 'com.semicolon.dsm_sdk_v1:dsmauth:1.2.9'
 
     //okHttp
     implementation 'com.squareup.okhttp3:okhttp:4.2.2'
