@@ -73,6 +73,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
     }
 
     fun readFeeds() {
+        Log.d("불러옴","accessToken:$accessToken")
         adapter.readFeed("Bearer $accessToken",callApi.toString())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
