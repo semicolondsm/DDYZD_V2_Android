@@ -2,6 +2,7 @@ package com.semicolon.ddyzd_android.ul.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,25 +33,6 @@ class ClubList(val navigator:MainActivity): Fragment() {
         binding.lifecycleOwner = this
         val view = inflater.inflate(R.layout.fragment_clublist, container,false) // 이거는 됨
         val list = view?.findViewById<RecyclerView>(R.id.rv_proflie)
-        binding.clubTabLayout.addOnTabSelectedListener(object:TabLayout.OnTabSelectedListener{
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-                if (tab != null) {
-                    viewModel.changeSelcted(tab.position)
-                }
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
-
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                if (tab != null) {
-                    viewModel.changeSelcted(tab.position)
-                }
-            }
-
-        })
-
-
         viewModel.liveData1.observe(viewLifecycleOwner,Observer{
             val proflieList = viewModel.proflieList
             list?.layoutManager = LinearLayoutManager(this@ClubList.context, LinearLayoutManager.VERTICAL,false)
