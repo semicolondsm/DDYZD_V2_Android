@@ -4,6 +4,7 @@ package com.semicolon.ddyzd_android.viewmodel
 
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.semicolon.ddyzd_android.BaseApi
@@ -15,36 +16,24 @@ class MainViewModel(val navigator:MainActivity) :ViewModel(){
     val adapter = BaseApi.getInstance()
     val accessToken=MutableLiveData<String>()
     fun onCreate(refreshToken:String){
-        if(refreshToken.isNotEmpty()){
+        if(refreshToken!=""){
             readAccessToken(refreshToken)
         }
     }
 
     @SuppressLint("CheckResult")
     private fun readAccessToken(refreshToken: String){
-        adapter.readAccessToken(refreshToken)
+        adapter.readAccessToken("Bearer $refreshToken")
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
+                Log.d("토큰","자동로그인:${it.raw().toString()}")
                 if(it.isSuccessful){
                     accessToken.value=it.body()!!.accessToken
                 }
-
             },{
                 navigator.startLogin()
             })
     }
-
-    val liveData : MutableLiveData<String> = MutableLiveData()
-    fun changeclub() {
-        liveData.value = "1"
-    }
-    fun changechat(){
-        liveData.value = "2"
-    }
-    fun changeelse(){
-        liveData.value = "3"
-    }
-
 
 }
