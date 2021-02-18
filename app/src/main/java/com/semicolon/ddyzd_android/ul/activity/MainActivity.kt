@@ -82,6 +82,8 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == LOGIN_REQUEST_CODE) {
             if (data != null) {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment, MainFeed(this)).commit()
                 viewModel.accessToken.value = data.getStringExtra("get_access_token").toString()
                 refreshToken = data.getStringExtra("get_refresh_token").toString()
                 editor.putString("get_refresh_token", refreshToken)
