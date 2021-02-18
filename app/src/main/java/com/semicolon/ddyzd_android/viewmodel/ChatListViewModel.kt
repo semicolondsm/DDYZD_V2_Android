@@ -61,8 +61,12 @@ class ChatListViewModel(navigater: ChatList) : ViewModel() {
                 }
             )
     }
-    fun goChatting(position : Int){
-        position
+    fun goChatting(position : Int,navigater: ChatList){
+        val clubId =list.value?.get(position)?.clubid
+        val clubImage = list.value?.get(position)?.clubimage
+        val clubName = list.value?.get(position)?.clubname
+        val lastMessage = list.value?.get(position)?.lastmessage
+        val roomId = list.value?.get(position)?.roomid
+        navigater.startChating(clubId!!,clubImage!!, clubName!!,lastMessage!!,roomId!!)
     }
-
 }

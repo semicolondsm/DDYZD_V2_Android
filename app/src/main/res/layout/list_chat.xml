@@ -7,11 +7,14 @@
         <variable
             name="position"
             type="Integer" />
+        <variable
+            name="navi"
+            type="com.semicolon.ddyzd_android.ul.activity.ChatList" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:onClick="@{()->vm.goChatting(vm.list[position])"
+        android:onClick="@{()->vm.goChatting(vm.list[position],navi)"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/club_name"
         android:layout_width="match_parent"

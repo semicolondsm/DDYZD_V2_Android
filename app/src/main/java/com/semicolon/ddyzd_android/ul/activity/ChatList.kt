@@ -24,5 +24,14 @@ class ChatList : AppCompatActivity() {
         val intent=Intent(this,LoginActivity::class.java)
         startActivityForResult(intent,CODE)
     }
+    fun startChating(clubId : String,clubImage : String, clubName : String,lastMessage: String,roomId: String){
+        val intent = Intent(this,ChattingPage::class.java)
+        intent.putExtra("chatClubId",clubId)
+        intent.putExtra("chatClubImage",clubImage)
+        intent.putExtra("chatClubName",clubName)
+        intent.putExtra("chatLastMessage",lastMessage)
+        intent.putExtra("chatRoomId",roomId)
+        startActivity(intent)
+    }
 
 }
