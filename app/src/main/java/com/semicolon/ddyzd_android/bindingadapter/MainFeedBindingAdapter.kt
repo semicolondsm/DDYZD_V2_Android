@@ -46,10 +46,11 @@ object MainFeedBindingAdapter {
 
     @JvmStatic
     @BindingAdapter("showTimeAdapter")
-    fun timeAdapter(textView: TextView,time:String){
+    fun timeAdapter(textView: TextView,time:Date){
+        val dateFormat=SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz",Locale.KOREA)
         val currentDateTime= System.currentTimeMillis()
         val date=Date(currentDateTime)
-        val dateFormat=SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz",Locale.KOREA)
+
         val currentTime=dateFormat.format(date)
         val getTime=dateFormat.format(time)
         val longCurrentTime=dateFormat.parse(currentTime).time
@@ -73,7 +74,7 @@ object MainFeedBindingAdapter {
             }else{
                 when(dayDiff){
                     1.toLong() ->textView.text="어제"
-                    in 2..6->textView.text="$dayDiff 일 전"
+                    in 2..6->textView.text="${dayDiff}일 전"
                     else -> textView.text="${dayDiff/7}주 전"
                 }
             }
