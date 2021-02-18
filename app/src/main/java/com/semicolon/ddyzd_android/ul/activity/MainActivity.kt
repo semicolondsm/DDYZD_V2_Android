@@ -41,22 +41,35 @@ class MainActivity : AppCompatActivity() {
         observeAccessToken()
         binding.vm = viewModel
         setContentView(binding.root)
-        viewModel.liveData.observe(this, Observer {
-            when (viewModel.liveData.value) {
-                "1" -> supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment, ClubList(this)).commit()
-                "2" -> supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment, MainFeed(this)).commit()
-                "3" -> supportFragmentManager.beginTransaction().replace(R.id.fragment, Fragment3())
-                    .commit()
+        supportFragmentManager.beginTransaction()
+            .add(R.id.fragment, MainFeed(this)).commit()
+        binding.bottomNavigation.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.nav_home -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment, MainFeed(this)).commit()
+                    return@setOnNavigationItemSelectedListener true
+                }
+
+                R.id.nav_club -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment, ClubList(this)).commit()
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.nav_my -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment, Fragment3()).commit()
+                    return@setOnNavigationItemSelectedListener true
+                }
+                else->return@setOnNavigationItemSelectedListener false
             }
-        })
+        }
 
     }
 
     private fun observeAccessToken() {
         viewModel.accessToken.observe(this, Observer {
-            Log.d("토큰",it)
+            Log.d("토큰", it)
             accessToken = it
         })
     }
