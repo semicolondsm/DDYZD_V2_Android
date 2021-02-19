@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="frag1"
+            type="com.semicolon.ddyzd_android.viewmodel.ClubListViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/club_tab_layout"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@android:color/background_light"
+            android:elevation="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/design_default_color_primary"
+            app:tabSelectedTextColor="@color/design_default_color_primary"
+            app:tabTextColor="@color/black"
+            app:tabMode="scrollable">
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="전체"/>
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/web"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="웹"/>
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/app"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="앱"/>
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/imbe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="임베디드"/>
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/guitar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="기타"/>
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_proflie"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/club_tab_layout" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

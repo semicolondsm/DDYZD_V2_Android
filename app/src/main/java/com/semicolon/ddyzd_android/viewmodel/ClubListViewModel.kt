@@ -48,7 +48,7 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
             clubexample.add(body[i].clubdescription)
             proflieList.add(
                 ClubProfiles(
-                    R.drawable.ic_launcher_background,
+                    body[i].clubimage,
                     body[i].clubname,
                     body[i].clubdescription,
                     body[i].clubid
@@ -63,18 +63,17 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
             false
         )
         list?.adapter = ClubAdapter(
-            clubAdapter = proflieList as ArrayList<ClubProfiles>, navigator = navigator
+            clubAdapter = proflieList as ArrayList<ClubProfiles>, viewModel = this
         )
     }
 
-    val bottomNavigationView = BottomNavigationView.OnNavigationItemSelectedListener {
-        proflieList = mutableListOf<ClubProfiles>()
-        when (it.itemId) {
-            R.id.total -> {
+    fun changeSelcted(id:Int){
+        when (id) {
+            0 -> {
                 for (i in 0 until size) {
                     proflieList.add(
                         ClubProfiles(
-                            R.drawable.ic_launcher_background,
+                            body[i].clubimage,
                             body[i].clubname,
                             body[i].clubdescription,
                             body[i].clubid
@@ -83,7 +82,7 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                 }
                 liveData1.value = "1"
             }
-            R.id.web -> {
+            1 -> {
                 proflieList = mutableListOf()
                 for (i in 0 until size) {
                     sub = body[i].clubtag.size
@@ -91,7 +90,7 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                         if (body[i].clubtag[j] == "웹") {
                             proflieList.add(
                                 ClubProfiles(
-                                    R.drawable.ic_launcher_background,
+                                    body[i].clubimage,
                                     body[i].clubname,
                                     body[i].clubdescription,
                                     body[i].clubid
@@ -102,7 +101,7 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                 }
                 liveData1.value = "2"
             }
-            R.id.app -> {
+            2 -> {
                 proflieList = mutableListOf()
                 for (i in 0 until size) {
                     sub = body[i].clubtag.size
@@ -110,7 +109,7 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                         if (body[i].clubtag[j] == "앱") {
                             proflieList.add(
                                 ClubProfiles(
-                                    R.drawable.ic_launcher_background,
+                                    body[i].clubimage,
                                     body[i].clubname,
                                     body[i].clubdescription,
                                     body[i].clubid
@@ -121,7 +120,7 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                 }
                 liveData1.value = "3"
             }
-            R.id.imbe -> {
+            3-> {
                 proflieList = mutableListOf()
                 for (i in 0 until size) {
                     sub = body[i].clubtag.size
@@ -129,7 +128,7 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                         if (body[i].clubtag[j] == "임베디드") {
                             proflieList.add(
                                 ClubProfiles(
-                                    R.drawable.ic_launcher_background,
+                                    body[i].clubimage,
                                     body[i].clubname,
                                     body[i].clubdescription,
                                     body[i].clubid
@@ -140,7 +139,7 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                 }
                 liveData1.value = "4"
             }
-            R.id.guitar -> {
+            4 -> {
                 proflieList = mutableListOf()
                 for (i in 0 until size) {
                     sub = body[i].clubtag.size
@@ -148,7 +147,7 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                         if (body[i].clubtag[j] != "앱" && body[i].clubtag[j] != "웹" && body[i].clubtag[j] != "임베디드") {
                             proflieList.add(
                                 ClubProfiles(
-                                    R.drawable.ic_launcher_background,
+                                    body[i].clubimage,
                                     body[i].clubname,
                                     body[i].clubdescription,
                                     body[i].clubid
@@ -160,6 +159,5 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                 liveData1.value = "5"
             }
         }
-        true
     }
 }

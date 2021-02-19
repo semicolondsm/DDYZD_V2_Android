@@ -3,42 +3,36 @@ package com.semicolon.ddyzd_android.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.R
+import com.semicolon.ddyzd_android.databinding.ItemClubBinding
 import com.semicolon.ddyzd_android.model.ClubProfiles
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
+import com.semicolon.ddyzd_android.viewmodel.ClubListViewModel
 
-class ClubAdapter(val clubAdapter: ArrayList<ClubProfiles>, val navigator: MainActivity) : RecyclerView.Adapter<ClubAdapter.CustomViewHolder>()
-{
+class ClubAdapter(val clubAdapter: ArrayList<ClubProfiles>, val viewModel: ClubListViewModel) :
+    RecyclerView.Adapter<ClubAdapter.CustomViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):CustomViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_club,parent,false)
-        return CustomViewHolder(view).apply {
-            itemView.setOnClickListener {
-                val club_id = clubAdapter[adapterPosition].club_id
-                BaseApi.club_id = club_id
-                navigator.changeActivity()
-            }
-        }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
+        val binding = ItemClubBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return CustomViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        holder.image.setImageResource(clubAdapter[position].image )
-        holder.clubname.text = clubAdapter[position].name
-        holder.example.text = clubAdapter[position].example
+        holder.bind(position, viewModel = viewModel)
     }
 
     override fun getItemCount(): Int {
         return clubAdapter.size
     }
 
-    class CustomViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
-        val image: ImageView = itemView.findViewById(R.id.image)
-        val clubname: TextView = itemView.findViewById(R.id.clubname)
-        val example: TextView = itemView.findViewById(R.id.example)
+    class CustomViewHolder(private val binding: ItemClubBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(position: Int, viewModel: ClubListViewModel) {
+            binding.vm = viewModel
+            binding.position = position
+            binding.executePendingBindings()
+        }
     }
 
 }
