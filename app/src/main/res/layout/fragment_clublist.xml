@@ -16,18 +16,18 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/club_tab_layout"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_width="match_parent"
             android:background="@android:color/background_light"
             android:elevation="1dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tabGravity="fill"
-            app:tabMode="fixed"
             app:tabIndicatorColor="@color/design_default_color_primary"
             app:tabSelectedTextColor="@color/design_default_color_primary"
-            app:tabTextColor="@color/black" >
+            app:tabTextColor="@color/black"
+            app:tabMode="scrollable">
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/total"
                 android:layout_width="wrap_content"

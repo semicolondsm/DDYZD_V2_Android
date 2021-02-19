@@ -69,7 +69,7 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
 
     fun changeSelcted(id:Int){
         when (id) {
-            1 -> {
+            0 -> {
                 for (i in 0 until size) {
                     proflieList.add(
                         ClubProfiles(
@@ -82,7 +82,7 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                 }
                 liveData1.value = "1"
             }
-            2 -> {
+            1 -> {
                 proflieList = mutableListOf()
                 for (i in 0 until size) {
                     sub = body[i].clubtag.size
@@ -101,7 +101,7 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                 }
                 liveData1.value = "2"
             }
-            3 -> {
+            2 -> {
                 proflieList = mutableListOf()
                 for (i in 0 until size) {
                     sub = body[i].clubtag.size
@@ -120,7 +120,7 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                 }
                 liveData1.value = "3"
             }
-            4-> {
+            3-> {
                 proflieList = mutableListOf()
                 for (i in 0 until size) {
                     sub = body[i].clubtag.size
@@ -139,7 +139,7 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                 }
                 liveData1.value = "4"
             }
-            5 -> {
+            4 -> {
                 proflieList = mutableListOf()
                 for (i in 0 until size) {
                     sub = body[i].clubtag.size
@@ -159,6 +159,5 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                 liveData1.value = "5"
             }
         }
-        true
     }
 }
