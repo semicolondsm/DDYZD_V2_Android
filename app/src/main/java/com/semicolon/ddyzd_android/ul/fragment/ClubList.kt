@@ -51,7 +51,9 @@ class ClubList(val navigator:MainActivity): Fragment() {
             val proflieList = viewModel.proflieList
             list.layoutManager = LinearLayoutManager(this@ClubList.context, LinearLayoutManager.VERTICAL,false)
             list.setHasFixedSize(true)
-            list.adapter = ClubAdapter(clubAdapter = proflieList as ArrayList<ClubProfiles>,navigator = navigator)
+            list.adapter = ClubAdapter(clubAdapter = proflieList as ArrayList<ClubProfiles>,
+                viewModel = viewModel
+            )
         })
 
         return binding.root
