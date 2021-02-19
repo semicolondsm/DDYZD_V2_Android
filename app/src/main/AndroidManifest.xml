@@ -12,15 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DDYZD_Android"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ul.activity.ChattingPage"></activity>
+        <activity android:name=".ul.activity.ChattingPage"/>
         <activity android:name=".ul.activity.ChatList" />
-        <activity android:name=".ul.activity.LoginActivity" >
-        </activity>
+        <activity android:name=".ul.activity.LoginActivity" />
         <activity android:name=".ul.activity.ClubDetails" />
-        <activity android:name=".ul.activity.MainActivity">
+        <activity
+            android:name=".ul.activity.MainActivity"
+            android:theme="@style/splashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
