@@ -26,7 +26,7 @@ import com.semicolon.ddyzd_android.viewmodel.ClubListViewModel
 class ClubList(val navigator:MainActivity): Fragment() {
 
     lateinit var mContext: Context
-    private lateinit var binding : FragmentClublistBinding
+    lateinit var binding : FragmentClublistBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val viewModel = ClubListViewModel(navigator)
         mContext=navigator.applicationContext
