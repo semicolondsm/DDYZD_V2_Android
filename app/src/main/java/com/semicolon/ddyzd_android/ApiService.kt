@@ -8,7 +8,7 @@ import retrofit2.http.*
 
 interface ApiService {
     @GET("club/list")
-    fun clublist(): Single<Array<ClubData>>
+    fun clublist(): Single<Response<Array<ClubData>>>
 
     @GET("club/{club_id}/info")
     fun clubInfo(
@@ -35,7 +35,7 @@ interface ApiService {
     fun readFeed(
         @Header("Authorization")accessToken:String,
         @Query("page")page:String
-    ):Single<ArrayList<MainFeedData>>
+    ):Single<Response<ArrayList<MainFeedData>>>
 
     @PUT("feed/{feed_id}/flag")
     fun flagClicked(
