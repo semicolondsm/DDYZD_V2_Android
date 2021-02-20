@@ -10,12 +10,12 @@ import com.semicolon.ddyzd_android.model.MainFeedData
 import com.semicolon.ddyzd_android.viewmodel.ClubDetailsViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 
-class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,private val club:ClubProfiles,private val viewModel: ClubDetailsViewModel: ClubDetailsViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,private val club:ClubProfiles,private val viewModel: ClubDetailsViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val TYPE_HEADER=0
     private val TYPE_MEMBER=1
     private val TYPE_FEED=2
     private val TYPE_IMAGE_FEED=3
-    lateinit var pageAdapter:FeedPagerAdapter
+    lateinit var pageAdapter:ClubFeedPagerAdapter
 
     inner class HeaderDetailViewHolder(val binding: ItemClubDetailHeaderBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -41,10 +41,10 @@ class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,pr
         }
     }
 
-    inner class ClubImageFeedViewHolder(val binding: ItemImageFeedBinding) :
+    inner class ClubImageFeedViewHolder(val binding: ItemClubImageFeedBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int){
-            pageAdapter=FeedPagerAdapter(feeds.value?.get(position-1)!!.media,position-1,binding)
+            pageAdapter=ClubFeedPagerAdapter(feeds.value?.get(position-2)!!.media,position-1,binding)
             binding.vm = viewModel
             binding.position = position-2
             binding.executePendingBindings()
@@ -62,11 +62,11 @@ class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,pr
                 MembersDetailViewHolder(binding)
             }
             TYPE_IMAGE_FEED->{
-                val binding=ItemImageFeedBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+                val binding=ItemClubImageFeedBinding.inflate(LayoutInflater.from(parent.context),parent,false)
                 ClubImageFeedViewHolder(binding)
             }
             else->{
-                val binding=ItemFeedBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+                val binding=ItemClubFeedBinding.inflate(LayoutInflater.from(parent.context),parent,false)
                 ClubFeedViewHolder(binding)
             }
         }

@@ -26,7 +26,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
     val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
-            val manager = LinearLayoutManager::class.cast(recyclerView.layoutManager)
+            val manager = (recyclerView.layoutManager) as LinearLayoutManager
             val totalItem = manager.itemCount
             val lastVisible = manager.findLastCompletelyVisibleItemPosition()
             if (lastVisible >= totalItem - 1) {
@@ -75,7 +75,6 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun readFeeds() {
-        Log.d("불러옴","accessToken:$accessToken")
         adapter.readFeed("Bearer $accessToken",callApi.toString())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
