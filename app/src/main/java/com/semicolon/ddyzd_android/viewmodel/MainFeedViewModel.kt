@@ -31,23 +31,12 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
             val manager = LinearLayoutManager::class.cast(recyclerView.layoutManager)
             val totalItem = manager.itemCount
             val lastVisible = manager.findLastCompletelyVisibleItemPosition()
-            if (lastVisible >= totalItem - 2) {
+            if (lastVisible >= totalItem - 1) {
                 readFeeds()
             }
         }
     }
 
-    val detailScroll=object :RecyclerView.OnScrollListener(){
-        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            super.onScrolled(recyclerView, dx, dy)
-            val manager=LinearLayoutManager::class.cast(recyclerView.layoutManager)
-            val totalItem=manager.itemCount
-            val lastVisible=manager.findLastCompletelyVisibleItemPosition()
-            if(lastVisible>=totalItem-2){
-                readClubFeeds(clubId)
-            }
-        }
-    }
 
     fun onCreate() {
         callApi = 0
@@ -105,26 +94,6 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
             },{
             isEmpty.value=View.VISIBLE
                 navigator.showToast("인터넷 문제가 발생하였습니다")
-            })
-    }
-
-    @SuppressLint("CheckResult")
-    fun readClubFeeds(clubId:String){
-        adapter.readClubFeeds("Bearer $accessToken",callApi.toString())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe({ it ->
-                if(it.isSuccessful){
-                    isEmpty.value=View.INVISIBLE
-                    it.body()?.let { readFeed.addAll(it) }
-                    feeds.value=readFeed
-                    feedAdapter.notifyDataSetChanged()
-                    callApi+=1
-                }else{
-                    isEmpty.value=View.VISIBLE
-                }
-            },{
-                isEmpty.value=View.VISIBLE
             })
     }
 
