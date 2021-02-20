@@ -52,8 +52,11 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
+                Log.d("동아리",it.raw().toString())
+                Log.d("동아리",it.body().toString())
                 clubDetail.value = it.body()
             }, {
+                Log.d("동아리","에러남 $it")
                 navigator.showToast("인터넷 연결을 확인해주세요")
             })
     }
