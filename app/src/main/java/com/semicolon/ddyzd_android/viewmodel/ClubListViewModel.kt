@@ -1,5 +1,7 @@
 package com.semicolon.ddyzd_android.viewmodel
 
+import android.annotation.SuppressLint
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,22 +25,31 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
     private val adapter = BaseApi.getInstance() // api 연결시 사용
     var proflieList = mutableListOf<ClubProfiles>() // 리스트 뷰에 들어갈 항목
     val liveData1: MutableLiveData<String> = MutableLiveData() // 전공 분야 클릭시 바뀜
+
+    val isEmpty = MutableLiveData<Int>(View.INVISIBLE)
     var size: Int = 0 // 리스트의 갯수
     var sub: Int = 0 // 각 동아리의 전공 갯수
+    init {
+        readClubList()
+    }
+    @SuppressLint("CheckResult")
+    private fun readClubList(){
+        adapter.clublist()
+            .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                if (it.isSuccessful) {
+                    body = it.body()!!
+                    clubListSet(body)
+                } else {
+                    isEmpty.value = View.VISIBLE
+                }
 
-    val call = adapter.clublist()
-        .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
-        .subscribeOn(Schedulers.io())
-        .doOnError {
-            println("error")
-        }
-        .unsubscribeOn(Schedulers.io())
-        .subscribe { result ->
-            body = result
-            clubListSet(body).apply {
-                println(body)
-            }
-        }
+            }, {
+                isEmpty.value = View.VISIBLE
+            })
+    }
+
 
     fun clubListSet(body: Array<ClubData>) {
         size = body.size

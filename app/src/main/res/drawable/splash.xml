@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-        <item>
-            <bitmap
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@android:color/background_light" />
+    <item>
+        <bitmap
             android:gravity="center"
-            android:src="@drawable/ic_main_logo"/>
-            <bitmap
-                android:gravity="center"
-                android:src="@drawable/ic______"/>
-        </item>
-</selector>
+            android:src="@drawable/maintitle" />
+    </item>
+</layer-list>
