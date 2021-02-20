@@ -19,6 +19,14 @@ object ProfilePhotoBindingAdapter {
     fun loadSlideImage(imageView: ImageView,url: String){
         Glide.with(imageView.context)
             .load("https://api.eungyeol.live/file/$url")
-            .error(R.drawable.group).into(imageView)
+            .error(R.drawable.image).into(imageView)
+    }
+
+    @JvmStatic
+    @BindingAdapter("profileImage")
+    fun loadProfileImage(imageView:ImageView,url:String){
+        Glide.with(imageView.context)
+            .load(url)
+            .error(R.drawable.user).into(imageView)
     }
 }

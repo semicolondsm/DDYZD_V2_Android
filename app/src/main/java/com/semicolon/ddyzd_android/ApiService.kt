@@ -22,9 +22,9 @@ interface ApiService {
     ): Single<ClubRecruitData>
 
     @GET("club/{club_id}/member")
-    fun clubMenber(
+    fun clubMember(
             @Path("club_id") clubId: String
-    ): Single<ArrayList<ClubPersonData>>
+    ): Single<Response<ArrayList<MembersData>>>
 
     @GET("chat/list")
     fun chatList(
@@ -52,4 +52,10 @@ interface ApiService {
     fun readAccessToken(
         @Header("refresh-token")refreshToken:String
     ):Single<Response<AccessTokenData>>
+
+    @GET("feed/{club_id}/list")
+    fun readClubFeeds(
+        @Header("Authorization")accessToken: String,
+        @Query("page")page:String
+    ):Single<Response<ArrayList<MainFeedData>>>
 }

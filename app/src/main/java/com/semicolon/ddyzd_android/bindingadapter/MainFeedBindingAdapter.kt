@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.semicolon.ddyzd_android.R
+import com.semicolon.ddyzd_android.adapter.ClubDetailAdapter
 import com.semicolon.ddyzd_android.adapter.FeedPagerAdapter
 import com.semicolon.ddyzd_android.adapter.MainFeedAdapter
 import com.semicolon.ddyzd_android.bindingadapter.MainFeedBindingAdapter.onScrollListener
@@ -15,8 +16,8 @@ import java.util.*
 
 object MainFeedBindingAdapter {
     @JvmStatic
-    @BindingAdapter("verMainFeedAdapter")
-    fun mainFeedAdapter(recyclerView: RecyclerView,adapter:MainFeedAdapter){
+    @BindingAdapter("adapter")
+    fun mainFeedAdapter(recyclerView: RecyclerView,adapter:RecyclerView.Adapter<RecyclerView.ViewHolder>){
         val layoutManager=LinearLayoutManager(recyclerView.context)
         layoutManager.orientation=RecyclerView.VERTICAL
         recyclerView.layoutManager=layoutManager
@@ -44,13 +45,14 @@ object MainFeedBindingAdapter {
         }
     }
 
+
+
     @JvmStatic
     @BindingAdapter("showTimeAdapter")
     fun timeAdapter(textView: TextView,time:Date){
         val dateFormat=SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz",Locale.KOREA)
         val currentDateTime= System.currentTimeMillis()
         val date=Date(currentDateTime)
-
         val currentTime=dateFormat.format(date)
         val getTime=dateFormat.format(time)
         val longCurrentTime=dateFormat.parse(currentTime).time

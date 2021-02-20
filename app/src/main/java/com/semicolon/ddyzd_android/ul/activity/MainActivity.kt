@@ -11,9 +11,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.databinding.ActivityMainBinding
+import com.semicolon.ddyzd_android.model.ClubProfiles
 import com.semicolon.ddyzd_android.ul.fragment.ClubList
 import com.semicolon.ddyzd_android.ul.fragment.MainFeed
 import com.semicolon.ddyzd_android.ul.fragment.Fragment3
+import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -21,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var startShared: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
     val viewModel = MainViewModel(this)
+    val feedViewModel=MainFeedViewModel(this)
     var refreshToken = ""
 
     companion object {
@@ -40,12 +43,12 @@ class MainActivity : AppCompatActivity() {
         binding.vm = viewModel
         setContentView(binding.root)
         supportFragmentManager.beginTransaction()
-            .add(R.id.fragment, MainFeed(this)).commit()
+            .add(R.id.fragment, MainFeed(feedViewModel)).commit()
         binding.bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_home -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment, MainFeed(this)).commit()
+                        .replace(R.id.fragment, MainFeed(feedViewModel)).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
 
@@ -67,7 +70,7 @@ class MainActivity : AppCompatActivity() {
 
     fun reLoadFeeds(){
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment, MainFeed(this)).commit()
+            .replace(R.id.fragment, MainFeed(feedViewModel)).commit()
     }
 
     private fun observeAccessToken() {
@@ -94,8 +97,8 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun changeActivity() {
-        val intent = Intent(this, ClubDetails::class.java)
+    fun startClubDetail(club:ClubProfiles) {
+        val intent = Intent(this, ClubDetails(club,feedViewModel)::class.java)
         startActivity(intent)
     }
 
