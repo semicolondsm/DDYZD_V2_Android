@@ -1,5 +1,6 @@
 package com.semicolon.ddyzd_android.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
