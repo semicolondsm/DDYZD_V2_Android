@@ -39,6 +39,7 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
             .subscribeOn(Schedulers.io())
             .subscribe({
                 if (it.isSuccessful) {
+                    isEmpty.value = View.INVISIBLE
                     body = it.body()!!
                     clubListSet(body)
                 } else {
