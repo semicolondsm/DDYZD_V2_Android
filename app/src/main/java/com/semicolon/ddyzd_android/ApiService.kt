@@ -58,4 +58,10 @@ interface ApiService {
         @Header("Authorization")accessToken: String,
         @Query("page")page:String
     ):Single<Response<ArrayList<MainFeedData>>>
+
+    @GET("club/{club_id}/info")
+    fun readClubInfo(
+        @Header("Authorization")accessToken: String,
+        @Path("club_id")club_id:String
+    ):Single<Response<ClubInDetailData>>
 }

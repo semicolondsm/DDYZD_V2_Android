@@ -97,11 +97,7 @@ class MainActivity : AppCompatActivity() {
 
     fun startClubDetail(club: ClubProfiles) {
         val intent = Intent(this, ClubDetails::class.java)
-        intent.putExtra("image",club.image)
-        intent.putExtra("name",club.name)
-        intent.putExtra("example",club.example)
         intent.putExtra("club_id",club.club_id)
-        intent.putExtra("back",club.backImage)
         startActivity(intent)
     }
 

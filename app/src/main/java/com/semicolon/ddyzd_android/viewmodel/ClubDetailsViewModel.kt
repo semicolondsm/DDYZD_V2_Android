@@ -10,22 +10,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.adapter.ClubDetailAdapter
 import com.semicolon.ddyzd_android.adapter.ClubMemberAdapter
-import com.semicolon.ddyzd_android.model.ClubProfiles
-import com.semicolon.ddyzd_android.model.MainFeedData
-import com.semicolon.ddyzd_android.model.MembersData
-import com.semicolon.ddyzd_android.model.Sub
+import com.semicolon.ddyzd_android.model.*
 import com.semicolon.ddyzd_android.ul.activity.ClubDetails
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class ClubDetailsViewModel(val club:ClubProfiles,val navigator:ClubDetails):ViewModel() {
+class ClubDetailsViewModel(val club:String,val navigator:ClubDetails):ViewModel() {
+    val clubDetail=MutableLiveData<ClubInDetailData>()
     private val readMembers=ArrayList<MembersData>()
     val readFeeds=ArrayList<MainFeedData>()
     val feeds=MutableLiveData<List<MainFeedData>>()
     val members=MutableLiveData<List<MembersData>>()
     val memberAdapter: ClubMemberAdapter= ClubMemberAdapter(members,this)
-    val detailAdapter=ClubDetailAdapter(feeds,club,this)
+    val detailAdapter=ClubDetailAdapter(feeds,this)
     var callApi = 0
     val isEmpty=MutableLiveData<Int>(View.INVISIBLE)
 
@@ -45,9 +43,22 @@ class ClubDetailsViewModel(val club:ClubProfiles,val navigator:ClubDetails):View
         callApi=0
         readMembers()
     }
+
+    @SuppressLint("CheckResult")
+    private fun readClubInfo(){
+        adapter.readClubInfo("Bearer ${MainActivity.accessToken}",club)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+
+            },{
+
+            })
+    }
+
     @SuppressLint("CheckResult")
     private fun readMembers(){
-        adapter.clubMember(club.club_id)
+        adapter.clubMember(club)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
@@ -64,7 +75,7 @@ class ClubDetailsViewModel(val club:ClubProfiles,val navigator:ClubDetails):View
 
     @SuppressLint("CheckResult")
     private fun readFeeds(){
-        adapter.readClubFeeds("Bearer ${MainActivity.accessToken}",club.club_id)
+        adapter.readClubFeeds("Bearer ${MainActivity.accessToken}",club)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ it ->

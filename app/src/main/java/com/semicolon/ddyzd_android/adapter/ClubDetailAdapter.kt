@@ -10,7 +10,7 @@ import com.semicolon.ddyzd_android.model.MainFeedData
 import com.semicolon.ddyzd_android.viewmodel.ClubDetailsViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 
-class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,private val club:ClubProfiles,private val viewModel: ClubDetailsViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,private val viewModel: ClubDetailsViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val TYPE_HEADER=0
     private val TYPE_MEMBER=1
     private val TYPE_FEED=2
@@ -19,8 +19,8 @@ class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,pr
 
     inner class HeaderDetailViewHolder(val binding: ItemClubDetailHeaderBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(club:ClubProfiles){
-            binding.club=club
+        fun bind(){
+            binding.vm=viewModel
             binding.executePendingBindings()
         }
     }
@@ -82,7 +82,7 @@ class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,pr
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if(position==0){
-            (holder as HeaderDetailViewHolder).bind(club)
+            (holder as HeaderDetailViewHolder).bind()
         }
         else if(position==1){
             (holder as MembersDetailViewHolder).bind()
