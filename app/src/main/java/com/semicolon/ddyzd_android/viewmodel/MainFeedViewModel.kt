@@ -2,6 +2,7 @@ package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +23,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
     val feedAdapter = MainFeedAdapter(feeds, this)
     var callApi = 0
     val adapter = BaseApi.getInstance()
+    val isEmpty=MutableLiveData<Int>(View.INVISIBLE)
 
     val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -80,13 +82,16 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
             .subscribeOn(Schedulers.io())
             .subscribe({response->
                 if(response.isSuccessful){
+                    isEmpty.value=View.INVISIBLE
                     response.body()?.let { readFeed.addAll(it) }
                     feeds.value = readFeed
                     feedAdapter.notifyDataSetChanged()
                     callApi += 1
+                }else{
+                    isEmpty.value=View.VISIBLE
                 }
             },{
-                throwable->
+            isEmpty.value=View.VISIBLE
                 navigator.showToast("인터넷 문제가 발생하였습니다")
             })
     }

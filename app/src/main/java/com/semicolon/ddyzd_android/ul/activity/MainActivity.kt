@@ -72,7 +72,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeAccessToken() {
         viewModel.accessToken.observe(this, Observer {
-            Log.d("토큰", it)
             accessToken = it
         })
     }
@@ -86,16 +85,11 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == LOGIN_REQUEST_CODE) {
             if (data != null) {
                 viewModel.accessToken.value = data.getStringExtra("get_access_token").toString()
-                refreshToken = data.getStringExtra("get_refresh_token").toString()
                 Log.d("토큰","결국받은코드:$refreshToken")
                 editor.putString("get_refresh_token", refreshToken)
                 editor.apply()
                 reLoadFeeds()
             }
-            else {
-                Log.d("토큰", "null로 결국 받았네")
-            }
-
         }
     }
 

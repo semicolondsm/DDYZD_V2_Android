@@ -5,5 +5,5 @@ data class ChatListData(
     val clubid: String,
     val clubname: String,
     val clubimage: String,
-    //val lastdata : String,
+    val lastdate : String,
     val lastmessage: String)
