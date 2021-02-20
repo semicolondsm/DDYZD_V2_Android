@@ -35,7 +35,7 @@ interface ApiService {
     fun readFeed(
         @Header("Authorization")accessToken:String,
         @Query("page")page:String
-    ):Single<ArrayList<MainFeedData>>
+    ):Single<Response<ArrayList<MainFeedData>>>
 
     @PUT("feed/{feed_id}/flag")
     fun flagClicked(
