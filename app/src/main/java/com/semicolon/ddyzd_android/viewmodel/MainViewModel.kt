@@ -10,6 +10,7 @@ import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import io.socket.client.Socket
 
 class MainViewModel(val navigator:MainActivity) :ViewModel(){
     val adapter = BaseApi.getInstance()

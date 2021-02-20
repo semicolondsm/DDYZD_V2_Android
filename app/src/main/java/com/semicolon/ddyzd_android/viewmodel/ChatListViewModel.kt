@@ -11,16 +11,33 @@ import com.semicolon.ddyzd_android.ul.activity.MainActivity.Companion.accessToke
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import io.socket.client.IO
+import io.socket.client.Socket
+import java.net.URISyntaxException
 
 class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     private val apiAdapter = BaseApi.getInstance()
     private var readChatList = mutableListOf<ChatListData>()
     val list = MutableLiveData<List<ChatListData>>()
     val clubListAdapter = ChatListAdapter(list,this)
-
+    private lateinit var socket : Socket
     init{
         callChatList(navigater)
     }
+    fun onCreate(){
+        try {
+            socket = IO.socket("https://api.eungyeol.live/chat")
+            socket.connect()
+            socket.on(Socket.EVENT_CONNECT){
+                println("성공")
+            }.on(Socket.EVENT_CONNECT_ERROR){
+                println("실패;;")
+            }
+        }catch (e : URISyntaxException){
+            println(e.reason)
+        }
+    }
+
 
     @SuppressLint("CheckResult")
     fun callChatList(navigater: ChatList) {
