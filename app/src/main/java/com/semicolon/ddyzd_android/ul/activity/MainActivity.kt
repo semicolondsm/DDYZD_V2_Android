@@ -11,6 +11,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.databinding.ActivityMainBinding
+import com.semicolon.ddyzd_android.model.ClubDetailData
+import com.semicolon.ddyzd_android.model.ClubProfiles
 import com.semicolon.ddyzd_android.ul.fragment.ClubList
 import com.semicolon.ddyzd_android.ul.fragment.MainFeed
 import com.semicolon.ddyzd_android.ul.fragment.Fragment3
@@ -94,8 +96,8 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun changeActivity() {
-        val intent = Intent(this, ClubDetails::class.java)
+    fun startClubDetail(club:ClubProfiles) {
+        val intent = Intent(this, ClubDetails(club)::class.java)
         startActivity(intent)
     }
 
