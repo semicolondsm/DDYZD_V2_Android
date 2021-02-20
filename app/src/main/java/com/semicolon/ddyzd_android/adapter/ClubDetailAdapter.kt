@@ -10,7 +10,7 @@ import com.semicolon.ddyzd_android.model.MainFeedData
 import com.semicolon.ddyzd_android.viewmodel.ClubDetailsViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 
-class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,private val club:ClubProfiles,private val feedViewModel: MainFeedViewModel,private val clubDetailsViewModel: ClubDetailsViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,private val club:ClubProfiles,private val viewModel: ClubDetailsViewModel: ClubDetailsViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val TYPE_HEADER=0
     private val TYPE_MEMBER=1
     private val TYPE_FEED=2
@@ -28,14 +28,14 @@ class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,pr
     inner class MembersDetailViewHolder(val binding: ItemMemberListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(){
-            binding.vm=clubDetailsViewModel
+            binding.vm=viewModel
         }
     }
 
-    inner class ClubFeedViewHolder(val binding: ItemFeedBinding) :
+    inner class ClubFeedViewHolder(val binding: ItemClubFeedBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int){
-            binding.vm=feedViewModel
+            binding.vm=viewModel
             binding.position = position-2
             binding.executePendingBindings()
         }
@@ -44,8 +44,8 @@ class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,pr
     inner class ClubImageFeedViewHolder(val binding: ItemImageFeedBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int){
-            pageAdapter=FeedPagerAdapter(feeds.value?.get(position-1)!!.media,feedViewModel,position-1,binding)
-            binding.vm = feedViewModel
+            pageAdapter=FeedPagerAdapter(feeds.value?.get(position-1)!!.media,position-1,binding)
+            binding.vm = viewModel
             binding.position = position-2
             binding.executePendingBindings()
         }

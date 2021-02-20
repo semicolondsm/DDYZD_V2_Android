@@ -5,9 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.databinding.ActivityMainBinding
@@ -27,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     var refreshToken = ""
 
     companion object {
+
         var accessToken = ""  //access token 쓸때 이거 쓰세요(MainActivity.accessToken)
     }
 
@@ -88,7 +87,6 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == LOGIN_REQUEST_CODE) {
             if (data != null) {
                 viewModel.accessToken.value = data.getStringExtra("get_access_token").toString()
-                Log.d("토큰", "결국받은코드:$refreshToken")
                 editor.putString("get_refresh_token", refreshToken)
                 editor.apply()
                 reLoadFeeds()
@@ -98,7 +96,7 @@ class MainActivity : AppCompatActivity() {
 
 
     fun startClubDetail(club: ClubProfiles) {
-        val intent = Intent(this, ClubDetails(club, feedViewModel)::class.java)
+        val intent = Intent(this, ClubDetails(club)::class.java)
         startActivity(intent)
     }
 

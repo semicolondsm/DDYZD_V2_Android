@@ -14,10 +14,8 @@ import com.semicolon.ddyzd_android.ul.activity.MainActivity
 import com.semicolon.ddyzd_android.ul.activity.MainActivity.Companion.accessToken
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlin.reflect.cast
 
 class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
-    lateinit var clubId:String
     var readFeed = ArrayList<MainFeedData>()
     val feeds = MutableLiveData<List<MainFeedData>>()
     val feedAdapter = MainFeedAdapter(feeds, this)

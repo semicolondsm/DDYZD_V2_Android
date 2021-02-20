@@ -8,12 +8,11 @@ import com.semicolon.ddyzd_android.model.ClubProfiles
 import com.semicolon.ddyzd_android.viewmodel.ClubDetailsViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 
-class ClubDetails(private val club:ClubProfiles,private val feedViewModel: MainFeedViewModel) : AppCompatActivity() {
+class ClubDetails(private val club:ClubProfiles) : AppCompatActivity() {
     lateinit var binding : ActivityClubDetailsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("요까지는","요")
-        val viewModel= ClubDetailsViewModel(club,feedViewModel)
+        val viewModel= ClubDetailsViewModel(club)
         binding  = ActivityClubDetailsBinding.inflate(layoutInflater)
         binding.vm = viewModel
         binding.lifecycleOwner=this
