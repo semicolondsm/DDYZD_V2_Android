@@ -21,7 +21,6 @@ class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,pr
         RecyclerView.ViewHolder(binding.root) {
         fun bind(){
             binding.vm=viewModel
-            binding.executePendingBindings()
         }
     }
 
