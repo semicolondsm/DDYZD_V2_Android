@@ -95,6 +95,23 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
             })
     }
 
+    @SuppressLint("CheckResult")
+    fun readClubFeeds(clubId:String){
+        adapter.readClubFeeds("Bearer $accessToken",callApi.toString())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({ it ->
+                if(it.isSuccessful){
+                    it.body()?.let { readFeed.addAll(it) }
+                    feeds.value=readFeed
+                    callApi+=1
+                }
+            },{
+
+            })
+    }
+
+
     fun onChattingClicked() {
         navigator.startChatting()
     }

@@ -67,7 +67,7 @@ class MainFeedAdapter(private val feeds: MutableLiveData<List<MainFeedData>>, pr
 
     override fun getItemCount(): Int {
         return if (feeds.value != null) {
-            feeds.value!!.size
+            feeds.value!!.size+1
         } else {
             1
         }
