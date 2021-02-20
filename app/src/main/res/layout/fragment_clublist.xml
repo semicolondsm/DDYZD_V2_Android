@@ -66,5 +66,16 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/club_tab_layout" />
+
+        <TextView
+            android:id="@+id/is_empty_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{frag1.isEmpty}"
+            android:text="읽어온 동아리가 없습니다"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/club_tab_layout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
