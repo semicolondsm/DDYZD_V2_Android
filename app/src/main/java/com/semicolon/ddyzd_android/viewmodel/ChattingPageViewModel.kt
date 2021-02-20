@@ -1,4 +1,6 @@
 package com.semicolon.ddyzd_android.viewmodel
 
-class ChattingPageViewModel {
+import androidx.lifecycle.ViewModel
+
+class ChattingPageViewModel : ViewModel() {
 }
