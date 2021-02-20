@@ -1,24 +1,9 @@
 package com.semicolon.ddyzd_android.viewmodel
 
-import android.util.Log
-import com.semicolon.ddyzd_android.ApiService
 import com.semicolon.ddyzd_android.BaseApi
-import com.semicolon.ddyzd_android.adapter.ClubAdapter
-import com.semicolon.ddyzd_android.model.ClubRecruitData
 import com.semicolon.ddyzd_android.model.Sub
-import com.semicolon.ddyzd_android.ul.activity.ClubDetails
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
-import java.io.FileDescriptor
-import java.util.concurrent.TimeUnit
-
 
 class ClubDetailsViewModel {
     private var club_id = BaseApi.club_id // 선택한 동아리 번호

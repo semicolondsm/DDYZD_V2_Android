@@ -1,5 +1,6 @@
 package com.semicolon.ddyzd_android.adapter
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
@@ -7,37 +8,60 @@ import com.semicolon.ddyzd_android.databinding.ItemClubDetailHeaderBinding
 import com.semicolon.ddyzd_android.databinding.ItemClubDetailMembersBinding
 import com.semicolon.ddyzd_android.databinding.ItemFeedBinding
 import com.semicolon.ddyzd_android.databinding.ItemImageFeedBinding
+import com.semicolon.ddyzd_android.model.ClubProfiles
 import com.semicolon.ddyzd_android.model.MainFeedData
 
-class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,private val club:ClubProfiles) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val TYPE_HEADER=0
     private val TYPE_MEMBER=1
     private val TYPE_FEED=2
     private val TYPE_IMAGE_FEED=3
     inner class HeaderDetailViewHolder(val binding: ItemClubDetailHeaderBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
+        fun bind(club:ClubProfiles){
+            binding.club=club
+            binding.executePendingBindings()
+        }
     }
 
     inner class MembersDetailViewHolder(val binding: ItemClubDetailMembersBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        fun bind(){
 
+        }
     }
 
     inner class ClubFeedViewHolder(val binding: ItemFeedBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        fun bind(){
 
+        }
     }
 
     inner class ClubImageFeedViewHolder(val binding: ItemImageFeedBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        fun bind(){
 
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        when(viewType){
+        return when(viewType){
             TYPE_HEADER->{
-                
+                val binding=ItemClubDetailHeaderBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+                HeaderDetailViewHolder(binding)
+            }
+            TYPE_MEMBER->{
+                val binding=ItemClubDetailMembersBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+                MembersDetailViewHolder(binding)
+            }
+            TYPE_IMAGE_FEED->{
+                val binding=ItemImageFeedBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+                ClubImageFeedViewHolder(binding)
+            }
+            else->{
+                val binding=ItemFeedBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+                ClubFeedViewHolder(binding)
             }
         }
     }
@@ -51,7 +75,23 @@ class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        if(position==0){
+            (holder as HeaderDetailViewHolder).bind(club)
+        }
+        else if(position==1){
+            (holder as MembersDetailViewHolder).bind()
+        }
+        else{
+            val obj = feeds.value?.get(position-2)
+            if(obj!=null){
+                if (obj.media.size>0) {
+                    (holder as ClubFeedViewHolder).bind()
+                } else {
+                    (holder as ClubImageFeedViewHolder).bind()
+                }
+            }
+        }
+
     }
 
     override fun getItemViewType(position: Int): Int {
