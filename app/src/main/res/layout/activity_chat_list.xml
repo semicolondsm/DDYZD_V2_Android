@@ -6,7 +6,6 @@
             name="vm"
             type="com.semicolon.ddyzd_android.viewmodel.ChatListViewModel" />
     </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -30,14 +29,12 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:verChatListAdapter ="@{vm.clubListAdapter}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
             android:layout_marginTop="20dp"/>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 </layout>

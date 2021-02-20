@@ -32,9 +32,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initSharedPreference()
         readAutoLogin()
+        viewModel.onCreate(refreshToken)
         val binding: ActivityMainBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_main)
-        viewModel.onCreate(refreshToken)
+
         observeAccessToken()
         binding.vm = viewModel
         setContentView(binding.root)

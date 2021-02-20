@@ -11,6 +11,7 @@ import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import io.socket.client.Socket
 
 class MainViewModel(val navigator:MainActivity) :ViewModel(){
     val adapter = BaseApi.getInstance()
@@ -27,7 +28,7 @@ class MainViewModel(val navigator:MainActivity) :ViewModel(){
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
-                Log.d("토큰","자동로그인:${it.raw().toString()}")
+                Log.d("토큰","자동로그인:${it.raw()}")
                 if(it.isSuccessful){
                     accessToken.value=it.body()!!.accessToken
                     navigator.reLoadFeeds()

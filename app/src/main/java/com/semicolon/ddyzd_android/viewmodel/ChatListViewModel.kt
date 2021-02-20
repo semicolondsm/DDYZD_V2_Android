@@ -1,107 +1,65 @@
 package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.semicolon.ddyzd_android.BaseApi
-import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.adapter.ChatListAdapter
 import com.semicolon.ddyzd_android.model.ChatListData
 import com.semicolon.ddyzd_android.ul.activity.ChatList
-import com.semicolon.ddyzd_android.ul.activity.LoginActivity
-import com.semicolon.ddyzd_android.ul.activity.MainActivity
-import com.semicolon.dsm_sdk_v1.DsmSdk.Companion.instance
+import com.semicolon.ddyzd_android.ul.activity.MainActivity.Companion.accessToken
+
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import retrofit2.HttpException
+import io.socket.client.IO
+import io.socket.client.Socket
+import java.net.URISyntaxException
 
-class ChatListViewModel(navigater : ChatList) : ViewModel(){
-    val list: RecyclerView = navigater.findViewById(R.id.chatRecyclerView)
-    private val apiAdapter  = BaseApi.getInstance()
-
-    var clubImage = mutableListOf<Int>() // 동아리 이미지
-    var clubName = mutableListOf<String>() // 동아리 이름
-    var lastMessage = mutableListOf<String>() // 마지막 글
-    var lastDate = mutableListOf<String>() // 마지막 글 시간
-    var roomId = mutableListOf<String>()
-    var clubId = mutableListOf<String>()
-    val CODE = 1
-
-    var size : Int = 0
-    var chatList = mutableListOf<ChatListData>()
-    val accessToken = navigater.accessToken
-    val refreshToken = navigater.refreshToken
-
-    //val a = println("${accessToken},${refreshToken}")
-
-    lateinit var chatListBody : ArrayList<ChatListData>
-
-    /*val a = println(refreshToken)
-    val callInfo = apiAdapter.chatList(refreshToken)
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribeOn(Schedulers.io())
-        .doOnError {
-            val ERROR_MESSAGE = it.message
-            println("$ERROR_MESSAGE")
-            if(ERROR_MESSAGE?.contains("401") == true){
-
+class ChatListViewModel(val navigater: ChatList) : ViewModel() {
+    private val apiAdapter = BaseApi.getInstance()
+    private var readChatList = mutableListOf<ChatListData>()
+    val list = MutableLiveData<List<ChatListData>>()
+    val clubListAdapter = ChatListAdapter(list,this)
+    private lateinit var socket : Socket
+    init{
+        callChatList(navigater)
+    }
+    fun onCreate(){
+        /*try {
+            socket = IO.socket("https://api.eungyeol.live/chat")
+            socket.connect()
+            socket.on(Socket.EVENT_CONNECT){
+                println("성공")
+            }.on(Socket.EVENT_CONNECT_ERROR){
+                println("실패;;")
             }
-            println("error")
-
-        }
-        .unsubscribeOn(Schedulers.io())
-        .subscribe { result ->
-            chatListBody = result
-            //inputList(chatListBody)
-
-
+        }catch (e : URISyntaxException){
+            println(e.reason)
         }*/
-    val a = callChatList(navigater,accessToken)
-
-     @SuppressLint("CheckResult")
-     fun callChatList(navigater: ChatList, accessToken : String){
+    }
 
 
-
-        apiAdapter.chatList("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjF9.q0xFOcoDPBJlX-mO0WkxqKUFLUmr9v_JG_oJqiS95ss")
+    @SuppressLint("CheckResult")
+    fun callChatList(navigater: ChatList) {
+        apiAdapter.chatList("Bearer $accessToken")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {response ->
-                    if(response.isSuccessful){
-                        println("가나다")
+            .subscribe({
+                    response ->
+                    if (response.isSuccessful) {
+                        response.body()?.let { readChatList.addAll(it) }
+                        list.value = readChatList
+                        clubListAdapter.notifyDataSetChanged()
+                    } else {
+                        navigater.startLogin()
+                        navigater.finish()
                     }
-                    else{
-                        navigater.inentLoginActivity(CODE)
-                        println("${response.message()} hj")
-                    }
-                },{throwable->
+                }, { throwable ->
                     println("${throwable.message}")
                 }
             )
     }
-
-
-    fun inputList(chatListBody : ArrayList<ChatListData>){
-        size = chatListBody.size
-        for (i in 0 until size){
-            clubImage.add(chatListBody[i].clubImage)
-            clubName.add(chatListBody[i].clubName)
-            lastMessage.add(chatListBody[i].lastMessage)
-            //lastDate.add(chatListBody[i].lastDate)
-            roomId.add(chatListBody[i].roomid)
-            clubId.add(chatListBody[i].clubid)
-
-            chatList.add(
-                ChatListData(
-                    roomid = roomId[i], clubid = clubId[i], clubName = clubName[i], clubImage = clubImage[i]  , lastdata = lastDate[i],
-                    lastMessage = lastMessage[i])
-            )
-            list?.setHasFixedSize(true)
-            list?.layoutManager = LinearLayoutManager(ChatList().application, LinearLayoutManager.VERTICAL, false)
-            list?.adapter = ChatListAdapter(chatList as ArrayList<ChatListData>,navigator = MainActivity())
-        }
+    fun goChatting(data : ChatListData){
+        navigater.startChating(data)
     }
-
 }

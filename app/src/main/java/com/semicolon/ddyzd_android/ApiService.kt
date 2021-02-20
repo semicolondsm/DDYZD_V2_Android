@@ -26,9 +26,9 @@ interface ApiService {
             @Path("club_id") clubId: String
     ): Single<ArrayList<ClubPersonData>>
 
-    @GET("chat//list")
+    @GET("chat/list")
     fun chatList(
-        @Header("access-token") access_token : String
+        @Header("Authorization") access_token : String
     ): Single<Response<ArrayList<ChatListData>>>
 
     @GET("feed/list")
