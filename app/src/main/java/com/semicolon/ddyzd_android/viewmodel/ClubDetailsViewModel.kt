@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.adapter.ClubDetailAdapter
+import com.semicolon.ddyzd_android.adapter.ClubMemberAdapter
 import com.semicolon.ddyzd_android.model.ClubProfiles
 import com.semicolon.ddyzd_android.model.MembersData
 import com.semicolon.ddyzd_android.model.Sub
@@ -14,12 +15,14 @@ import io.reactivex.schedulers.Schedulers
 
 class ClubDetailsViewModel(val club:ClubProfiles,feedViewModel: MainFeedViewModel):ViewModel() {
     private val readMembers=ArrayList<MembersData>()
-    val detailAdapter=ClubDetailAdapter(feedViewModel.feeds,club,feedViewModel)
-    val isEmpty=MutableLiveData<Int>(View.INVISIBLE)
     val members=MutableLiveData<List<MembersData>>()
-    val adapter = BaseApi.getInstance()
+    val memberAdapter: ClubMemberAdapter= ClubMemberAdapter(members,this)
+    val detailAdapter=ClubDetailAdapter(feedViewModel.feeds,club,feedViewModel,this)
+    private val isEmpty=MutableLiveData<Int>(View.INVISIBLE)
 
+    val adapter = BaseApi.getInstance()
     init{
+        feedViewModel.onCreate()
         readMembers()
     }
     @SuppressLint("CheckResult")
@@ -33,7 +36,10 @@ class ClubDetailsViewModel(val club:ClubProfiles,feedViewModel: MainFeedViewMode
                     it.body()?.let { it1 -> readMembers.addAll(it1) }
                     members.value=readMembers
                 }
-            },{})
+                memberAdapter.notifyDataSetChanged()
+            },{
+                memberAdapter.notifyDataSetChanged()
+            })
     }
 }
 

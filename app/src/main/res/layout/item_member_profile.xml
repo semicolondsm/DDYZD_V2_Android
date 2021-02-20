@@ -39,8 +39,8 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:gravity="center"
+        android:visibility="invisible"
         android:textColor="@color/design_default_color_primary"
-        android:visibility=""
         tools:text="동아리장" />
 </LinearLayout>
 </layout>

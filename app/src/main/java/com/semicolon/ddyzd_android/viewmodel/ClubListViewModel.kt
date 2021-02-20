@@ -40,8 +40,14 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
             .subscribe({
                 if (it.isSuccessful) {
                     isEmpty.value = View.INVISIBLE
-                    body = it.body()!!
-                    clubListSet(body)
+                    if(it.body()!=null){
+                        isEmpty.value = View.INVISIBLE
+                        body = it.body()!!
+                        clubListSet(body)
+                    }else{
+                        isEmpty.value = View.VISIBLE
+                    }
+
                 } else {
                     isEmpty.value = View.VISIBLE
                 }
@@ -52,7 +58,7 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
     }
 
 
-    fun clubListSet(body: Array<ClubData>) {
+    private fun clubListSet(body: Array<ClubData>) {
         size = body.size
         for (i in 0 until size) {
             clubimage.add(body[i].clubimage)

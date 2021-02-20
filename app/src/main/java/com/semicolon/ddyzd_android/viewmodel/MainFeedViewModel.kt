@@ -118,6 +118,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
                     isEmpty.value=View.INVISIBLE
                     it.body()?.let { readFeed.addAll(it) }
                     feeds.value=readFeed
+                    feedAdapter.notifyDataSetChanged()
                     callApi+=1
                 }else{
                     isEmpty.value=View.VISIBLE

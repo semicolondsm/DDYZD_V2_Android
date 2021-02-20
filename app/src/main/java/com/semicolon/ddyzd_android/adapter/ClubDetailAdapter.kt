@@ -4,15 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.semicolon.ddyzd_android.databinding.ItemClubDetailHeaderBinding
-import com.semicolon.ddyzd_android.databinding.ItemClubDetailMembersBinding
-import com.semicolon.ddyzd_android.databinding.ItemFeedBinding
-import com.semicolon.ddyzd_android.databinding.ItemImageFeedBinding
+import com.semicolon.ddyzd_android.databinding.*
 import com.semicolon.ddyzd_android.model.ClubProfiles
 import com.semicolon.ddyzd_android.model.MainFeedData
+import com.semicolon.ddyzd_android.viewmodel.ClubDetailsViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 
-class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,private val club:ClubProfiles,private val feedViewModel: MainFeedViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,private val club:ClubProfiles,private val feedViewModel: MainFeedViewModel,private val clubDetailsViewModel: ClubDetailsViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val TYPE_HEADER=0
     private val TYPE_MEMBER=1
     private val TYPE_FEED=2
@@ -27,10 +25,10 @@ class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,pr
         }
     }
 
-    inner class MembersDetailViewHolder(val binding: ItemClubDetailMembersBinding) :
+    inner class MembersDetailViewHolder(val binding: ItemMemberListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(){
-
+            binding.vm=clubDetailsViewModel
         }
     }
 
@@ -60,7 +58,7 @@ class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,pr
                 HeaderDetailViewHolder(binding)
             }
             TYPE_MEMBER->{
-                val binding=ItemClubDetailMembersBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+                val binding=ItemMemberListBinding.inflate(LayoutInflater.from(parent.context),parent,false)
                 MembersDetailViewHolder(binding)
             }
             TYPE_IMAGE_FEED->{
