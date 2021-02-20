@@ -10,12 +10,15 @@ import com.semicolon.ddyzd_android.databinding.ItemFeedBinding
 import com.semicolon.ddyzd_android.databinding.ItemImageFeedBinding
 import com.semicolon.ddyzd_android.model.ClubProfiles
 import com.semicolon.ddyzd_android.model.MainFeedData
+import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 
-class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,private val club:ClubProfiles) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,private val club:ClubProfiles,private val feedViewModel: MainFeedViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val TYPE_HEADER=0
     private val TYPE_MEMBER=1
     private val TYPE_FEED=2
     private val TYPE_IMAGE_FEED=3
+    lateinit var pageAdapter:FeedPagerAdapter
+
     inner class HeaderDetailViewHolder(val binding: ItemClubDetailHeaderBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(club:ClubProfiles){
@@ -33,15 +36,20 @@ class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,pr
 
     inner class ClubFeedViewHolder(val binding: ItemFeedBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(){
-
+        fun bind(position: Int){
+            binding.vm=feedViewModel
+            binding.position = position-2
+            binding.executePendingBindings()
         }
     }
 
     inner class ClubImageFeedViewHolder(val binding: ItemImageFeedBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(){
-
+        fun bind(position: Int){
+            pageAdapter=FeedPagerAdapter(feeds.value?.get(position-1)!!.media,feedViewModel,position-1,binding)
+            binding.vm = feedViewModel
+            binding.position = position-2
+            binding.executePendingBindings()
         }
     }
 
@@ -85,9 +93,9 @@ class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,pr
             val obj = feeds.value?.get(position-2)
             if(obj!=null){
                 if (obj.media.size>0) {
-                    (holder as ClubFeedViewHolder).bind()
+                    (holder as ClubFeedViewHolder).bind(position)
                 } else {
-                    (holder as ClubImageFeedViewHolder).bind()
+                    (holder as ClubImageFeedViewHolder).bind(position)
                 }
             }
         }

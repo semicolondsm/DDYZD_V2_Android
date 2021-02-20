@@ -6,6 +6,9 @@
         <variable
             name="vm"
             type="com.semicolon.ddyzd_android.viewmodel.ClubDetailsViewModel" />
+        <variable
+            name="feedVm"
+            type="com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,6 +20,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#F8F8F8"
+            app:onScrollListener="@{feedVm.detailScroll}"
+            app:adapter="@{vm.detailAdapter}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

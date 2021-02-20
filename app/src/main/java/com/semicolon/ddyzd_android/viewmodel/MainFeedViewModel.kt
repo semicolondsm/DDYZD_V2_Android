@@ -17,6 +17,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlin.reflect.cast
 
 class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
+    lateinit var clubId:String
     var readFeed = ArrayList<MainFeedData>()
     val feeds = MutableLiveData<List<MainFeedData>>()
     val feedAdapter = MainFeedAdapter(feeds, this)
@@ -30,8 +31,20 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
             val manager = LinearLayoutManager::class.cast(recyclerView.layoutManager)
             val totalItem = manager.itemCount
             val lastVisible = manager.findLastCompletelyVisibleItemPosition()
-            if (lastVisible >= totalItem - 1) {
+            if (lastVisible >= totalItem - 2) {
                 readFeeds()
+            }
+        }
+    }
+
+    val detailScroll=object :RecyclerView.OnScrollListener(){
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            val manager=LinearLayoutManager::class.cast(recyclerView.layoutManager)
+            val totalItem=manager.itemCount
+            val lastVisible=manager.findLastCompletelyVisibleItemPosition()
+            if(lastVisible>=totalItem-2){
+                readClubFeeds(clubId)
             }
         }
     }
@@ -102,15 +115,17 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
             .subscribeOn(Schedulers.io())
             .subscribe({ it ->
                 if(it.isSuccessful){
+                    isEmpty.value=View.INVISIBLE
                     it.body()?.let { readFeed.addAll(it) }
                     feeds.value=readFeed
                     callApi+=1
+                }else{
+                    isEmpty.value=View.VISIBLE
                 }
             },{
-
+                isEmpty.value=View.VISIBLE
             })
     }
-
 
     fun onChattingClicked() {
         navigator.startChatting()

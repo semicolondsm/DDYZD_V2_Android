@@ -1,12 +1,9 @@
 package com.semicolon.ddyzd_android.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.webkit.WebSettings
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.tabs.TabLayoutMediator
 import com.semicolon.ddyzd_android.databinding.ItemFeedBinding
 import com.semicolon.ddyzd_android.databinding.ItemFeedHeaderBinding
 import com.semicolon.ddyzd_android.databinding.ItemImageFeedBinding
@@ -58,7 +55,6 @@ class MainFeedAdapter(private val feeds: MutableLiveData<List<MainFeedData>>, pr
                 ItemImageFeedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             ImageFeedViewHolder(binding)
         } else {
-            Log.d("어답터",viewType.toString())
             val binding =
                 ItemFeedHeaderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             HeaderFeedViewHolder(binding)

@@ -22,7 +22,7 @@ class FeedPagerAdapter(private val images: List<String>,private val viewModel: M
             }.attach()
             imageView.position=feedPosition
             imageView.vm=viewModel
-            imageView.pagePositotion=position
+            imageView.pagePosition=position
             imageView.executePendingBindings()
         }
     }

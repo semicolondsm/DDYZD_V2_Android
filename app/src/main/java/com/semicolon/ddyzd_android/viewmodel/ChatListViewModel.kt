@@ -11,8 +11,7 @@ import com.semicolon.ddyzd_android.ul.activity.MainActivity.Companion.accessToke
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import io.socket.client.IO
-import io.socket.client.Socket
+import java.net.Socket
 import java.net.URISyntaxException
 
 class ChatListViewModel(val navigater: ChatList) : ViewModel() {
@@ -20,7 +19,6 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     private var readChatList = mutableListOf<ChatListData>()
     val list = MutableLiveData<List<ChatListData>>()
     val clubListAdapter = ChatListAdapter(list,this)
-    private lateinit var socket : Socket
     init{
         callChatList(navigater)
     }
