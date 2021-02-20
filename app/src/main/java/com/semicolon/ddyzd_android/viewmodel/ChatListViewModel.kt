@@ -25,7 +25,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
         callChatList(navigater)
     }
     fun onCreate(){
-        try {
+        /*try {
             socket = IO.socket("https://api.eungyeol.live/chat")
             socket.connect()
             socket.on(Socket.EVENT_CONNECT){
@@ -35,7 +35,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
             }
         }catch (e : URISyntaxException){
             println(e.reason)
-        }
+        }*/
     }
 
 
