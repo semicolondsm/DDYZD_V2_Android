@@ -34,13 +34,11 @@ class MainActivity : AppCompatActivity() {
         readAutoLogin()
         viewModel.onCreate(refreshToken)
         val binding: ActivityMainBinding =
-            DataBindingUtil.setContentView(this, R.layout.activity_main)
-
+            ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.lifecycleOwner=this
         observeAccessToken()
         binding.vm = viewModel
-        setContentView(binding.root)
-        supportFragmentManager.beginTransaction()
-            .add(R.id.fragment, MainFeed(this)).commit()
         binding.bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_home -> {

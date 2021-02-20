@@ -83,15 +83,18 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
             .subscribe({response->
                 if(response.isSuccessful){
                     isEmpty.value=View.INVISIBLE
+                    Log.d("불러옴",response.body().toString())
                     response.body()?.let { readFeed.addAll(it) }
                     feeds.value = readFeed
                     feedAdapter.notifyDataSetChanged()
                     callApi += 1
                 }else{
+                    Log.d("불러옴","안됨 ${response.raw()}")
                     isEmpty.value=View.VISIBLE
                 }
             },{
-            isEmpty.value=View.VISIBLE
+                Log.d("불러옴","아에안됨")
+                isEmpty.value=View.VISIBLE
                 navigator.showToast("인터넷 문제가 발생하였습니다")
             })
     }
