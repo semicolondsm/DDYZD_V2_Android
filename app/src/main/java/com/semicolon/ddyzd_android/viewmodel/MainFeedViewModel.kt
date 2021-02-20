@@ -72,22 +72,23 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
         navigator.startLogin()
     }
 
+    @SuppressLint("CheckResult")
     fun readFeeds() {
         Log.d("불러옴","accessToken:$accessToken")
         adapter.readFeed("Bearer $accessToken",callApi.toString())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .unsubscribeOn(Schedulers.io())
-            .doOnError {
-                navigator.showToast("인터넷 연결을 확인해주세요")
-            }
-            .doOnSuccess { result ->
-                readFeed.addAll(result)
-                feeds.value = readFeed
-                feedAdapter.notifyDataSetChanged()
-                callApi += 1
-                Log.d("불러옴", result.toString())
-            }.subscribe()
+            .subscribe({response->
+                if(response.isSuccessful){
+                    response.body()?.let { readFeed.addAll(it) }
+                    feeds.value = readFeed
+                    feedAdapter.notifyDataSetChanged()
+                    callApi += 1
+                }
+            },{
+                throwable->
+                navigator.showToast("인터넷 문제가 발생하였습니다")
+            })
     }
 
     fun onChattingClicked() {

@@ -15,10 +15,6 @@ import com.semicolon.ddyzd_android.ul.fragment.ClubList
 import com.semicolon.ddyzd_android.ul.fragment.MainFeed
 import com.semicolon.ddyzd_android.ul.fragment.Fragment3
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel
-import io.reactivex.rxjava3.exceptions.UndeliverableException
-import io.reactivex.rxjava3.plugins.RxJavaPlugins
-import java.io.IOException
-import java.net.SocketException
 
 class MainActivity : AppCompatActivity() {
     private val LOGIN_REQUEST_CODE = 12
@@ -32,10 +28,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
+        super.onCreate(savedInstanceState)
         initSharedPreference()
         readAutoLogin()
         viewModel.onCreate(refreshToken)
-        super.onCreate(savedInstanceState)
         val binding: ActivityMainBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_main)
 
