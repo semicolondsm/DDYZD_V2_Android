@@ -27,6 +27,8 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
     var callApi = 0
     val isEmpty = MutableLiveData<Int>(View.INVISIBLE)
     var time = ""
+    val visible=View.VISIBLE
+    val invisible=View.INVISIBLE
 
     val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
