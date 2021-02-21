@@ -30,7 +30,6 @@ class MainViewModel(val navigator:MainActivity) :ViewModel(){
                 }
                 navigator.reLoadFeeds()
             },{
-                navigator.startLogin()
             })
     }
 

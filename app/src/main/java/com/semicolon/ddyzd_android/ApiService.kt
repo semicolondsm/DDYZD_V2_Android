@@ -35,7 +35,8 @@ interface ApiService {
     @GET("feed/list")
     fun readFeed(
         @Header("Authorization") accessToken: String,
-        @Query("page") page: String
+        @Query("page") page: String,
+        @Query("time") time: String
     ): Single<Response<ArrayList<MainFeedData>>>
 
     @PUT("feed/{feed_id}/flag")
@@ -57,7 +58,8 @@ interface ApiService {
     fun readClubFeeds(
         @Header("Authorization") accessToken: String,
         @Path("club_id")clubId: String,
-        @Query("page") page: Int
+        @Query("page") page: Int,
+        @Query("time") time: String
     ): Single<Response<ArrayList<MainFeedData>>>
 
     @GET("club/{club_id}/info")
@@ -66,4 +68,10 @@ interface ApiService {
         @Path("club_id") club_id: Int,
         @Query("time") time: String
     ): Single<Response<ClubInDetailData>>
+
+    @POST("club/{club_id}/follow")
+    fun doFollow(
+        @Header("Authorization")accessToken: String,
+        @Path("club_id")clubId: String
+    ):Single<Response<Any>>
 }
