@@ -53,7 +53,6 @@ interface ApiService {
     fun readAccessToken(
         @Header("refresh-token") refreshToken: String
     ): Single<Response<AccessTokenData>>
-
     @GET("feed/{club_id}/list")
     fun readClubFeeds(
         @Header("Authorization") accessToken: String,

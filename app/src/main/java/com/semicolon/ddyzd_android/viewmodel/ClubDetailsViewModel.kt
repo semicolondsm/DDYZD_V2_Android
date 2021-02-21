@@ -103,6 +103,11 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
                     it.body()?.let { readFeeds.addAll(it) }
                     feeds.value = readFeeds
                     detailAdapter.notifyDataSetChanged()
+                    if((feeds.value as ArrayList<MainFeedData>).size==0){
+                        isEmpty.value=View.VISIBLE
+                    }else{
+                        isEmpty.value=View.INVISIBLE
+                    }
                     callApi += 1
                 } else {
                     isEmpty.value = View.VISIBLE
@@ -139,6 +144,10 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
 
     private fun startLogin() {
         navigator.startLogin()
+    }
+
+    fun finish(){
+        navigator.finish()
     }
 }
 
