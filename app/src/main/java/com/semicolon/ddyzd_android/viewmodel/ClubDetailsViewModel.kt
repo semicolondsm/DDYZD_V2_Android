@@ -93,7 +93,7 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
 
     @SuppressLint("CheckResult")
     private fun readFeeds() {
-        adapter.readClubFeeds("Bearer ${MainActivity.accessToken}", club)
+        adapter.readClubFeeds("Bearer ${MainActivity.accessToken}", club,callApi)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ it ->
@@ -138,7 +138,7 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
     }
 
     private fun startLogin() {
-        navigator.startChatting()
+        navigator.startLogin()
     }
 }
 

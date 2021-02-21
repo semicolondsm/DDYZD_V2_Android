@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.semicolon.ddyzd_android.R
@@ -18,15 +19,15 @@ import com.semicolon.ddyzd_android.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
     private val LOGIN_REQUEST_CODE = 12
-    private lateinit var startShared: SharedPreferences
-    private lateinit var editor: SharedPreferences.Editor
     val viewModel = MainViewModel(this)
     val feedViewModel = MainFeedViewModel(this)
-    var refreshToken = ""
+
 
     companion object {
-
+        lateinit var startShared: SharedPreferences
+        lateinit var editor: SharedPreferences.Editor
         var accessToken = ""  //access token 쓸때 이거 쓰세요(MainActivity.accessToken)
+        var refreshToken = ""
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

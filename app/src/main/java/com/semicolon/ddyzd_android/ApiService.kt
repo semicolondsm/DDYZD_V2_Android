@@ -57,7 +57,8 @@ interface ApiService {
     @GET("feed/{club_id}/list")
     fun readClubFeeds(
         @Header("Authorization") accessToken: String,
-        @Query("page") page: String
+        @Path("club_id")clubId: String,
+        @Query("page") page: Int
     ): Single<Response<ArrayList<MainFeedData>>>
 
     @GET("club/{club_id}/info")

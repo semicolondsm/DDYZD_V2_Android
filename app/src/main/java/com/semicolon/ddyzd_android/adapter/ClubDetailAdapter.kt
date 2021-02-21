@@ -90,9 +90,9 @@ class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,pr
             val obj = feeds.value?.get(position-2)
             if(obj!=null){
                 if (obj.media.size>0) {
-                    (holder as ClubFeedViewHolder).bind(position)
-                } else {
                     (holder as ClubImageFeedViewHolder).bind(position)
+                } else {
+                    (holder as ClubFeedViewHolder).bind(position)
                 }
             }
         }

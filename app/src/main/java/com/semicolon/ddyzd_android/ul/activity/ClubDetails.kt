@@ -3,11 +3,15 @@ package com.semicolon.ddyzd_android.ul.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.semicolon.ddyzd_android.databinding.ActivityClubDetailsBinding
+import com.semicolon.ddyzd_android.ul.activity.MainActivity.Companion.accessToken
+import com.semicolon.ddyzd_android.ul.activity.MainActivity.Companion.refreshToken
 import com.semicolon.ddyzd_android.viewmodel.ClubDetailsViewModel
 
 class ClubDetails : AppCompatActivity() {
+    private val LOGIN_REQUEST_CODE = 12
     lateinit var binding : ActivityClubDetailsBinding
     lateinit var clubId:String
     lateinit var viewModel: ClubDetailsViewModel
@@ -22,9 +26,20 @@ class ClubDetails : AppCompatActivity() {
         setContentView(binding.root)
     }
 
-    fun startChatting() {
-        val intent = Intent(this, ChatList::class.java)
-        startActivity(intent)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == LOGIN_REQUEST_CODE) {
+            if (data != null) {
+                accessToken = data.getStringExtra("get_access_token").toString()
+                MainActivity.editor.putString("get_refresh_token", refreshToken)
+                MainActivity.editor.apply()
+            }
+        }
+    }
+
+    fun startLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivityForResult(intent, LOGIN_REQUEST_CODE)
     }
 
     fun showToast(message:String){
