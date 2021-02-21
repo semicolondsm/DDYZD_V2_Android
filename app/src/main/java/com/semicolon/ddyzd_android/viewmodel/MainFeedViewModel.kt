@@ -2,6 +2,7 @@ package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
 import android.util.Log
+import android.view.OrientationEventListener
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,50 +22,49 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
     val feedAdapter = MainFeedAdapter(feeds, this)
     var callApi = 0
     val adapter = BaseApi.getInstance()
-    val isEmpty=MutableLiveData<Int>(View.INVISIBLE)
-
-    val scrollListener = object : RecyclerView.OnScrollListener() {
-        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            super.onScrolled(recyclerView, dx, dy)
-            val manager = (recyclerView.layoutManager) as LinearLayoutManager
-            val totalItem = manager.itemCount
-            val lastVisible = manager.findLastCompletelyVisibleItemPosition()
-            if (lastVisible >= totalItem - 1) {
-                readFeeds()
-            }
-        }
-    }
-
+    val isEmpty = MutableLiveData<Int>(View.INVISIBLE)
+    lateinit var scrollListener: RecyclerView.OnScrollListener
 
     fun onCreate() {
         callApi = 0
         readFeed.clear()
+        scrollListener = object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val manager = (recyclerView.layoutManager) as LinearLayoutManager
+                val totalItem = manager.itemCount
+                val lastVisible = manager.findLastCompletelyVisibleItemPosition()
+                if (lastVisible >= totalItem - 1) {
+                    readFeeds()
+                }
+            }
+        }
         feedAdapter.notifyDataSetChanged()
     }
 
     @SuppressLint("CheckResult")
     fun flagClicked(id: String, position: Int) {
         Log.d("클릭", "id:$id")
-        adapter.flagClicked("Bearer $accessToken",id)
+        adapter.flagClicked("Bearer $accessToken", id)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ response ->
                 if (response.isSuccessful) {
                     feeds.value?.get(position)?.flag = !feeds.value?.get(position)?.flag!!
                     var flag = feeds.value?.get(position)?.flags!!.toInt()
-                    if(feeds.value?.get(position)?.flag!!){
+                    if (feeds.value?.get(position)?.flag!!) {
                         flag += 1
-                    }else{
-                        flag-=1
+                    } else {
+                        flag -= 1
                     }
                     feeds.value?.get(position)?.flags = flag.toString()
                     feedAdapter.notifyDataSetChanged()
                 } else {
-                    Log.e("token",response.raw().toString())
+                    Log.e("token", response.raw().toString())
                     startLogin()
                 }
-            },{throwable->
-                Log.w("api","${throwable.message}")
+            }, { throwable ->
+                Log.w("api", "${throwable.message}")
             })
     }
 
@@ -75,24 +75,24 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun readFeeds() {
-        adapter.readFeed("Bearer $accessToken",callApi.toString())
+        adapter.readFeed("Bearer $accessToken", callApi.toString(),System.currentTimeMillis().toString())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .subscribe({response->
-                if(response.isSuccessful){
-                    isEmpty.value=View.INVISIBLE
-                    Log.d("불러옴",response.body().toString())
+            .subscribe({ response ->
+                if (response.isSuccessful) {
+                    isEmpty.value = View.INVISIBLE
+                    Log.d("불러옴", response.body().toString())
+                    Log.d("불러옴","토큰: $accessToken")
                     response.body()?.let { readFeed.addAll(it) }
                     feeds.value = readFeed
                     feedAdapter.notifyDataSetChanged()
                     callApi += 1
-                }else{
-                    Log.d("불러옴","안됨 ${response.raw()}")
-                    isEmpty.value=View.VISIBLE
+                } else {
+                    Log.d("불러옴", "안됨 ${response.raw()}")
+                    isEmpty.value = View.VISIBLE
                 }
-            },{
-                Log.d("불러옴","아에안됨")
-                isEmpty.value=View.VISIBLE
+            }, {
+                isEmpty.value = View.VISIBLE
                 navigator.showToast("인터넷 문제가 발생하였습니다")
             })
     }
