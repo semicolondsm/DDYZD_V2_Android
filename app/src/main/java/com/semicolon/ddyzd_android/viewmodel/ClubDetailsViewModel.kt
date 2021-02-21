@@ -149,6 +149,14 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
     fun finish(){
         navigator.finish()
     }
+
+    fun startChatting(){
+
+    }
+
+    fun startFollow(){
+
+    }
 }
 
 
