@@ -26,6 +26,7 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
     val detailAdapter = ClubDetailAdapter(feeds, this)
     var callApi = 0
     val isEmpty = MutableLiveData<Int>(View.INVISIBLE)
+    var time = ""
 
     val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -40,41 +41,51 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
     }
     val adapter = BaseApi.getInstance()
 
-    init {
+    fun onCreate() {
         callApi = 0
+        readTime()
         readClubInfo()
         readMembers()
     }
 
+    private fun readTime() {
+        time = System.currentTimeMillis().toString()
+    }
+
     @SuppressLint("CheckResult")
     private fun readClubInfo() {
-        adapter.readClubInfo("Bearer ${MainActivity.accessToken}", club)
+        var token:String?=null
+        if(MainActivity.accessToken.isNotEmpty()){
+            token="Bearer ${MainActivity.accessToken}"
+        }
+        adapter.readClubInfo(token, club.toInt(), time)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
-                Log.d("동아리",it.raw().toString())
-                Log.d("동아리",it.body().toString())
                 clubDetail.value = it.body()
+                detailAdapter.notifyDataSetChanged()
             }, {
-                Log.d("동아리","에러남 $it")
                 navigator.showToast("인터넷 연결을 확인해주세요")
             })
     }
 
     @SuppressLint("CheckResult")
     private fun readMembers() {
-        adapter.clubMember(club)
+        adapter.clubMember("Bearer ${MainActivity.accessToken}",club)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
+                Log.d("동아리원",it.raw().toString())
                 if (it.isSuccessful) {
                     isEmpty.value = View.INVISIBLE
                     it.body()?.let { it1 -> readMembers.addAll(it1) }
                     members.value = readMembers
                 }
                 memberAdapter.notifyDataSetChanged()
+                detailAdapter.notifyDataSetChanged()
             }, {
                 memberAdapter.notifyDataSetChanged()
+                detailAdapter.notifyDataSetChanged()
             })
     }
 
@@ -84,6 +95,7 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ it ->
+                Log.d("동아리피드",it.raw().toString())
                 if (it.isSuccessful) {
                     isEmpty.value = View.INVISIBLE
                     it.body()?.let { readFeeds.addAll(it) }

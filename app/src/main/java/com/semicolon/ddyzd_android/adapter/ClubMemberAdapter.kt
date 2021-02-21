@@ -17,7 +17,6 @@ class ClubMemberAdapter(val members:MutableLiveData<List<MembersData>>,val viewM
             }
             binding.vm=viewModel
             binding.position=position
-            binding.executePendingBindings()
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

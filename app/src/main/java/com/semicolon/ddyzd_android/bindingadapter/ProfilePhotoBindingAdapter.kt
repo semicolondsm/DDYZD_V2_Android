@@ -24,7 +24,7 @@ object ProfilePhotoBindingAdapter {
 
     @JvmStatic
     @BindingAdapter("profileImage")
-    fun loadProfileImage(imageView:ImageView,url:String){
+    fun loadProfileImage(imageView:ImageView,url:String?){
         Glide.with(imageView.context)
             .load(url)
             .error(R.drawable.user).into(imageView)
