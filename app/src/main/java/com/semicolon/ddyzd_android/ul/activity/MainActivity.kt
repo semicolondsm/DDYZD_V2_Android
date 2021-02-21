@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.databinding.ActivityMainBinding
@@ -20,14 +19,15 @@ import com.semicolon.ddyzd_android.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
     private val LOGIN_REQUEST_CODE = 12
-    private lateinit var startShared: SharedPreferences
-    private lateinit var editor: SharedPreferences.Editor
     val viewModel = MainViewModel(this)
-    val feedViewModel=MainFeedViewModel(this)
-    var refreshToken = ""
+    val feedViewModel = MainFeedViewModel(this)
+
 
     companion object {
+        lateinit var startShared: SharedPreferences
+        lateinit var editor: SharedPreferences.Editor
         var accessToken = ""  //access token 쓸때 이거 쓰세요(MainActivity.accessToken)
+        var refreshToken = ""
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,9 +37,9 @@ class MainActivity : AppCompatActivity() {
         readAutoLogin()
         viewModel.onCreate(refreshToken)
         val binding: ActivityMainBinding =
-            DataBindingUtil.setContentView(this, R.layout.activity_main)
-
+            ActivityMainBinding.inflate(layoutInflater)
         observeAccessToken()
+        binding.lifecycleOwner = this
         binding.vm = viewModel
         setContentView(binding.root)
         supportFragmentManager.beginTransaction()
@@ -62,13 +62,13 @@ class MainActivity : AppCompatActivity() {
                         .replace(R.id.fragment, Fragment3()).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
-                else->return@setOnNavigationItemSelectedListener false
+                else -> return@setOnNavigationItemSelectedListener false
             }
         }
 
     }
 
-    fun reLoadFeeds(){
+    fun reLoadFeeds() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment, MainFeed(feedViewModel)).commit()
     }
@@ -88,7 +88,6 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == LOGIN_REQUEST_CODE) {
             if (data != null) {
                 viewModel.accessToken.value = data.getStringExtra("get_access_token").toString()
-                Log.d("토큰","결국받은코드:$refreshToken")
                 editor.putString("get_refresh_token", refreshToken)
                 editor.apply()
                 reLoadFeeds()
@@ -97,8 +96,9 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun startClubDetail(club:ClubProfiles) {
-        val intent = Intent(this, ClubDetails(club,feedViewModel)::class.java)
+    fun startClubDetail(club: ClubProfiles) {
+        val intent = Intent(this, ClubDetails::class.java)
+        intent.putExtra("club_id",club.club_id)
         startActivity(intent)
     }
 

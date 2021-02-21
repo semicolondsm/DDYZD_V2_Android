@@ -27,7 +27,7 @@ object MainFeedBindingAdapter {
     @JvmStatic
     @BindingAdapter("onScrollListener")
     fun onScrollListener(recyclerView: RecyclerView,listener:RecyclerView.OnScrollListener){
-        val oldValue=ListenerUtil.trackListener(recyclerView,listener, R.id.main_recyclerview)
+        val oldValue=ListenerUtil.trackListener(recyclerView,listener, recyclerView.id)
         if(oldValue!=null){
             recyclerView.removeOnScrollListener(oldValue)
         }
@@ -38,7 +38,7 @@ object MainFeedBindingAdapter {
 
     @JvmStatic
     @BindingAdapter("mainPageAdapter")
-    fun pageAdapter(viewPager2: ViewPager2,adapter:FeedPagerAdapter){
+    fun pageAdapter(viewPager2: ViewPager2,adapter:RecyclerView.Adapter<RecyclerView.ViewHolder>){
         if(adapter!=null){
             viewPager2.adapter=adapter
             viewPager2.orientation=ViewPager2.ORIENTATION_HORIZONTAL

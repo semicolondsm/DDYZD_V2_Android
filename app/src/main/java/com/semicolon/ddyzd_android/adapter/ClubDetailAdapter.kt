@@ -10,42 +10,41 @@ import com.semicolon.ddyzd_android.model.MainFeedData
 import com.semicolon.ddyzd_android.viewmodel.ClubDetailsViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 
-class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,private val club:ClubProfiles,private val feedViewModel: MainFeedViewModel,private val clubDetailsViewModel: ClubDetailsViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,private val viewModel: ClubDetailsViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val TYPE_HEADER=0
     private val TYPE_MEMBER=1
     private val TYPE_FEED=2
     private val TYPE_IMAGE_FEED=3
-    lateinit var pageAdapter:FeedPagerAdapter
+    lateinit var pageAdapter:ClubFeedPagerAdapter
 
     inner class HeaderDetailViewHolder(val binding: ItemClubDetailHeaderBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(club:ClubProfiles){
-            binding.club=club
-            binding.executePendingBindings()
+        fun bind(){
+            binding.vm=viewModel
         }
     }
 
     inner class MembersDetailViewHolder(val binding: ItemMemberListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(){
-            binding.vm=clubDetailsViewModel
+            binding.vm=viewModel
         }
     }
 
-    inner class ClubFeedViewHolder(val binding: ItemFeedBinding) :
+    inner class ClubFeedViewHolder(val binding: ItemClubFeedBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int){
-            binding.vm=feedViewModel
+            binding.vm=viewModel
             binding.position = position-2
             binding.executePendingBindings()
         }
     }
 
-    inner class ClubImageFeedViewHolder(val binding: ItemImageFeedBinding) :
+    inner class ClubImageFeedViewHolder(val binding: ItemClubImageFeedBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int){
-            pageAdapter=FeedPagerAdapter(feeds.value?.get(position-1)!!.media,feedViewModel,position-1,binding)
-            binding.vm = feedViewModel
+            pageAdapter=ClubFeedPagerAdapter(feeds.value?.get(position-2)!!.media,position-1,binding)
+            binding.vm = viewModel
             binding.position = position-2
             binding.executePendingBindings()
         }
@@ -62,11 +61,11 @@ class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,pr
                 MembersDetailViewHolder(binding)
             }
             TYPE_IMAGE_FEED->{
-                val binding=ItemImageFeedBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+                val binding=ItemClubImageFeedBinding.inflate(LayoutInflater.from(parent.context),parent,false)
                 ClubImageFeedViewHolder(binding)
             }
             else->{
-                val binding=ItemFeedBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+                val binding=ItemClubFeedBinding.inflate(LayoutInflater.from(parent.context),parent,false)
                 ClubFeedViewHolder(binding)
             }
         }
@@ -82,7 +81,7 @@ class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,pr
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if(position==0){
-            (holder as HeaderDetailViewHolder).bind(club)
+            (holder as HeaderDetailViewHolder).bind()
         }
         else if(position==1){
             (holder as MembersDetailViewHolder).bind()
@@ -91,9 +90,9 @@ class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,pr
             val obj = feeds.value?.get(position-2)
             if(obj!=null){
                 if (obj.media.size>0) {
-                    (holder as ClubFeedViewHolder).bind(position)
-                } else {
                     (holder as ClubImageFeedViewHolder).bind(position)
+                } else {
+                    (holder as ClubFeedViewHolder).bind(position)
                 }
             }
         }

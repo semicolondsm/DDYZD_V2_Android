@@ -14,10 +14,8 @@ import com.semicolon.ddyzd_android.ul.activity.MainActivity
 import com.semicolon.ddyzd_android.ul.activity.MainActivity.Companion.accessToken
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlin.reflect.cast
 
 class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
-    lateinit var clubId:String
     var readFeed = ArrayList<MainFeedData>()
     val feeds = MutableLiveData<List<MainFeedData>>()
     val feedAdapter = MainFeedAdapter(feeds, this)
@@ -28,7 +26,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
     val scrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
-            val manager = LinearLayoutManager::class.cast(recyclerView.layoutManager)
+            val manager = (recyclerView.layoutManager) as LinearLayoutManager
             val totalItem = manager.itemCount
             val lastVisible = manager.findLastCompletelyVisibleItemPosition()
             if (lastVisible >= totalItem - 1) {
@@ -77,7 +75,6 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun readFeeds() {
-        Log.d("불러옴","accessToken:$accessToken")
         adapter.readFeed("Bearer $accessToken",callApi.toString())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())

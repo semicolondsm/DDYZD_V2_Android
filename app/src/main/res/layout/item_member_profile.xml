@@ -39,7 +39,8 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:gravity="center"
-        android:visibility="invisible"
+        android:text="동아리장"
+        android:visibility="@{position==0?vm.visible:vm.invisible}"
         android:textColor="@color/design_default_color_primary"
         tools:text="동아리장" />
 </LinearLayout>
