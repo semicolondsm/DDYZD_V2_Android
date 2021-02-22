@@ -86,7 +86,6 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == LOGIN_REQUEST_CODE) {
             if (data != null) {
-                Log.d("여기서","도")
                 viewModel.accessToken.value = data.getStringExtra("get_access_token").toString()
                 Log.d("여기서","토큰: ${viewModel.accessToken.value.toString()}")
                 editor.putString("get_refresh_token", refreshToken)
