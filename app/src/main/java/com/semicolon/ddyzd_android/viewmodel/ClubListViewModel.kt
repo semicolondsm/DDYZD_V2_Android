@@ -39,8 +39,15 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
             .subscribeOn(Schedulers.io())
             .subscribe({
                 if (it.isSuccessful) {
-                    body = it.body()!!
-                    clubListSet(body)
+                    isEmpty.value = View.INVISIBLE
+                    if(it.body()!=null){
+                        isEmpty.value = View.INVISIBLE
+                        body = it.body()!!
+                        clubListSet(body)
+                    }else{
+                        isEmpty.value = View.VISIBLE
+                    }
+
                 } else {
                     isEmpty.value = View.VISIBLE
                 }
@@ -51,7 +58,7 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
     }
 
 
-    fun clubListSet(body: Array<ClubData>) {
+    private fun clubListSet(body: Array<ClubData>) {
         size = body.size
         for (i in 0 until size) {
             clubimage.add(body[i].clubimage)
@@ -62,7 +69,8 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                     body[i].clubimage,
                     body[i].clubname,
                     body[i].clubdescription,
-                    body[i].clubid
+                    body[i].clubid,
+                    body[i].backimage
                 )
             )
         }
@@ -87,7 +95,8 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                             body[i].clubimage,
                             body[i].clubname,
                             body[i].clubdescription,
-                            body[i].clubid
+                            body[i].clubid,
+                            body[i].backimage
                         )
                     )
                 }
@@ -104,7 +113,8 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                                     body[i].clubimage,
                                     body[i].clubname,
                                     body[i].clubdescription,
-                                    body[i].clubid
+                                    body[i].clubid,
+                                    body[i].backimage
                                 )
                             )
                         }
@@ -123,7 +133,8 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                                     body[i].clubimage,
                                     body[i].clubname,
                                     body[i].clubdescription,
-                                    body[i].clubid
+                                    body[i].clubid,
+                                    body[i].backimage
                                 )
                             )
                         }
@@ -142,7 +153,8 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                                     body[i].clubimage,
                                     body[i].clubname,
                                     body[i].clubdescription,
-                                    body[i].clubid
+                                    body[i].clubid,
+                                    body[i].backimage
                                 )
                             )
                         }
@@ -161,7 +173,8 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                                     body[i].clubimage,
                                     body[i].clubname,
                                     body[i].clubdescription,
-                                    body[i].clubid
+                                    body[i].clubid,
+                                    body[i].backimage
                                 )
                             )
                         }
@@ -170,5 +183,9 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                 liveData1.value = "5"
             }
         }
+    }
+
+    fun onDetailClicked(club:ClubProfiles){
+        navigator.startClubDetail(club)
     }
 }

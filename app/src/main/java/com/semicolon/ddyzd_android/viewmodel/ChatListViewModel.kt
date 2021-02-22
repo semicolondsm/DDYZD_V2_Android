@@ -8,13 +8,17 @@ import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.adapter.ChatListAdapter
 import com.semicolon.ddyzd_android.model.ChatListData
 import com.semicolon.ddyzd_android.ul.activity.ChatList
-import com.semicolon.ddyzd_android.ul.activity.MainActivity.Companion.accessToken
+import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+<<<<<<< HEAD
 import io.socket.client.IO
 import io.socket.client.Socket
 import retrofit2.http.Header
+=======
+import java.net.Socket
+>>>>>>> origin/develop
 import java.net.URISyntaxException
 
 class ChatListViewModel(val navigater: ChatList) : ViewModel() {
@@ -22,6 +26,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     private var readChatList = mutableListOf<ChatListData>()
     val list = MutableLiveData<List<ChatListData>>()
     val clubListAdapter = ChatListAdapter(list,this)
+<<<<<<< HEAD
     private lateinit var socket : Socket
     init{
         callChatList(navigater)
@@ -49,12 +54,16 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
         }catch (e : URISyntaxException){
             println(e.reason)
         }
+
+    fun onCreate(){
+        callChatList(navigater)
+
     }
 
 
     @SuppressLint("CheckResult")
     fun callChatList(navigater: ChatList) {
-        apiAdapter.chatList("Bearer $accessToken")
+        apiAdapter.chatList("Bearer ${accessToken.value}")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -65,7 +74,6 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                         clubListAdapter.notifyDataSetChanged()
                     } else {
                         navigater.startLogin()
-                        navigater.finish()
                     }
                 }, { throwable ->
                     println("${throwable.message}")

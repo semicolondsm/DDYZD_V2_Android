@@ -8,7 +8,7 @@
             name="position"
             type="Integer"/>
         <variable
-            name="pagePositotion"
+            name="pagePosition"
             type="Integer" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,6 +24,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:slideImageUrl="@{vm.feeds[position].media[pagePositotion]}"/>
+        app:slideImageUrl="@{vm.feeds[position].media[pagePosition]}"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

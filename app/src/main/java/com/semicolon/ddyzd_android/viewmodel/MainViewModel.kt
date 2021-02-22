@@ -1,8 +1,5 @@
 package com.semicolon.ddyzd_android.viewmodel
 
-
-
-
 import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -11,11 +8,12 @@ import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import io.socket.client.Socket
 
 class MainViewModel(val navigator:MainActivity) :ViewModel(){
     val adapter = BaseApi.getInstance()
-    val accessToken=MutableLiveData<String>()
+    companion object{
+        val accessToken=MutableLiveData<String>()
+    }
     fun onCreate(refreshToken:String){
         if(refreshToken!=""){
             readAccessToken(refreshToken)
@@ -31,10 +29,9 @@ class MainViewModel(val navigator:MainActivity) :ViewModel(){
                 Log.d("토큰","자동로그인:${it.raw()}")
                 if(it.isSuccessful){
                     accessToken.value=it.body()!!.accessToken
-                    navigator.reLoadFeeds()
                 }
+                navigator.reLoadFeeds()
             },{
-                navigator.startLogin()
             })
     }
 
