@@ -13,6 +13,7 @@ import com.semicolon.ddyzd_android.ul.fragment.*
 import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
+import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.refreshToken
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.userGcn
 import com.semicolon.ddyzd_android.viewmodel.MyPageViewModel
 
@@ -25,7 +26,6 @@ class MainActivity : AppCompatActivity() {
     companion object {
         lateinit var startShared: SharedPreferences
         lateinit var editor: SharedPreferences.Editor
-        var refreshToken = ""
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initSharedPreference()
         readAutoLogin()
-        viewModel.onCreate(refreshToken)
+        viewModel.onCreate()
         val binding: ActivityMainBinding =
             ActivityMainBinding.inflate(layoutInflater)
         binding.lifecycleOwner = this
@@ -79,7 +79,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun readAutoLogin() {
-        refreshToken = startShared.getString("get_refresh_token", "").toString()
+        refreshToken.value = startShared.getString("get_refresh_token", "").toString()
+        userGcn.value= startShared.getString("get_gcn","").toString()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -87,8 +88,10 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == LOGIN_REQUEST_CODE) {
             if (data != null) {
                 accessToken.value = data.getStringExtra("get_access_token").toString()
+                refreshToken.value=data.getStringExtra("get_refresh_token").toString()
                 userGcn.value=data.getStringExtra("get_gcn").toString()
-                editor.putString("get_refresh_token", refreshToken)
+                editor.putString("get_refresh_token", refreshToken.value)
+                editor.putString("get_gcn", userGcn.value)
                 editor.apply()
                 reLoadUser()
                 reLoadFeeds()

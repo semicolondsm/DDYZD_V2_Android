@@ -8,10 +8,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.databinding.ActivityClubDetailsBinding
-import com.semicolon.ddyzd_android.ul.activity.MainActivity.Companion.refreshToken
 import com.semicolon.ddyzd_android.viewmodel.ClubDetailsViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
+import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.refreshToken
 
 class ClubDetails : AppCompatActivity() {
     private val LOGIN_REQUEST = 132
@@ -34,8 +34,10 @@ class ClubDetails : AppCompatActivity() {
         if (requestCode == LOGIN_REQUEST) {
             if (data != null) {
                 accessToken.value = data.getStringExtra("get_access_token").toString()
+                refreshToken.value=data.getStringExtra("get_refresh_token")
                 MainViewModel.userGcn.value=data.getStringExtra("get_gcn").toString()
-                MainActivity.editor.putString("get_refresh_token", refreshToken)
+                MainActivity.editor.putString("get_refresh_token", refreshToken.value)
+                MainActivity.editor.putString("get_gcn", MainViewModel.userGcn.value)
                 MainActivity.editor.apply()
                 viewModel.onCreate()
             }
