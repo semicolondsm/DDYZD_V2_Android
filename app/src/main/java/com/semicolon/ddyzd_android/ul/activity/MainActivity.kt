@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         feedViewModel.onCreate()
     }
 
-    fun reLoadUser(){
+    private fun reLoadUser(){
         myPageViewMode.onCreate()
     }
 
