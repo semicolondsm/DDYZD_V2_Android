@@ -8,10 +8,11 @@ import android.widget.Toast
 import com.semicolon.ddyzd_android.databinding.ActivityClubDetailsBinding
 import com.semicolon.ddyzd_android.ul.activity.MainActivity.Companion.refreshToken
 import com.semicolon.ddyzd_android.viewmodel.ClubDetailsViewModel
+import com.semicolon.ddyzd_android.viewmodel.MainViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
 
 class ClubDetails : AppCompatActivity() {
-    private val LOGIN_REQUEST_CODE = 132
+    private val LOGIN_REQUEST = 132
     lateinit var binding : ActivityClubDetailsBinding
     lateinit var clubId:String
     lateinit var viewModel: ClubDetailsViewModel
@@ -28,7 +29,7 @@ class ClubDetails : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == LOGIN_REQUEST_CODE) {
+        if (requestCode == LOGIN_REQUEST) {
             if (data != null) {
                 accessToken.value = data.getStringExtra("get_access_token").toString()
                 MainActivity.editor.putString("get_refresh_token", refreshToken)
@@ -39,8 +40,9 @@ class ClubDetails : AppCompatActivity() {
     }
 
     fun startLogin() {
+        Toast.makeText(this,"로그인이 필요합니다",Toast.LENGTH_SHORT).show()
         val intent = Intent(this, LoginActivity::class.java)
-        startActivityForResult(intent, LOGIN_REQUEST_CODE)
+        startActivityForResult(intent, LOGIN_REQUEST)
     }
 
     fun startChatting(){

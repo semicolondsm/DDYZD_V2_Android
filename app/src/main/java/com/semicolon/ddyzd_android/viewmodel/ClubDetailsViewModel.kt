@@ -172,6 +172,25 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
                 navigator.showToast("인터넷 문제가 발생하였습니다")
             })
     }
+
+    @SuppressLint("CheckResult")
+    fun unFollow(){
+        adapter.unFollow("Bearer ${accessToken.value}",club)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                if(it.isSuccessful){
+                    clubDetail.value!!.follow = false
+                    detailAdapter.notifyDataSetChanged()
+                }else {
+                    navigator.startLogin()
+                }
+
+            },{
+                navigator.showToast("인터넷 문제가 발생하였습니다")
+            })
+    }
+
 }
 
 

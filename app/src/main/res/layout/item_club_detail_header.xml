@@ -97,7 +97,7 @@
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="10dp"
                     android:background="@{vm.clubDetail.follow?@drawable/chatting_btn_bacground:@drawable/follow_btn_background}"
-                    android:onClick="@{()->vm.startFollow()}"
+                    android:onClick="@{()->vm.clubDetail.follow?vm.startFollow():vm.unFollow()}"
                     android:text="@{vm.clubDetail.follow?`팔로우 취소`:`팔로우`}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/button3"

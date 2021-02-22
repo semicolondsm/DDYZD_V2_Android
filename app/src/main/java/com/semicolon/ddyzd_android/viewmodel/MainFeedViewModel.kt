@@ -81,7 +81,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
                 if (response.isSuccessful) {
                     isEmpty.value = View.INVISIBLE
                     Log.d("불러옴", response.body().toString())
-                    Log.d("불러옴","토큰: $accessToken")
+                    Log.d("불러옴","토큰: ${accessToken.value}")
                     response.body()?.let { readFeed.addAll(it) }
                     feeds.value = readFeed
                     feedAdapter.notifyDataSetChanged()

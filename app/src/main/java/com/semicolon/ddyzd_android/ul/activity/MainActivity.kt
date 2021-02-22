@@ -92,7 +92,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     fun startClubDetail(club: ClubProfiles) {
         val intent = Intent(this, ClubDetails::class.java)
         intent.putExtra("club_id",club.club_id)
