@@ -14,6 +14,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.socket.client.IO
 import io.socket.client.Socket
+import retrofit2.http.Header
 import java.net.URISyntaxException
 
 class ChatListViewModel(val navigater: ChatList) : ViewModel() {
@@ -25,8 +26,16 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     init{
         callChatList(navigater)
     }
+
+    interface socketinter{
+        fun socket(
+            @Header("access-token") accessToken: String
+        )
+    }
+
     fun onCreate(){
         try {
+
             val a : ApiService
             socket = IO.socket("https://api.eungyeol.live/chat")
 
@@ -40,11 +49,6 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
         }catch (e : URISyntaxException){
             println(e.reason)
         }
-    }
-    fun socket(accessToken : String): ApiService{
-        val a : ApiService =null!!
-        socket = a.socket("$accessToken")
-
     }
 
 
