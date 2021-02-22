@@ -112,7 +112,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
         navigator.startChatting()
     }
 
-    fun modifyFeed(){
+    fun modifyFeed(id:Int){
 
     }
 
