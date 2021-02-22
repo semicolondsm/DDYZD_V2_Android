@@ -5,9 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.databinding.ActivityMainBinding
 import com.semicolon.ddyzd_android.model.ClubProfiles
@@ -15,12 +13,14 @@ import com.semicolon.ddyzd_android.ul.fragment.*
 import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
+import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.userGcn
+import com.semicolon.ddyzd_android.viewmodel.MyPageViewModel
 
 class MainActivity : AppCompatActivity() {
     private val LOGIN_REQUEST_CODE = 12
     val viewModel = MainViewModel(this)
     val feedViewModel = MainFeedViewModel(this)
-
+    val myPageViewMode=MyPageViewModel(this)
 
     companion object {
         lateinit var startShared: SharedPreferences
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.nav_my -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment, Fragment3()).commit()
+                        .replace(R.id.fragment, MyPage(myPageViewMode)).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> return@setOnNavigationItemSelectedListener false
@@ -74,6 +74,10 @@ class MainActivity : AppCompatActivity() {
         feedViewModel.onCreate()
     }
 
+    fun reLoadUser(){
+        myPageViewMode.onCreate()
+    }
+
     private fun readAutoLogin() {
         refreshToken = startShared.getString("get_refresh_token", "").toString()
     }
@@ -83,16 +87,18 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == LOGIN_REQUEST_CODE) {
             if (data != null) {
                 accessToken.value = data.getStringExtra("get_access_token").toString()
+                userGcn.value=data.getStringExtra("get_gcn").toString()
                 editor.putString("get_refresh_token", refreshToken)
                 editor.apply()
+                reLoadUser()
                 reLoadFeeds()
             }
         }
     }
 
-    fun startClubDetail(club: ClubProfiles) {
+    fun startClubDetail(club: String) {
         val intent = Intent(this, ClubDetails::class.java)
-        intent.putExtra("club_id",club.club_id)
+        intent.putExtra("club_id",club)
         startActivity(intent)
     }
 

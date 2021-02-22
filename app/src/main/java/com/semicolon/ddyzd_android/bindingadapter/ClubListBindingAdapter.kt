@@ -33,7 +33,7 @@ object ClubListBindingAdapter {
 
     @JvmStatic
     @BindingAdapter("members_adapter")
-    fun memberAdapter(recyclerView: RecyclerView,adapter:ClubMemberAdapter){
+    fun memberAdapter(recyclerView: RecyclerView,adapter:RecyclerView.Adapter<RecyclerView.ViewHolder>){
         val layoutManager=LinearLayoutManager(recyclerView.context)
         layoutManager.orientation=RecyclerView.HORIZONTAL
         recyclerView.layoutManager=layoutManager

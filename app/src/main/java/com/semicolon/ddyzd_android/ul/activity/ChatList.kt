@@ -31,6 +31,7 @@ class ChatList : AppCompatActivity() {
         if (requestCode == CODE) {
             if (data != null) {
                 MainViewModel.accessToken.value = data.getStringExtra("get_access_token").toString()
+                MainViewModel.userGcn.value=data.getStringExtra("get_gcn").toString()
                 MainActivity.editor.putString("get_refresh_token", MainActivity.refreshToken)
                 MainActivity.editor.apply()
                 viewModel.onCreate()

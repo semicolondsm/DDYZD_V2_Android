@@ -34,6 +34,7 @@ class ClubDetails : AppCompatActivity() {
         if (requestCode == LOGIN_REQUEST) {
             if (data != null) {
                 accessToken.value = data.getStringExtra("get_access_token").toString()
+                MainViewModel.userGcn.value=data.getStringExtra("get_gcn").toString()
                 MainActivity.editor.putString("get_refresh_token", refreshToken)
                 MainActivity.editor.apply()
                 viewModel.onCreate()

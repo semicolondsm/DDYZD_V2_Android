@@ -14,6 +14,7 @@ class MainViewModel(val navigator:MainActivity) :ViewModel(){
 
     companion object{
         val accessToken=MutableLiveData<String>()
+        val userGcn=MutableLiveData<String>()
     }
 
     fun onCreate(refreshToken:String){
