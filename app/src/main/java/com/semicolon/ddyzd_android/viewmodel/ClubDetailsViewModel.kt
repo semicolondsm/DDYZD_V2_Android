@@ -1,88 +1,228 @@
 package com.semicolon.ddyzd_android.viewmodel
 
+import android.annotation.SuppressLint
 import android.util.Log
-import com.semicolon.ddyzd_android.ApiService
+import android.view.View
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.semicolon.ddyzd_android.BaseApi
-import com.semicolon.ddyzd_android.adapter.ClubAdapter
-import com.semicolon.ddyzd_android.model.ClubRecruitData
-import com.semicolon.ddyzd_android.model.Sub
+import com.semicolon.ddyzd_android.adapter.ClubDetailAdapter
+import com.semicolon.ddyzd_android.adapter.ClubMemberAdapter
+import com.semicolon.ddyzd_android.model.*
 import com.semicolon.ddyzd_android.ul.activity.ClubDetails
+import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
-import java.io.FileDescriptor
-import java.util.concurrent.TimeUnit
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
+class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewModel() {
+    val clubDetail = MutableLiveData<ClubInDetailData>()
+    private val readMembers = ArrayList<MembersData>()
+    val readFeeds = ArrayList<MainFeedData>()
+    val feeds = MutableLiveData<List<MainFeedData>>()
+    val members = MutableLiveData<List<MembersData>>()
+    val memberAdapter: ClubMemberAdapter = ClubMemberAdapter(members, this)
+    val detailAdapter = ClubDetailAdapter(feeds, this)
+    var callApi = 0
+    val isEmpty = MutableLiveData<Int>(View.INVISIBLE)
+    var time = ""
+    val visible = View.VISIBLE
+    val invisible = View.INVISIBLE
 
-class ClubDetailsViewModel {
-    private var club_id = BaseApi.club_id // 선택한 동아리 번호
-    private val adapter = BaseApi.getInstance()
-    lateinit var clubid : String // 클럽 아이디
-    lateinit var clubName : String // 클럽이름
-    lateinit var clubTag : ArrayList<String> // 클럽태그
-    lateinit var clubimage : String //클럽사진
-    lateinit var backImage : String // 배너 사진
-    lateinit var description : String // 클럽 설명
+    lateinit var scrollListener: RecyclerView.OnScrollListener
+    val adapter = BaseApi.getInstance()
 
-    lateinit var major : ArrayList<Sub>
-    lateinit var closeat : String
-
-    lateinit var name : ArrayList<String>
-    lateinit var profile_image : ArrayList<String>
-    lateinit var gcn : ArrayList<String>
-    lateinit var git : ArrayList<String>
-
-    val time = System.currentTimeMillis().toString()
-
-    val callInfo = adapter.clubInfo(club_id)
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribeOn(Schedulers.io())
-        .doOnError {
-            println("error")
+    fun onCreate() {
+        callApi = 0
+        readFeeds.clear()
+        readMembers.clear()
+        scrollListener = object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val manager = (recyclerView.layoutManager) as LinearLayoutManager
+                val totalItem = manager.itemCount
+                val lastVisible = manager.findLastCompletelyVisibleItemPosition()
+                if (lastVisible >= totalItem - 1) {
+                    readFeeds()
+                }
+            }
         }
-        .unsubscribeOn(Schedulers.io())
-        .subscribe { result ->
-            clubid = result.clubid
-            clubName = result.clubname
-            clubTag = result.clubtag
-            clubimage =result.clubimage
-            backImage = result.backimage
-            description = result.description
-        }
+        readTime()
+        readClubInfo()
+        readMembers()
+    }
 
-    val callRecruitment = adapter.clubRecruit(club_id)
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribeOn(Schedulers.io())
-        .doOnError{
-            println("error")
-        }
-        .unsubscribeOn(Schedulers.io())
-        .subscribe{ result->
-            major = result.major
-            closeat = result.closeat
-        }
+    private fun readTime() {
+        time = System.currentTimeMillis().toString()
+    }
 
-
-   /* val callMamber = adapter.clubMenber(club_id)
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribeOn(Schedulers.io())
-        .doOnError {
-            println("error")
+    @SuppressLint("CheckResult")
+    private fun readClubInfo() {
+        var token: String? = null
+        if (!accessToken.value.isNullOrEmpty()) {
+            token = "Bearer ${accessToken.value}"
         }
-        .unsubscribeOn(Schedulers.io())
-        .subscribe { result ->
-               
-        }*/
+        adapter.readClubInfo(token, club.toInt(), time)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                clubDetail.value = it.body()
+                detailAdapter.notifyDataSetChanged()
+            }, {
+                navigator.showToast("인터넷 연결을 확인해주세요")
+            })
+    }
 
-    fun time(): String {
-        val time = System.currentTimeMillis().toString() // 시간 받는거
-        return time
+    @SuppressLint("CheckResult")
+    private fun readMembers() {
+        adapter.clubMember("Bearer ${accessToken.value}", club)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                Log.d("동아리원", it.raw().toString())
+                if (it.isSuccessful) {
+                    isEmpty.value = View.INVISIBLE
+                    it.body()?.let { it1 -> readMembers.addAll(it1) }
+                    members.value = readMembers
+                }
+                memberAdapter.notifyDataSetChanged()
+                detailAdapter.notifyDataSetChanged()
+            }, {
+                memberAdapter.notifyDataSetChanged()
+                detailAdapter.notifyDataSetChanged()
+            })
+    }
+
+    @SuppressLint("CheckResult")
+    private fun readFeeds() {
+        adapter.readClubFeeds("Bearer ${accessToken.value}", club, callApi,System.currentTimeMillis().toString())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({ it ->
+                if (it.isSuccessful) {
+
+                    isEmpty.value = View.INVISIBLE
+                    it.body()?.let { readFeeds.addAll(it) }
+                    feeds.value = readFeeds
+                    detailAdapter.notifyDataSetChanged()
+                    if ((feeds.value as ArrayList<MainFeedData>).size == 0) {
+                        isEmpty.value = View.VISIBLE
+                    } else {
+                        isEmpty.value = View.INVISIBLE
+                    }
+                    callApi += 1
+                } else {
+                    isEmpty.value = View.VISIBLE
+                }
+            }, {
+                isEmpty.value = View.VISIBLE
+            })
+    }
+
+    @SuppressLint("CheckResult")
+    fun flagClicked(id: String, position: Int) {
+        adapter.flagClicked("Bearer ${accessToken.value}", id)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({ response ->
+                if (response.isSuccessful) {
+                    feeds.value?.get(position)?.flag = !feeds.value?.get(position)?.flag!!
+                    var flag = feeds.value?.get(position)?.flags!!.toInt()
+                    if (feeds.value?.get(position)?.flag!!) {
+                        flag += 1
+                    } else {
+                        flag -= 1
+                    }
+                    feeds.value?.get(position)?.flags = flag
+                    detailAdapter.notifyDataSetChanged()
+                } else {
+                    Log.e("token", response.raw().toString())
+                    startLogin()
+                }
+            }, { throwable ->
+                Log.w("api", "${throwable.message}")
+            })
+    }
+
+    private fun startLogin() {
+        navigator.startLogin()
+    }
+
+    fun finish() {
+        navigator.finish()
+    }
+
+    @SuppressLint("CheckResult")
+    fun startChatting() {
+        adapter.makeChatRoom("Bearer ${accessToken.value}",club)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                if(it.isSuccessful){
+                    navigator.startChatting(it.body()!!.roomId)
+                }else{
+                    navigator.startLogin()
+                }
+            },{
+                navigator.showToast("인터넷 문제가 발생하였습니다")
+            })
+
+    }
+
+    @SuppressLint("CheckResult")
+    fun startFollow() {
+        adapter.doFollow("Bearer ${accessToken.value}", club)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                if (it.isSuccessful) {
+                    clubDetail.value!!.follow = true
+                    detailAdapter.notifyDataSetChanged()
+                } else {
+                    navigator.startLogin()
+                }
+            }, {
+                navigator.showToast("인터넷 문제가 발생하였습니다")
+            })
+    }
+
+    @SuppressLint("CheckResult")
+    fun unFollow(){
+        adapter.unFollow("Bearer ${accessToken.value}",club)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                if(it.isSuccessful){
+                    clubDetail.value!!.follow = false
+                    detailAdapter.notifyDataSetChanged()
+                }else {
+                    navigator.startLogin()
+                }
+
+            },{
+                navigator.showToast("인터넷 문제가 발생하였습니다")
+            })
+    }
+
+    fun calculateDate(day:Date):String{
+        val dateFormat= SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz", Locale.KOREA)
+        val currentDateTime= System.currentTimeMillis()
+        val date= Date(currentDateTime)
+        val currentTime=dateFormat.format(date)
+        val getTime=dateFormat.format(day)
+        val longCurrentTime=dateFormat.parse(currentTime).time
+        val longGetTime=dateFormat.parse(getTime).time
+        val diff=(longGetTime-longCurrentTime)/1000
+        val dayDiff=(diff/86400)
+        return if(dayDiff>0){
+            dayDiff.toString()
+        }else{
+            "DAY"
+        }
     }
 }
 

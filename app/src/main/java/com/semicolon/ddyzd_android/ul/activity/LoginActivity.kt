@@ -19,6 +19,7 @@ class LoginActivity : AppCompatActivity() {
         binding.vm=viewModel
         setContentView(binding.root)
     }
+
     fun finish(name:String,email:String,gcn:String,accessToken:String,refreshToken:String){
         Log.d("토큰","finish:$accessToken")
         intent.putExtra("get_name",name)

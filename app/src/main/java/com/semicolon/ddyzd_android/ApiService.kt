@@ -22,9 +22,10 @@ interface ApiService {
     ): Single<ClubRecruitData>
 
     @GET("club/{club_id}/member")
-    fun clubMenber(
+    fun clubMember(
+        @Header("Authorization") accessToken: String,
         @Path("club_id") clubId: String
-    ): Single<ArrayList<ClubPersonData>>
+    ): Single<Response<ArrayList<MembersData>>>
 
     @GET("chat/list")
     fun chatList(
@@ -34,7 +35,8 @@ interface ApiService {
     @GET("feed/list")
     fun readFeed(
         @Header("Authorization") accessToken: String,
-        @Query("page") page: String
+        @Query("page") page: String,
+        @Query("time") time: String
     ): Single<Response<ArrayList<MainFeedData>>>
 
     @PUT("feed/{feed_id}/flag")
@@ -52,4 +54,36 @@ interface ApiService {
     fun readAccessToken(
         @Header("refresh-token") refreshToken: String
     ): Single<Response<AccessTokenData>>
+    @GET("feed/{club_id}/list")
+    fun readClubFeeds(
+        @Header("Authorization") accessToken: String,
+        @Path("club_id")clubId: String,
+        @Query("page") page: Int,
+        @Query("time") time: String
+    ): Single<Response<ArrayList<MainFeedData>>>
+
+    @GET("club/{club_id}/info")
+    fun readClubInfo(
+        @Header("Authorization") accessToken: String?,
+        @Path("club_id") club_id: Int,
+        @Query("time") time: String
+    ): Single<Response<ClubInDetailData>>
+
+    @POST("club/{club_id}/follow")
+    fun doFollow(
+        @Header("Authorization")accessToken: String,
+        @Path("club_id")clubId: String
+    ):Single<Response<Any>>
+
+    @DELETE("club/{club_id}/follow")
+    fun unFollow(
+        @Header("Authorization")accessToken: String,
+        @Path("club_id")clubId: String
+    ):Single<Response<Any>>
+
+    @POST("chat/{club_id}/room")
+    fun makeChatRoom(
+        @Header("Authorization")accessToken: String,
+        @Path("club_id")clubId: String
+    ):Single<Response<roomIdData>>
 }

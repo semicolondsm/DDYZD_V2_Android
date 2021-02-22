@@ -41,7 +41,7 @@
             android:layout_marginTop="10dp"
             android:background="#F8F8F8"
             app:onScrollListener="@{vm.scrollListener}"
-            app:verMainFeedAdapter="@{vm.feedAdapter}"
+            app:adapter="@{vm.feedAdapter}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

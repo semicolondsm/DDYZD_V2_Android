@@ -12,9 +12,8 @@ import com.semicolon.ddyzd_android.databinding.FragmentFeedBinding
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
 import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 
-class MainFeed(navigator:MainActivity): Fragment() {
+class MainFeed(val viewModel:MainFeedViewModel): Fragment() {
     lateinit var binding:FragmentFeedBinding
-    private val viewModel=MainFeedViewModel(navigator)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding=DataBindingUtil.inflate(inflater,R.layout.fragment_feed,container,false)
         viewModel.onCreate()
