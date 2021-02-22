@@ -58,6 +58,7 @@
             app:layout_constraintBottom_toTopOf="@+id/recyclerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{()->vm.onAddFeedClicked()}"
             app:srcCompat="@drawable/ic____17" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
