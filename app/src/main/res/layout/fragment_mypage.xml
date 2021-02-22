@@ -28,10 +28,10 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="30dp"
-            app:profileImage="@{vm.userInfo.imagePath}"
+            android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView10"
+            app:profileImage="@{vm.userInfo.imagePath}"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
@@ -87,7 +87,6 @@
             android:layout_height="10dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="12dp"
-            android:visibility="@{!vm.needLogin}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14"
             app:srcCompat="@drawable/ic_git" />
@@ -104,18 +103,27 @@
             app:layout_constraintStart_toEndOf="@+id/imageView13"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
-        <Button
-            android:id="@+id/button2"
+        <TextView
+            android:id="@+id/textView17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#BA99FF"
-            android:onClick="@{()->vm.onLoginClicked()}"
-            android:text="로그인하기"
-            android:visibility="@{vm.needLogin}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+            android:text="소속중인 동아리"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            app:members_adapter="@{vm.clubAdapter}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

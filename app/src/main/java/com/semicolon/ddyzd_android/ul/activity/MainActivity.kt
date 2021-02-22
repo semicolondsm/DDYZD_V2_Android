@@ -71,8 +71,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun reLoadFeeds() {
-        myPageViewMode.onCreate()
         feedViewModel.onCreate()
+    }
+
+    fun reLoadUser(){
+        myPageViewMode.onCreate()
     }
 
     private fun readAutoLogin() {
@@ -87,14 +90,15 @@ class MainActivity : AppCompatActivity() {
                 userGcn.value=data.getStringExtra("get_gcn").toString()
                 editor.putString("get_refresh_token", refreshToken)
                 editor.apply()
+                reLoadUser()
                 reLoadFeeds()
             }
         }
     }
 
-    fun startClubDetail(club: ClubProfiles) {
+    fun startClubDetail(club: String) {
         val intent = Intent(this, ClubDetails::class.java)
-        intent.putExtra("club_id",club.club_id)
+        intent.putExtra("club_id",club)
         startActivity(intent)
     }
 

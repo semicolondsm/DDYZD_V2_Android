@@ -5,6 +5,8 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.semicolon.ddyzd_android.BaseApi
+import com.semicolon.ddyzd_android.adapter.UserClubsAdapter
+import com.semicolon.ddyzd_android.model.UserClubData
 import com.semicolon.ddyzd_android.model.UserInfoData
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
@@ -15,7 +17,9 @@ import io.reactivex.schedulers.Schedulers
 class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
     val adapter = BaseApi.getInstance()
     val userInfo=MutableLiveData<UserInfoData>()
-    val needLogin=MutableLiveData<Int>(View.INVISIBLE)
+
+    val userClubs=MutableLiveData<List<UserClubData>>()
+    val clubAdapter=UserClubsAdapter(userClubs)
 
     fun onCreate() {
         readUserInfo()
@@ -29,16 +33,17 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
             .subscribe({
                 if(it.isSuccessful){
                     userInfo.value=it.body()
-                    needLogin.value=View.INVISIBLE
+                    userClubs.value= it.body()?.clubs
+                    clubAdapter.notifyDataSetChanged()
                 }else{
-                    needLogin.value=View.VISIBLE
+                    navigator.startLogin()
                 }
             },{
-                needLogin.value=View.VISIBLE
+                navigator.startLogin()
             })
     }
 
-    fun onLoginClicked(){
-        navigator.startLogin()
+    fun onClubDetailClicked(clubId:String){
+        navigator.startClubDetail(clubId)
     }
 }
