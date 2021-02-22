@@ -13,6 +13,7 @@ import com.semicolon.ddyzd_android.ul.fragment.*
 import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
+import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.userGcn
 
 class MainActivity : AppCompatActivity() {
     private val LOGIN_REQUEST_CODE = 12
@@ -81,6 +82,7 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == LOGIN_REQUEST_CODE) {
             if (data != null) {
                 accessToken.value = data.getStringExtra("get_access_token").toString()
+                userGcn.value=data.getStringExtra("get_gcn").toString()
                 editor.putString("get_refresh_token", refreshToken)
                 editor.apply()
                 reLoadFeeds()

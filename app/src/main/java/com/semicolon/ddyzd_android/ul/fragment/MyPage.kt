@@ -15,6 +15,7 @@ class MyPage(navigator: MainActivity): Fragment() {
     lateinit var binding:FragmentMypageBinding
     val viewModel=MyPageViewModel(navigator)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        viewModel.onCreate()
         binding=DataBindingUtil.inflate(inflater,R.layout.fragment_mypage,container,false)
         binding.vm=viewModel
         binding.lifecycleOwner=this

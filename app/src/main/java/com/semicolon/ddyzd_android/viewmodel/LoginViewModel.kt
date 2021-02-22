@@ -48,7 +48,6 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity) : ViewMod
             .subscribeOn(Schedulers.io())
             .subscribe({ response ->
                 if (response.isSuccessful) {
-                    Log.d("토큰","리스폰스:${response.body()!!.toString()}")
                     val refreshToken = response.body()!!.refreshToken
                     val getAccessToken = response.body()!!.accessToken
                     finishLogin(userName, userEmail, userGcn,refreshToken,getAccessToken)
