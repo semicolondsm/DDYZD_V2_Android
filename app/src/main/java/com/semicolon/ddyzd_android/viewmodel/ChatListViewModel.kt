@@ -7,7 +7,7 @@ import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.adapter.ChatListAdapter
 import com.semicolon.ddyzd_android.model.ChatListData
 import com.semicolon.ddyzd_android.ul.activity.ChatList
-import com.semicolon.ddyzd_android.ul.activity.MainActivity.Companion.accessToken
+import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

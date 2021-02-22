@@ -12,7 +12,7 @@ import com.semicolon.ddyzd_android.adapter.ClubDetailAdapter
 import com.semicolon.ddyzd_android.adapter.ClubMemberAdapter
 import com.semicolon.ddyzd_android.model.*
 import com.semicolon.ddyzd_android.ul.activity.ClubDetails
-import com.semicolon.ddyzd_android.ul.activity.MainActivity.Companion.accessToken
+import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -59,7 +59,7 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
     @SuppressLint("CheckResult")
     private fun readClubInfo() {
         var token: String? = null
-        if (accessToken.isNotEmpty()) {
+        if (!accessToken.value.isNullOrEmpty()) {
             token = "Bearer $accessToken"
         }
         adapter.readClubInfo(token, club.toInt(), time)
