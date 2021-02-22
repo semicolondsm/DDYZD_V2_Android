@@ -12,13 +12,13 @@ import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-<<<<<<< HEAD
+
 import io.socket.client.IO
+import io.socket.client.Manager
 import io.socket.client.Socket
-import retrofit2.http.Header
-=======
-import java.net.Socket
->>>>>>> origin/develop
+import org.json.JSONObject
+
+
 import java.net.URISyntaxException
 
 class ChatListViewModel(val navigater: ChatList) : ViewModel() {
@@ -26,37 +26,37 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     private var readChatList = mutableListOf<ChatListData>()
     val list = MutableLiveData<List<ChatListData>>()
     val clubListAdapter = ChatListAdapter(list,this)
-<<<<<<< HEAD
+    val value = listOf<String>()
+    val map  = mutableListOf("${accessToken.value}")
+
     private lateinit var socket : Socket
+
     init{
         callChatList(navigater)
     }
+    val userId = JSONObject()
 
-    interface socketinter{
-        fun socket(
-            @Header("access-token") accessToken: String
-        )
-    }
+    val ops =IO.Options()
 
-    fun onCreate(){
-        try {
-
-            val a : ApiService
-            socket = IO.socket("https://api.eungyeol.live/chat")
-
-
-            socket.connect()
-            socket.on(Socket.EVENT_CONNECT){
-                println("성공")
-            }.on(Socket.EVENT_CONNECT_ERROR){
-                println("실패;;")
-            }
-        }catch (e : URISyntaxException){
-            println(e.reason)
-        }
-
-    fun onCreate(){
+    fun onCreate() {
         callChatList(navigater)
+
+        val value = mutableListOf<String>("Bearer${accessToken.value}")
+            try {
+
+                socket = IO.socket("http://api.eungyeol.live/chat",ops)
+                ops.extraHeaders = mapOf("Authorization" to  value)
+                socket.connect()
+
+                socket.on(Socket.EVENT_CONNECT) {
+                    println("성공")
+                }.on(Socket.EVENT_CONNECT_ERROR) {
+                    println("실패;;")
+                    println(it.contentToString())
+                }
+            } catch (e: URISyntaxException) {
+                println(e.reason)
+            }
 
     }
 
@@ -75,7 +75,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                     } else {
                         navigater.startLogin()
                     }
-                }, { throwable ->
+                },{ throwable ->
                     println("${throwable.message}")
                 }
             )

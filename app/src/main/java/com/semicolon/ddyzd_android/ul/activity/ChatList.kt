@@ -19,7 +19,7 @@ class ChatList : AppCompatActivity() {
         binding.vm = viewModel
         binding.lifecycleOwner = this
         setContentView(binding.root)
-        viewModel.onCreate()
+
     }
     fun startLogin(){
         val intent=Intent(this,LoginActivity::class.java)
