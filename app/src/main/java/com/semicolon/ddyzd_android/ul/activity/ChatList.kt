@@ -23,6 +23,7 @@ class ChatList : AppCompatActivity() {
     fun startLogin(){
         val intent=Intent(this,LoginActivity::class.java)
         startActivityForResult(intent,CODE)
+        finish()
     }
     fun startChating(data : ChatListData){
         val intent = Intent(this,ChattingPage::class.java)

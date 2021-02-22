@@ -50,7 +50,6 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                         clubListAdapter.notifyDataSetChanged()
                     } else {
                         navigater.startLogin()
-                        navigater.finish()
                     }
                 }, { throwable ->
                     println("${throwable.message}")
