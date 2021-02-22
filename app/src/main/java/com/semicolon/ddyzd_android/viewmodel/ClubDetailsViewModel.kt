@@ -46,12 +46,6 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
         callApi = 0
         readFeeds.clear()
         readMembers.clear()
-        if(clubDetail.value!=null){
-            if(clubDetail.value!!.recruitment){
-                calculateDate(clubDetail.value!!.recruitment_close)
-            }
-        }
-
         scrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -66,6 +60,7 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
         readTime()
         readClubInfo()
         readMembers()
+
     }
 
     private fun readTime() {
@@ -83,6 +78,13 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
             .subscribeOn(Schedulers.io())
             .subscribe({
                 clubDetail.value = it.body()
+                if(clubDetail.value!=null){
+                    Log.d("채팅","부름2")
+                    if(clubDetail.value!!.recruitment){
+                        Log.d("채팅","부름3")
+                        calculateDate(clubDetail.value!!.recruitment_close)
+                    }
+                }
                 detailAdapter.notifyDataSetChanged()
             }, {
                 navigator.showToast("인터넷 연결을 확인해주세요")
@@ -219,6 +221,7 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
     }
 
     fun calculateDate(day:Date) {
+        Log.d("채팅","부름4")
         val dateFormat= SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz", Locale.KOREA)
         val currentDateTime= System.currentTimeMillis()
         val date= Date(currentDateTime)
@@ -229,7 +232,8 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
         val diff=(longGetTime-longCurrentTime)/1000
         val dayDiff=(diff/86400)
         if(dayDiff>0){
-          val string=Html.fromHtml( "<font color=#ff0000>D-${dayDiff}</font> <font color=#000000>지원하기</font>")
+            val text="<font color=#ff0000>D-${dayDiff}</font> <font color=#000000>지원하기</font>"
+            val string=Html.fromHtml(text)
             chatBtnText.value=string
         }else{
             chatBtnText.value="D-DAY"
