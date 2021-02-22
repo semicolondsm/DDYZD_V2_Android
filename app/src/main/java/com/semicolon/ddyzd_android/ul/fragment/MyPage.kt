@@ -11,9 +11,8 @@ import com.semicolon.ddyzd_android.databinding.FragmentMypageBinding
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
 import com.semicolon.ddyzd_android.viewmodel.MyPageViewModel
 
-class MyPage(navigator: MainActivity): Fragment() {
+class MyPage(val viewModel: MyPageViewModel): Fragment() {
     lateinit var binding:FragmentMypageBinding
-    val viewModel=MyPageViewModel(navigator)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewModel.onCreate()
         binding=DataBindingUtil.inflate(inflater,R.layout.fragment_mypage,container,false)

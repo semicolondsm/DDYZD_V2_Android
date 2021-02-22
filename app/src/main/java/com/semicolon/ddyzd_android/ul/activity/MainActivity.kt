@@ -14,12 +14,13 @@ import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.userGcn
+import com.semicolon.ddyzd_android.viewmodel.MyPageViewModel
 
 class MainActivity : AppCompatActivity() {
     private val LOGIN_REQUEST_CODE = 12
     val viewModel = MainViewModel(this)
     val feedViewModel = MainFeedViewModel(this)
-
+    val myPageViewMode=MyPageViewModel(this)
 
     companion object {
         lateinit var startShared: SharedPreferences
@@ -55,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.nav_my -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment, MyPage(this)).commit()
+                        .replace(R.id.fragment, MyPage(myPageViewMode)).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> return@setOnNavigationItemSelectedListener false
@@ -70,6 +71,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun reLoadFeeds() {
+        myPageViewMode.onCreate()
         feedViewModel.onCreate()
     }
 
