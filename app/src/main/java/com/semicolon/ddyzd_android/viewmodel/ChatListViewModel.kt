@@ -3,6 +3,7 @@ package com.semicolon.ddyzd_android.viewmodel
 import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.semicolon.ddyzd_android.ApiService
 import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.adapter.ChatListAdapter
 import com.semicolon.ddyzd_android.model.ChatListData
@@ -25,8 +26,11 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
         callChatList(navigater)
     }
     fun onCreate(){
-        /*try {
+        try {
+            val a : ApiService
             socket = IO.socket("https://api.eungyeol.live/chat")
+
+
             socket.connect()
             socket.on(Socket.EVENT_CONNECT){
                 println("성공")
@@ -35,7 +39,12 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
             }
         }catch (e : URISyntaxException){
             println(e.reason)
-        }*/
+        }
+    }
+    fun socket(accessToken : String): ApiService{
+        val a : ApiService =null!!
+        socket = a.socket("$accessToken")
+
     }
 
 

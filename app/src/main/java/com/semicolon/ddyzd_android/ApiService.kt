@@ -52,4 +52,8 @@ interface ApiService {
     fun readAccessToken(
         @Header("refresh-token")refreshToken:String
     ):Single<Response<AccessTokenData>>
+
+    fun socket(
+        @Header("access-token") accessToken: String
+    )
 }
