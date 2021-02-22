@@ -62,6 +62,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        feedViewModel.onCreate()
+    }
+
     fun reLoadFeeds() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment, MainFeed(feedViewModel)).commit()

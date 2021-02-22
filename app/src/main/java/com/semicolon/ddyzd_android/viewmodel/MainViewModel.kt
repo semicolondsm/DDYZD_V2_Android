@@ -21,6 +21,8 @@ class MainViewModel(val navigator:MainActivity) :ViewModel(){
     fun onCreate(){
         if(!refreshToken.value.isNullOrEmpty()){
             readAccessToken(refreshToken.value!!)
+        }else{
+            navigator.reLoadFeeds()
         }
         return
     }
