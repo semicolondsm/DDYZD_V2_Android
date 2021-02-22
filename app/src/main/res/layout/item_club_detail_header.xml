@@ -92,7 +92,7 @@
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/follow_btn"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="37dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="10dp"
@@ -108,19 +108,18 @@
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button3"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="37dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:background="@{vm.clubDetail.recruitment?@drawable/follow_btn_background:@drawable/chatting_btn_bacground}"
                     android:onClick="@{()->vm.startChatting()}"
-                    android:text="@{vm.clubDetail.recruitment?`D+`+vm.calculateDate(vm.clubDetail.recruitment_close)+`지원하기`:`채팅보내기`}"
+                    android:text="@{vm.clubDetail.recruitment?`D+`+vm.calculateDate(vm.clubDetail.recruitment_close)+` 지원하기`:`채팅보내기`}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/follow_btn"
                     app:layout_constraintTop_toBottomOf="@+id/description_tv" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 

@@ -39,6 +39,7 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
     fun onCreate() {
         callApi = 0
         readFeeds.clear()
+        readMembers.clear()
         scrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -155,8 +156,21 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
         navigator.finish()
     }
 
+    @SuppressLint("CheckResult")
     fun startChatting() {
-        navigator.startChatting()
+        adapter.makeChatRoom("Bearer ${accessToken.value}",club)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                if(it.isSuccessful){
+                    navigator.startChatting(it.body()!!.roomId)
+                }else{
+                    navigator.startLogin()
+                }
+            },{
+                navigator.showToast("인터넷 문제가 발생하였습니다")
+            })
+
     }
 
     @SuppressLint("CheckResult")
@@ -194,12 +208,12 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
             })
     }
 
-    fun calculateDate(day:String):String{
+    fun calculateDate(day:Date):String{
         val dateFormat= SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz", Locale.KOREA)
         val currentDateTime= System.currentTimeMillis()
         val date= Date(currentDateTime)
         val currentTime=dateFormat.format(date)
-        val getTime=dateFormat.format(time)
+        val getTime=dateFormat.format(day)
         val longCurrentTime=dateFormat.parse(currentTime).time
         val longGetTime=dateFormat.parse(getTime).time
         val diff=(longGetTime-longCurrentTime)/1000
