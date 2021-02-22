@@ -44,7 +44,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
     @SuppressLint("CheckResult")
     fun flagClicked(id: String, position: Int) {
         Log.d("클릭", "id:$id")
-        adapter.flagClicked("Bearer $accessToken", id)
+        adapter.flagClicked("Bearer ${accessToken.value}", id)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ response ->
@@ -74,7 +74,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun readFeeds() {
-        adapter.readFeed("Bearer $accessToken", callApi.toString(),System.currentTimeMillis().toString())
+        adapter.readFeed("Bearer ${accessToken.value}", callApi.toString(),System.currentTimeMillis().toString())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ response ->
