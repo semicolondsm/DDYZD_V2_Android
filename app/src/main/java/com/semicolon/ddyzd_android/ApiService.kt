@@ -86,4 +86,10 @@ interface ApiService {
         @Header("Authorization")accessToken: String,
         @Path("club_id")clubId: String
     ):Single<Response<roomIdData>>
+
+    @DELETE("feed/{feed_id}")
+    fun deleteFeed(
+        @Header("Authorization")accessToken: String,
+        @Path("feed_id")feedId:Int
+    ):Single<Response<Any>>
 }

@@ -11,6 +11,7 @@ data class MainFeedData(
     @SerializedName("uploadAt")val uploadAt: Date,
     @SerializedName("content")val content:String,
     @SerializedName("media")val media:ArrayList<String>,//나중에 바꾸자
+    @SerializedName("owner")val owner:Boolean,
     @SerializedName("flags") var flags:Int,
     @SerializedName("flag") var flag:Boolean,
     @SerializedName("follow")val follow:Boolean

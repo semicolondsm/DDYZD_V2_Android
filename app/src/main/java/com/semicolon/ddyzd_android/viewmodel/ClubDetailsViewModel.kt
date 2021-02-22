@@ -1,8 +1,12 @@
 package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
+import android.text.Html
+import android.text.Spannable
+import android.text.Spanned
 import android.util.Log
 import android.view.View
+import androidx.core.text.toSpanned
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,6 +37,8 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
     val visible = View.VISIBLE
     val invisible = View.INVISIBLE
 
+    val chatBtnText=MutableLiveData<CharSequence>("채팅보내기")
+
     lateinit var scrollListener: RecyclerView.OnScrollListener
     val adapter = BaseApi.getInstance()
 
@@ -54,6 +60,7 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
         readTime()
         readClubInfo()
         readMembers()
+
     }
 
     private fun readTime() {
@@ -71,6 +78,13 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
             .subscribeOn(Schedulers.io())
             .subscribe({
                 clubDetail.value = it.body()
+                if(clubDetail.value!=null){
+                    Log.d("채팅","부름2")
+                    if(clubDetail.value!!.recruitment){
+                        Log.d("채팅","부름3")
+                        calculateDate(clubDetail.value!!.recruitment_close)
+                    }
+                }
                 detailAdapter.notifyDataSetChanged()
             }, {
                 navigator.showToast("인터넷 연결을 확인해주세요")
@@ -83,7 +97,6 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
-                Log.d("동아리원", it.raw().toString())
                 if (it.isSuccessful) {
                     isEmpty.value = View.INVISIBLE
                     it.body()?.let { it1 -> readMembers.addAll(it1) }
@@ -104,7 +117,6 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
             .subscribeOn(Schedulers.io())
             .subscribe({ it ->
                 if (it.isSuccessful) {
-
                     isEmpty.value = View.INVISIBLE
                     it.body()?.let { readFeeds.addAll(it) }
                     feeds.value = readFeeds
@@ -208,7 +220,8 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
             })
     }
 
-    fun calculateDate(day:Date):String{
+    fun calculateDate(day:Date) {
+        Log.d("채팅","부름4")
         val dateFormat= SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz", Locale.KOREA)
         val currentDateTime= System.currentTimeMillis()
         val date= Date(currentDateTime)
@@ -218,10 +231,12 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
         val longGetTime=dateFormat.parse(getTime).time
         val diff=(longGetTime-longCurrentTime)/1000
         val dayDiff=(diff/86400)
-        return if(dayDiff>0){
-            dayDiff.toString()
+        if(dayDiff>0){
+            val text="<font color=#ff0000>D-${dayDiff}</font> <font color=#000000>지원하기</font>"
+            val string=Html.fromHtml(text)
+            chatBtnText.value=string
         }else{
-            "DAY"
+            chatBtnText.value="D-DAY"
         }
     }
 }

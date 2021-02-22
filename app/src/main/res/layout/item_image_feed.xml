@@ -141,7 +141,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="10dp"
                     android:contentDescription="flag"
-                    android:onClick="@{()->vm.flagClicked(vm.feeds[position].feedId,position)}"
+                    android:onClick="@{()->vm.onMoreClicked(vm.feeds[position].owner,vm.feeds[position].feedId)}"
                     app:flag="@{vm.feeds[position].flag}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
