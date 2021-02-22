@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ul.activity.ChattingPage"/>
+        <activity android:name=".ul.activity.AddFeedActivity"></activity>
+        <activity android:name=".ul.activity.ChattingPage" />
         <activity android:name=".ul.activity.ChatList" />
         <activity android:name=".ul.activity.LoginActivity" />
         <activity android:name=".ul.activity.ClubDetails" />
@@ -21,6 +22,7 @@
             android:theme="@style/splashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

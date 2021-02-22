@@ -79,9 +79,7 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
             .subscribe({
                 clubDetail.value = it.body()
                 if(clubDetail.value!=null){
-                    Log.d("채팅","부름2")
                     if(clubDetail.value!!.recruitment){
-                        Log.d("채팅","부름3")
                         calculateDate(clubDetail.value!!.recruitment_close)
                     }
                 }
@@ -218,6 +216,10 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
             },{
                 navigator.showToast("인터넷 문제가 발생하였습니다")
             })
+    }
+
+    fun onAddFeedClicked(){
+        navigator.makeFeed(clubDetail.value!!.clubname, clubDetail.value!!.clubid)
     }
 
     fun calculateDate(day:Date) {
