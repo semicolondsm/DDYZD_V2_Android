@@ -29,18 +29,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        initSharedPreference()
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
-        initSharedPreference()
-        readAutoLogin()
         viewModel.onCreate()
         val binding: ActivityMainBinding =
             ActivityMainBinding.inflate(layoutInflater)
         binding.lifecycleOwner = this
         binding.vm = viewModel
         setContentView(binding.root)
-        supportFragmentManager.beginTransaction()
-            .add(R.id.fragment, MainFeed(feedViewModel)).commit()
         binding.bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_home -> {
@@ -65,22 +62,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        reLoadFeeds()
-    }
-
     fun reLoadFeeds() {
-        feedViewModel.onCreate()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment, MainFeed(feedViewModel)).commit()
     }
 
     private fun reLoadUser(){
         myPageViewMode.onCreate()
-    }
-
-    private fun readAutoLogin() {
-        refreshToken.value = startShared.getString("get_refresh_token", "").toString()
-        userGcn.value= startShared.getString("get_gcn","").toString()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -93,8 +81,8 @@ class MainActivity : AppCompatActivity() {
                 editor.putString("get_refresh_token", refreshToken.value)
                 editor.putString("get_gcn", userGcn.value)
                 editor.apply()
-                reLoadUser()
                 reLoadFeeds()
+                reLoadUser()
             }
         }
     }
@@ -123,6 +111,8 @@ class MainActivity : AppCompatActivity() {
         startShared =
             getSharedPreferences("auto_login", Context.MODE_PRIVATE)
         editor = startShared.edit()
+        refreshToken.value = startShared.getString("get_refresh_token", "").toString()
+        userGcn.value= startShared.getString("get_gcn","").toString()
     }
 
     fun showMore(id:Int){
