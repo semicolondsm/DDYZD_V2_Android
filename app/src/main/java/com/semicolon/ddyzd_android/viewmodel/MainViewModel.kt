@@ -11,13 +11,16 @@ import io.reactivex.schedulers.Schedulers
 
 class MainViewModel(val navigator:MainActivity) :ViewModel(){
     val adapter = BaseApi.getInstance()
+
     companion object{
         val accessToken=MutableLiveData<String>()
     }
+
     fun onCreate(refreshToken:String){
         if(refreshToken!=""){
             readAccessToken(refreshToken)
         }
+        return
     }
 
     @SuppressLint("CheckResult")

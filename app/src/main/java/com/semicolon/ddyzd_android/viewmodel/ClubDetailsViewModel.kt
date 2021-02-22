@@ -15,6 +15,9 @@ import com.semicolon.ddyzd_android.ul.activity.ClubDetails
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewModel() {
     val clubDetail = MutableLiveData<ClubInDetailData>()
@@ -133,7 +136,7 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
                     } else {
                         flag -= 1
                     }
-                    feeds.value?.get(position)?.flags = flag.toString()
+                    feeds.value?.get(position)?.flags = flag
                     detailAdapter.notifyDataSetChanged()
                 } else {
                     Log.e("token", response.raw().toString())
@@ -191,6 +194,22 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
             })
     }
 
+    fun calculateDate(day:String):String{
+        val dateFormat= SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz", Locale.KOREA)
+        val currentDateTime= System.currentTimeMillis()
+        val date= Date(currentDateTime)
+        val currentTime=dateFormat.format(date)
+        val getTime=dateFormat.format(time)
+        val longCurrentTime=dateFormat.parse(currentTime).time
+        val longGetTime=dateFormat.parse(getTime).time
+        val diff=(longGetTime-longCurrentTime)/1000
+        val dayDiff=(diff/86400)
+        return if(dayDiff>0){
+            dayDiff.toString()
+        }else{
+            "DAY"
+        }
+    }
 }
 
 

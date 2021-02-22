@@ -47,6 +47,9 @@ class ClubDetails : AppCompatActivity() {
 
     fun startChatting(){
         val intent=Intent(this,ChattingPage::class.java)
+        intent.putExtra("chatClubId",clubId)
+        intent.putExtra("chatClubImage", viewModel.clubDetail.value?.clubimage)
+        intent.putExtra("chatClubName", viewModel.clubDetail.value?.clubname)
         startActivity(intent)
     }
 

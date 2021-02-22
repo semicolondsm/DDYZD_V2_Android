@@ -50,8 +50,8 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity) : ViewMod
                 if (response.isSuccessful) {
                     Log.d("토큰","리스폰스:${response.body()!!.toString()}")
                     val refreshToken = response.body()!!.refreshToken
-                    val accessToken = response.body()!!.accessToken
-                    finishLogin(userName, userEmail, userGcn,refreshToken,accessToken)
+                    val getAccessToken = response.body()!!.accessToken
+                    finishLogin(userName, userEmail, userGcn,refreshToken,getAccessToken)
                 } else {
                     Log.e("token", response.message())
                 }
