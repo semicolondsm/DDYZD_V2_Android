@@ -12,7 +12,7 @@ import com.semicolon.ddyzd_android.adapter.ClubDetailAdapter
 import com.semicolon.ddyzd_android.adapter.ClubMemberAdapter
 import com.semicolon.ddyzd_android.model.*
 import com.semicolon.ddyzd_android.ul.activity.ClubDetails
-import com.semicolon.ddyzd_android.ul.activity.MainActivity.Companion.accessToken
+import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -59,8 +59,8 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
     @SuppressLint("CheckResult")
     private fun readClubInfo() {
         var token: String? = null
-        if (accessToken.isNotEmpty()) {
-            token = "Bearer $accessToken"
+        if (!accessToken.value.isNullOrEmpty()) {
+            token = "Bearer ${accessToken.value}"
         }
         adapter.readClubInfo(token, club.toInt(), time)
             .observeOn(AndroidSchedulers.mainThread())
@@ -75,7 +75,7 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
 
     @SuppressLint("CheckResult")
     private fun readMembers() {
-        adapter.clubMember("Bearer $accessToken", club)
+        adapter.clubMember("Bearer ${accessToken.value}", club)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
@@ -95,12 +95,10 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
 
     @SuppressLint("CheckResult")
     private fun readFeeds() {
-        adapter.readClubFeeds("Bearer $accessToken", club, callApi,System.currentTimeMillis().toString())
+        adapter.readClubFeeds("Bearer ${accessToken.value}", club, callApi,System.currentTimeMillis().toString())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ it ->
-                Log.d("동아리피드", it.raw().toString())
-                Log.d("동아리피드","토큰 $accessToken")
                 if (it.isSuccessful) {
 
                     isEmpty.value = View.INVISIBLE
@@ -123,7 +121,7 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
 
     @SuppressLint("CheckResult")
     fun flagClicked(id: String, position: Int) {
-        adapter.flagClicked("Bearer $accessToken", id)
+        adapter.flagClicked("Bearer ${accessToken.value}", id)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ response ->
@@ -160,7 +158,7 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
 
     @SuppressLint("CheckResult")
     fun startFollow() {
-        adapter.doFollow("Bearer $accessToken", club)
+        adapter.doFollow("Bearer ${accessToken.value}", club)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({

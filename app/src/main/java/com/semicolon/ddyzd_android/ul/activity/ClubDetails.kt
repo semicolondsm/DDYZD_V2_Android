@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.semicolon.ddyzd_android.databinding.ActivityClubDetailsBinding
-import com.semicolon.ddyzd_android.ul.activity.MainActivity.Companion.accessToken
 import com.semicolon.ddyzd_android.ul.activity.MainActivity.Companion.refreshToken
 import com.semicolon.ddyzd_android.viewmodel.ClubDetailsViewModel
+import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
 
 class ClubDetails : AppCompatActivity() {
     private val LOGIN_REQUEST_CODE = 132
@@ -30,8 +30,7 @@ class ClubDetails : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == LOGIN_REQUEST_CODE) {
             if (data != null) {
-                Log.d("여기서","만")
-                accessToken = data.getStringExtra("get_access_token").toString()
+                accessToken.value = data.getStringExtra("get_access_token").toString()
                 MainActivity.editor.putString("get_refresh_token", refreshToken)
                 MainActivity.editor.apply()
                 viewModel.onCreate()

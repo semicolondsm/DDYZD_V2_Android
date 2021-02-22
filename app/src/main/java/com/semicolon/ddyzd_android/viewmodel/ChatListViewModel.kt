@@ -7,7 +7,7 @@ import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.adapter.ChatListAdapter
 import com.semicolon.ddyzd_android.model.ChatListData
 import com.semicolon.ddyzd_android.ul.activity.ChatList
-import com.semicolon.ddyzd_android.ul.activity.MainActivity.Companion.accessToken
+import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -19,27 +19,15 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     private var readChatList = mutableListOf<ChatListData>()
     val list = MutableLiveData<List<ChatListData>>()
     val clubListAdapter = ChatListAdapter(list,this)
-    init{
-        callChatList(navigater)
-    }
+
     fun onCreate(){
-        /*try {
-            socket = IO.socket("https://api.eungyeol.live/chat")
-            socket.connect()
-            socket.on(Socket.EVENT_CONNECT){
-                println("성공")
-            }.on(Socket.EVENT_CONNECT_ERROR){
-                println("실패;;")
-            }
-        }catch (e : URISyntaxException){
-            println(e.reason)
-        }*/
+        callChatList(navigater)
     }
 
 
     @SuppressLint("CheckResult")
     fun callChatList(navigater: ChatList) {
-        apiAdapter.chatList("Bearer $accessToken")
+        apiAdapter.chatList("Bearer ${accessToken.value}")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

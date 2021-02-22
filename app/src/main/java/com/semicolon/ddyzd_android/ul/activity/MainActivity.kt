@@ -16,6 +16,7 @@ import com.semicolon.ddyzd_android.ul.fragment.MainFeed
 import com.semicolon.ddyzd_android.ul.fragment.Fragment3
 import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel
+import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
 
 class MainActivity : AppCompatActivity() {
     private val LOGIN_REQUEST_CODE = 12
@@ -26,7 +27,6 @@ class MainActivity : AppCompatActivity() {
     companion object {
         lateinit var startShared: SharedPreferences
         lateinit var editor: SharedPreferences.Editor
-        var accessToken = ""  //access token 쓸때 이거 쓰세요(MainActivity.accessToken)
         var refreshToken = ""
     }
 
@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
         viewModel.onCreate(refreshToken)
         val binding: ActivityMainBinding =
             ActivityMainBinding.inflate(layoutInflater)
-        observeAccessToken()
         binding.lifecycleOwner = this
         binding.vm = viewModel
         setContentView(binding.root)
@@ -72,12 +71,6 @@ class MainActivity : AppCompatActivity() {
         feedViewModel.onCreate()
     }
 
-    private fun observeAccessToken() {
-        viewModel.accessToken.observe(this, Observer {
-            accessToken = it
-        })
-    }
-
     private fun readAutoLogin() {
         refreshToken = startShared.getString("get_refresh_token", "").toString()
     }
@@ -86,8 +79,7 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == LOGIN_REQUEST_CODE) {
             if (data != null) {
-                viewModel.accessToken.value = data.getStringExtra("get_access_token").toString()
-                Log.d("여기서","토큰: ${viewModel.accessToken.value.toString()}")
+                accessToken.value = data.getStringExtra("get_access_token").toString()
                 editor.putString("get_refresh_token", refreshToken)
                 editor.apply()
                 reLoadFeeds()

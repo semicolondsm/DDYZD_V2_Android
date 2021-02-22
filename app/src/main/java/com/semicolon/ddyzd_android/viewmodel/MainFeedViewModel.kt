@@ -2,7 +2,6 @@ package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
 import android.util.Log
-import android.view.OrientationEventListener
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +11,7 @@ import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.adapter.MainFeedAdapter
 import com.semicolon.ddyzd_android.model.MainFeedData
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
-import com.semicolon.ddyzd_android.ul.activity.MainActivity.Companion.accessToken
+import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -45,7 +44,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
     @SuppressLint("CheckResult")
     fun flagClicked(id: String, position: Int) {
         Log.d("클릭", "id:$id")
-        adapter.flagClicked("Bearer $accessToken", id)
+        adapter.flagClicked("Bearer ${accessToken.value}", id)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ response ->
@@ -75,7 +74,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun readFeeds() {
-        adapter.readFeed("Bearer $accessToken", callApi.toString(),System.currentTimeMillis().toString())
+        adapter.readFeed("Bearer ${accessToken.value}", callApi.toString(),System.currentTimeMillis().toString())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ response ->
