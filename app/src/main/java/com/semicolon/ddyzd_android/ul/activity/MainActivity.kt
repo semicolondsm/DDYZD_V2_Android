@@ -5,9 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.databinding.ActivityMainBinding
 import com.semicolon.ddyzd_android.model.ClubProfiles
@@ -56,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.nav_my -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment, Fragment3()).commit()
+                        .replace(R.id.fragment, MyPage(this)).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> return@setOnNavigationItemSelectedListener false
