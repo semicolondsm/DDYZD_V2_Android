@@ -56,7 +56,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
                     } else {
                         flag -= 1
                     }
-                    feeds.value?.get(position)?.flags = flag.toString()
+                    feeds.value?.get(position)?.flags = flag
                     feedAdapter.notifyDataSetChanged()
                 } else {
                     Log.e("token", response.raw().toString())
@@ -74,6 +74,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun readFeeds() {
+        Log.d("불러옴","토큰: ${accessToken.value}")
         adapter.readFeed("Bearer ${accessToken.value}", callApi.toString(),System.currentTimeMillis().toString())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
@@ -81,13 +82,14 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
                 if (response.isSuccessful) {
                     isEmpty.value = View.INVISIBLE
                     Log.d("불러옴", response.body().toString())
-                    Log.d("불러옴","토큰: $accessToken")
+                    Log.d("불러옴","토큰: ${accessToken.value}")
                     response.body()?.let { readFeed.addAll(it) }
                     feeds.value = readFeed
                     feedAdapter.notifyDataSetChanged()
                     callApi += 1
                 } else {
                     Log.d("불러옴", "안됨 ${response.raw()}")
+                    Log.d("불러옴","토큰: ${accessToken.value}")
                     isEmpty.value = View.VISIBLE
                 }
             }, {

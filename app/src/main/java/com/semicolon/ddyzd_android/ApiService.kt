@@ -74,4 +74,16 @@ interface ApiService {
         @Header("Authorization")accessToken: String,
         @Path("club_id")clubId: String
     ):Single<Response<Any>>
+
+    @DELETE("club/{club_id}/follow")
+    fun unFollow(
+        @Header("Authorization")accessToken: String,
+        @Path("club_id")clubId: String
+    ):Single<Response<Any>>
+
+    @POST("chat/{club_id}/room")
+    fun makeChatRoom(
+        @Header("Authorization")accessToken: String,
+        @Path("club_id")clubId: String
+    ):Single<Response<roomIdData>>
 }

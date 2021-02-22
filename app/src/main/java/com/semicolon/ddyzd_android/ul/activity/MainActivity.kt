@@ -67,6 +67,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        reLoadFeeds()
+    }
+
     fun reLoadFeeds() {
         feedViewModel.onCreate()
     }
@@ -86,7 +91,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 
     fun startClubDetail(club: ClubProfiles) {
         val intent = Intent(this, ClubDetails::class.java)

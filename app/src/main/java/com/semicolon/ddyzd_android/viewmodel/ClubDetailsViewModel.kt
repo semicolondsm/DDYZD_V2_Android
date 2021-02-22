@@ -15,6 +15,9 @@ import com.semicolon.ddyzd_android.ul.activity.ClubDetails
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewModel() {
     val clubDetail = MutableLiveData<ClubInDetailData>()
@@ -36,6 +39,7 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
     fun onCreate() {
         callApi = 0
         readFeeds.clear()
+        readMembers.clear()
         scrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -133,7 +137,7 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
                     } else {
                         flag -= 1
                     }
-                    feeds.value?.get(position)?.flags = flag.toString()
+                    feeds.value?.get(position)?.flags = flag
                     detailAdapter.notifyDataSetChanged()
                 } else {
                     Log.e("token", response.raw().toString())
@@ -152,8 +156,21 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
         navigator.finish()
     }
 
+    @SuppressLint("CheckResult")
     fun startChatting() {
-        navigator.startChatting()
+        adapter.makeChatRoom("Bearer ${accessToken.value}",club)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                if(it.isSuccessful){
+                    navigator.startChatting(it.body()!!.roomId)
+                }else{
+                    navigator.startLogin()
+                }
+            },{
+                navigator.showToast("인터넷 문제가 발생하였습니다")
+            })
+
     }
 
     @SuppressLint("CheckResult")
@@ -171,6 +188,41 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
             }, {
                 navigator.showToast("인터넷 문제가 발생하였습니다")
             })
+    }
+
+    @SuppressLint("CheckResult")
+    fun unFollow(){
+        adapter.unFollow("Bearer ${accessToken.value}",club)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                if(it.isSuccessful){
+                    clubDetail.value!!.follow = false
+                    detailAdapter.notifyDataSetChanged()
+                }else {
+                    navigator.startLogin()
+                }
+
+            },{
+                navigator.showToast("인터넷 문제가 발생하였습니다")
+            })
+    }
+
+    fun calculateDate(day:Date):String{
+        val dateFormat= SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz", Locale.KOREA)
+        val currentDateTime= System.currentTimeMillis()
+        val date= Date(currentDateTime)
+        val currentTime=dateFormat.format(date)
+        val getTime=dateFormat.format(day)
+        val longCurrentTime=dateFormat.parse(currentTime).time
+        val longGetTime=dateFormat.parse(getTime).time
+        val diff=(longGetTime-longCurrentTime)/1000
+        val dayDiff=(diff/86400)
+        return if(dayDiff>0){
+            dayDiff.toString()
+        }else{
+            "DAY"
+        }
     }
 }
 
