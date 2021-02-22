@@ -19,7 +19,7 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
     val userInfo=MutableLiveData<UserInfoData>()
 
     val userClubs=MutableLiveData<List<UserClubData>>()
-    val clubAdapter=UserClubsAdapter(userClubs)
+    val clubAdapter=UserClubsAdapter(userClubs,this)
 
     fun onCreate() {
         readUserInfo()
