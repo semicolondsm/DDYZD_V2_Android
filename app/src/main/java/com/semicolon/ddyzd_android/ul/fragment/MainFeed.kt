@@ -21,4 +21,5 @@ class MainFeed(val viewModel:MainFeedViewModel): Fragment() {
         binding.lifecycleOwner=this
         return binding.root
     }
+
 }

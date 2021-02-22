@@ -11,9 +11,7 @@ import androidx.lifecycle.Observer
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.databinding.ActivityMainBinding
 import com.semicolon.ddyzd_android.model.ClubProfiles
-import com.semicolon.ddyzd_android.ul.fragment.ClubList
-import com.semicolon.ddyzd_android.ul.fragment.MainFeed
-import com.semicolon.ddyzd_android.ul.fragment.Fragment3
+import com.semicolon.ddyzd_android.ul.fragment.*
 import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
@@ -117,4 +115,15 @@ class MainActivity : AppCompatActivity() {
             getSharedPreferences("auto_login", Context.MODE_PRIVATE)
         editor = startShared.edit()
     }
+
+    fun showMore(id:Int){
+        val showSheet=BottomSheetDialog(id,feedViewModel)
+        showSheet.show(supportFragmentManager,"more")
+    }
+
+    fun notShowMore(){
+        val showSheet=NotSheetDialog()
+        showSheet.show(supportFragmentManager,"not more")
+    }
+
 }
