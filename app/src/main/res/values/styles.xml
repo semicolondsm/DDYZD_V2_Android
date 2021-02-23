@@ -17,7 +17,6 @@
         <!-- Customize your theme here. -->
     </style>
     <style name="myDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:windowNoTitle">true</item>
         <item name="android:textColor">@color/purple_700</item>
         <item name="android:colorAccent">@color/purple_500</item>
     </style>
