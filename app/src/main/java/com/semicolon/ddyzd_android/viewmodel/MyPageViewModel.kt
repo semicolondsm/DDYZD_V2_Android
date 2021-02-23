@@ -78,7 +78,19 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
 
     @SuppressLint("CheckResult")
     private fun editGithub(){
-
+        val bodyMap= mutableMapOf<String,String?>()
+        bodyMap["git"]=modifyGit.value
+        adapter.editGithub("Bearer ${accessToken.value}",bodyMap)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                if(it.isSuccessful){
+                    navigator.showToast("Github Id 를 수정하였습니다")
+                    onCreate()
+                }
+            },{
+                navigator.showToast("인터넷 문제가 발생하였습니다")
+            })
     }
 
     /**
@@ -90,25 +102,24 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
     }
 
     fun onDoneIntroduceClicked(){
-        Log.d("소개","클릭은 됐는데")
         startModify(modifyIntro.value)
         navigator.disModifyIntro()
     }
 
     @SuppressLint("CheckResult")
-    private fun startModify(intro:String?){
-        adapter.modifyUserIntro("Bearer ${accessToken.value}",intro)
+    fun startModify(intro:String?){
+        val bodyMap= mutableMapOf<String,String?>()
+        bodyMap["bio"]=intro
+        adapter.modifyUserIntro("Bearer ${accessToken.value}",bodyMap)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
-                Log.d("소개",it.raw().toString())
                 if(it.isSuccessful){
                     navigator.showToast("소개를 수정하였습니다")
                     onCreate()
                 }
             },{
                 navigator.showToast("인터넷 문제가 발생하였습니다")
-                Log.d("소개","여긴가")
             })
     }
 }

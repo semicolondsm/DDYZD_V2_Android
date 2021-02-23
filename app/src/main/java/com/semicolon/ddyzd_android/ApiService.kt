@@ -1,5 +1,6 @@
 package com.semicolon.ddyzd_android
 
+import com.google.gson.annotations.SerializedName
 import com.semicolon.ddyzd_android.model.*
 import io.reactivex.Single
 import retrofit2.Call
@@ -108,6 +109,12 @@ interface ApiService {
     @PUT("users/profile/bio")
     fun modifyUserIntro(
         @Header("Authorization")accessToken: String,
-        @Body bio:String?
+        @Body bio:MutableMap<String,String?>
+    ):Single<Response<Any>>
+
+    @PUT("users/profile/git")
+    fun editGithub(
+        @Header("Authorization")accessToken: String,
+        @Body git:MutableMap<String,String?>
     ):Single<Response<Any>>
 }
