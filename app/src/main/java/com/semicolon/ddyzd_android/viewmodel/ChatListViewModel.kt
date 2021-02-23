@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.adapter.ChatListAdapter
+import com.semicolon.ddyzd_android.model.AccessTokenData
 import com.semicolon.ddyzd_android.model.ChatListData
 import com.semicolon.ddyzd_android.ul.activity.ChatList
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
@@ -45,34 +46,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     }
     fun onCreate() {
         callChatList(navigater)
-
-        val value = mutableListOf<String>("Bearer${accessToken.value}").apply {
-            println("${accessToken.value} 가나다라마바사")
-        }
-            try {
-                val opts  = IO.Options()
-                opts.transports  = arrayOf(io.socket.engineio.client.transports.WebSocket.NAME)
-                socket = IO.socket("https://api.eungyeol.live/chat",opts)
-                socket.io().on(Manager.EVENT_TRANSPORT, Emitter.Listener {args ->
-                    val trans = args[0] as Transport
-                    trans.on(Transport.EVENT_REQUEST_HEADERS){
-                        args->val mHeaders = args[0] as MutableMap<String, List<String>>
-                        println("여기가 실행${accessToken.value}")
-                        mHeaders["Authorization"] = Arrays.asList("Bearer ${accessToken.value}")
-                    }
-                })
-                socket.on(Socket.EVENT_CONNECT) {
-                    println("성공")
-                    socket.emit("response","제발 되라 ㅜㅜㅜ")
-                }.on(Socket.EVENT_CONNECT_ERROR) {
-                    println("실패;;")
-                    println(it.contentToString())
-                }
-                socket.on("response",event)
-                socket.connect()
-            } catch (e: URISyntaxException) {
-                println(e.reason)
-            }
+        accessToken.value?.let { startSocket(it) }
     }
 
     @SuppressLint("CheckResult")
@@ -96,6 +70,38 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     fun goChatting(data: ChatListData){
         navigater.startChating(data)
     }
+
+        //소켓 부분
+    fun startSocket(accessToken: String){
+        val value = mutableListOf<String>("Bearer${accessToken}").apply {
+            println("${accessToken} 가나다라마바사")
+        }
+        try {
+            val opts  = IO.Options()
+            opts.transports  = arrayOf(io.socket.engineio.client.transports.WebSocket.NAME) // xhr에러 방지
+            socket = IO.socket("https://api.eungyeol.live/chat",opts)
+            socket.io().on(Manager.EVENT_TRANSPORT, Emitter.Listener {args ->
+                val trans = args[0] as Transport
+                trans.on(Transport.EVENT_REQUEST_HEADERS){ // request 해더 넣는 부분
+                        args->val mHeaders = args[0] as MutableMap<String, List<String>>
+                    println("여기가 실행${accessToken}")
+                    mHeaders["Authorization"] = Arrays.asList("Bearer ${accessToken}")
+                }
+            })
+            socket.on(Socket.EVENT_CONNECT) {
+                println("성공")
+                socket.emit("response","제발 되라 ㅜㅜㅜ")
+            }.on(Socket.EVENT_CONNECT_ERROR) {
+                println("실패;;")
+                println(it.contentToString())
+            }
+            socket.on("response",event)
+            socket.connect()
+        } catch (e: URISyntaxException) {
+            println(e.reason)
+        }
+    }
+
     val event : Emitter.Listener =Emitter.Listener{
         val size = it.size-1
         val data  = it
