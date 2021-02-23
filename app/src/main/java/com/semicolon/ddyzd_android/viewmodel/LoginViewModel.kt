@@ -76,10 +76,8 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity,private va
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
-                Log.d("기계","토큰: $deviceToken")
-                Log.d("기계",it.raw().toString())
+                
             },{
-                Log.d("기계","실패함")
             })
     }
 
