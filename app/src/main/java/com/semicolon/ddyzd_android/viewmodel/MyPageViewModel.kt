@@ -1,6 +1,7 @@
 package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -37,6 +38,8 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
             .subscribe({
                 if(it.isSuccessful){
                     userInfo.value=it.body()
+                    modifyIntro.value= it.body()?.introduce
+                    modifyGit.value= it.body()?.github
                     userClubs.value= it.body()?.clubs
                     clubAdapter.notifyDataSetChanged()
                 }else{
@@ -64,11 +67,12 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
      * 깃허브 정보 수정하는 코드
      */
     fun onGitEditClicked(){
+        navigator.disModifyInfo()
         navigator.showEditGit()
     }
 
     fun onGitDoneClicked(){
-
+        editGithub()
         navigator.disEditGit()
     }
 
@@ -86,6 +90,7 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
     }
 
     fun onDoneIntroduceClicked(){
+        Log.d("소개","클릭은 됐는데")
         startModify(modifyIntro.value)
         navigator.disModifyIntro()
     }
@@ -96,12 +101,14 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
+                Log.d("소개",it.raw().toString())
                 if(it.isSuccessful){
                     navigator.showToast("소개를 수정하였습니다")
                     onCreate()
                 }
             },{
                 navigator.showToast("인터넷 문제가 발생하였습니다")
+                Log.d("소개","여긴가")
             })
     }
 }
