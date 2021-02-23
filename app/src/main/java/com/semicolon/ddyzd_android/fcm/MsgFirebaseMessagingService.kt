@@ -11,7 +11,6 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
-import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.deviceToken
 
 class MsgFirebaseMessagingService : FirebaseMessagingService() {
 

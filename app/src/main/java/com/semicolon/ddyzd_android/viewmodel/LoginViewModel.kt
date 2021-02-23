@@ -14,14 +14,13 @@ import com.semicolon.dsm_sdk_v1.DsmSdk
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class LoginViewModel(val instance: DsmSdk, val context: LoginActivity,val deviceToken:String) : ViewModel() {
+class LoginViewModel(val instance: DsmSdk, val context: LoginActivity,private val deviceToken:String) : ViewModel() {
     var accessToken = ""
     var refreshToken = ""
     val adapter = BaseApi.getInstance()
     lateinit var userName:String
     lateinit var userEmail:String
     lateinit var userGcn:String
-    lateinit var startSharedPreferences: SharedPreferences
 
     fun startLogin() {
         val tokenCallback: (DTOtoken?, Throwable?) -> Unit = { token, error ->
@@ -67,7 +66,21 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity,val device
         refreshToken:String,
         accessToken: String
     ) {
+        addDeviceToken(accessToken)
         context.finish(name, email, gcn, accessToken, refreshToken)
+    }
+
+    @SuppressLint("CheckResult")
+    private fun addDeviceToken(accessToken: String){
+        adapter.addDeviceToken("Bearer $accessToken",deviceToken)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                Log.d("기계","토큰: $deviceToken")
+                Log.d("기계",it.raw().toString())
+            },{
+                Log.d("기계","실패함")
+            })
     }
 
 
