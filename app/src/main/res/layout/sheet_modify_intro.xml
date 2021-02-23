@@ -10,20 +10,20 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
             >
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-                android:background="#E1D6FF">
+                android:background="#faf9ff">
 
                 <TextView
                     android:id="@+id/textView18"
@@ -38,7 +38,7 @@
                 <EditText
                     android:id="@+id/editTextTextPersonName"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="200dp"
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginVertical="10dp"
                     android:background="@drawable/custom_et"
@@ -47,16 +47,16 @@
                     android:text="@={vm.modifyIntro}"
                     android:hint="여기에 입력"
                     android:inputType="textMultiLine"
-                    android:scrollHorizontally="true"
+                    android:scrollHorizontally="false"
                     android:padding="5dp" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button2"
                     android:layout_width="170dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/follow_btn_background"
+                    android:background="@drawable/btn_done"
                     android:onClick="@{()->vm.onDoneIntroduceClicked()}"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="20dp"
                     android:text="확인"
                     android:textSize="20sp" />
             </LinearLayout>

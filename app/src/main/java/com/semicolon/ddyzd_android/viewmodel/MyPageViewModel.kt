@@ -70,6 +70,7 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
      * 소개 수정 시작,끝내는 코드
      */
     fun onModifyIntroClicked(){
+        navigator.disModifyInfo()
         navigator.showModifyIntro()
     }
 
