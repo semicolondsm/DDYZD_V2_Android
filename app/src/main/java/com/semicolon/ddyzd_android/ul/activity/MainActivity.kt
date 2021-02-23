@@ -5,9 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.databinding.ActivityMainBinding
 import com.semicolon.ddyzd_android.model.ClubProfiles
@@ -15,32 +13,31 @@ import com.semicolon.ddyzd_android.ul.fragment.*
 import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
+import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.refreshToken
+import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.userGcn
+import com.semicolon.ddyzd_android.viewmodel.MyPageViewModel
 
 class MainActivity : AppCompatActivity() {
     private val LOGIN_REQUEST_CODE = 12
     val viewModel = MainViewModel(this)
     val feedViewModel = MainFeedViewModel(this)
-
+    val myPageViewMode=MyPageViewModel(this)
 
     companion object {
         lateinit var startShared: SharedPreferences
         lateinit var editor: SharedPreferences.Editor
-        var refreshToken = ""
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        initSharedPreference()
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
-        initSharedPreference()
-        readAutoLogin()
-        viewModel.onCreate(refreshToken)
+        viewModel.onCreate()
         val binding: ActivityMainBinding =
             ActivityMainBinding.inflate(layoutInflater)
         binding.lifecycleOwner = this
         binding.vm = viewModel
         setContentView(binding.root)
-        supportFragmentManager.beginTransaction()
-            .add(R.id.fragment, MainFeed(feedViewModel)).commit()
         binding.bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_home -> {
@@ -56,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.nav_my -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment, Fragment3()).commit()
+                        .replace(R.id.fragment, MyPage(myPageViewMode)).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> return@setOnNavigationItemSelectedListener false
@@ -67,15 +64,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        reLoadFeeds()
-    }
-
-    fun reLoadFeeds() {
         feedViewModel.onCreate()
     }
 
-    private fun readAutoLogin() {
-        refreshToken = startShared.getString("get_refresh_token", "").toString()
+    fun reLoadFeeds() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment, MainFeed(feedViewModel)).commit()
+    }
+
+    private fun reLoadUser(){
+        myPageViewMode.onCreate()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -83,16 +81,20 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == LOGIN_REQUEST_CODE) {
             if (data != null) {
                 accessToken.value = data.getStringExtra("get_access_token").toString()
-                editor.putString("get_refresh_token", refreshToken)
+                refreshToken.value=data.getStringExtra("get_refresh_token").toString()
+                userGcn.value=data.getStringExtra("get_gcn").toString()
+                editor.putString("get_refresh_token", refreshToken.value)
+                editor.putString("get_gcn", userGcn.value)
                 editor.apply()
                 reLoadFeeds()
+                reLoadUser()
             }
         }
     }
 
-    fun startClubDetail(club: ClubProfiles) {
+    fun startClubDetail(club: String) {
         val intent = Intent(this, ClubDetails::class.java)
-        intent.putExtra("club_id",club.club_id)
+        intent.putExtra("club_id",club)
         startActivity(intent)
     }
 
@@ -114,11 +116,17 @@ class MainActivity : AppCompatActivity() {
         startShared =
             getSharedPreferences("auto_login", Context.MODE_PRIVATE)
         editor = startShared.edit()
+        refreshToken.value = startShared.getString("get_refresh_token", "").toString()
+        userGcn.value= startShared.getString("get_gcn","").toString()
     }
 
+    val showSheet=BottomSheetDialog(feedViewModel)
     fun showMore(id:Int){
-        val showSheet=BottomSheetDialog(id,feedViewModel)
+        showSheet.clubId=id
         showSheet.show(supportFragmentManager,"more")
+    }
+    fun closeSheet(){
+        showSheet.dismiss()
     }
 
     fun notShowMore(){

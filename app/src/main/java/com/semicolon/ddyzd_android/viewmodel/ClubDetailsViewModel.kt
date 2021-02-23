@@ -79,9 +79,7 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
             .subscribe({
                 clubDetail.value = it.body()
                 if(clubDetail.value!=null){
-                    Log.d("채팅","부름2")
                     if(clubDetail.value!!.recruitment){
-                        Log.d("채팅","부름3")
                         calculateDate(clubDetail.value!!.recruitment_close)
                     }
                 }
@@ -218,6 +216,40 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
             },{
                 navigator.showToast("인터넷 문제가 발생하였습니다")
             })
+    }
+
+    fun onMoreClicked(owner:Boolean,id:String){
+        if(owner){
+            navigator.showMore(id.toInt())
+        }else{
+            navigator.notShowMore()
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    fun deleteFeed(id:Int){
+        navigator.closeSheet()
+        adapter.deleteFeed("Bearer ${accessToken.value}",id)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                if(it.isSuccessful){
+                    navigator.showToast("피드삭제가 완료되었습니다")
+                    onCreate()
+                }else{
+                    navigator.showToast("피드삭제를 실패하였습니다")
+                }
+            },{
+                navigator.showToast("피드삭제를 실패하였습니다")
+            })
+    }
+
+    fun modifyFeed(id:Int){
+
+    }
+
+    fun onAddFeedClicked(){
+        navigator.makeFeed(clubDetail.value!!.clubname, clubDetail.value!!.clubid)
     }
 
     fun calculateDate(day:Date) {

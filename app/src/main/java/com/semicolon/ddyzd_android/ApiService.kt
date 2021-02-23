@@ -92,4 +92,16 @@ interface ApiService {
         @Header("Authorization")accessToken: String,
         @Path("feed_id")feedId:Int
     ):Single<Response<Any>>
+
+    @POST("feed/{club_id}")
+    fun addClubFeed(
+        @Header("Authorization")accessToken: String,
+        @Body content:String
+    ):Single<Response<AddFeedData>>
+
+    @GET("users/{user_gcn}")
+    fun readUserInfo(
+        @Header("Authorization")accessToken: String,
+        @Path("user_gcn")gcn:String
+    ):Single<Response<UserInfoData>>
 }

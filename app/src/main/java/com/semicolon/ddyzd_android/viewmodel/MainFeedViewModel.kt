@@ -26,8 +26,10 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
     lateinit var scrollListener: RecyclerView.OnScrollListener
 
     fun onCreate() {
+        Log.d("불림","ㅇ")
         callApi = 0
         readFeed.clear()
+        feeds.value=readFeed
         scrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -39,12 +41,10 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
                 }
             }
         }
-        feedAdapter.notifyDataSetChanged()
     }
 
     @SuppressLint("CheckResult")
     fun flagClicked(id: String, position: Int) {
-        Log.d("클릭", "id:$id")
         adapter.flagClicked("Bearer ${accessToken.value}", id)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
@@ -74,7 +74,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
     }
 
     @SuppressLint("CheckResult")
-    fun readFeeds() {
+    private fun readFeeds() {
         Log.d("불러옴","토큰: ${accessToken.value}")
         adapter.readFeed("Bearer ${accessToken.value}", callApi.toString(),System.currentTimeMillis().toString())
             .observeOn(AndroidSchedulers.mainThread())
@@ -99,7 +99,6 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
             })
     }
 
-    @SuppressLint("CheckResult")
     fun onMoreClicked(owner:Boolean,id:String){
         if(owner){
             navigator.showMore(id.toInt())
@@ -118,6 +117,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun deleteFeed(id:Int){
+        navigator.closeSheet()
         adapter.deleteFeed("Bearer ${accessToken.value}",id)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
