@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.semicolon.ddyzd_android.ActivityNavigator
 import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.adapter.UserClubsAdapter
 import com.semicolon.ddyzd_android.model.UserClubData
@@ -27,6 +28,7 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
     val modifyGit=MutableLiveData<String>()
 
     fun onCreate() {
+        ActivityNavigator.myPageViewModel=this
         readUserInfo()
     }
 

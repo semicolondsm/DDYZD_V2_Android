@@ -7,6 +7,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.semicolon.ddyzd_android.ActivityNavigator
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.databinding.ActivityMainBinding
 import com.semicolon.ddyzd_android.ul.fragment.*
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         initSharedPreference()
+        ActivityNavigator.mainActivity=this
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         viewModel.onCreate()
@@ -43,18 +45,18 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.nav_home -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment, MainFeed(feedViewModel)).commit()
+                        .replace(R.id.fragment, MainFeed()).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
 
                 R.id.nav_club -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment, ClubList(this)).commit()
+                        .replace(R.id.fragment, ClubList()).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.nav_my -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment, MyPage(myPageViewModel)).commit()
+                        .replace(R.id.fragment, MyPage()).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> return@setOnNavigationItemSelectedListener false
@@ -70,15 +72,18 @@ class MainActivity : AppCompatActivity() {
 
     fun createFeeds(){
         supportFragmentManager.beginTransaction()
-            .add(R.id.fragment, MainFeed(feedViewModel)).commit()
+            .add(R.id.fragment, MainFeed()).commit()
     }
 
     fun reLoadFeeds() {
-        feedViewModel.onCreate()
+        binding.bottomNavigation.selectedItemId=R.id.nav_home
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment, MainFeed()).commit()
     }
 
     private fun reLoadUser(){
-        myPageViewModel.onCreate()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment, MyPage()).commit()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -125,7 +130,7 @@ class MainActivity : AppCompatActivity() {
         userGcn.value= startShared.getString("get_gcn","").toString()
     }
 
-    private val showSheet=BottomSheetDialog(feedViewModel)
+    private val showSheet=BottomSheetDialog()
     fun showMore(id:Int){
         showSheet.clubId=id
         if(!showSheet.isAdded){
@@ -143,9 +148,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private val chooseModify=ChooseModifyDialog(myPageViewModel)
-    private val modifySheet=ModifySheet(myPageViewModel)
-    private val editGit=GitSheetDialog(myPageViewModel)
+    private val chooseModify=ChooseModifyDialog()
+    private val modifySheet=ModifySheet()
+    private val editGit=GitSheetDialog()
 
     fun modifyInfo(){
         if(!chooseModify.isAdded){

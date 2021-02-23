@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.semicolon.ddyzd_android.ActivityNavigator
 import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.adapter.ClubDetailAdapter
 import com.semicolon.ddyzd_android.adapter.ClubMemberAdapter
@@ -43,6 +44,7 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
     val adapter = BaseApi.getInstance()
 
     fun onCreate() {
+        ActivityNavigator.clubDetailViewModel=this
         callApi = 0
         readFeeds.clear()
         readMembers.clear()

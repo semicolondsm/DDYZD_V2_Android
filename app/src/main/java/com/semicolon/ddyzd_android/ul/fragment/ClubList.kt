@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
+import com.semicolon.ddyzd_android.ActivityNavigator
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.adapter.ClubAdapter
 import com.semicolon.ddyzd_android.databinding.FragmentClublistBinding
@@ -23,11 +24,13 @@ import com.semicolon.ddyzd_android.ul.activity.MainActivity
 import com.semicolon.ddyzd_android.viewmodel.ClubListViewModel
 
 
-class ClubList(val navigator:MainActivity): Fragment() {
+class ClubList: Fragment() {
 
     lateinit var mContext: Context
     lateinit var binding : FragmentClublistBinding
+    lateinit var navigator: MainActivity
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        navigator=ActivityNavigator.mainActivity
         val viewModel = ClubListViewModel(navigator)
         mContext=navigator.applicationContext
         binding= DataBindingUtil.inflate(inflater, R.layout.fragment_clublist,container,false)
