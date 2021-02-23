@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.adapter.ChatListAdapter
-import com.semicolon.ddyzd_android.adapter.ClubMemberAdapter
 
 object ClubListBindingAdapter {
     @JvmStatic
