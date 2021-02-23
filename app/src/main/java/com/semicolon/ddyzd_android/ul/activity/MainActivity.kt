@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        feedViewModel.onCreate()
+        reLoadFeeds()
     }
 
     fun reLoadFeeds() {
