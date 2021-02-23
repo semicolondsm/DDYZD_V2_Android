@@ -108,14 +108,15 @@ class ClubDetails : AppCompatActivity() {
     private val fragmentManager=supportFragmentManager.beginTransaction()
     fun showUserInfo(gcn:String){
         val viewModel= UserInfoViewModel(this,gcn)
+        viewModel.onCreate()
         fragmentManager
-            .add(R.id.fragment, UserInfo(viewModel),"user_fragment").commit()
+            .add(R.id.club_container, UserInfo(viewModel),"user_fragment").commit()
     }
 
     fun closeUser(){
         val fragment=supportFragmentManager.findFragmentByTag("user_fragment")
         if (fragment != null) {
-            fragmentManager.remove(fragment)
+            fragmentManager.remove(fragment).commit()
         }
     }
 

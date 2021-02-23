@@ -18,6 +18,7 @@ class UserInfo(val viewModel: UserInfoViewModel): Fragment() {
     ): View? {
         binding=DataBindingUtil.inflate(inflater,R.layout.fragment_user_info,container,false)
         binding.vm=viewModel
+        binding.lifecycleOwner=this
         return binding.root
     }
 
