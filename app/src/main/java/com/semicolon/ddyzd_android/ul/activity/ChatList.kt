@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.semicolon.ddyzd_android.databinding.ActivityChatListBinding
 import com.semicolon.ddyzd_android.model.ChatListData
+import com.semicolon.ddyzd_android.model.RoomData
 import com.semicolon.ddyzd_android.viewmodel.ChatListViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.refreshToken
@@ -48,11 +49,11 @@ class ChatList : AppCompatActivity() {
         }
     }
 
-    fun startChating(data : ChatListData){
+    fun startChating(data : RoomData){
         val intent = Intent(this,ChattingPage::class.java)
-        intent.putExtra("chatClubId",data.clubid)
-        intent.putExtra("chatClubImage",data.clubimage)
-        intent.putExtra("chatClubName",data.clubname)
+        intent.putExtra("chatClubId",data.id)
+        intent.putExtra("chatClubImage",data.image)
+        intent.putExtra("chatClubName",data.name)
         intent.putExtra("chatLastMessage",data.lastmessage)
         intent.putExtra("chatRoomId",data.roomid)
         startActivity(intent)

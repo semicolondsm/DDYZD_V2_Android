@@ -10,6 +10,7 @@ import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.adapter.ChatListAdapter
 import com.semicolon.ddyzd_android.model.AccessTokenData
 import com.semicolon.ddyzd_android.model.ChatListData
+import com.semicolon.ddyzd_android.model.RoomData
 import com.semicolon.ddyzd_android.ul.activity.ChatList
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -25,14 +26,11 @@ import java.net.URISyntaxException
 import java.util.*
 
 class ChatListViewModel(val navigater: ChatList) : ViewModel() {
-    val mManager :Manager = Manager(URI("https://api.eungyeol.live"))
-    val mSocket = mManager.socket("/chat")
     private val apiAdapter = BaseApi.getInstance()
-    private var readChatList = mutableListOf<ChatListData>()
-    val list = MutableLiveData<List<ChatListData>>()
+    private lateinit var readChatList : ChatListData
+    val list = MutableLiveData<ChatListData>()
     val clubListAdapter = ChatListAdapter(list, this)
     val value = listOf<String>()
-    val map  = mutableListOf("${accessToken.value}")
 
     private lateinit var socket : Socket
 
@@ -57,9 +55,13 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
                 if (response.isSuccessful) {
-                    response.body()?.let { readChatList.addAll(it) }
-                    list.value = readChatList
-                    clubListAdapter.notifyDataSetChanged()
+                    // 이 부분이 어뎁터
+                        if(response.body() != null){
+                            readChatList = response.body()!!
+                            list.value = readChatList
+                            clubListAdapter.notifyDataSetChanged()
+                        }
+
                 } else {
                     navigater.startLogin()
                 }
@@ -68,7 +70,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
             }
             )
     }
-    fun goChatting(data: ChatListData){
+    fun goChatting(data: RoomData){
         navigater.startChating(data)
     }
 

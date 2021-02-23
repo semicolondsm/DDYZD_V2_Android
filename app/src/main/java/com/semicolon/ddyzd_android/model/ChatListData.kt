@@ -1,9 +1,12 @@
 package com.semicolon.ddyzd_android.model
 
-data class ChatListData(
-    val roomid: String,
-    val clubid: String,
-    val clubname: String,
-    val clubimage: String,
-    val lastdate : String,
-    val lastmessage: String)
+data class ChatListData(val club_section: ArrayList<String>, val rooms : ArrayList<RoomData>)
+
+data class RoomData(val roomid: String,
+                    val id: String,
+                    val name: String,
+                    val image: String,
+                    val lastdate : String?,
+                    val lastmessage: String?,
+                    val isRead : String,
+                    val index : Int)

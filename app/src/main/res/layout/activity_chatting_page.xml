@@ -22,15 +22,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             tools:ignore="MissingConstraints">
 
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="18dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="21dp"
-                android:layout_marginTop="44dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="MissingConstraints" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/circleImageView"
@@ -38,17 +29,18 @@
                 android:layout_height="35dp"
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="47dp"
-                app:layout_constraintStart_toEndOf="@+id/imageButton"
+                app:chatImageUrl="@{vm.clubImage}"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints" />
 
             <TextView
-                android:layout_width="45dp"
-                android:layout_height="23dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="7dp"
                 android:layout_marginTop="51dp"
                 android:layout_marginBottom="16dp"
-                android:text="동아리 이름 넣자!"
+                android:text="@{vm.clubName}"
+                android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/circleImageView"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -56,6 +48,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            app:verChattingAdapter ="@{vm.chattingListAdapter}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="35dp"
@@ -81,14 +74,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 tools:ignore="MissingConstraints" />
 
-            <EditText
-                android:layout_width="350dp"
-                android:layout_height="42dp"
-                android:layout_marginTop="7dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:layout_width="300dp"
+                    android:layout_height="42dp"
+                    android:layout_marginTop="70dp"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp"
+                    android:text="보내기"/>
+            </LinearLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

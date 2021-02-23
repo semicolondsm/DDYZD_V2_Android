@@ -7,6 +7,9 @@
         <variable
             name="vm"
             type="com.semicolon.ddyzd_android.viewmodel.ChattingPageViewModel" />
+        <variable
+            name="position"
+            type="Integer" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
