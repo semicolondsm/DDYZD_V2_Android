@@ -1,6 +1,8 @@
 package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.semicolon.ddyzd_android.BaseApi
@@ -12,13 +14,15 @@ import com.semicolon.dsm_sdk_v1.DsmSdk
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class LoginViewModel(val instance: DsmSdk, val context: LoginActivity) : ViewModel() {
+class LoginViewModel(val instance: DsmSdk, val context: LoginActivity,val deviceToken:String) : ViewModel() {
     var accessToken = ""
     var refreshToken = ""
     val adapter = BaseApi.getInstance()
     lateinit var userName:String
     lateinit var userEmail:String
     lateinit var userGcn:String
+    lateinit var startSharedPreferences: SharedPreferences
+
     fun startLogin() {
         val tokenCallback: (DTOtoken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
@@ -65,6 +69,7 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity) : ViewMod
     ) {
         context.finish(name, email, gcn, accessToken, refreshToken)
     }
+
 
     fun startWithoutLogin() {
         context.finish()

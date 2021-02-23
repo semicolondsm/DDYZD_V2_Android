@@ -16,8 +16,6 @@ class MainViewModel(val navigator:MainActivity) :ViewModel(){
         val accessToken=MutableLiveData<String>()
         val refreshToken=MutableLiveData<String>()
         val userGcn=MutableLiveData<String>()
-
-        var deviceToken=""
     }
 
     fun onCreate(){
