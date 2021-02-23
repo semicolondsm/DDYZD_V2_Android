@@ -46,7 +46,8 @@
                     android:gravity="start"
                     android:text="@={vm.modifyIntro}"
                     android:hint="여기에 입력"
-                    android:inputType="textPersonName"
+                    android:inputType="textMultiLine"
+                    android:scrollHorizontally="true"
                     android:padding="5dp" />
 
                 <Button
@@ -54,7 +55,7 @@
                     android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/follow_btn_background"
-                    android:onClick="@{()->vm.onDoneClicked()}"
+                    android:onClick="@{()->vm.onDoneIntroduceClicked()}"
                     android:layout_marginBottom="10dp"
                     android:text="확인"
                     android:textSize="20sp" />

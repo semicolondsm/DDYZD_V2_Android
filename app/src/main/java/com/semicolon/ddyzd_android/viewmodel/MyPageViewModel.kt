@@ -46,17 +46,36 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
             })
     }
 
+
     fun onClubDetailClicked(clubId:String){
         navigator.startClubDetail(clubId)
     }
 
-    fun onModifyClicked(){
+
+    /**
+     * 수정 선택하는 코드
+     */
+    fun onEditProfileClicked(){
         navigator.modifyInfo()
     }
 
-    fun onDoneClicked(){
+    /**
+     * 깃허브 정보 수정하는 코드
+     */
+    fun onGitEditClicked(){
+
+    }
+
+    /**
+     * 소개 수정 시작,끝내는 코드
+     */
+    fun onModifyIntroClicked(){
+        navigator.showModifyIntro()
+    }
+
+    fun onDoneIntroduceClicked(){
         startModify(modifyIntro.value)
-        navigator.disModifyInfo()
+        navigator.disModifyIntro()
     }
 
     @SuppressLint("CheckResult")

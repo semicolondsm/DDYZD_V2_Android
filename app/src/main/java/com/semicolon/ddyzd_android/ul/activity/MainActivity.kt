@@ -127,7 +127,7 @@ class MainActivity : AppCompatActivity() {
     private val showSheet=BottomSheetDialog(feedViewModel)
     fun showMore(id:Int){
         showSheet.clubId=id
-        if(showSheet.isAdded){
+        if(!showSheet.isAdded){
             showSheet.show(supportFragmentManager,"more")
         }
     }
@@ -142,15 +142,31 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private val chooseModify=ChooseModifyDialog(myPageViewModel)
     private val modifySheet=ModifySheet(myPageViewModel)
+
     fun modifyInfo(){
-        if(!modifySheet.isAdded){
-            modifySheet.show(supportFragmentManager,"modify user")
+        if(!chooseModify.isAdded){
+            chooseModify.show(supportFragmentManager,"choose")
         }
     }
 
     fun disModifyInfo(){
-        modifySheet.dismiss()
+        if(chooseModify.isAdded){
+            chooseModify.dismiss()
+        }
+    }
+
+    fun showModifyIntro(){
+        if(!modifySheet.isAdded){
+            modifySheet.show(supportFragmentManager,"introduce")
+        }
+    }
+
+    fun disModifyIntro(){
+        if(modifySheet.isAdded){
+            modifySheet.dismiss()
+        }
     }
 
 
