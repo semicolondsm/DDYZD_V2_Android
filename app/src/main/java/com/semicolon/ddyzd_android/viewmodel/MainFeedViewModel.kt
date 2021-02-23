@@ -99,7 +99,6 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
             })
     }
 
-    @SuppressLint("CheckResult")
     fun onMoreClicked(owner:Boolean,id:String){
         if(owner){
             navigator.showMore(id.toInt())
@@ -118,6 +117,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun deleteFeed(id:Int){
+        navigator.closeSheet()
         adapter.deleteFeed("Bearer ${accessToken.value}",id)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())

@@ -120,9 +120,13 @@ class MainActivity : AppCompatActivity() {
         userGcn.value= startShared.getString("get_gcn","").toString()
     }
 
+    val showSheet=BottomSheetDialog(feedViewModel)
     fun showMore(id:Int){
-        val showSheet=BottomSheetDialog(id,feedViewModel)
+        showSheet.clubId=id
         showSheet.show(supportFragmentManager,"more")
+    }
+    fun closeSheet(){
+        showSheet.dismiss()
     }
 
     fun notShowMore(){

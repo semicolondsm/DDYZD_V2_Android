@@ -4,6 +4,7 @@
         <variable
             name="vm"
             type="com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel" />
+
         <variable
             name="id"
             type="Integer"/>
