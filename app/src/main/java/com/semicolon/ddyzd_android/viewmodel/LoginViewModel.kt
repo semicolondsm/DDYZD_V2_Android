@@ -72,7 +72,7 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity,private va
 
     @SuppressLint("CheckResult")
     private fun addDeviceToken(accessToken: String){
-        adapter.addDeviceToken("Bearer $accessToken",deviceToken)
+        adapter.addDeviceToken("Bearer $accessToken","Bearer $deviceToken")
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
