@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.semicolon.ddyzd_android.ActivityNavigator
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.databinding.ActivityClubDetailsBinding
 import com.semicolon.ddyzd_android.ul.fragment.*
@@ -22,8 +23,10 @@ class ClubDetails : AppCompatActivity() {
     lateinit var clubId:String
     lateinit var viewModel: ClubDetailsViewModel
     lateinit var  showSheet:BottomClubSheetDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        ActivityNavigator.clubDetailActivity=this
         clubId=intent.getStringExtra("club_id").toString()
         viewModel= ClubDetailsViewModel(clubId,this)
         showSheet= BottomClubSheetDialog(viewModel)
@@ -107,16 +110,16 @@ class ClubDetails : AppCompatActivity() {
     }
     private val fragmentManager=supportFragmentManager.beginTransaction()
     fun showUserInfo(gcn:String){
-        val viewModel= UserInfoViewModel(this,gcn)
-        viewModel.onCreate()
+        val userInfo=UserInfo()
+        userInfo.gcn=gcn
         fragmentManager
-            .add(R.id.club_container, UserInfo(viewModel),"user_fragment").commit()
+            .add(R.id.club_container, userInfo,"user_fragment").commit()
     }
 
     fun closeUser(){
         val fragment=supportFragmentManager.findFragmentByTag("user_fragment")
         if (fragment != null) {
-            fragmentManager.remove(fragment).commit()
+            fragmentManager.remove(fragment)
         }
     }
 
