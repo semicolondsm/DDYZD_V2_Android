@@ -144,6 +144,7 @@ class MainActivity : AppCompatActivity() {
 
     private val chooseModify=ChooseModifyDialog(myPageViewModel)
     private val modifySheet=ModifySheet(myPageViewModel)
+    private val editGit=GitSheetDialog(myPageViewModel)
 
     fun modifyInfo(){
         if(!chooseModify.isAdded){
@@ -166,6 +167,18 @@ class MainActivity : AppCompatActivity() {
     fun disModifyIntro(){
         if(modifySheet.isAdded){
             modifySheet.dismiss()
+        }
+    }
+
+    fun showEditGit(){
+        if(!editGit.isAdded){
+            editGit.show(supportFragmentManager,"git")
+        }
+    }
+
+    fun disEditGit(){
+        if(editGit.isAdded){
+            editGit.dismiss()
         }
     }
 

@@ -23,6 +23,7 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
     val clubAdapter=UserClubsAdapter(userClubs,this)
 
     val modifyIntro=MutableLiveData<String>()
+    val modifyGit=MutableLiveData<String>()
 
     fun onCreate() {
         readUserInfo()
@@ -63,6 +64,16 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
      * 깃허브 정보 수정하는 코드
      */
     fun onGitEditClicked(){
+        navigator.showEditGit()
+    }
+
+    fun onGitDoneClicked(){
+
+        navigator.disEditGit()
+    }
+
+    @SuppressLint("CheckResult")
+    private fun editGithub(){
 
     }
 
