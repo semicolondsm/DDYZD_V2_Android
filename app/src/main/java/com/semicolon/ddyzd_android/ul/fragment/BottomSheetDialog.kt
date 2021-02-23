@@ -13,7 +13,7 @@ import com.semicolon.ddyzd_android.viewmodel.ClubDetailsViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 import kotlin.properties.Delegates
 
-open class BottomSheetDialog(private val viewModel:MainFeedViewModel): BottomSheetDialogFragment() {
+class BottomSheetDialog(private val viewModel:MainFeedViewModel): BottomSheetDialogFragment() {
     lateinit var binding:FeedSheetBinding
     var clubId by Delegates.notNull<Int>()
     override fun onCreateView(
@@ -27,7 +27,7 @@ open class BottomSheetDialog(private val viewModel:MainFeedViewModel): BottomShe
         return binding.root
     }
 }
-open class BottomClubSheetDialog(private val viewModel:ClubDetailsViewModel): BottomSheetDialogFragment() {
+class BottomClubSheetDialog(private val viewModel:ClubDetailsViewModel): BottomSheetDialogFragment() {
     lateinit var binding:SheetClubFeedBinding
     var clubId by Delegates.notNull<Int>()
     override fun onCreateView(

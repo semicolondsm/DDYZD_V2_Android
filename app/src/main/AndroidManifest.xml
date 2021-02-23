@@ -19,7 +19,8 @@
         <activity android:name=".ul.activity.ClubDetails" />
         <activity
             android:name=".ul.activity.MainActivity"
-            android:theme="@style/splashTheme">
+            android:theme="@style/splashTheme"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

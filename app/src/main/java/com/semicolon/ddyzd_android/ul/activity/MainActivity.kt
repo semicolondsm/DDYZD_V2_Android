@@ -124,10 +124,12 @@ class MainActivity : AppCompatActivity() {
         userGcn.value= startShared.getString("get_gcn","").toString()
     }
 
-    val showSheet=BottomSheetDialog(feedViewModel)
+    private val showSheet=BottomSheetDialog(feedViewModel)
     fun showMore(id:Int){
         showSheet.clubId=id
-        showSheet.show(supportFragmentManager,"more")
+        if(!showSheet.isAdded){
+            showSheet.show(supportFragmentManager,"more")
+        }
     }
     fun closeSheet(){
         showSheet.dismiss()
@@ -135,7 +137,50 @@ class MainActivity : AppCompatActivity() {
 
     fun notShowMore(){
         val showSheet=NotSheetDialog()
-        showSheet.show(supportFragmentManager,"not more")
+        if(!showSheet.isAdded){
+            showSheet.show(supportFragmentManager,"not more")
+        }
     }
+
+    private val chooseModify=ChooseModifyDialog(myPageViewModel)
+    private val modifySheet=ModifySheet(myPageViewModel)
+    private val editGit=GitSheetDialog(myPageViewModel)
+
+    fun modifyInfo(){
+        if(!chooseModify.isAdded){
+            chooseModify.show(supportFragmentManager,"choose")
+        }
+    }
+
+    fun disModifyInfo(){
+        if(chooseModify.isAdded){
+            chooseModify.dismiss()
+        }
+    }
+
+    fun showModifyIntro(){
+        if(!modifySheet.isAdded){
+            modifySheet.show(supportFragmentManager,"introduce")
+        }
+    }
+
+    fun disModifyIntro(){
+        if(modifySheet.isAdded){
+            modifySheet.dismiss()
+        }
+    }
+
+    fun showEditGit(){
+        if(!editGit.isAdded){
+            editGit.show(supportFragmentManager,"git")
+        }
+    }
+
+    fun disEditGit(){
+        if(editGit.isAdded){
+            editGit.dismiss()
+        }
+    }
+
 
 }

@@ -9,6 +9,7 @@ import com.semicolon.ddyzd_android.adapter.UserClubsAdapter
 import com.semicolon.ddyzd_android.model.UserClubData
 import com.semicolon.ddyzd_android.model.UserInfoData
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
+import com.semicolon.ddyzd_android.ul.fragment.ModifySheet
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.userGcn
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -20,6 +21,9 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
 
     val userClubs=MutableLiveData<List<UserClubData>>()
     val clubAdapter=UserClubsAdapter(userClubs,this)
+
+    val modifyIntro=MutableLiveData<String>()
+    val modifyGit=MutableLiveData<String>()
 
     fun onCreate() {
         readUserInfo()
@@ -43,7 +47,61 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
             })
     }
 
+
     fun onClubDetailClicked(clubId:String){
         navigator.startClubDetail(clubId)
+    }
+
+
+    /**
+     * 수정 선택하는 코드
+     */
+    fun onEditProfileClicked(){
+        navigator.modifyInfo()
+    }
+
+    /**
+     * 깃허브 정보 수정하는 코드
+     */
+    fun onGitEditClicked(){
+        navigator.showEditGit()
+    }
+
+    fun onGitDoneClicked(){
+
+        navigator.disEditGit()
+    }
+
+    @SuppressLint("CheckResult")
+    private fun editGithub(){
+
+    }
+
+    /**
+     * 소개 수정 시작,끝내는 코드
+     */
+    fun onModifyIntroClicked(){
+        navigator.disModifyInfo()
+        navigator.showModifyIntro()
+    }
+
+    fun onDoneIntroduceClicked(){
+        startModify(modifyIntro.value)
+        navigator.disModifyIntro()
+    }
+
+    @SuppressLint("CheckResult")
+    private fun startModify(intro:String?){
+        adapter.modifyUserIntro("Bearer ${accessToken.value}",intro)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                if(it.isSuccessful){
+                    navigator.showToast("소개를 수정하였습니다")
+                    onCreate()
+                }
+            },{
+                navigator.showToast("인터넷 문제가 발생하였습니다")
+            })
     }
 }
