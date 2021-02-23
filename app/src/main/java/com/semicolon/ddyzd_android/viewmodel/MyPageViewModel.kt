@@ -9,6 +9,7 @@ import com.semicolon.ddyzd_android.adapter.UserClubsAdapter
 import com.semicolon.ddyzd_android.model.UserClubData
 import com.semicolon.ddyzd_android.model.UserInfoData
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
+import com.semicolon.ddyzd_android.ul.fragment.ModifySheet
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.userGcn
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -45,5 +46,13 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
 
     fun onClubDetailClicked(clubId:String){
         navigator.startClubDetail(clubId)
+    }
+
+    fun onModifyClicked(){
+        navigator.modifyInfo()
+    }
+
+    fun onDoneClicked(){
+        navigator.disModifyInfo()
     }
 }

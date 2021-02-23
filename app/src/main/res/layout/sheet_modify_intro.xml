@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout>
+    <data>
+        <variable
+            name="vm"
+            type="com.semicolon.ddyzd_android.viewmodel.MyPageViewModel" />
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,16 +24,18 @@
         android:textColor="@color/black"/>
 
     <EditText
+        android:padding="5dp"
         android:id="@+id/editTextTextPersonName"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:ems="10"
+        android:hint="여기에 입력"
         android:layout_marginHorizontal="10dp"
         android:layout_marginVertical="10dp"
         android:inputType="textPersonName"
         android:background="@drawable/custom_et"
         android:gravity="start"
-        android:text="Name" />
+        />
 
     <Button
         android:id="@+id/button2"
@@ -35,5 +43,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/follow_btn_background"
         android:textSize="20sp"
+        android:onClick="@{()->vm.onDoneClicked()}"
         android:text="확인" />
 </LinearLayout>
+</layout>

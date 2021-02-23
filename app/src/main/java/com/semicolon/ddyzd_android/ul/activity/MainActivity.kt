@@ -124,7 +124,7 @@ class MainActivity : AppCompatActivity() {
         userGcn.value= startShared.getString("get_gcn","").toString()
     }
 
-    val showSheet=BottomSheetDialog(feedViewModel)
+    private val showSheet=BottomSheetDialog(feedViewModel)
     fun showMore(id:Int){
         showSheet.clubId=id
         showSheet.show(supportFragmentManager,"more")
@@ -137,5 +137,15 @@ class MainActivity : AppCompatActivity() {
         val showSheet=NotSheetDialog()
         showSheet.show(supportFragmentManager,"not more")
     }
+
+    private val modifySheet=ModifySheet(myPageViewModel)
+    fun modifyInfo(){
+        modifySheet.show(supportFragmentManager,"modify user")
+    }
+
+    fun disModifyInfo(){
+        modifySheet.dismiss()
+    }
+
 
 }
