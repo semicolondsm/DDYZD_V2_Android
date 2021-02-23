@@ -122,4 +122,8 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
                 navigator.showToast("인터넷 문제가 발생하였습니다")
             })
     }
+
+    fun onGithubProfileClicked(){
+        navigator.startGithub(modifyGit.value)
+    }
 }
