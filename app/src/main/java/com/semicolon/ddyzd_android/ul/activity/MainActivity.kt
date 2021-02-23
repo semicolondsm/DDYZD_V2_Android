@@ -127,7 +127,9 @@ class MainActivity : AppCompatActivity() {
     private val showSheet=BottomSheetDialog(feedViewModel)
     fun showMore(id:Int){
         showSheet.clubId=id
-        showSheet.show(supportFragmentManager,"more")
+        if(showSheet.isAdded){
+            showSheet.show(supportFragmentManager,"more")
+        }
     }
     fun closeSheet(){
         showSheet.dismiss()
@@ -135,12 +137,16 @@ class MainActivity : AppCompatActivity() {
 
     fun notShowMore(){
         val showSheet=NotSheetDialog()
-        showSheet.show(supportFragmentManager,"not more")
+        if(!showSheet.isAdded){
+            showSheet.show(supportFragmentManager,"not more")
+        }
     }
 
     private val modifySheet=ModifySheet(myPageViewModel)
     fun modifyInfo(){
-        modifySheet.show(supportFragmentManager,"modify user")
+        if(!modifySheet.isAdded){
+            modifySheet.show(supportFragmentManager,"modify user")
+        }
     }
 
     fun disModifyInfo(){
