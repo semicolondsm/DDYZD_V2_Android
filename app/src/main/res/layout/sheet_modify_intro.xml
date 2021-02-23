@@ -1,49 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
         <variable
             name="vm"
             type="com.semicolon.ddyzd_android.viewmodel.MyPageViewModel" />
     </data>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/follow_btn_background"
-    android:gravity="center_horizontal">
 
-    <TextView
-        android:id="@+id/textView18"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="소개수정"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/black"/>
+        android:layout_height="match_parent">
 
-    <EditText
-        android:padding="5dp"
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:ems="10"
-        android:hint="여기에 입력"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginVertical="10dp"
-        android:inputType="textPersonName"
-        android:background="@drawable/custom_et"
-        android:gravity="start"
-        />
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="10dp"
+            >
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/follow_btn_background"
-        android:textSize="20sp"
-        android:onClick="@{()->vm.onDoneClicked()}"
-        android:text="확인" />
-</LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:background="#E1D6FF">
+
+                <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="소개수정"
+                    android:textColor="@color/black"
+                    android:textSize="30sp" />
+
+                <EditText
+                    android:id="@+id/editTextTextPersonName"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="10dp"
+                    android:background="@drawable/custom_et"
+                    android:ems="10"
+                    android:gravity="start"
+                    android:text="@={vm.modifyIntro}"
+                    android:hint="여기에 입력"
+                    android:inputType="textPersonName"
+                    android:padding="5dp" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/follow_btn_background"
+                    android:onClick="@{()->vm.onDoneClicked()}"
+                    android:layout_marginBottom="10dp"
+                    android:text="확인"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </FrameLayout>
 </layout>

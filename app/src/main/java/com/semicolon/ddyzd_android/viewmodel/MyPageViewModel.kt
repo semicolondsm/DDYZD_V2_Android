@@ -22,6 +22,8 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
     val userClubs=MutableLiveData<List<UserClubData>>()
     val clubAdapter=UserClubsAdapter(userClubs,this)
 
+    val modifyIntro=MutableLiveData<String>()
+
     fun onCreate() {
         readUserInfo()
     }
@@ -53,6 +55,22 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
     }
 
     fun onDoneClicked(){
+        startModify(modifyIntro.value)
         navigator.disModifyInfo()
+    }
+
+    @SuppressLint("CheckResult")
+    private fun startModify(intro:String?){
+        adapter.modifyUserIntro("Bearer ${accessToken.value}",intro)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                if(it.isSuccessful){
+                    navigator.showToast("소개를 수정하였습니다")
+                    onCreate()
+                }
+            },{
+                navigator.showToast("인터넷 문제가 발생하였습니다")
+            })
     }
 }

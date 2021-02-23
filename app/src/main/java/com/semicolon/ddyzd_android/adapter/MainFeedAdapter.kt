@@ -70,6 +70,7 @@ class MainFeedAdapter(private val feeds: MutableLiveData<List<MainFeedData>>, pr
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
         if (position == 0) {
             (holder as HeaderFeedViewHolder).bind(viewModel)
         } else {

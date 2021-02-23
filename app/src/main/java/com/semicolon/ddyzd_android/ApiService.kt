@@ -104,4 +104,10 @@ interface ApiService {
         @Header("Authorization")accessToken: String,
         @Path("user_gcn")gcn:String
     ):Single<Response<UserInfoData>>
+
+    @PUT("users/profile/bio")
+    fun modifyUserIntro(
+        @Header("Authorization")accessToken: String,
+        @Body bio:String?
+    ):Single<Response<Any>>
 }
