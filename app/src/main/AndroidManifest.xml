@@ -34,7 +34,7 @@
             </intent-filter>
         </service>
         <service
-            android:name=".fcm.">
+            android:name="com.semicolon.ddyzd_android.fcm.MsgFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
