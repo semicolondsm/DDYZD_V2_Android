@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="100dp"
-            android:text="피드를 읽어오지 못했습니다"
+            android:text="게시물이 없습니다"
             android:visibility="@{vm.isEmpty}"
             app:layout_constraintBottom_toBottomOf="@+id/main_recyclerview"
             app:layout_constraintEnd_toEndOf="@+id/main_recyclerview"

@@ -11,7 +11,6 @@ import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.adapter.MainFeedAdapter
 import com.semicolon.ddyzd_android.model.MainFeedData
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
-import com.semicolon.ddyzd_android.ul.fragment.BottomSheetDialog
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

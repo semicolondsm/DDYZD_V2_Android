@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.widget.Toast
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.databinding.ActivityMainBinding
-import com.semicolon.ddyzd_android.model.ClubProfiles
 import com.semicolon.ddyzd_android.ul.fragment.*
 import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel
@@ -21,7 +20,8 @@ class MainActivity : AppCompatActivity() {
     private val LOGIN_REQUEST_CODE = 12
     val viewModel = MainViewModel(this)
     val feedViewModel = MainFeedViewModel(this)
-    val myPageViewMode=MyPageViewModel(this)
+    val myPageViewModel=MyPageViewModel(this)
+    lateinit var binding:ActivityMainBinding
 
     companion object {
         lateinit var startShared: SharedPreferences
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         viewModel.onCreate()
-        val binding: ActivityMainBinding =
+        binding=
             ActivityMainBinding.inflate(layoutInflater)
         binding.lifecycleOwner = this
         binding.vm = viewModel
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.nav_my -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment, MyPage(myPageViewMode)).commit()
+                        .replace(R.id.fragment, MyPage(myPageViewModel)).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> return@setOnNavigationItemSelectedListener false
@@ -64,16 +64,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        feedViewModel.onCreate()
+        reLoadFeeds()
+    }
+
+    fun createFeeds(){
+        supportFragmentManager.beginTransaction()
+            .add(R.id.fragment, MainFeed(feedViewModel)).commit()
     }
 
     fun reLoadFeeds() {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment, MainFeed(feedViewModel)).commit()
+        feedViewModel.onCreate()
     }
 
     private fun reLoadUser(){
-        myPageViewMode.onCreate()
+        myPageViewModel.onCreate()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -120,10 +124,12 @@ class MainActivity : AppCompatActivity() {
         userGcn.value= startShared.getString("get_gcn","").toString()
     }
 
-    val showSheet=BottomSheetDialog(feedViewModel)
+    private val showSheet=BottomSheetDialog(feedViewModel)
     fun showMore(id:Int){
         showSheet.clubId=id
-        showSheet.show(supportFragmentManager,"more")
+        if(!showSheet.isAdded){
+            showSheet.show(supportFragmentManager,"more")
+        }
     }
     fun closeSheet(){
         showSheet.dismiss()
@@ -131,7 +137,50 @@ class MainActivity : AppCompatActivity() {
 
     fun notShowMore(){
         val showSheet=NotSheetDialog()
-        showSheet.show(supportFragmentManager,"not more")
+        if(!showSheet.isAdded){
+            showSheet.show(supportFragmentManager,"not more")
+        }
     }
+
+    private val chooseModify=ChooseModifyDialog(myPageViewModel)
+    private val modifySheet=ModifySheet(myPageViewModel)
+    private val editGit=GitSheetDialog(myPageViewModel)
+
+    fun modifyInfo(){
+        if(!chooseModify.isAdded){
+            chooseModify.show(supportFragmentManager,"choose")
+        }
+    }
+
+    fun disModifyInfo(){
+        if(chooseModify.isAdded){
+            chooseModify.dismiss()
+        }
+    }
+
+    fun showModifyIntro(){
+        if(!modifySheet.isAdded){
+            modifySheet.show(supportFragmentManager,"introduce")
+        }
+    }
+
+    fun disModifyIntro(){
+        if(modifySheet.isAdded){
+            modifySheet.dismiss()
+        }
+    }
+
+    fun showEditGit(){
+        if(!editGit.isAdded){
+            editGit.show(supportFragmentManager,"git")
+        }
+    }
+
+    fun disEditGit(){
+        if(editGit.isAdded){
+            editGit.dismiss()
+        }
+    }
+
 
 }

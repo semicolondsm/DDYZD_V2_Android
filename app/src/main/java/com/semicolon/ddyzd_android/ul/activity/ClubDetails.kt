@@ -21,10 +21,12 @@ class ClubDetails : AppCompatActivity() {
     lateinit var binding : ActivityClubDetailsBinding
     lateinit var clubId:String
     lateinit var viewModel: ClubDetailsViewModel
+    lateinit var  showSheet:BottomClubSheetDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         clubId=intent.getStringExtra("club_id").toString()
         viewModel= ClubDetailsViewModel(clubId,this)
+        showSheet= BottomClubSheetDialog(viewModel)
         viewModel.onCreate()
         binding  = ActivityClubDetailsBinding.inflate(layoutInflater)
         binding.vm = viewModel
@@ -84,7 +86,6 @@ class ClubDetails : AppCompatActivity() {
     }
 
     //bottom sheet
-    val showSheet= BottomClubSheetDialog(viewModel)
     fun showMore(id:Int){
         showSheet.clubId=id
         showSheet.show(supportFragmentManager,"more")

@@ -109,4 +109,10 @@ interface ApiService {
         @Header("Authorization")accessToken: String,
         @Path("room_id")roomId:String
     ):Single<Response<ArrayList<ChattingData>>>
+
+    @PUT("users/profile/bio")
+    fun modifyUserIntro(
+        @Header("Authorization")accessToken: String,
+        @Body bio:String?
+    ):Single<Response<Any>>
 }
