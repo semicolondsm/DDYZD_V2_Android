@@ -8,6 +8,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.databinding.ActivityClubDetailsBinding
+import com.semicolon.ddyzd_android.ul.fragment.BottomClubSheetDialog
+import com.semicolon.ddyzd_android.ul.fragment.BottomSheetDialog
+import com.semicolon.ddyzd_android.ul.fragment.NotSheetDialog
 import com.semicolon.ddyzd_android.viewmodel.ClubDetailsViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
@@ -78,5 +81,20 @@ class ClubDetails : AppCompatActivity() {
                 Toast.makeText(this,"피드는 동아리원만 생성할 수 있습니다",Toast.LENGTH_LONG).show()
             }
             .show()
+    }
+
+    //bottom sheet
+    val showSheet= BottomClubSheetDialog(viewModel)
+    fun showMore(id:Int){
+        showSheet.clubId=id
+        showSheet.show(supportFragmentManager,"more")
+    }
+    fun closeSheet(){
+        showSheet.dismiss()
+    }
+
+    fun notShowMore(){
+        val showSheet= NotSheetDialog()
+        showSheet.show(supportFragmentManager,"not more")
     }
 }
