@@ -21,6 +21,12 @@ class ChatList : AppCompatActivity() {
         setContentView(binding.root)
 
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.lifecycleOwner = this
+        viewModel.onDestroy()
+    }
     fun startLogin(){
         val intent=Intent(this,LoginActivity::class.java)
         startActivityForResult(intent,CODE)
