@@ -7,11 +7,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.semicolon.ddyzd_android.ActivityNavigator
 import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.adapter.MainFeedAdapter
 import com.semicolon.ddyzd_android.model.MainFeedData
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
-import com.semicolon.ddyzd_android.ul.fragment.BottomSheetDialog
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -26,8 +26,11 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
     lateinit var scrollListener: RecyclerView.OnScrollListener
 
     fun onCreate() {
+        ActivityNavigator.mainFeedViewModel=this
+        Log.d("불림","ㅇ")
         callApi = 0
         readFeed.clear()
+        feeds.value=readFeed
         scrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -39,12 +42,10 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
                 }
             }
         }
-        feedAdapter.notifyDataSetChanged()
     }
 
     @SuppressLint("CheckResult")
     fun flagClicked(id: String, position: Int) {
-        Log.d("클릭", "id:$id")
         adapter.flagClicked("Bearer ${accessToken.value}", id)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
@@ -74,7 +75,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
     }
 
     @SuppressLint("CheckResult")
-    fun readFeeds() {
+    private fun readFeeds() {
         Log.d("불러옴","토큰: ${accessToken.value}")
         adapter.readFeed("Bearer ${accessToken.value}", callApi.toString(),System.currentTimeMillis().toString())
             .observeOn(AndroidSchedulers.mainThread())
@@ -99,7 +100,6 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
             })
     }
 
-    @SuppressLint("CheckResult")
     fun onMoreClicked(owner:Boolean,id:String){
         if(owner){
             navigator.showMore(id.toInt())
@@ -118,6 +118,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun deleteFeed(id:Int){
+        navigator.closeSheet()
         adapter.deleteFeed("Bearer ${accessToken.value}",id)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())

@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.semicolon.ddyzd_android.ActivityNavigator
 import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.adapter.ClubDetailAdapter
 import com.semicolon.ddyzd_android.adapter.ClubMemberAdapter
@@ -43,6 +44,7 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
     val adapter = BaseApi.getInstance()
 
     fun onCreate() {
+        ActivityNavigator.clubDetailViewModel=this
         callApi = 0
         readFeeds.clear()
         readMembers.clear()
@@ -218,6 +220,36 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
             })
     }
 
+    fun onMoreClicked(owner:Boolean,id:String){
+        if(owner){
+            navigator.showMore(id.toInt())
+        }else{
+            navigator.notShowMore()
+        }
+    }
+
+    @SuppressLint("CheckResult")
+    fun deleteFeed(id:Int){
+        navigator.closeSheet()
+        adapter.deleteFeed("Bearer ${accessToken.value}",id)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                if(it.isSuccessful){
+                    navigator.showToast("피드삭제가 완료되었습니다")
+                    onCreate()
+                }else{
+                    navigator.showToast("피드삭제를 실패하였습니다")
+                }
+            },{
+                navigator.showToast("피드삭제를 실패하였습니다")
+            })
+    }
+
+    fun modifyFeed(id:Int){
+
+    }
+
     fun onAddFeedClicked(){
         navigator.makeFeed(clubDetail.value!!.clubname, clubDetail.value!!.clubid)
     }
@@ -240,6 +272,10 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
         }else{
             chatBtnText.value="D-DAY"
         }
+    }
+
+    fun gotoUserInfo(userGcn:String){
+        navigator.showUserInfo(userGcn)
     }
 }
 

@@ -3,60 +3,60 @@ package com.semicolon.ddyzd_android.ul.activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.Observer
+import com.semicolon.ddyzd_android.ActivityNavigator
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.databinding.ActivityMainBinding
-import com.semicolon.ddyzd_android.model.ClubProfiles
 import com.semicolon.ddyzd_android.ul.fragment.*
 import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
+import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.refreshToken
+import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.userGcn
+import com.semicolon.ddyzd_android.viewmodel.MyPageViewModel
 
 class MainActivity : AppCompatActivity() {
     private val LOGIN_REQUEST_CODE = 12
     val viewModel = MainViewModel(this)
     val feedViewModel = MainFeedViewModel(this)
-
+    val myPageViewModel=MyPageViewModel(this)
+    lateinit var binding:ActivityMainBinding
 
     companion object {
         lateinit var startShared: SharedPreferences
         lateinit var editor: SharedPreferences.Editor
-        var refreshToken = ""
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        initSharedPreference()
+        ActivityNavigator.mainActivity=this
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
-        initSharedPreference()
-        readAutoLogin()
-        viewModel.onCreate(refreshToken)
-        val binding: ActivityMainBinding =
+        viewModel.onCreate()
+        binding=
             ActivityMainBinding.inflate(layoutInflater)
         binding.lifecycleOwner = this
         binding.vm = viewModel
         setContentView(binding.root)
-        supportFragmentManager.beginTransaction()
-            .add(R.id.fragment, MainFeed(feedViewModel)).commit()
         binding.bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_home -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment, MainFeed(feedViewModel)).commit()
+                        .replace(R.id.fragment, MainFeed()).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
 
                 R.id.nav_club -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment, ClubList(this)).commit()
+                        .replace(R.id.fragment, ClubList()).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.nav_my -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment, Fragment3()).commit()
+                        .replace(R.id.fragment, MyPage()).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> return@setOnNavigationItemSelectedListener false
@@ -70,12 +70,20 @@ class MainActivity : AppCompatActivity() {
         reLoadFeeds()
     }
 
-    fun reLoadFeeds() {
-        feedViewModel.onCreate()
+    fun createFeeds(){
+        supportFragmentManager.beginTransaction()
+            .add(R.id.fragment, MainFeed()).commit()
     }
 
-    private fun readAutoLogin() {
-        refreshToken = startShared.getString("get_refresh_token", "").toString()
+    fun reLoadFeeds() {
+        binding.bottomNavigation.selectedItemId=R.id.nav_home
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment, MainFeed()).commit()
+    }
+
+    private fun reLoadUser(){
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment, MyPage()).commit()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -83,16 +91,20 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == LOGIN_REQUEST_CODE) {
             if (data != null) {
                 accessToken.value = data.getStringExtra("get_access_token").toString()
-                editor.putString("get_refresh_token", refreshToken)
+                refreshToken.value=data.getStringExtra("get_refresh_token").toString()
+                userGcn.value=data.getStringExtra("get_gcn").toString()
+                editor.putString("get_refresh_token", refreshToken.value)
+                editor.putString("get_gcn", userGcn.value)
                 editor.apply()
                 reLoadFeeds()
+                reLoadUser()
             }
         }
     }
 
-    fun startClubDetail(club: ClubProfiles) {
+    fun startClubDetail(club: String) {
         val intent = Intent(this, ClubDetails::class.java)
-        intent.putExtra("club_id",club.club_id)
+        intent.putExtra("club_id",club)
         startActivity(intent)
     }
 
@@ -114,16 +126,72 @@ class MainActivity : AppCompatActivity() {
         startShared =
             getSharedPreferences("auto_login", Context.MODE_PRIVATE)
         editor = startShared.edit()
+        refreshToken.value = startShared.getString("get_refresh_token", "").toString()
+        userGcn.value= startShared.getString("get_gcn","").toString()
     }
 
+    private val showSheet=BottomSheetDialog()
     fun showMore(id:Int){
-        val showSheet=BottomSheetDialog(id,feedViewModel)
-        showSheet.show(supportFragmentManager,"more")
+        showSheet.clubId=id
+        if(!showSheet.isAdded){
+            showSheet.show(supportFragmentManager,"more")
+        }
+    }
+    fun closeSheet(){
+        showSheet.dismiss()
     }
 
     fun notShowMore(){
         val showSheet=NotSheetDialog()
-        showSheet.show(supportFragmentManager,"not more")
+        if(!showSheet.isAdded){
+            showSheet.show(supportFragmentManager,"not more")
+        }
+    }
+
+    private val chooseModify=ChooseModifyDialog()
+    private val modifySheet=ModifySheet()
+    private val editGit=GitSheetDialog()
+
+    fun modifyInfo(){
+        if(!chooseModify.isAdded){
+            chooseModify.show(supportFragmentManager,"choose")
+        }
+    }
+
+    fun disModifyInfo(){
+        if(chooseModify.isAdded){
+            chooseModify.dismiss()
+        }
+    }
+
+    fun showModifyIntro(){
+        if(!modifySheet.isAdded){
+            modifySheet.show(supportFragmentManager,"introduce")
+        }
+    }
+
+    fun disModifyIntro(){
+        if(modifySheet.isAdded){
+            modifySheet.dismiss()
+        }
+    }
+
+    fun showEditGit(){
+        if(!editGit.isAdded){
+            editGit.show(supportFragmentManager,"git")
+        }
+    }
+
+    fun disEditGit(){
+        if(editGit.isAdded){
+            editGit.dismiss()
+        }
+    }
+
+
+    fun startGithub(id:String?){
+        val intent=Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/$id"))
+        startActivity(intent)
     }
 
 }

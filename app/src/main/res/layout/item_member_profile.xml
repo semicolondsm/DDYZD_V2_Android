@@ -1,47 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data>
+
         <variable
             name="vm"
             type="com.semicolon.ddyzd_android.viewmodel.ClubDetailsViewModel" />
+
         <variable
             name="position"
             type="Integer" />
     </data>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:paddingHorizontal="10dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        app:profileImage="@{vm.members[position].imageUrl}"/>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/name_tv"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@{vm.members[position].name}"
-        tools:text="이름이야" />
+        android:onClick="@{()->vm.gotoUserInfo(vm.members[position].gcn)}"
+        android:orientation="vertical"
+        android:paddingHorizontal="10dp">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/captain_tv"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:gravity="center"
-        android:text="동아리장"
-        android:visibility="@{position==0?vm.visible:vm.invisible}"
-        android:textColor="@color/design_default_color_primary"
-        tools:text="동아리장" />
-</LinearLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:profileImage="@{vm.members[position].imageUrl}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@{vm.members[position].name}"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            tools:text="이름이야" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/captain_tv"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:gravity="center"
+            android:text="동아리장"
+            android:textColor="@color/design_default_color_primary"
+            android:visibility="@{position==0?vm.visible:vm.invisible}"
+            tools:text="동아리장" />
+    </LinearLayout>
 </layout>

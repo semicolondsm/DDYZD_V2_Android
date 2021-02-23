@@ -16,43 +16,50 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/club_tab_layout"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@android:color/background_light"
             android:elevation="1dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView9"
             app:tabGravity="fill"
             app:tabIndicatorColor="@color/design_default_color_primary"
+            app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/design_default_color_primary"
-            app:tabTextColor="@color/black"
-            app:tabMode="scrollable">
+            app:tabTextColor="@color/black">
+
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="전체"/>
+                android:text="전체" />
+
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/web"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="웹"/>
+                android:text="웹" />
+
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/app"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="앱"/>
+                android:text="앱" />
+
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/imbe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="임베디드"/>
+                android:text="임베디드" />
+
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/guitar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="기타"/>
+                android:text="기타" />
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -76,5 +83,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/club_tab_layout" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="동아리리스트"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,6 +1,5 @@
 package com.semicolon.ddyzd_android.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
@@ -71,6 +70,7 @@ class MainFeedAdapter(private val feeds: MutableLiveData<List<MainFeedData>>, pr
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
         if (position == 0) {
             (holder as HeaderFeedViewHolder).bind(viewModel)
         } else {

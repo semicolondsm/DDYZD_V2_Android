@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.adapter.ChatListAdapter
-import com.semicolon.ddyzd_android.adapter.ClubMemberAdapter
 
 object ClubListBindingAdapter {
     @JvmStatic
@@ -33,7 +32,7 @@ object ClubListBindingAdapter {
 
     @JvmStatic
     @BindingAdapter("members_adapter")
-    fun memberAdapter(recyclerView: RecyclerView,adapter:ClubMemberAdapter){
+    fun memberAdapter(recyclerView: RecyclerView,adapter:RecyclerView.Adapter<RecyclerView.ViewHolder>){
         val layoutManager=LinearLayoutManager(recyclerView.context)
         layoutManager.orientation=RecyclerView.HORIZONTAL
         recyclerView.layoutManager=layoutManager
