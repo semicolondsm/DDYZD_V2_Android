@@ -117,4 +117,10 @@ interface ApiService {
         @Header("Authorization")accessToken: String,
         @Body git:MutableMap<String,String?>
     ):Single<Response<Any>>
+
+    @POST("users/device_token")
+    fun addDeviceToken(
+        @Header("Authorization")accessToken: String,
+        @Header("device-token")token:String
+    ):Single<Response<Any>>
 }
