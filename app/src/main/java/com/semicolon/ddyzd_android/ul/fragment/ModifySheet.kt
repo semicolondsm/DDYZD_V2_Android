@@ -4,15 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.semicolon.ddyzd_android.ActivityNavigator
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.databinding.SheetModifyIntroBinding
-import com.semicolon.ddyzd_android.viewmodel.MyPageViewModel
 
-class ModifySheet(private val viewModel: MyPageViewModel) : BottomSheetDialogFragment() {
+class ModifySheet: BottomSheetDialogFragment() {
     lateinit var binding: SheetModifyIntroBinding
 
     override fun onCreateView(
@@ -20,6 +19,7 @@ class ModifySheet(private val viewModel: MyPageViewModel) : BottomSheetDialogFra
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val viewModel=ActivityNavigator.myPageViewModel
         setStyle(DialogFragment.STYLE_NORMAL, R.style.ModifyIntroStyle)
         binding = DataBindingUtil.inflate(inflater, R.layout.sheet_modify_intro, container, false)
         binding.vm = viewModel

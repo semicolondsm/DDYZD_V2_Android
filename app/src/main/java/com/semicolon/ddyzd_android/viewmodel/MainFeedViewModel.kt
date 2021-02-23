@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.semicolon.ddyzd_android.ActivityNavigator
 import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.adapter.MainFeedAdapter
 import com.semicolon.ddyzd_android.model.MainFeedData
@@ -25,6 +26,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
     lateinit var scrollListener: RecyclerView.OnScrollListener
 
     fun onCreate() {
+        ActivityNavigator.mainFeedViewModel=this
         Log.d("불림","ㅇ")
         callApi = 0
         readFeed.clear()

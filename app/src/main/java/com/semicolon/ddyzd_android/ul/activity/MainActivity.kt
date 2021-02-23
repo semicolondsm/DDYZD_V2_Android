@@ -130,7 +130,7 @@ class MainActivity : AppCompatActivity() {
         userGcn.value= startShared.getString("get_gcn","").toString()
     }
 
-    private val showSheet=BottomSheetDialog(feedViewModel)
+    private val showSheet=BottomSheetDialog()
     fun showMore(id:Int){
         showSheet.clubId=id
         if(!showSheet.isAdded){
@@ -148,9 +148,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private val chooseModify=ChooseModifyDialog(myPageViewModel)
-    private val modifySheet=ModifySheet(myPageViewModel)
-    private val editGit=GitSheetDialog(myPageViewModel)
+    private val chooseModify=ChooseModifyDialog()
+    private val modifySheet=ModifySheet()
+    private val editGit=GitSheetDialog()
 
     fun modifyInfo(){
         if(!chooseModify.isAdded){

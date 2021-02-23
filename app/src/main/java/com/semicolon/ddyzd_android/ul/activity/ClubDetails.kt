@@ -29,7 +29,7 @@ class ClubDetails : AppCompatActivity() {
         ActivityNavigator.clubDetailActivity=this
         clubId=intent.getStringExtra("club_id").toString()
         viewModel= ClubDetailsViewModel(clubId,this)
-        showSheet= BottomClubSheetDialog(viewModel)
+        showSheet= BottomClubSheetDialog()
         viewModel.onCreate()
         binding  = ActivityClubDetailsBinding.inflate(layoutInflater)
         binding.vm = viewModel
@@ -108,18 +108,18 @@ class ClubDetails : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
-    private val fragmentManager=supportFragmentManager.beginTransaction()
+
     fun showUserInfo(gcn:String){
         val userInfo=UserInfo()
         userInfo.gcn=gcn
-        fragmentManager
-            .add(R.id.club_container, userInfo,"user_fragment").commit()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.club_container, userInfo,"user_fragment").commit()
     }
 
     fun closeUser(){
         val fragment=supportFragmentManager.findFragmentByTag("user_fragment")
         if (fragment != null) {
-            fragmentManager.remove(fragment)
+            supportFragmentManager.beginTransaction().remove(fragment).commit()
         }
     }
 
