@@ -3,6 +3,7 @@ package com.semicolon.ddyzd_android.ul.activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -182,5 +183,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+    fun startGithub(id:String?){
+        val intent=Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/$id"))
+        startActivity(intent)
+    }
 
 }

@@ -15,15 +15,12 @@ import com.semicolon.ddyzd_android.viewmodel.MyPageViewModel
 class ModifySheet(private val viewModel: MyPageViewModel) : BottomSheetDialogFragment() {
     lateinit var binding: SheetModifyIntroBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(DialogFragment.STYLE_NORMAL,R.style.ModifyIntroStyle)
-    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.ModifyIntroStyle)
         binding = DataBindingUtil.inflate(inflater, R.layout.sheet_modify_intro, container, false)
         binding.vm = viewModel
         return binding.root

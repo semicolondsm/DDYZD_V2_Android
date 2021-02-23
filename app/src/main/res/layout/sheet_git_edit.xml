@@ -24,6 +24,7 @@
             android:layout_marginBottom="10dp"
             android:drawableStart="@drawable/ic_git"
             android:ems="10"
+            android:textColor="#ffffff"
             android:hint="  id 입력"
             android:text="@={vm.modifyGit}"
             android:inputType="textPersonName"
