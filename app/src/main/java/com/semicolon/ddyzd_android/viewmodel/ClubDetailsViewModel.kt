@@ -271,6 +271,10 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
             chatBtnText.value="D-DAY"
         }
     }
+
+    fun gotoUserInfo(userGcn:String){
+        navigator.showUserInfo(userGcn)
+    }
 }
 
 
