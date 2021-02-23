@@ -31,7 +31,6 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     val list = MutableLiveData<ChatListData>()
     val clubListAdapter = ChatListAdapter(list, this)
     val value = listOf<String>()
-
     private lateinit var socket : Socket
 
     init{
@@ -60,6 +59,8 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                             readChatList = response.body()!!
                             list.value = readChatList
                             clubListAdapter.notifyDataSetChanged()
+                            startSocket("${accessToken.value}")
+
                         }
 
                 } else {
@@ -67,8 +68,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                 }
             }, { throwable ->
                 println("${throwable.message}")
-            }
-            )
+            })
     }
     fun goChatting(data: RoomData){
         navigater.startChating(data)

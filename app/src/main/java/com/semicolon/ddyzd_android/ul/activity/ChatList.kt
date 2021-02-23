@@ -56,6 +56,7 @@ class ChatList : AppCompatActivity() {
         intent.putExtra("chatClubName",data.name)
         intent.putExtra("chatLastMessage",data.lastmessage)
         intent.putExtra("chatRoomId",data.roomid)
+        intent.putExtra("chatIndex",data.index)
         startActivity(intent)
     }
 

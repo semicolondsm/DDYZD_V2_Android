@@ -22,18 +22,20 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     val roomid = navigater.roomId
     val clubImage = navigater.clubImage
     val clubName = navigater.clubName
+    val index = navigater.index
     val adapter = BaseApi.getInstance()
     private var readChattingList = mutableListOf<ChattingData>()
-    val chattingListAdapter = ChattingAdapter(chattingList, this)
+    val chattingListAdapter = ChattingAdapter(chattingList, this,index)
 
     val a = getChatting()
     @SuppressLint("CheckResult")
     private fun getChatting() {
-        adapter.getChatting("Bearer ${accessToken.value}", roomid)
+        adapter.getChatting(roomid,"Bearer ${accessToken.value}" )
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ response ->
                 if (response.isSuccessful) {
+                    println("${response.body()} 이게 채팅 ")
                     response.body()?.let { readChattingList.addAll(it) }
                     chattingList.value = readChattingList
                     chattingListAdapter.notifyDataSetChanged()
@@ -41,6 +43,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             }, {
             })
     }
+
 
 
 }

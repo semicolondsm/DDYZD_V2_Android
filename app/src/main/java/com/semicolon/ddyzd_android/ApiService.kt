@@ -106,8 +106,8 @@ interface ApiService {
 
     @GET("chat/{room_id}/breakdown")
     fun getChatting(
-        @Header("Authorization")accessToken: String,
-        @Path("room_id")roomId:String
+        @Path("room_id")roomId:String,
+        @Header("Authorization")accessToken: String
     ):Single<Response<ArrayList<ChattingData>>>
 
     @PUT("users/profile/bio")

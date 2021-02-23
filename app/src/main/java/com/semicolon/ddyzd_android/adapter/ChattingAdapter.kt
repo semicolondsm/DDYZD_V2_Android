@@ -12,7 +12,7 @@ import com.semicolon.ddyzd_android.viewmodel.ChattingPageViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 
 @Suppress("UNREACHABLE_CODE")
-class ChattingAdapter(val chatting  : MutableLiveData<List<ChattingData>>, val viewModel: ChattingPageViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ChattingAdapter(val chatting  : MutableLiveData<List<ChattingData>>, val viewModel: ChattingPageViewModel, val index : Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val MY_CHAT=0
     private val YOUR_CHAT=1
     private val SCHEDULE_CHAT=2
@@ -152,8 +152,25 @@ class ChattingAdapter(val chatting  : MutableLiveData<List<ChattingData>>, val v
 
     override fun getItemViewType(position: Int): Int {
         return super.getItemViewType(position)
-        when(chatting.value?.get(position)?.create_at){
-
+        when(index){
+            0 -> {
+                when(chatting.value?.get(position)?.create_at){
+                    "U" -> MY_CHAT
+                    "C" -> YOUR_CHAT
+                    "H1" -> USER_APPLICATION
+                    "H2" -> SCHEDULE_CHAT
+                    "H3" -> USER_RESULT
+                }
+            }
+            else ->{
+                when(chatting.value?.get(position)?.create_at){
+                    "U" ->YOUR_CHAT
+                    "C" -> MY_CHAT
+                    "H1" -> USER_APPLICATION
+                    "H2" -> SCHEDULE_CHAT
+                    "H3" -> USER_RESULT
+                }
+            }
         }
     }
 }
