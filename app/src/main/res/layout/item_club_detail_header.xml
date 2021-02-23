@@ -92,12 +92,12 @@
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/follow_btn"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="37dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="10dp"
                     android:background="@{vm.clubDetail.follow?@drawable/chatting_btn_bacground:@drawable/follow_btn_background}"
-                    android:onClick="@{()->vm.startFollow()}"
+                    android:onClick="@{()->vm.clubDetail.follow?vm.unFollow():vm.startFollow()}"
                     android:text="@{vm.clubDetail.follow?`팔로우 취소`:`팔로우`}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/button3"
@@ -108,19 +108,18 @@
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button3"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="37dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/chatting_btn_bacground"
+                    android:background="@{vm.clubDetail.recruitment?@drawable/follow_btn_background:@drawable/chatting_btn_bacground}"
                     android:onClick="@{()->vm.startChatting()}"
-                    android:text="채팅 보내기"
+                    app:textByForce="@{vm.chatBtnText}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/follow_btn"
                     app:layout_constraintTop_toBottomOf="@+id/description_tv" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 

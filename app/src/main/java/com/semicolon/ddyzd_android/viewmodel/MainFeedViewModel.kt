@@ -11,6 +11,7 @@ import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.adapter.MainFeedAdapter
 import com.semicolon.ddyzd_android.model.MainFeedData
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
+import com.semicolon.ddyzd_android.ul.fragment.BottomSheetDialog
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -25,8 +26,10 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
     lateinit var scrollListener: RecyclerView.OnScrollListener
 
     fun onCreate() {
+        Log.d("불림","ㅇ")
         callApi = 0
         readFeed.clear()
+        feeds.value=readFeed
         scrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -38,12 +41,10 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
                 }
             }
         }
-        feedAdapter.notifyDataSetChanged()
     }
 
     @SuppressLint("CheckResult")
     fun flagClicked(id: String, position: Int) {
-        Log.d("클릭", "id:$id")
         adapter.flagClicked("Bearer ${accessToken.value}", id)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
@@ -56,7 +57,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
                     } else {
                         flag -= 1
                     }
-                    feeds.value?.get(position)?.flags = flag.toString()
+                    feeds.value?.get(position)?.flags = flag
                     feedAdapter.notifyDataSetChanged()
                 } else {
                     Log.e("token", response.raw().toString())
@@ -73,7 +74,8 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
     }
 
     @SuppressLint("CheckResult")
-    fun readFeeds() {
+    private fun readFeeds() {
+        Log.d("불러옴","토큰: ${accessToken.value}")
         adapter.readFeed("Bearer ${accessToken.value}", callApi.toString(),System.currentTimeMillis().toString())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
@@ -81,13 +83,14 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
                 if (response.isSuccessful) {
                     isEmpty.value = View.INVISIBLE
                     Log.d("불러옴", response.body().toString())
-                    Log.d("불러옴","토큰: $accessToken")
+                    Log.d("불러옴","토큰: ${accessToken.value}")
                     response.body()?.let { readFeed.addAll(it) }
                     feeds.value = readFeed
                     feedAdapter.notifyDataSetChanged()
                     callApi += 1
                 } else {
                     Log.d("불러옴", "안됨 ${response.raw()}")
+                    Log.d("불러옴","토큰: ${accessToken.value}")
                     isEmpty.value = View.VISIBLE
                 }
             }, {
@@ -96,8 +99,38 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
             })
     }
 
+    fun onMoreClicked(owner:Boolean,id:String){
+        if(owner){
+            navigator.showMore(id.toInt())
+        }else{
+            navigator.notShowMore()
+        }
+    }
+
     fun onChattingClicked() {
         navigator.startChatting()
+    }
+
+    fun modifyFeed(id:Int){
+
+    }
+
+    @SuppressLint("CheckResult")
+    fun deleteFeed(id:Int){
+        navigator.closeSheet()
+        adapter.deleteFeed("Bearer ${accessToken.value}",id)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                if(it.isSuccessful){
+                    navigator.showToast("피드삭제가 완료되었습니다")
+                    navigator.reLoadFeeds()
+                }else{
+                    navigator.showToast("피드삭제를 실패하였습니다")
+                }
+            },{
+                navigator.showToast("피드삭제를 실패하였습니다")
+            })
     }
 
 }

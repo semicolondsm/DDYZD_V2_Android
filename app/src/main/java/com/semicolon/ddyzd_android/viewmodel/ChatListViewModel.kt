@@ -49,6 +49,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
         accessToken.value?.let { startSocket(it) }
     }
 
+
     @SuppressLint("CheckResult")
     fun callChatList(navigater: ChatList) {
         apiAdapter.chatList("Bearer ${accessToken.value}")

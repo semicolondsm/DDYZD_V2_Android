@@ -1,6 +1,8 @@
 package com.semicolon.ddyzd_android.bindingadapter
 
+import android.text.TextUtils
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,10 +33,19 @@ object ClubListBindingAdapter {
 
     @JvmStatic
     @BindingAdapter("members_adapter")
-    fun memberAdapter(recyclerView: RecyclerView,adapter:ClubMemberAdapter){
+    fun memberAdapter(recyclerView: RecyclerView,adapter:RecyclerView.Adapter<RecyclerView.ViewHolder>){
         val layoutManager=LinearLayoutManager(recyclerView.context)
         layoutManager.orientation=RecyclerView.HORIZONTAL
         recyclerView.layoutManager=layoutManager
         recyclerView.adapter=adapter
+    }
+
+    @JvmStatic
+    @BindingAdapter("textByForce")
+    fun setText(textView: TextView,text:CharSequence){
+        if(TextUtils.isEmpty(text)){
+            return
+        }
+        textView.text=text
     }
 }

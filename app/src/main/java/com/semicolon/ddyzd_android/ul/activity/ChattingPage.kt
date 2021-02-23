@@ -15,6 +15,5 @@ class ChattingPage : AppCompatActivity() {
         binding.vm = viewModel
         binding.lifecycleOwner = this
         setContentView(binding.root)
-
     }
 }

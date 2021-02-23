@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="club"
+            type="com.semicolon.ddyzd_android.model.UserClubData" />
+
+        <variable
+            name="vm"
+            type="com.semicolon.ddyzd_android.viewmodel.MyPageViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageView12"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:onClick="@{()->vm.onClubDetailClicked(club.clubId)}"
+            app:imageUrl="@{club.clubImage}"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/textView16"
+            android:layout_width="70dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            app:autoSizeTextType="uniform"
+            android:textColor="@color/black"
+            tools:text="소속중인동아리"
+            android:text="@{club.clubName}" />
+    </LinearLayout>
+</layout>

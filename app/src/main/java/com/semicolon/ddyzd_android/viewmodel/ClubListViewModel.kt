@@ -186,6 +186,6 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
     }
 
     fun onDetailClicked(club:ClubProfiles){
-        navigator.startClubDetail(club)
+        navigator.startClubDetail(club.club_id)
     }
 }

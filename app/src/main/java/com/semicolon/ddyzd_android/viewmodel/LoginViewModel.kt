@@ -48,15 +48,11 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity) : ViewMod
             .subscribeOn(Schedulers.io())
             .subscribe({ response ->
                 if (response.isSuccessful) {
-                    Log.d("토큰","리스폰스:${response.body()!!.toString()}")
-                    val refreshToken = response.body()!!.refreshToken
-                    val accessToken = response.body()!!.accessToken
-                    finishLogin(userName, userEmail, userGcn,refreshToken,accessToken)
-                } else {
-                    Log.e("token", response.message())
+                    val getRefreshToken = response.body()!!.refreshToken
+                    val getAccessToken = response.body()!!.accessToken
+                    finishLogin(userName, userEmail, userGcn,getRefreshToken,getAccessToken)
                 }
             }, {
-                Log.e("token", it.toString())
             })
     }
 
@@ -67,7 +63,6 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity) : ViewMod
         refreshToken:String,
         accessToken: String
     ) {
-        Log.d("토큰","ready to finish:$accessToken")
         context.finish(name, email, gcn, accessToken, refreshToken)
     }
 

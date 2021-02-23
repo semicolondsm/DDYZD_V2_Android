@@ -11,13 +11,20 @@ import io.reactivex.schedulers.Schedulers
 
 class MainViewModel(val navigator:MainActivity) :ViewModel(){
     val adapter = BaseApi.getInstance()
+
     companion object{
         val accessToken=MutableLiveData<String>()
+        val refreshToken=MutableLiveData<String>()
+        val userGcn=MutableLiveData<String>()
     }
-    fun onCreate(refreshToken:String){
-        if(refreshToken!=""){
-            readAccessToken(refreshToken)
+
+    fun onCreate(){
+        if(!refreshToken.value.isNullOrEmpty()){
+            readAccessToken(refreshToken.value!!)
+        }else{
+            navigator.reLoadFeeds()
         }
+        return
     }
 
     @SuppressLint("CheckResult")
@@ -26,7 +33,6 @@ class MainViewModel(val navigator:MainActivity) :ViewModel(){
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
-                Log.d("토큰","자동로그인:${it.raw()}")
                 if(it.isSuccessful){
                     accessToken.value=it.body()!!.accessToken
                 }

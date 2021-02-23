@@ -1,6 +1,7 @@
 package com.semicolon.ddyzd_android.model
 
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 data class ClubInDetailData(
     @SerializedName("clubid")val clubid:String,
@@ -12,5 +13,5 @@ data class ClubInDetailData(
     @SerializedName("owner")val owner:Boolean,
     @SerializedName("follow") var follow:Boolean,
     @SerializedName("recruitment")val recruitment:Boolean,
-    @SerializedName("recruitment_close")val recruitment_close:String
+    @SerializedName("recruitment_close")val recruitment_close:Date
 )
