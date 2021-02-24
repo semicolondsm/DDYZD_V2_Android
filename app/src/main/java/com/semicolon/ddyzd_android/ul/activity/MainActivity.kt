@@ -3,9 +3,12 @@ package com.semicolon.ddyzd_android.ul.activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import com.semicolon.ddyzd_android.ActivityNavigator
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.databinding.ActivityMainBinding
 import com.semicolon.ddyzd_android.ul.fragment.*
@@ -19,8 +22,6 @@ import com.semicolon.ddyzd_android.viewmodel.MyPageViewModel
 class MainActivity : AppCompatActivity() {
     private val LOGIN_REQUEST_CODE = 12
     val viewModel = MainViewModel(this)
-    val feedViewModel = MainFeedViewModel(this)
-    val myPageViewModel=MyPageViewModel(this)
     lateinit var binding:ActivityMainBinding
 
     companion object {
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         initSharedPreference()
+        ActivityNavigator.mainActivity=this
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         viewModel.onCreate()
@@ -42,18 +44,18 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.nav_home -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment, MainFeed(feedViewModel)).commit()
+                        .replace(R.id.fragment, MainFeed()).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
 
                 R.id.nav_club -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment, ClubList(this)).commit()
+                        .replace(R.id.fragment, ClubList()).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.nav_my -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment, MyPage(myPageViewModel)).commit()
+                        .replace(R.id.fragment, MyPage()).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> return@setOnNavigationItemSelectedListener false
@@ -69,15 +71,18 @@ class MainActivity : AppCompatActivity() {
 
     fun createFeeds(){
         supportFragmentManager.beginTransaction()
-            .add(R.id.fragment, MainFeed(feedViewModel)).commit()
+            .add(R.id.fragment, MainFeed()).commit()
     }
 
     fun reLoadFeeds() {
-        feedViewModel.onCreate()
+        binding.bottomNavigation.selectedItemId=R.id.nav_home
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment, MainFeed()).commit()
     }
 
     private fun reLoadUser(){
-        myPageViewModel.onCreate()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment, MyPage()).commit()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -124,15 +129,30 @@ class MainActivity : AppCompatActivity() {
         userGcn.value= startShared.getString("get_gcn","").toString()
     }
 
-    private val showSheet=BottomSheetDialog(feedViewModel)
+    private val showSheet=BottomSheetDialog()
     fun showMore(id:Int){
         showSheet.clubId=id
         if(!showSheet.isAdded){
             showSheet.show(supportFragmentManager,"more")
         }
     }
-    fun closeSheet(){
+    fun closeSheet():Boolean{
         showSheet.dismiss()
+        var start=false
+        AlertDialog.Builder(
+            this, R.style.myDialog
+        )
+            .setTitle("확인")
+            .setMessage("정말 삭제하시겠습니까?")
+            .setPositiveButton("예") { _, _ ->
+               start=true
+            }
+            .setNegativeButton("아니요") { _, _ ->
+                Toast.makeText(this,"취소하셨습니다",Toast.LENGTH_LONG).show()
+                start=false
+            }
+            .show()
+        return start
     }
 
     fun notShowMore(){
@@ -142,9 +162,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private val chooseModify=ChooseModifyDialog(myPageViewModel)
-    private val modifySheet=ModifySheet(myPageViewModel)
-    private val editGit=GitSheetDialog(myPageViewModel)
+    private val chooseModify=ChooseModifyDialog()
+    private val modifySheet=ModifySheet()
+    private val editGit=GitSheetDialog()
 
     fun modifyInfo(){
         if(!chooseModify.isAdded){
@@ -182,5 +202,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun startGithub(id:String?){
+        val intent=Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/$id"))
+        startActivity(intent)
+    }
 
 }

@@ -1,9 +1,11 @@
 package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.semicolon.ddyzd_android.ActivityNavigator
 import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.adapter.UserClubsAdapter
 import com.semicolon.ddyzd_android.model.UserClubData
@@ -26,6 +28,7 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
     val modifyGit=MutableLiveData<String>()
 
     fun onCreate() {
+        ActivityNavigator.myPageViewModel=this
         readUserInfo()
     }
 
@@ -37,6 +40,8 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
             .subscribe({
                 if(it.isSuccessful){
                     userInfo.value=it.body()
+                    modifyIntro.value= it.body()?.introduce
+                    modifyGit.value= it.body()?.github
                     userClubs.value= it.body()?.clubs
                     clubAdapter.notifyDataSetChanged()
                 }else{
@@ -64,17 +69,30 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
      * 깃허브 정보 수정하는 코드
      */
     fun onGitEditClicked(){
+        navigator.disModifyInfo()
         navigator.showEditGit()
     }
 
     fun onGitDoneClicked(){
-
+        editGithub()
         navigator.disEditGit()
     }
 
     @SuppressLint("CheckResult")
     private fun editGithub(){
-
+        val bodyMap= mutableMapOf<String,String?>()
+        bodyMap["git"]=modifyGit.value
+        adapter.editGithub("Bearer ${accessToken.value}",bodyMap)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                if(it.isSuccessful){
+                    navigator.showToast("Github Id 를 수정하였습니다")
+                    onCreate()
+                }
+            },{
+                navigator.showToast("인터넷 문제가 발생하였습니다")
+            })
     }
 
     /**
@@ -91,8 +109,10 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
     }
 
     @SuppressLint("CheckResult")
-    private fun startModify(intro:String?){
-        adapter.modifyUserIntro("Bearer ${accessToken.value}",intro)
+    fun startModify(intro:String?){
+        val bodyMap= mutableMapOf<String,String?>()
+        bodyMap["bio"]=intro
+        adapter.modifyUserIntro("Bearer ${accessToken.value}",bodyMap)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
@@ -103,5 +123,9 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
             },{
                 navigator.showToast("인터넷 문제가 발생하였습니다")
             })
+    }
+
+    fun onGithubProfileClicked(){
+        navigator.startGithub(modifyGit.value)
     }
 }

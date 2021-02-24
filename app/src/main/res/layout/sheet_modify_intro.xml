@@ -18,8 +18,7 @@
             app:cardCornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintStart_toStartOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -49,8 +48,9 @@
                     android:gravity="start"
                     android:hint="여기에 입력"
                     android:inputType="textMultiLine"
+                    android:textColor="#000000"
                     android:padding="5dp"
-                    android:scrollHorizontally="false"
+                    android:scrollHorizontally="true"
                     android:text="@={vm.modifyIntro}" />
 
                 <androidx.appcompat.widget.AppCompatButton

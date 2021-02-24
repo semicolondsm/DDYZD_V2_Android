@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.semicolon.ddyzd_android.ActivityNavigator
 import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.adapter.MainFeedAdapter
 import com.semicolon.ddyzd_android.model.MainFeedData
@@ -25,6 +26,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
     lateinit var scrollListener: RecyclerView.OnScrollListener
 
     fun onCreate() {
+        ActivityNavigator.mainFeedViewModel=this
         Log.d("불림","ㅇ")
         callApi = 0
         readFeed.clear()
@@ -116,20 +118,21 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun deleteFeed(id:Int){
-        navigator.closeSheet()
-        adapter.deleteFeed("Bearer ${accessToken.value}",id)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe({
-                if(it.isSuccessful){
-                    navigator.showToast("피드삭제가 완료되었습니다")
-                    navigator.reLoadFeeds()
-                }else{
+        if(navigator.closeSheet()){
+            adapter.deleteFeed("Bearer ${accessToken.value}",id)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe({
+                    if(it.isSuccessful){
+                        navigator.showToast("피드삭제가 완료되었습니다")
+                        navigator.reLoadFeeds()
+                    }else{
+                        navigator.showToast("피드삭제를 실패하였습니다")
+                    }
+                },{
                     navigator.showToast("피드삭제를 실패하였습니다")
-                }
-            },{
-                navigator.showToast("피드삭제를 실패하였습니다")
-            })
+                })
+        }
     }
 
 }
