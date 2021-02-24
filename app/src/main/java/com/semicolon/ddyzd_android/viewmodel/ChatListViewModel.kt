@@ -24,6 +24,7 @@ import org.json.JSONObject
 import java.net.URI
 import java.net.URISyntaxException
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     private val apiAdapter = BaseApi.getInstance()
@@ -57,6 +58,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                     // 이 부분이 어뎁터
                         if(response.body() != null){
                             readChatList = response.body()!!
+                            println("${response.body()}")
                             list.value = readChatList
                             clubListAdapter.notifyDataSetChanged()
                             startSocket("${accessToken.value}")
@@ -70,8 +72,8 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                 println("${throwable.message}")
             })
     }
-    fun goChatting(data: RoomData){
-        navigater.startChating(data)
+    fun goChatting(data: RoomData, section: ArrayList<String>){
+        navigater.startChating(data,section)
     }
 
         //소켓 부분

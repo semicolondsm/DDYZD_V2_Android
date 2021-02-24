@@ -49,7 +49,7 @@ class ChatList : AppCompatActivity() {
         }
     }
 
-    fun startChating(data : RoomData){
+    fun startChating(data : RoomData, club_section : ArrayList<String>){
         val intent = Intent(this,ChattingPage::class.java)
         intent.putExtra("chatClubId",data.id)
         intent.putExtra("chatClubImage",data.image)
@@ -57,6 +57,7 @@ class ChatList : AppCompatActivity() {
         intent.putExtra("chatLastMessage",data.lastmessage)
         intent.putExtra("chatRoomId",data.roomid)
         intent.putExtra("chatIndex",data.index)
+        intent.putExtra("chatClubSection",club_section)
         startActivity(intent)
     }
 

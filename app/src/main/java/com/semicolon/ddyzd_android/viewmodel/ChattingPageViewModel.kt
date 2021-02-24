@@ -23,9 +23,10 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     val clubImage = navigater.clubImage
     val clubName = navigater.clubName
     val index = navigater.index
+    val section = navigater.club_section
     val adapter = BaseApi.getInstance()
     private var readChattingList = mutableListOf<ChattingData>()
-    val chattingListAdapter = ChattingAdapter(chattingList, this,index)
+    val chattingListAdapter = ChattingAdapter(chattingList, this,index,clubName,section)
 
     val a = getChatting()
     @SuppressLint("CheckResult")

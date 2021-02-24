@@ -11,6 +11,7 @@ class ChattingPage : AppCompatActivity() {
     var clubImage = ""
     var clubName = ""
     var index = 0
+    var club_section = ArrayList<String>()
     lateinit var binding  : ActivityChattingPageBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +20,7 @@ class ChattingPage : AppCompatActivity() {
         clubImage = intent.getStringExtra("chatClubImage").toString()
         clubName  = intent.getStringExtra("chatClubName").toString()
         index = intent.getIntExtra("chatIndex",0)
+        club_section = intent.getStringArrayListExtra("chatClubSection") as ArrayList<String>
 
         binding = ActivityChattingPageBinding.inflate(layoutInflater)
         val viewModel = ChattingPageViewModel(this)
