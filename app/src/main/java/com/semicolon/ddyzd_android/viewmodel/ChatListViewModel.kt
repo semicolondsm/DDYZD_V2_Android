@@ -40,7 +40,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     val userId = JSONObject()
 
     fun onDestroy(){
-        socket.disconnect()
+        //socket.disconnect()
     }
     fun onCreate() {
         callChatList(navigater)
@@ -102,17 +102,19 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                 println(it.contentToString())
             }
             socket.on("response",event)
+            socket.on("alarm",event)
             socket.connect()
         } catch (e: URISyntaxException) {
             println(e.reason)
         }
     }
 
+
     val event : Emitter.Listener =Emitter.Listener{
         val size = it.size-1
         val data  = it
         for(i in 0..size){
-            println("${data[i]} 이게 결과값")
+            println("${data[i]} 이게 결과값1")
         }
      }
 

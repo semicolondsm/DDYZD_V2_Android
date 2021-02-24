@@ -89,6 +89,7 @@
                 <EditText
                     android:layout_width="300dp"
                     android:layout_height="42dp"
+                    android:text="@{vm.chatBody}"
                     android:layout_marginTop="0dp"/>
 
                 <Button
@@ -98,8 +99,6 @@
                     android:onClick="@{()->vm.sandChatting()}"
                     android:text="보내기" />
             </LinearLayout>
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

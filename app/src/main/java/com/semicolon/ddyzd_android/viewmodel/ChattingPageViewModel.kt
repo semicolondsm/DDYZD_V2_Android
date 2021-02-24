@@ -34,6 +34,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     val index = navigater.index
     val section = navigater.club_section
     val adapter = BaseApi.getInstance()
+    val chatBody = MutableLiveData("가나다라")
     private var readChattingList = mutableListOf<ChattingData>()
     var roomToken : String = ""
     val chattingListAdapter = ChattingAdapter(chattingList, this,index,clubName,section)
@@ -45,7 +46,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         getRoomToken()
     }
     @SuppressLint("CheckResult")
-    private fun getChatting() {
+    private fun getChatting() { // 채팅 데이터 가져오기
         adapter.getChatting(roomid,"Bearer ${accessToken.value}" )
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
@@ -62,7 +63,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     }
 
     @SuppressLint("CheckResult")
-    private fun getRoomToken(){
+    private fun getRoomToken(){ /// 룸 토큰 가져오는 것
         adapter.getRoomToken("Bearer ${accessToken.value}",roomid)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
@@ -76,23 +77,23 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     }
 
 
-    fun joinRoom(){
+    fun joinRoom(){ // 방 입장 소켓
         val data = JSONObject()
         data.put("room_token",roomToken)
-        val send = mapOf<String, String>("room_token" to roomToken)
         socket.emit("join_room",data)
         socket.on("error",event)
     }
 
-    fun sandChatting(){
+    fun sandChatting(){ // 보내기 버튼 누르면 실행 소켓
+
+        val message = chatBody.value
+        println(chatBody)
         val data = JSONObject()
         data.put("room_token",roomToken)
-        data.put("msg","shangus")
-        println("$roomToken 가나다")
+        data.put("msg",message)
         socket.emit("send_chat",data)
         socket.on("response",event)
         socket.on("recv_chat",event)
-        joinRoom()
     }
 
 
