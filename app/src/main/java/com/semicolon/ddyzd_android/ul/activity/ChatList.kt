@@ -50,6 +50,7 @@ class ChatList : AppCompatActivity() {
     }
 
     fun startChating(data : RoomData, club_section : ArrayList<String>){
+        viewModel.socket.disconnect()
         val intent = Intent(this,ChattingPage::class.java)
         intent.putExtra("chatClubId",data.id)
         intent.putExtra("chatClubImage",data.image)

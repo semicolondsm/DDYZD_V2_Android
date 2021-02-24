@@ -32,7 +32,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     val list = MutableLiveData<ChatListData>()
     val clubListAdapter = ChatListAdapter(list, this)
     val value = listOf<String>()
-    private lateinit var socket : Socket
+    lateinit var socket : Socket
 
     init{
         callChatList(navigater)
@@ -44,7 +44,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     }
     fun onCreate() {
         callChatList(navigater)
-        accessToken.value?.let { startSocket(it) }
+        //accessToken.value?.let { startSocket(it) }
     }
 
 
@@ -57,11 +57,12 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                 if (response.isSuccessful) {
                     // 이 부분이 어뎁터
                         if(response.body() != null){
+                            startSocket("${accessToken.value}")
                             readChatList = response.body()!!
                             println("${response.body()}")
                             list.value = readChatList
                             clubListAdapter.notifyDataSetChanged()
-                            startSocket("${accessToken.value}")
+
 
                         }
 

@@ -3,6 +3,7 @@ package com.semicolon.ddyzd_android.viewmodel
 import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.gson.Gson
 import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.adapter.ChatListAdapter
 import com.semicolon.ddyzd_android.adapter.ChattingAdapter
@@ -17,6 +18,7 @@ import io.socket.client.Manager
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import io.socket.engineio.client.Transport
+import org.json.JSONObject
 import java.net.URISyntaxException
 import java.util.*
 
@@ -33,12 +35,14 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     val section = navigater.club_section
     val adapter = BaseApi.getInstance()
     private var readChattingList = mutableListOf<ChattingData>()
+    var roomToken : String = ""
     val chattingListAdapter = ChattingAdapter(chattingList, this,index,clubName,section)
 
     private lateinit var socket : Socket
 
     init {
         getChatting()
+        getRoomToken()
     }
     @SuppressLint("CheckResult")
     private fun getChatting() {
@@ -51,16 +55,48 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
                     response.body()?.let { readChattingList.addAll(it) }
                     chattingList.value = readChattingList
                     chattingListAdapter.notifyDataSetChanged()
+
+                }
+            }, {
+            })
+    }
+
+    @SuppressLint("CheckResult")
+    private fun getRoomToken(){
+        adapter.getRoomToken("Bearer ${accessToken.value}",roomid)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({ response ->
+                if (response.isSuccessful) {
+                    roomToken = response.body()!!.room_token
                     startSocket("${accessToken.value}")
                 }
             }, {
             })
     }
 
+
+    fun joinRoom(){
+        val data = JSONObject()
+        data.put("room_token",roomToken)
+        val send = mapOf<String, String>("room_token" to roomToken)
+        socket.emit("join_room",data)
+        socket.on("error",event)
+    }
+
+    fun sandChatting(){
+        val data = JSONObject()
+        data.put("room_token",roomToken)
+        data.put("msg","shangus")
+        println("$roomToken 가나다")
+        socket.emit("send_chat",data)
+        socket.on("response",event)
+        socket.on("recv_chat",event)
+        joinRoom()
+    }
+
+
     fun startSocket(accessToken: String){
-        val value = mutableListOf<String>("Bearer${accessToken}").apply {
-            println("${accessToken} 가나다라마바사")
-        }
         try {
             val opts  = IO.Options()
             opts.transports  = arrayOf(io.socket.engineio.client.transports.WebSocket.NAME) // xhr에러 방지
@@ -75,12 +111,14 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             })
             socket.on(Socket.EVENT_CONNECT) {
                 println("성공")
-                socket.emit("send_room","제발 되라 ㅜㅜㅜ")
             }.on(Socket.EVENT_CONNECT_ERROR) {
                 println("실패;;")
-                println(it.contentToString())
+                println(it.contentToString()) // 이게 에러 받는거입니다
             }
             socket.on("response",event)
+            socket.on("hello",event)
+            sandChatting()
+            joinRoom()
             socket.connect()
         } catch (e: URISyntaxException) {
             println(e.reason)
