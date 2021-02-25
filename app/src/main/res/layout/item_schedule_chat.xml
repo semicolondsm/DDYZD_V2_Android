@@ -30,6 +30,7 @@
                 android:layout_marginStart="9dp"
                 android:layout_marginTop="10dp"
                 android:textSize="15dp"
+                android:text="@{vm.chattingList[position].title}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="면접 일정" />
@@ -42,6 +43,7 @@
                 android:layout_marginEnd="250dp"
                 android:layout_marginBottom="64dp"
                 android:textSize="15dp"
+                app:showTimeAdapter1="@{vm.chattingList[position].create_at}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView6"
@@ -54,29 +56,12 @@
                 android:layout_marginStart="9dp"
                 android:layout_marginTop="39dp"
                 android:textSize="10dp"
+                android:text="@{vm.chattingList[position].msg}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="학번 이름님의 동아리 면접 일정입니다" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="9dp"
-                android:layout_marginTop="64dp"
-                android:textSize="10dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="일시 :" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="9dp"
-                android:layout_marginTop="77dp"
-                android:textSize="10dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="위치 :" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

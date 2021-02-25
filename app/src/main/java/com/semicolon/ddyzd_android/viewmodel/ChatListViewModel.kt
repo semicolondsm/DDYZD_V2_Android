@@ -2,12 +2,15 @@ package com.semicolon.ddyzd_android.viewmodel
 
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.ContentValues.TAG
+import android.content.DialogInterface
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.adapter.ChatListAdapter
+import com.semicolon.ddyzd_android.generated.callback.OnClickListener
 import com.semicolon.ddyzd_android.model.AccessTokenData
 import com.semicolon.ddyzd_android.model.ChatListData
 import com.semicolon.ddyzd_android.model.RoomData
@@ -28,17 +31,18 @@ import kotlin.collections.ArrayList
 
 class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     private val apiAdapter = BaseApi.getInstance()
-    private lateinit var readChatList : ChatListData
-    val list = MutableLiveData<ChatListData>()
+    private  var readChatList = ArrayList<RoomData>()
+    val allList = MutableLiveData<ChatListData>()
+    val list = MutableLiveData<ArrayList<RoomData>>()
     val clubListAdapter = ChatListAdapter(list, this)
     val value = listOf<String>()
+    var section = ArrayList<String>()
+    val index = 0
     lateinit var socket : Socket
-
+    var sectionIndex = 0
     init{
         callChatList(navigater)
     }
-    val userId = JSONObject()
-
     fun onDestroy(){
         //socket.disconnect()
     }
@@ -47,6 +51,10 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
         //accessToken.value?.let { startSocket(it) }
     }
 
+    fun select(){
+        val item = readChatList
+
+        }
 
     @SuppressLint("CheckResult")
     fun callChatList(navigater: ChatList) {
@@ -58,8 +66,17 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                     // 이 부분이 어뎁터
                         if(response.body() != null){
                             startSocket("${accessToken.value}")
-                            readChatList = response.body()!!
-                            println("${response.body()}")
+
+                            allList.value = response.body()
+                            section = response.body()!!.club_section
+
+                            for(i in 0 until response.body()!!.rooms.size){
+                                when(response.body()!!.rooms[i].index){
+                                    index ->{
+                                        readChatList.add(response.body()!!.rooms[i])
+                                    }
+                                }
+                            }
                             list.value = readChatList
                             clubListAdapter.notifyDataSetChanged()
 
@@ -96,13 +113,13 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
             })
             socket.on(Socket.EVENT_CONNECT) {
                 println("성공")
-                socket.emit("response","제발 되라 ㅜㅜㅜ")
             }.on(Socket.EVENT_CONNECT_ERROR) {
                 println("실패;;")
                 println(it.contentToString())
             }
             socket.on("response",event)
             socket.on("alarm",event)
+            socket.on("recv_chat",event)
             socket.connect()
         } catch (e: URISyntaxException) {
             println(e.reason)

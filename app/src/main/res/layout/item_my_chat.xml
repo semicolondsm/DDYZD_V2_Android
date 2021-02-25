@@ -12,20 +12,29 @@
             type="Integer" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="4dp"
-            android:text="@{vm.chattingList[position].msg}"
-            android:textSize="18dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+        <View
+            android:id="@+id/view3"
+            android:layout_width="10dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="400dp"
             app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:background="@drawable/back_white_view"
+            android:text="@{vm.chattingList[position].msg}"
+            android:backgroundTint="#E1D6FF"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/view3"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
             tools:ignore="MissingConstraints"
             tools:text="내가 보낸 채팅" />
 

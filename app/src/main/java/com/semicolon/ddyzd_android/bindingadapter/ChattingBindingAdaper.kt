@@ -1,5 +1,6 @@
 package com.semicolon.ddyzd_android.bindingadapter
 
+import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,7 +27,11 @@ object ChattingBindingAdaper {
                 .error(R.drawable.group).into(imageView)
         }
     }
-
+    @JvmStatic
+    @BindingAdapter("visible")
+    fun setVisible(view: View, isVisible: Boolean) {
+        view.visibility = if (isVisible) View.VISIBLE else View.GONE
+    }
 
 
 }

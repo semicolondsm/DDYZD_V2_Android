@@ -1,6 +1,7 @@
 package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
+import android.util.ArrayMap
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
@@ -21,12 +22,14 @@ import io.socket.engineio.client.Transport
 import org.json.JSONObject
 import java.net.URISyntaxException
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
 
 
 
-
+    val userVisible = MutableLiveData<Boolean>()
+    val clubVisible = MutableLiveData<Boolean>()
     val chattingList = MutableLiveData<List<ChattingData>>()
     val roomid = navigater.roomId
     val clubImage = navigater.clubImage
@@ -34,16 +37,30 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     val index = navigater.index
     val section = navigater.club_section
     val adapter = BaseApi.getInstance()
-    val chatBody = MutableLiveData("가나다라")
+    val chatBody = MutableLiveData<String>()
     private var readChattingList = mutableListOf<ChattingData>()
+    var possingChat = mutableListOf<ChattingData>()
     var roomToken : String = ""
-    val chattingListAdapter = ChattingAdapter(chattingList, this,index,clubName,section)
+    lateinit var chatInfo :ChattingData
+    lateinit var chatting :Array<String>
+    var num = 0
+    val chattingListAdapter = ChattingAdapter(chattingList, this,num,clubName,section)
 
     private lateinit var socket : Socket
+
 
     init {
         getChatting()
         getRoomToken()
+
+        if(section[index] != "user"){
+            userVisible.value = false
+            clubVisible.value = true
+        }
+        else{
+            userVisible.value = true
+            clubVisible.value = false
+        }
     }
     @SuppressLint("CheckResult")
     private fun getChatting() { // 채팅 데이터 가져오기
@@ -54,7 +71,8 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
                 if (response.isSuccessful) {
                     println("${response.body()} 이게 채팅 ")
                     response.body()?.let { readChattingList.addAll(it) }
-                    chattingList.value = readChattingList
+                    possingChat = readChattingList.asReversed()
+                    chattingList.value = possingChat
                     chattingListAdapter.notifyDataSetChanged()
 
                 }
@@ -81,19 +99,35 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         val data = JSONObject()
         data.put("room_token",roomToken)
         socket.emit("join_room",data)
-        socket.on("error",event)
+        socket.on("response",join)
     }
 
     fun sandChatting(){ // 보내기 버튼 누르면 실행 소켓
-
+        num = 0
         val message = chatBody.value
         println(chatBody)
         val data = JSONObject()
         data.put("room_token",roomToken)
         data.put("msg",message)
         socket.emit("send_chat",data)
-        socket.on("response",event)
-        socket.on("recv_chat",event)
+        socket.on("recv_chat",chat)
+
+    }
+
+    fun helper1(){ // 동아리 지원
+        val data = JSONObject()
+        data.put("room_token",roomToken)
+        data.put("major","웹")
+        socket.emit("helper_apply",data)
+        socket.on("recv_chat",helper1)
+        socket.on("error",helper1)
+    }
+
+    fun helper2(){ // 스케줄
+        val data = JSONObject()
+        data.put("room_token",roomToken)
+        data.put("date", "면접 날짜 넣어야됨")
+        data.put("location","면접 장소 넣어야됨")
     }
 
 
@@ -116,9 +150,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
                 println("실패;;")
                 println(it.contentToString()) // 이게 에러 받는거입니다
             }
-            socket.on("response",event)
-            socket.on("hello",event)
-            sandChatting()
+            socket.on("response",connect)
             joinRoom()
             socket.connect()
         } catch (e: URISyntaxException) {
@@ -126,12 +158,58 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         }
     }
 
-    val event : Emitter.Listener =Emitter.Listener{
+    val connect : Emitter.Listener =Emitter.Listener{
         val size = it.size-1
         val data  = it
         for(i in 0..size){
-            println("${data[i]} 이게 결과값")
+            println("${data[i]} 이게 연결 결과값")
+        }
+    }
+    val join : Emitter.Listener =Emitter.Listener{
+        val size = it.size-1
+        val data  = it
+        for(i in 0..size){
+            println("${data[i]} 이게 조인 결과값")
+        }
+    }
+    val helper1 : Emitter.Listener =Emitter.Listener{
+        val size = it.size-1
+        val data  = it
+        for(i in 0..size){
+            println("${data[i]} 이게 helper1 결과값")
         }
     }
 
+    val helper2 : Emitter.Listener =Emitter.Listener{
+        val size = it.size-1
+        val data  = it
+        for(i in 0..size){
+            println("${data[i]} 이게 helper1 결과값")
+        }
+    }
+
+    val chat : Emitter.Listener =Emitter.Listener{
+
+        val data = it[0].toString()
+
+        chatting = data.split("{\"title\":"  ,",\"msg\":\"" , "\",\"user_type\":\"" , "\",\"date\":\"" , "\"}").toTypedArray()
+        println("$chatting asdf")
+            for(a : String in chatting){
+                println("$a 이게 어떤 값?")
+            }
+        try {
+
+            if(num ==0){
+                chatInfo = ChattingData(chatting[1],chatting[2],chatting[3],chatting[4])
+                possingChat.add(chatInfo)
+                chattingList.value = readChattingList
+                chattingListAdapter.notifyDataSetChanged()
+                num= 1
+            }
+
+        }catch (e:Throwable){
+
+        }
+
+    }
 }

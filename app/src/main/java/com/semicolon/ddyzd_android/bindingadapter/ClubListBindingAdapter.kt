@@ -47,4 +47,6 @@ object ClubListBindingAdapter {
         }
         textView.text=text
     }
+
+
 }

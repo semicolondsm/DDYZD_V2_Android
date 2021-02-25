@@ -32,6 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18dp"
+                android:text="@{vm.chattingList[position].title}"
                 tools:text="000님이 지원하셨습니다" />
 
             <TextView
@@ -40,6 +41,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="16dp"
                 android:textSize="12dp"
+                app:showTimeAdapter1="@{vm.chattingList[position].create_at}"
                 app:layout_constraintStart_toEndOf="@+id/textView9"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="시간" />
@@ -50,6 +52,7 @@
                 android:layout_marginTop="39dp"
                 android:layout_marginEnd="66dp"
                 android:textSize="12dp"
+                android:text="@{vm.chattingList[position].msg}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="000님이 000동아리에 000 분야로 지원하셨습니다" />

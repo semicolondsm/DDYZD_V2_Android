@@ -151,25 +151,25 @@ class ChattingAdapter(val chatting  : MutableLiveData<List<ChattingData>>, val v
     }
 
     override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
-        when(section[index]){
-
-            name ->{
-                when(chatting.value?.get(position)?.create_at){
+        return when(index){
+            0 ->{
+                return when(chatting.value?.get(position)?.user_type){
                     "U" ->MY_CHAT
                     "C" -> YOUR_CHAT
                     "H1" -> USER_APPLICATION
                     "H2" -> SCHEDULE_CHAT
                     "H3" -> USER_RESULT
+                    else -> 1
                 }
             }
             else -> {
-                when(chatting.value?.get(position)?.create_at){
+                return when(chatting.value?.get(position)?.user_type){
                     "U" -> YOUR_CHAT
                     "C" -> MY_CHAT
                     "H1" -> USER_APPLICATION
                     "H2" -> SCHEDULE_CHAT
                     "H3" -> USER_RESULT
+                    else -> 1
                 }
             }
         }
