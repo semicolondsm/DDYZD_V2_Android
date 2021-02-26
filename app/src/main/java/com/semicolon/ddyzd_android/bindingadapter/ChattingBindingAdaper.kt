@@ -66,7 +66,6 @@ object ChattingBindingAdaper {
                     id: Long
                 ) {
                     if (userSelect) {
-                        Log.d("셀렉트", "클릭은 됨")
                         viewModel.index.value = position
                         viewModel.selectPeople()
                         userSelect = false
@@ -78,7 +77,6 @@ object ChattingBindingAdaper {
         spinner.setOnTouchListener { v, event ->
             when(event?.action){
                 MotionEvent.ACTION_DOWN->{
-                    Log.d("셀렉트", "터치는 잘됨")
                     userSelect=true
                 }
             }

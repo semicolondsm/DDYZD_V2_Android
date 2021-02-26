@@ -104,8 +104,6 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     }
 
     fun selectPeople(){
-        Log.d("셀렉트","됨")
-        Log.d("셀렉트","아이템:${index.value}")
         if (allList.value  != null) {
             section.value = allList.value!!.club_section
             initList = allList.value!!.club_section
