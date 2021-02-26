@@ -1,10 +1,12 @@
 package com.semicolon.ddyzd_android.bindingadapter
 
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.SpinnerAdapter
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -39,6 +41,26 @@ object ChattingBindingAdaper {
     @BindingAdapter("spinner_adapter")
     fun spinnerAdapter(spinner:Spinner,adapter:SpinnerAdapter?){
         spinner.adapter=adapter
+    }
+
+    @JvmStatic
+    @BindingAdapter("spinner_select")
+    fun spinnerSelect(spinner: Spinner,changeIndex:MutableLiveData<Int>){
+        spinner.onItemSelectedListener=object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                changeIndex.value=position
+            }
+
+        }
     }
 
 

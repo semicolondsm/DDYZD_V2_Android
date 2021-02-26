@@ -3,6 +3,7 @@ package com.semicolon.ddyzd_android.ul.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.semicolon.ddyzd_android.databinding.ActivityChatListBinding
 import com.semicolon.ddyzd_android.model.ChatListData
 import com.semicolon.ddyzd_android.model.RoomData
@@ -22,7 +23,7 @@ class ChatList : AppCompatActivity() {
         binding.vm = viewModel
         binding.lifecycleOwner = this
         setContentView(binding.root)
-
+        observeItem()
     }
 
     override fun onDestroy() {
@@ -61,6 +62,12 @@ class ChatList : AppCompatActivity() {
         intent.putExtra("chatIndex",data.index)
         intent.putExtra("chatClubSection",club_section)
         startActivity(intent)
+    }
+
+    private fun observeItem(){
+        viewModel.index.observe(this, Observer {
+            viewModel.selectPeople()
+        })
     }
 
 }
