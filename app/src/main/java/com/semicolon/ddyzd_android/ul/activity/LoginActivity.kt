@@ -21,6 +21,7 @@ class LoginActivity : AppCompatActivity() {
         val viewModel=LoginViewModel(instance,this,deviceToken)
         binding= ActivityLoginBinding.inflate(layoutInflater)
         binding.vm=viewModel
+        binding.loginWebView.loadUrl("https://semicolondsm.xyz/mobile/loginslide")
         setContentView(binding.root)
     }
 
