@@ -32,12 +32,13 @@ class UserInfoViewModel(val navigator: ClubDetails, val gcn: String) : ViewModel
     @SuppressLint("CheckResult")
     private fun readUserInfo() {
         if(!accessToken.value.isNullOrEmpty()){
-            setToken= accessToken.value!!
+            setToken="Bearer ${accessToken.value!!}" 
         }
         adapter.readUserInfo(setToken, gcn)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
+                Log.d("유저","결과:${it.raw()}")
                 if (it.isSuccessful) {
                     userInfo.value = it.body()
                     userClubs.value = it.body()?.clubs
