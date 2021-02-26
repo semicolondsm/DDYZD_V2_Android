@@ -27,7 +27,10 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
     val modifyIntro=MutableLiveData<String>()
     val modifyGit=MutableLiveData<String>()
 
+    val progressVisible=MutableLiveData<Int>(View.INVISIBLE)
+
     fun onCreate() {
+        progressVisible.value=View.VISIBLE
         ActivityNavigator.myPageViewModel=this
         readUserInfo()
     }
@@ -47,8 +50,10 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
                 }else{
                     navigator.startLogin()
                 }
+                progressVisible.value=View.INVISIBLE
             },{
                 navigator.startLogin()
+                progressVisible.value=View.INVISIBLE
             })
     }
 
