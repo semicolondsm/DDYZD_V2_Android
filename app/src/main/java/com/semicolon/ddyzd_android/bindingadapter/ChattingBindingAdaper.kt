@@ -1,5 +1,6 @@
 package com.semicolon.ddyzd_android.bindingadapter
 
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ImageView
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.adapter.ChattingAdapter
+import com.semicolon.ddyzd_android.viewmodel.ChatListViewModel
 
 object ChattingBindingAdaper {
     @JvmStatic
@@ -45,7 +47,7 @@ object ChattingBindingAdaper {
 
     @JvmStatic
     @BindingAdapter("spinner_select")
-    fun spinnerSelect(spinner: Spinner,changeIndex:MutableLiveData<Int>){
+    fun spinnerSelect(spinner: Spinner,viewModel:ChatListViewModel){
         spinner.onItemSelectedListener=object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 TODO("Not yet implemented")
@@ -57,7 +59,7 @@ object ChattingBindingAdaper {
                 position: Int,
                 id: Long
             ) {
-                changeIndex.value=position
+                
             }
 
         }

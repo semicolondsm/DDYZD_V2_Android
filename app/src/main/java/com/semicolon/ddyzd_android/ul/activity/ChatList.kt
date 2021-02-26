@@ -23,7 +23,6 @@ class ChatList : AppCompatActivity() {
         binding.vm = viewModel
         binding.lifecycleOwner = this
         setContentView(binding.root)
-        observeItem()
     }
 
     override fun onDestroy() {
@@ -64,10 +63,5 @@ class ChatList : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun observeItem(){
-        viewModel.index.observe(this, Observer {
-            viewModel.selectPeople()
-        })
-    }
 
 }
