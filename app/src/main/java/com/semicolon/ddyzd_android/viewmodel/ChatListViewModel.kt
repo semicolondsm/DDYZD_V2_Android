@@ -75,11 +75,9 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                     // 이 부분이 어뎁터
                     if (response.body() != null) {
                         startSocket("${accessToken.value}")
-
                         allList.value = response.body()
                         section.value = response.body()!!.club_section
                         initList = response.body()!!.club_section
-                        Log.d("섹션", response.body()!!.club_section.toString())
                         spinnerAdapter.value = (ArrayAdapter(
                             navigater, R.layout.support_simple_spinner_dropdown_item,
                             section.value!!
@@ -103,6 +101,28 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
             }, { throwable ->
                 println("${throwable.message}")
             })
+    }
+
+    fun selectPeople(){
+        if (allList.value  != null) {
+            section.value = allList.value!!.club_section
+            initList = allList.value!!.club_section
+            spinnerAdapter.value = (ArrayAdapter(
+                navigater, R.layout.support_simple_spinner_dropdown_item,
+                section.value!!
+            ))
+
+            for (i in 0 until (allList.value?.rooms?.size ?: 0)) {
+                when (allList.value!!.rooms[i].index) {
+                    index.value -> {
+                        readChatList.add(allList.value!!.rooms[i])
+                    }
+                }
+            }
+            list.value = readChatList
+            clubListAdapter.notifyDataSetChanged()
+
+        }
     }
 
     fun goChatting(data: RoomData, section: ArrayList<String>) {
