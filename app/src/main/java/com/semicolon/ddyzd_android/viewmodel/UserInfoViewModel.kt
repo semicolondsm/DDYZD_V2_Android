@@ -2,6 +2,7 @@ package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.semicolon.ddyzd_android.BaseApi
@@ -16,13 +17,13 @@ class UserInfoViewModel(val navigator: ClubDetails, val gcn: String) : ViewModel
     val adapter = BaseApi.getInstance()
     val userInfo = MutableLiveData<UserInfoData>()
 
-    val userClubs = MutableLiveData<List<UserClubData>>()
+    private val userClubs = MutableLiveData<List<UserClubData>>()
     val clubAdapter = InUserClubsAdapter(userClubs, this)
 
-    val modifyIntro = MutableLiveData<String>()
-    val modifyGit = MutableLiveData<String>()
+    val progressVisible=MutableLiveData<Int>(View.INVISIBLE)
 
     fun onCreate() {
+        progressVisible.value=View.VISIBLE
         readUserInfo()
     }
 
@@ -32,20 +33,17 @@ class UserInfoViewModel(val navigator: ClubDetails, val gcn: String) : ViewModel
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
-                Log.d("유저", "읽음: ${it.raw()}")
                 if (it.isSuccessful) {
-                    Log.d("유저","읽었네 ${it.body()}")
                     userInfo.value = it.body()
-                    modifyIntro.value = it.body()?.introduce
-                    modifyGit.value = it.body()?.github
                     userClubs.value = it.body()?.clubs
                     clubAdapter.notifyDataSetChanged()
                 } else {
                     navigator.startLogin()
                 }
+                progressVisible.value=View.INVISIBLE
             }, {
-                Log.d("유저", "읽음: $it")
                 navigator.startLogin()
+                progressVisible.value=View.INVISIBLE
             })
     }
 

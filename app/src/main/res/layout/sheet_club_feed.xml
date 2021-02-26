@@ -23,6 +23,6 @@
             android:onClick="@{()->vm.deleteFeed(id)}"
             android:text="삭제"
             android:textColor="#ff0000"/>
-        
+
     </LinearLayout>
 </layout>
