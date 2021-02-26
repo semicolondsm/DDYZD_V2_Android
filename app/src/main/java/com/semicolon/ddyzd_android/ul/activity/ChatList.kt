@@ -13,10 +13,11 @@ import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.refreshToke
 
 class ChatList : AppCompatActivity() {
     val CODE = 12
-    val viewModel = ChatListViewModel(this)
+    lateinit var viewModel:ChatListViewModel
     lateinit var binding : ActivityChatListBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = ChatListViewModel(this)
         binding = ActivityChatListBinding.inflate(layoutInflater)
         binding.vm = viewModel
         binding.lifecycleOwner = this

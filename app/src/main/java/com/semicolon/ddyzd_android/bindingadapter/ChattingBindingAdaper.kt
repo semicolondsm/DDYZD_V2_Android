@@ -37,7 +37,7 @@ object ChattingBindingAdaper {
 
     @JvmStatic
     @BindingAdapter("spinner_adapter")
-    fun spinnerAdapter(spinner:Spinner,adapter:SpinnerAdapter){
+    fun spinnerAdapter(spinner:Spinner,adapter:SpinnerAdapter?){
         spinner.adapter=adapter
     }
 
