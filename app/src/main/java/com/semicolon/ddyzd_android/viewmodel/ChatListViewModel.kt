@@ -6,9 +6,11 @@ import android.app.AlertDialog
 import android.content.ContentValues.TAG
 import android.content.DialogInterface
 import android.util.Log
+import android.widget.ArrayAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.semicolon.ddyzd_android.BaseApi
+import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.adapter.ChatListAdapter
 import com.semicolon.ddyzd_android.generated.callback.OnClickListener
 import com.semicolon.ddyzd_android.model.AccessTokenData
@@ -31,30 +33,37 @@ import kotlin.collections.ArrayList
 
 class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     private val apiAdapter = BaseApi.getInstance()
-    private  var readChatList = ArrayList<RoomData>()
+    private var readChatList = ArrayList<RoomData>()
     val allList = MutableLiveData<ChatListData>()
     val list = MutableLiveData<ArrayList<RoomData>>()
     val clubListAdapter = ChatListAdapter(list, this)
     val value = listOf<String>()
-    var section = ArrayList<String>()
-    val index = 0
-    lateinit var socket : Socket
+
+    private var initList = arrayListOf("")
+    var section = MutableLiveData<ArrayList<String>>(initList)
+
+    var spinnerAdapter = MutableLiveData<ArrayAdapter<String>>(
+        ArrayAdapter(
+            navigater, R.layout.support_simple_spinner_dropdown_item,
+            section.value!!
+        )
+    )
+    val index = MutableLiveData<Int>(0)
+    lateinit var socket: Socket
     var sectionIndex = 0
-    init{
+
+    init {
         callChatList(navigater)
     }
-    fun onDestroy(){
+
+    fun onDestroy() {
         //socket.disconnect()
     }
+
     fun onCreate() {
         callChatList(navigater)
         //accessToken.value?.let { startSocket(it) }
     }
-
-    fun select(){
-        val item = readChatList
-
-        }
 
     @SuppressLint("CheckResult")
     fun callChatList(navigater: ChatList) {
@@ -64,24 +73,29 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
             .subscribe({ response ->
                 if (response.isSuccessful) {
                     // 이 부분이 어뎁터
-                        if(response.body() != null){
-                            startSocket("${accessToken.value}")
+                    if (response.body() != null) {
+                        startSocket("${accessToken.value}")
 
-                            allList.value = response.body()
-                            section = response.body()!!.club_section
+                        allList.value = response.body()
+                        section.value = response.body()!!.club_section
+                        initList = response.body()!!.club_section
+                        Log.d("섹션", response.body()!!.club_section.toString())
+                        spinnerAdapter.value = (ArrayAdapter(
+                            navigater, R.layout.support_simple_spinner_dropdown_item,
+                            section.value!!
+                        ))
 
-                            for(i in 0 until response.body()!!.rooms.size){
-                                when(response.body()!!.rooms[i].index){
-                                    index ->{
-                                        readChatList.add(response.body()!!.rooms[i])
-                                    }
+                        for (i in 0 until (allList.value?.rooms?.size ?: 0)) {
+                            when (response.body()!!.rooms[i].index) {
+                                index.value -> {
+                                    readChatList.add(response.body()!!.rooms[i])
                                 }
                             }
-                            list.value = readChatList
-                            clubListAdapter.notifyDataSetChanged()
-
-
                         }
+                        list.value = readChatList
+                        clubListAdapter.notifyDataSetChanged()
+
+                    }
 
                 } else {
                     navigater.startLogin()
@@ -90,23 +104,26 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                 println("${throwable.message}")
             })
     }
-    fun goChatting(data: RoomData, section: ArrayList<String>){
-        navigater.startChating(data,section)
+
+    fun goChatting(data: RoomData, section: ArrayList<String>) {
+        navigater.startChating(data, section)
     }
 
-        //소켓 부분
-    fun startSocket(accessToken: String){
+    //소켓 부분
+    fun startSocket(accessToken: String) {
         val value = mutableListOf<String>("Bearer${accessToken}").apply {
             println("${accessToken} 가나다라마바사")
         }
         try {
-            val opts  = IO.Options()
-            opts.transports  = arrayOf(io.socket.engineio.client.transports.WebSocket.NAME) // xhr에러 방지
-            socket = IO.socket("https://api.eungyeol.live/chat",opts)
-            socket.io().on(Manager.EVENT_TRANSPORT, Emitter.Listener {args ->
+            val opts = IO.Options()
+            opts.transports =
+                arrayOf(io.socket.engineio.client.transports.WebSocket.NAME) // xhr에러 방지
+            socket = IO.socket("https://api.eungyeol.live/chat", opts)
+            socket.io().on(Manager.EVENT_TRANSPORT, Emitter.Listener { args ->
                 val trans = args[0] as Transport
-                trans.on(Transport.EVENT_REQUEST_HEADERS){ // request 해더 넣는 부분
-                        args->val mHeaders = args[0] as MutableMap<String, List<String>>
+                trans.on(Transport.EVENT_REQUEST_HEADERS) { // request 해더 넣는 부분
+                        args ->
+                    val mHeaders = args[0] as MutableMap<String, List<String>>
                     println("여기가 실행${accessToken}")
                     mHeaders["Authorization"] = Arrays.asList("Bearer ${accessToken}")
                 }
@@ -117,9 +134,9 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                 println("실패;;")
                 println(it.contentToString())
             }
-            socket.on("response",event)
-            socket.on("alarm",event)
-            socket.on("recv_chat",event)
+            socket.on("response", event)
+            socket.on("alarm", event)
+            socket.on("recv_chat", event)
             socket.connect()
         } catch (e: URISyntaxException) {
             println(e.reason)
@@ -127,12 +144,16 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     }
 
 
-    val event : Emitter.Listener =Emitter.Listener{
-        val size = it.size-1
-        val data  = it
-        for(i in 0..size){
+    val event: Emitter.Listener = Emitter.Listener {
+        val size = it.size - 1
+        val data = it
+        for (i in 0..size) {
             println("${data[i]} 이게 결과값1")
         }
-     }
+    }
+
+    fun onBackClicked() {
+        navigater.finish()
+    }
 
 }
