@@ -149,7 +149,7 @@
             android:layout_height="wrap_content"
             android:indeterminateDrawable="@drawable/progress_circle"
             android:indeterminateDuration="1000"
-            android:visibility="@{}"
+            android:visibility="@{vm.progressVisible}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
