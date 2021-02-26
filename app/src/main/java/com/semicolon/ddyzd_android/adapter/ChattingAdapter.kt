@@ -12,7 +12,7 @@ import com.semicolon.ddyzd_android.viewmodel.ChattingPageViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 
 @Suppress("UNREACHABLE_CODE")
-class ChattingAdapter(val chatting  : MutableLiveData<List<ChattingData>>, val viewModel: ChattingPageViewModel, val index : Int,val name : String, val section :ArrayList<String>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ChattingAdapter(val chatting  : MutableLiveData<List<ChattingData>>, val viewModel: ChattingPageViewModel, val index : Int,val name : String) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val MY_CHAT=0
     private val YOUR_CHAT=1
     private val SCHEDULE_CHAT=2

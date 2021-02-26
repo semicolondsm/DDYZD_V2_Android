@@ -35,7 +35,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     val clubImage = navigater.clubImage
     val clubName = navigater.clubName
     val index = navigater.index
-    val section = navigater.club_section
+    //val section = navigater.club_section
     val adapter = BaseApi.getInstance()
     val chatBody = MutableLiveData<String>()
     private var readChattingList = mutableListOf<ChattingData>()
@@ -44,7 +44,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     lateinit var chatInfo :ChattingData
     lateinit var chatting :Array<String>
     var num = 0
-    val chattingListAdapter = ChattingAdapter(chattingList, this,num,clubName,section)
+    val chattingListAdapter = ChattingAdapter(chattingList, this,num,clubName)
 
     private lateinit var socket : Socket
 
@@ -53,7 +53,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         getChatting()
         getRoomToken()
 
-        if(section[index] != "user"){
+        if(index != 0){
             userVisible.value = false
             clubVisible.value = true
         }
@@ -97,6 +97,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
 
     fun joinRoom(){ // 방 입장 소켓
         val data = JSONObject()
+
         data.put("room_token",roomToken)
         socket.emit("join_room",data)
         socket.on("response",join)
@@ -110,6 +111,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         data.put("room_token",roomToken)
         data.put("msg",message)
         socket.emit("send_chat",data)
+        socket.on("error",chat )
         socket.on("recv_chat",chat)
 
     }
@@ -202,7 +204,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             if(num ==0){
                 chatInfo = ChattingData(chatting[1],chatting[2],chatting[3],chatting[4])
                 possingChat.add(chatInfo)
-                chattingList.value = readChattingList
+                chattingList.value = possingChat
                 chattingListAdapter.notifyDataSetChanged()
                 num= 1
             }

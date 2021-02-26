@@ -82,34 +82,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 tools:ignore="MissingConstraints" />
 
-
             <Button
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="108dp"
-                android:visibility="gone"
-                app:visible="@{vm.clubVisible}"
                 android:text="결과보내기"
+                app:visible="@{vm.clubVisible}"
+                android:backgroundTint="#ffffff"
+                android:onClick="@{()->vm.helper2()}"
                 android:background="@drawable/back_white_view"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.196"
+                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:ignore="MissingConstraints" />
 
-            <Button
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="108dp"
-                android:text="결과 보내기"
-                app:visible="@{vm.clubVisible}"
-                android:visibility="gone"
-                android:background="@drawable/back_white_view"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.754"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="MissingConstraints" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
