@@ -37,7 +37,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     val clubListAdapter = ChatListAdapter(list, this)
     val value = listOf<String>()
     var section = ArrayList<String>()
-    val index = 0
+    val index = MutableLiveData<Int>(0)
     lateinit var socket : Socket
     var sectionIndex = 0
     init{
@@ -72,7 +72,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
 
                             for(i in 0 until response.body()!!.rooms.size){
                                 when(response.body()!!.rooms[i].index){
-                                    index ->{
+                                    index.value ->{
                                         readChatList.add(response.body()!!.rooms[i])
                                     }
                                 }
