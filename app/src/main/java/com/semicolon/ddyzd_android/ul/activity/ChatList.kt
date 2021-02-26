@@ -3,8 +3,10 @@ package com.semicolon.ddyzd_android.ul.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.semicolon.ddyzd_android.databinding.ActivityChatListBinding
 import com.semicolon.ddyzd_android.model.ChatListData
+import com.semicolon.ddyzd_android.model.RoomData
 import com.semicolon.ddyzd_android.viewmodel.ChatListViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.refreshToken
@@ -12,15 +14,21 @@ import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.refreshToke
 
 class ChatList : AppCompatActivity() {
     val CODE = 12
-    val viewModel = ChatListViewModel(this)
+    lateinit var viewModel:ChatListViewModel
     lateinit var binding : ActivityChatListBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = ChatListViewModel(this)
         binding = ActivityChatListBinding.inflate(layoutInflater)
         binding.vm = viewModel
         binding.lifecycleOwner = this
         setContentView(binding.root)
-        viewModel.onCreate()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.lifecycleOwner = this
+        viewModel.onDestroy()
     }
     fun startLogin(){
         val intent=Intent(this,LoginActivity::class.java)
@@ -42,14 +50,18 @@ class ChatList : AppCompatActivity() {
         }
     }
 
-    fun startChating(data : ChatListData){
+    fun startChating(data : RoomData, club_section : ArrayList<String>){
+        viewModel.socket.disconnect()
         val intent = Intent(this,ChattingPage::class.java)
-        intent.putExtra("chatClubId",data.clubid)
-        intent.putExtra("chatClubImage",data.clubimage)
-        intent.putExtra("chatClubName",data.clubname)
+        intent.putExtra("chatClubId",data.id)
+        intent.putExtra("chatClubImage",data.image)
+        intent.putExtra("chatClubName",data.name)
         intent.putExtra("chatLastMessage",data.lastmessage)
         intent.putExtra("chatRoomId",data.roomid)
+        intent.putExtra("chatIndex",data.index)
+        intent.putExtra("chatClubSection",club_section)
         startActivity(intent)
     }
+
 
 }

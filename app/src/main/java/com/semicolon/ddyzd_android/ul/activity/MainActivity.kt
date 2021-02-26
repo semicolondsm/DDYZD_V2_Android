@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDelegate
 import com.semicolon.ddyzd_android.ActivityNavigator
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.databinding.ActivityMainBinding
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         initSharedPreference()
         ActivityNavigator.mainActivity=this
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         viewModel.onCreate()
@@ -205,6 +207,25 @@ class MainActivity : AppCompatActivity() {
     fun startGithub(id:String?){
         val intent=Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/$id"))
         startActivity(intent)
+    }
+
+
+    fun logOut(){
+        AlertDialog.Builder(
+            this, R.style.logOutDialog
+        )
+            .setTitle("주의")
+            .setMessage("정말 로그아웃하시겠습니까?")
+            .setPositiveButton("예") { _, _ ->
+                showToast("로그아웃 하셨습니다")
+                editor.clear().apply()
+                accessToken.value=""
+                reLoadFeeds()
+            }
+            .setNegativeButton("아니요") { _, _ ->
+                showToast("취소하셨습니다")
+            }
+            .show()
     }
 
 }

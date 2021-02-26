@@ -1,6 +1,7 @@
 package com.semicolon.ddyzd_android.ul.activity
 
 import android.app.Activity
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,11 +11,14 @@ import com.semicolon.dsm_sdk_v1.DsmSdk
 
 class LoginActivity : AppCompatActivity() {
     lateinit var binding:ActivityLoginBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        val sharedPreference= getSharedPreferences("device", Context.MODE_PRIVATE)
+        val deviceToken=sharedPreference.getString("device_token","").toString()
         super.onCreate(savedInstanceState)
         val instance= DsmSdk.instance
         instance.initSDK("qwer","qwer","http://www.google.com")
-        val viewModel=LoginViewModel(instance,this)
+        val viewModel=LoginViewModel(instance,this,deviceToken)
         binding= ActivityLoginBinding.inflate(layoutInflater)
         binding.vm=viewModel
         setContentView(binding.root)

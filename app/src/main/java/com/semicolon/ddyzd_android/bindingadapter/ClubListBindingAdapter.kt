@@ -22,10 +22,10 @@ object ClubListBindingAdapter {
 
     @JvmStatic
     @BindingAdapter("chatImageUrl")
-    fun loadImage(imageView: ImageView, url:String){
+    fun loadImage(imageView: ImageView, url:String?){
         if(url != null){
             Glide.with(imageView.context)
-                .load("https://api.semicolon.live/file/$url")
+                .load("$url")
                 .error(R.drawable.group).into(imageView)
         }
     }
@@ -47,4 +47,6 @@ object ClubListBindingAdapter {
         }
         textView.text=text
     }
+
+
 }

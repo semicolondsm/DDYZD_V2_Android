@@ -47,4 +47,5 @@ object BaseApi {
     fun getInstance(): ApiService {
         return KotlinRetrofitInterface
     }
+
 }

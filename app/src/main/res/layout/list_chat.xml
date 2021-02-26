@@ -15,7 +15,7 @@
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
-            android:onClick="@{()->vm.goChatting(vm.list[position])}"
+            android:onClick="@{()->vm.goChatting(vm.allList.rooms[position],vm.allList.club_section)}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -29,7 +29,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/image"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
@@ -39,7 +39,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:chatImageUrl="@{vm.list[position].clubimage}"
+                app:chatImageUrl="@{vm.allList.rooms[position].image}"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:text="@{vm.list[position].clubname}"
+                android:text="@{vm.allList.rooms[position].name}"
                 app:layout_constraintStart_toEndOf="@+id/image"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="동아리 이름" />
@@ -60,7 +60,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@{vm.list[position].lastmessage}"
+                android:text="@{vm.allList.rooms[position].lastmessage}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/image"
                 app:layout_constraintTop_toTopOf="parent"

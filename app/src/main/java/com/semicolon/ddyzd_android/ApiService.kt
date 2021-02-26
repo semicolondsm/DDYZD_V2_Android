@@ -3,7 +3,6 @@ package com.semicolon.ddyzd_android
 import com.google.gson.annotations.SerializedName
 import com.semicolon.ddyzd_android.model.*
 import io.reactivex.Single
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -31,7 +30,7 @@ interface ApiService {
     @GET("chat/list")
     fun chatList(
         @Header("Authorization") access_token: String
-    ): Single<Response<ArrayList<ChatListData>>>
+    ): Single<Response<ChatListData>>
 
     @GET("feed/list")
     fun readFeed(
@@ -86,7 +85,7 @@ interface ApiService {
     fun makeChatRoom(
         @Header("Authorization")accessToken: String,
         @Path("club_id")clubId: String
-    ):Single<Response<roomIdData>>
+    ):Single<Response<RoomIdData>>
 
     @DELETE("feed/{feed_id}")
     fun deleteFeed(
@@ -106,6 +105,12 @@ interface ApiService {
         @Path("user_gcn")gcn:String
     ):Single<Response<UserInfoData>>
 
+    @GET("chat/{room_id}/breakdown")
+    fun getChatting(
+        @Path("room_id")roomId:String,
+        @Header("Authorization")accessToken: String
+    ):Single<Response<ArrayList<ChattingData>>>
+
     @PUT("users/profile/bio")
     fun modifyUserIntro(
         @Header("Authorization")accessToken: String,
@@ -117,4 +122,16 @@ interface ApiService {
         @Header("Authorization")accessToken: String,
         @Body git:MutableMap<String,String?>
     ):Single<Response<Any>>
+
+    @POST("users/device_token")
+    fun addDeviceToken(
+        @Header("Authorization")accessToken: String,
+        @Header("device-token")token:String
+    ):Single<Response<Any>>
+
+    @GET("room/{room_id}/token")
+    fun getRoomToken(
+        @Header("Authorization")accessToken: String,
+        @Path("room_id")roomId : String
+    ):Single<Response<RoomTokenData>>
 }
