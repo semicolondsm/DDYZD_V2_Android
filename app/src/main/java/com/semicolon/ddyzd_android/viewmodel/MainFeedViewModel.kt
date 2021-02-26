@@ -25,9 +25,10 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
     val isEmpty = MutableLiveData<Int>(View.INVISIBLE)
     lateinit var scrollListener: RecyclerView.OnScrollListener
 
+    val progressVisible=MutableLiveData<Int>(View.INVISIBLE)
     fun onCreate() {
+        progressVisible.value=View.VISIBLE
         ActivityNavigator.mainFeedViewModel=this
-        Log.d("불림","ㅇ")
         callApi = 0
         readFeed.clear()
         feeds.value=readFeed
@@ -61,7 +62,6 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
                     feeds.value?.get(position)?.flags = flag
                     feedAdapter.notifyDataSetChanged()
                 } else {
-                    Log.e("token", response.raw().toString())
                     startLogin()
                 }
             }, { throwable ->
@@ -76,27 +76,24 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
 
     @SuppressLint("CheckResult")
     private fun readFeeds() {
-        Log.d("불러옴","토큰: ${accessToken.value}")
         adapter.readFeed("Bearer ${accessToken.value}", callApi.toString(),System.currentTimeMillis().toString())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ response ->
                 if (response.isSuccessful) {
                     isEmpty.value = View.INVISIBLE
-                    Log.d("불러옴", response.body().toString())
-                    Log.d("불러옴","토큰: ${accessToken.value}")
                     response.body()?.let { readFeed.addAll(it) }
                     feeds.value = readFeed
                     feedAdapter.notifyDataSetChanged()
                     callApi += 1
                 } else {
-                    Log.d("불러옴", "안됨 ${response.raw()}")
-                    Log.d("불러옴","토큰: ${accessToken.value}")
                     isEmpty.value = View.VISIBLE
                 }
+                progressVisible.value=View.INVISIBLE
             }, {
                 isEmpty.value = View.VISIBLE
                 navigator.showToast("인터넷 문제가 발생하였습니다")
+                progressVisible.value=View.INVISIBLE
             })
     }
 
@@ -110,10 +107,6 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
 
     fun onChattingClicked() {
         navigator.startChatting()
-    }
-
-    fun modifyFeed(id:Int){
-
     }
 
     @SuppressLint("CheckResult")
