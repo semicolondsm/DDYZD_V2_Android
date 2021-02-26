@@ -28,13 +28,5 @@
             android:text="삭제"
             android:textColor="#ff0000" />
 
-        <Button
-            android:id="@+id/modify_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#FFFFFF"
-            android:onClick="@{()->vm.modifyFeed(id)}"
-            android:text="수정"
-            android:textColor="@color/black" />
     </LinearLayout>
 </layout>
