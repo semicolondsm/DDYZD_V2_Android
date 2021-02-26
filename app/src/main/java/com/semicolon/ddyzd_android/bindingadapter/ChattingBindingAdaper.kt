@@ -15,9 +15,12 @@ object ChattingBindingAdaper {
     fun chattingListAdapter(recyclerView: RecyclerView, adapter: ChattingAdapter){
         val layoutManager= LinearLayoutManager(recyclerView.context)
         layoutManager.orientation= RecyclerView.VERTICAL
+        layoutManager.reverseLayout = false
+        layoutManager.stackFromEnd = true
         recyclerView.layoutManager=layoutManager
         recyclerView.adapter=adapter
     }
+
     @JvmStatic
     @BindingAdapter("chattingImageUrl")
     fun loadImage(imageView: ImageView, url:String?){

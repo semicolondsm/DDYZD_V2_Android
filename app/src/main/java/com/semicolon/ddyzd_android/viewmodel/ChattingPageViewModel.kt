@@ -22,7 +22,6 @@ import io.socket.engineio.client.Transport
 import org.json.JSONObject
 import java.net.URISyntaxException
 import java.util.*
-import kotlin.collections.ArrayList
 
 class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
 
@@ -35,7 +34,6 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     val clubImage = navigater.clubImage
     val clubName = navigater.clubName
     val index = navigater.index
-    //val section = navigater.club_section
     val adapter = BaseApi.getInstance()
     val chatBody = MutableLiveData<String>()
     private var readChattingList = mutableListOf<ChattingData>()
@@ -43,8 +41,8 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     var roomToken : String = ""
     lateinit var chatInfo :ChattingData
     lateinit var chatting :Array<String>
-    var num = 0
-    val chattingListAdapter = ChattingAdapter(chattingList, this,num,clubName)
+
+    val chattingListAdapter = ChattingAdapter(chattingList, this,index,clubName)
 
     private lateinit var socket : Socket
 
@@ -52,6 +50,8 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     init {
         getChatting()
         getRoomToken()
+
+
 
         if(index != 0){
             userVisible.value = false
@@ -89,31 +89,31 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
                 if (response.isSuccessful) {
                     roomToken = response.body()!!.room_token
                     startSocket("${accessToken.value}")
+                    joinRoom()
+
                 }
             }, {
             })
     }
 
-
     fun joinRoom(){ // 방 입장 소켓
         val data = JSONObject()
-
         data.put("room_token",roomToken)
         socket.emit("join_room",data)
         socket.on("response",join)
     }
+    var num = 0
 
     fun sandChatting(){ // 보내기 버튼 누르면 실행 소켓
         num = 0
         val message = chatBody.value
-        println(chatBody)
+        println("이게 과연 몇번 출력이 될까?")
         val data = JSONObject()
         data.put("room_token",roomToken)
         data.put("msg",message)
         socket.emit("send_chat",data)
-        socket.on("error",chat )
+        socket.on("error",chat)
         socket.on("recv_chat",chat)
-
     }
 
     fun helper1(){ // 동아리 지원
@@ -153,7 +153,6 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
                 println(it.contentToString()) // 이게 에러 받는거입니다
             }
             socket.on("response",connect)
-            joinRoom()
             socket.connect()
         } catch (e: URISyntaxException) {
             println(e.reason)
@@ -186,31 +185,29 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         val size = it.size-1
         val data  = it
         for(i in 0..size){
-            println("${data[i]} 이게 helper1 결과값")
+            println("${data[i]} 이게 helper2 결과값")
         }
     }
 
     val chat : Emitter.Listener =Emitter.Listener{
+        if(num == 0){
+            num++
+            val data = it[0].toString()
+            println("$data 이거는 데이터입니다")
 
-        val data = it[0].toString()
-
-        chatting = data.split("{\"title\":"  ,",\"msg\":\"" , "\",\"user_type\":\"" , "\",\"date\":\"" , "\"}").toTypedArray()
-        println("$chatting asdf")
+            chatting = data.split("{\"title\":"  ,",\"msg\":\"" , "\",\"user_type\":\"" , "\",\"date\":\"" , "\"}").toTypedArray()
+            println("$chatting asdf")
             for(a : String in chatting){
                 println("$a 이게 어떤 값?")
             }
-        try {
-
-            if(num ==0){
+            try {
                 chatInfo = ChattingData(chatting[1],chatting[2],chatting[3],chatting[4])
                 possingChat.add(chatInfo)
                 chattingList.value = possingChat
                 chattingListAdapter.notifyDataSetChanged()
-                num= 1
+            }catch (e:Throwable){
+
             }
-
-        }catch (e:Throwable){
-
         }
 
     }
