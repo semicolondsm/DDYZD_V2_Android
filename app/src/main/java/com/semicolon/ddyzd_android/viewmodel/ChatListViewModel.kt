@@ -51,11 +51,6 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
         //accessToken.value?.let { startSocket(it) }
     }
 
-    fun select(){
-        val item = readChatList
-
-        }
-
     @SuppressLint("CheckResult")
     fun callChatList(navigater: ChatList) {
         apiAdapter.chatList("Bearer ${accessToken.value}")
@@ -134,5 +129,9 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
             println("${data[i]} 이게 결과값1")
         }
      }
+
+    fun onBackClicked(){
+        navigater.finish()
+    }
 
 }
