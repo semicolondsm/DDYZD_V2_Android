@@ -209,4 +209,23 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+
+    fun logOut(){
+        AlertDialog.Builder(
+            this, R.style.logOutDialog
+        )
+            .setTitle("주의")
+            .setMessage("정말 로그아웃하시겠습니까?")
+            .setPositiveButton("예") { _, _ ->
+                showToast("로그아웃 하셨습니다")
+                editor.clear().apply()
+                accessToken.value=""
+                reLoadFeeds()
+            }
+            .setNegativeButton("아니요") { _, _ ->
+                showToast("취소하셨습니다")
+            }
+            .show()
+    }
+
 }
