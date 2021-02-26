@@ -2,11 +2,7 @@ package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
 import android.text.Html
-import android.text.Spannable
-import android.text.Spanned
-import android.util.Log
 import android.view.View
-import androidx.core.text.toSpanned
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -152,11 +148,9 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
                     feeds.value?.get(position)?.flags = flag
                     detailAdapter.notifyDataSetChanged()
                 } else {
-                    Log.e("token", response.raw().toString())
                     startLogin()
                 }
-            }, { throwable ->
-                Log.w("api", "${throwable.message}")
+            }, {
             })
     }
 
@@ -246,17 +240,7 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
             })
     }
 
-    fun modifyFeed(id:Int){
-
-    }
-
-    fun onAddFeedClicked(){
-        navigator.showToast("아직 준비중인 기능입니다")
-        //navigator.makeFeed(clubDetail.value!!.clubname, clubDetail.value!!.clubid)
-    }
-
-    fun calculateDate(day:Date) {
-        Log.d("채팅","부름4")
+    private fun calculateDate(day:Date) {
         val dateFormat= SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz", Locale.KOREA)
         val currentDateTime= System.currentTimeMillis()
         val date= Date(currentDateTime)

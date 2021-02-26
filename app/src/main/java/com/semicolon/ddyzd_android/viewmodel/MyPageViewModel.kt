@@ -1,7 +1,6 @@
 package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,7 +10,6 @@ import com.semicolon.ddyzd_android.adapter.UserClubsAdapter
 import com.semicolon.ddyzd_android.model.UserClubData
 import com.semicolon.ddyzd_android.model.UserInfoData
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
-import com.semicolon.ddyzd_android.ul.fragment.ModifySheet
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.userGcn
 import io.reactivex.android.schedulers.AndroidSchedulers

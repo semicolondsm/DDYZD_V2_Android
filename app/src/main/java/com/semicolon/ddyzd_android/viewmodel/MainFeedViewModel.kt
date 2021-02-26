@@ -1,7 +1,6 @@
 package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -64,8 +63,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
                 } else {
                     startLogin()
                 }
-            }, { throwable ->
-                Log.w("api", "${throwable.message}")
+            }, {
             })
     }
 

@@ -10,7 +10,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.semicolon.ddyzd_android.ActivityNavigator
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.databinding.SheetGitEditBinding
-import com.semicolon.ddyzd_android.viewmodel.MyPageViewModel
 
 class GitSheetDialog:BottomSheetDialogFragment() {
     lateinit var binding:SheetGitEditBinding
