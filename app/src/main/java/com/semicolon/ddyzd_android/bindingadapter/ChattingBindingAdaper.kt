@@ -1,5 +1,6 @@
 package com.semicolon.ddyzd_android.bindingadapter
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -50,6 +51,7 @@ object ChattingBindingAdaper {
         spinner.adapter = adapter
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @JvmStatic
     @BindingAdapter("spinner_select")
     fun spinnerSelect(spinner: Spinner, viewModel: ChatListViewModel) {

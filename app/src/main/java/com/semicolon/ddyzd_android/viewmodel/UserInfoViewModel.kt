@@ -10,6 +10,7 @@ import com.semicolon.ddyzd_android.adapter.InUserClubsAdapter
 import com.semicolon.ddyzd_android.model.UserClubData
 import com.semicolon.ddyzd_android.model.UserInfoData
 import com.semicolon.ddyzd_android.ul.activity.ClubDetails
+import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -29,7 +30,11 @@ class UserInfoViewModel(val navigator: ClubDetails, val gcn: String) : ViewModel
 
     @SuppressLint("CheckResult")
     private fun readUserInfo() {
-        adapter.readUserInfo("Bearer ${MainViewModel.accessToken.value}", gcn)
+        var setToken=""
+        if(!accessToken.value.isNullOrEmpty()){
+            setToken= accessToken.value!!
+        }
+        adapter.readUserInfo(setToken, gcn)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
