@@ -19,21 +19,23 @@ import com.semicolon.ddyzd_android.viewmodel.ChatListViewModel
 object ChattingBindingAdaper {
     @JvmStatic
     @BindingAdapter("verChattingAdapter")
-    fun chattingListAdapter(recyclerView: RecyclerView, adapter: ChattingAdapter){
-        val layoutManager= LinearLayoutManager(recyclerView.context)
-        layoutManager.orientation= RecyclerView.VERTICAL
-        recyclerView.layoutManager=layoutManager
-        recyclerView.adapter=adapter
+    fun chattingListAdapter(recyclerView: RecyclerView, adapter: ChattingAdapter) {
+        val layoutManager = LinearLayoutManager(recyclerView.context)
+        layoutManager.orientation = RecyclerView.VERTICAL
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = adapter
     }
+
     @JvmStatic
     @BindingAdapter("chattingImageUrl")
-    fun loadImage(imageView: ImageView, url:String?){
-        if(url != null){
+    fun loadImage(imageView: ImageView, url: String?) {
+        if (url != null) {
             Glide.with(imageView.context)
                 .load("https://api.semicolon.live/file/$url")
                 .error(R.drawable.group).into(imageView)
         }
     }
+
     @JvmStatic
     @BindingAdapter("visible")
     fun setVisible(view: View, isVisible: Boolean) {
@@ -42,38 +44,45 @@ object ChattingBindingAdaper {
 
     @JvmStatic
     @BindingAdapter("spinner_adapter")
-    fun spinnerAdapter(spinner:Spinner,adapter:SpinnerAdapter?){
-        spinner.adapter=adapter
+    fun spinnerAdapter(spinner: Spinner, adapter: SpinnerAdapter?) {
+        spinner.adapter = adapter
     }
 
     @JvmStatic
     @BindingAdapter("spinner_select")
-    fun spinnerSelect(spinner: Spinner,viewModel:ChatListViewModel){
-        spinner.onItemSelectedListener=object : AdapterView.OnItemSelectedListener,View.OnTouchListener{
+    fun spinnerSelect(spinner: Spinner, viewModel: ChatListViewModel) {
+        var userSelect = false
+        spinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
 
-            var userSelect=false
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    userSelect = false
+                }
 
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                if(userSelect){
-                    viewModel.index.value=position
-                    viewModel.selectPeople()
-                    userSelect=false
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    if (userSelect) {
+                        Log.d("셀렉트", "클릭은 됨")
+                        viewModel.index.value = position
+                        viewModel.selectPeople()
+                        userSelect = false
+                    }
+
                 }
 
             }
-
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                userSelect=true
+        spinner.setOnTouchListener { v, event ->
+            when(event?.action){
+                MotionEvent.ACTION_DOWN->{
+                    Log.d("셀렉트", "터치는 잘됨")
+                    userSelect=true
+                }
             }
-
+            false
         }
     }
 

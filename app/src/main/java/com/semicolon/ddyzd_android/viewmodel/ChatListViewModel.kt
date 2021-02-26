@@ -109,10 +109,6 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
         if (allList.value  != null) {
             section.value = allList.value!!.club_section
             initList = allList.value!!.club_section
-            spinnerAdapter.value = (ArrayAdapter(
-                navigater, R.layout.support_simple_spinner_dropdown_item,
-                section.value!!
-            ))
 
             for (i in 0 until (allList.value?.rooms?.size ?: 0)) {
                 when (allList.value!!.rooms[i].index) {
