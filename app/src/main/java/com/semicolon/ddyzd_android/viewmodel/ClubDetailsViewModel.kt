@@ -251,7 +251,8 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
     }
 
     fun onAddFeedClicked(){
-        navigator.makeFeed(clubDetail.value!!.clubname, clubDetail.value!!.clubid)
+        navigator.showToast("아직 준비중인 기능입니다")
+        //navigator.makeFeed(clubDetail.value!!.clubname, clubDetail.value!!.clubid)
     }
 
     fun calculateDate(day:Date) {

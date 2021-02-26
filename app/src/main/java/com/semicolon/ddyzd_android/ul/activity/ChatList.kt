@@ -3,6 +3,7 @@ package com.semicolon.ddyzd_android.ul.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.semicolon.ddyzd_android.databinding.ActivityChatListBinding
 import com.semicolon.ddyzd_android.model.ChatListData
 import com.semicolon.ddyzd_android.model.RoomData
@@ -13,15 +14,15 @@ import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.refreshToke
 
 class ChatList : AppCompatActivity() {
     val CODE = 12
-    val viewModel = ChatListViewModel(this)
+    lateinit var viewModel:ChatListViewModel
     lateinit var binding : ActivityChatListBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = ChatListViewModel(this)
         binding = ActivityChatListBinding.inflate(layoutInflater)
         binding.vm = viewModel
         binding.lifecycleOwner = this
         setContentView(binding.root)
-
     }
 
     override fun onDestroy() {
@@ -61,5 +62,6 @@ class ChatList : AppCompatActivity() {
         intent.putExtra("chatClubSection",club_section)
         startActivity(intent)
     }
+
 
 }

@@ -78,6 +78,11 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
         navigator.disEditGit()
     }
 
+    fun onLogoutClicked(){
+        navigator.disModifyInfo()
+        navigator.logOut()
+    }
+
     @SuppressLint("CheckResult")
     private fun editGithub(){
         val bodyMap= mutableMapOf<String,String?>()

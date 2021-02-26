@@ -12,13 +12,14 @@
     android:layout_height="match_parent"
     tools:context=".ul.activity.LoginActivity">
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
         android:text="로그인없이 둘러보기"
         android:onClick="@{()->vm.startWithoutLogin()}"
+        android:background="@drawable/back_white_view"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -35,6 +36,7 @@
         app:srcCompat="@drawable/start_login" />
 
     <WebView
+        android:id="@+id/login_web_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="30dp"
