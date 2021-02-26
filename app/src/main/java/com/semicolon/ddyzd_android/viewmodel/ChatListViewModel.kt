@@ -39,11 +39,14 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     val clubListAdapter = ChatListAdapter(list, this)
     val value = listOf<String>()
 
-    private val initList= listOf("")
-    var section = MutableLiveData<List<String>>(initList)
+    private var initList = arrayListOf("")
+    var section = MutableLiveData<ArrayList<String>>(initList)
 
-    val spinnerAdapter=ArrayAdapter(navigater, R.layout.support_simple_spinner_dropdown_item,
-        section.value!!
+    var spinnerAdapter = MutableLiveData<ArrayAdapter<String>>(
+        ArrayAdapter(
+            navigater, R.layout.support_simple_spinner_dropdown_item,
+            section.value!!
+        )
     )
     val index = MutableLiveData<Int>(0)
     lateinit var socket: Socket
@@ -71,11 +74,16 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                 if (response.isSuccessful) {
                     // 이 부분이 어뎁터
                     if (response.body() != null) {
-                            startSocket("${accessToken.value}")
+                        startSocket("${accessToken.value}")
 
                         allList.value = response.body()
                         section.value = response.body()!!.club_section
-                        spinnerAdapter.notifyDataSetChanged()
+                        initList = response.body()!!.club_section
+                        Log.d("섹션", response.body()!!.club_section.toString())
+                        spinnerAdapter.value = (ArrayAdapter(
+                            navigater, R.layout.support_simple_spinner_dropdown_item,
+                            section.value!!
+                        ))
 
                         for (i in 0 until (allList.value?.rooms?.size ?: 0)) {
                             when (response.body()!!.rooms[i].index) {
