@@ -1,6 +1,7 @@
 package com.semicolon.ddyzd_android.bindingadapter
 
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ImageView
@@ -48,7 +49,9 @@ object ChattingBindingAdaper {
     @JvmStatic
     @BindingAdapter("spinner_select")
     fun spinnerSelect(spinner: Spinner,viewModel:ChatListViewModel){
-        spinner.onItemSelectedListener=object : AdapterView.OnItemSelectedListener{
+        spinner.onItemSelectedListener=object : AdapterView.OnItemSelectedListener,View.OnTouchListener{
+
+            var userSelect=false
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 TODO("Not yet implemented")
             }
@@ -59,7 +62,16 @@ object ChattingBindingAdaper {
                 position: Int,
                 id: Long
             ) {
-                
+                if(userSelect){
+                    viewModel.index.value=position
+                    viewModel.selectPeople()
+                    userSelect=false
+                }
+
+            }
+
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                userSelect=true
             }
 
         }
