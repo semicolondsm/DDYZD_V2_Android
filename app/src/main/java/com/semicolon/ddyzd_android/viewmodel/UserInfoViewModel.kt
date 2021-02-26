@@ -22,7 +22,7 @@ class UserInfoViewModel(val navigator: ClubDetails, val gcn: String) : ViewModel
     val clubAdapter = InUserClubsAdapter(userClubs, this)
 
     val progressVisible=MutableLiveData<Int>(View.INVISIBLE)
-    lateinit var setToken:String
+    var setToken:String?=null
 
     fun onCreate() {
         progressVisible.value=View.VISIBLE
