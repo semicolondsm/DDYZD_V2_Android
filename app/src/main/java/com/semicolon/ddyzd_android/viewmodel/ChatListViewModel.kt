@@ -38,10 +38,12 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     val list = MutableLiveData<ArrayList<RoomData>>()
     val clubListAdapter = ChatListAdapter(list, this)
     val value = listOf<String>()
-    var section = MutableLiveData<List<String>>()
+
     private val initList= listOf("")
+    var section = MutableLiveData<List<String>>(initList)
+
     val spinnerAdapter=ArrayAdapter(navigater, R.layout.support_simple_spinner_dropdown_item,
-        section.value?: initList
+        section.value!!
     )
     val index = MutableLiveData<Int>(0)
     lateinit var socket: Socket
