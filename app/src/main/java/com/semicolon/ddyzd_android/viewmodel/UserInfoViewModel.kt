@@ -22,6 +22,7 @@ class UserInfoViewModel(val navigator: ClubDetails, val gcn: String) : ViewModel
     val clubAdapter = InUserClubsAdapter(userClubs, this)
 
     val progressVisible=MutableLiveData<Int>(View.INVISIBLE)
+    lateinit var setToken:String
 
     fun onCreate() {
         progressVisible.value=View.VISIBLE
@@ -30,7 +31,6 @@ class UserInfoViewModel(val navigator: ClubDetails, val gcn: String) : ViewModel
 
     @SuppressLint("CheckResult")
     private fun readUserInfo() {
-        var setToken=""
         if(!accessToken.value.isNullOrEmpty()){
             setToken= accessToken.value!!
         }
