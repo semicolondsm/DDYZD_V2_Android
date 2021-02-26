@@ -1,14 +1,10 @@
 package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
-import android.util.ArrayMap
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.gson.Gson
 import com.semicolon.ddyzd_android.BaseApi
-import com.semicolon.ddyzd_android.adapter.ChatListAdapter
 import com.semicolon.ddyzd_android.adapter.ChattingAdapter
-import com.semicolon.ddyzd_android.model.ChatListData
 import com.semicolon.ddyzd_android.model.ChattingData
 import com.semicolon.ddyzd_android.ul.activity.ChattingPage
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
@@ -117,12 +113,19 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     }
 
     fun helper1(){ // 동아리 지원
-        val data = JSONObject()
-        data.put("room_token",roomToken)
-        data.put("major","웹")
-        socket.emit("helper_apply",data)
-        socket.on("recv_chat",helper1)
-        socket.on("error",helper1)
+        val test=ArrayList<String>()//여기에 넣으세요
+        test.add("웹")
+        test.add("앱")
+        test.add("푸시")
+        val getPart=navigater.selectPart(test)
+        if(getPart.isNotEmpty()){
+            val data = JSONObject()
+            data.put("room_token",roomToken)
+            data.put("major",getPart)
+            socket.emit("helper_apply",data)
+            socket.on("recv_chat",helper1)
+            socket.on("error",helper1)
+        }
     }
 
     fun helper2(){ // 스케줄
