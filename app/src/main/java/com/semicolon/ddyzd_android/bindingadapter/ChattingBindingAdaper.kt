@@ -2,6 +2,8 @@ package com.semicolon.ddyzd_android.bindingadapter
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.Spinner
+import android.widget.SpinnerAdapter
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,6 +33,12 @@ object ChattingBindingAdaper {
     @BindingAdapter("visible")
     fun setVisible(view: View, isVisible: Boolean) {
         view.visibility = if (isVisible) View.VISIBLE else View.GONE
+    }
+
+    @JvmStatic
+    @BindingAdapter("spinner_adapter")
+    fun spinnerAdapter(spinner:Spinner,adapter:SpinnerAdapter){
+        spinner.adapter=adapter
     }
 
 
