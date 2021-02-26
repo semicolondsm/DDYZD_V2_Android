@@ -37,12 +37,10 @@ class UserInfoViewModel(val navigator: ClubDetails, val gcn: String) : ViewModel
                     userInfo.value = it.body()
                     userClubs.value = it.body()?.clubs
                     clubAdapter.notifyDataSetChanged()
-                } else {
-                    navigator.startLogin()
                 }
                 progressVisible.value=View.INVISIBLE
             }, {
-                navigator.startLogin()
+                navigator.showToast("인터넷 문제가 발생하였습니다")
                 progressVisible.value=View.INVISIBLE
             })
     }
