@@ -44,7 +44,7 @@ class ClubList: Fragment() {
 
         })
         binding.lifecycleOwner = this
-        val list = binding.rvProflie
+        val list = binding.clubListRv
         viewModel.liveData1.observe(viewLifecycleOwner,Observer{
             val proflieList = viewModel.proflieList
             list.layoutManager = LinearLayoutManager(this@ClubList.context, LinearLayoutManager.VERTICAL,false)

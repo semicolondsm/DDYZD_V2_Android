@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="frag1"
@@ -63,7 +62,7 @@
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_proflie"
+            android:id="@+id/club_list_rv"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -74,7 +73,7 @@
             app:layout_constraintTop_toBottomOf="@+id/club_tab_layout" />
 
         <TextView
-            android:id="@+id/is_empty_tv"
+            android:id="@+id/club_list_is_empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="@{frag1.isEmpty}"
@@ -85,7 +84,7 @@
             app:layout_constraintTop_toBottomOf="@+id/club_tab_layout" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/club_list_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"

@@ -91,7 +91,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
             app:chatImageUrl="@{vm.clubImage}"
-            app:layout_constraintStart_toEndOf="@+id/chat_page_back_btn"
+            app:layout_constraintStart_toEndOf="@+id/chat_page_bc_btn"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
@@ -122,7 +122,7 @@
         </androidx.recyclerview.widget.RecyclerView>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/chat_page_back_btn"
+            android:id="@+id/chat_page_bc_btn"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginStart="10dp"
