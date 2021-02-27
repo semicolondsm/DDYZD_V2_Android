@@ -2,6 +2,7 @@ package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.semicolon.ddyzd_android.BaseApi
@@ -9,6 +10,7 @@ import com.semicolon.ddyzd_android.adapter.InUserClubsAdapter
 import com.semicolon.ddyzd_android.model.UserClubData
 import com.semicolon.ddyzd_android.model.UserInfoData
 import com.semicolon.ddyzd_android.ul.activity.ClubDetails
+import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -16,36 +18,36 @@ class UserInfoViewModel(val navigator: ClubDetails, val gcn: String) : ViewModel
     val adapter = BaseApi.getInstance()
     val userInfo = MutableLiveData<UserInfoData>()
 
-    val userClubs = MutableLiveData<List<UserClubData>>()
+    private val userClubs = MutableLiveData<List<UserClubData>>()
     val clubAdapter = InUserClubsAdapter(userClubs, this)
 
-    val modifyIntro = MutableLiveData<String>()
-    val modifyGit = MutableLiveData<String>()
+    val progressVisible=MutableLiveData<Int>(View.INVISIBLE)
+    var setToken:String?=null
 
     fun onCreate() {
+        progressVisible.value=View.VISIBLE
         readUserInfo()
     }
 
     @SuppressLint("CheckResult")
     private fun readUserInfo() {
-        adapter.readUserInfo("Bearer ${MainViewModel.accessToken.value}", gcn)
+        if(!accessToken.value.isNullOrEmpty()){
+            setToken="Bearer ${accessToken.value!!}" 
+        }
+        adapter.readUserInfo(setToken, gcn)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
-                Log.d("유저", "읽음: ${it.raw()}")
+                Log.d("유저","결과:${it.raw()}")
                 if (it.isSuccessful) {
-                    Log.d("유저","읽었네 ${it.body()}")
                     userInfo.value = it.body()
-                    modifyIntro.value = it.body()?.introduce
-                    modifyGit.value = it.body()?.github
                     userClubs.value = it.body()?.clubs
                     clubAdapter.notifyDataSetChanged()
-                } else {
-                    navigator.startLogin()
                 }
+                progressVisible.value=View.INVISIBLE
             }, {
-                Log.d("유저", "읽음: $it")
-                navigator.startLogin()
+                navigator.showToast("인터넷 문제가 발생하였습니다")
+                progressVisible.value=View.INVISIBLE
             })
     }
 

@@ -1,7 +1,6 @@
 package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,7 +10,6 @@ import com.semicolon.ddyzd_android.adapter.UserClubsAdapter
 import com.semicolon.ddyzd_android.model.UserClubData
 import com.semicolon.ddyzd_android.model.UserInfoData
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
-import com.semicolon.ddyzd_android.ul.fragment.ModifySheet
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.userGcn
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -27,7 +25,10 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
     val modifyIntro=MutableLiveData<String>()
     val modifyGit=MutableLiveData<String>()
 
+    val progressVisible=MutableLiveData<Int>(View.INVISIBLE)
+
     fun onCreate() {
+        progressVisible.value=View.VISIBLE
         ActivityNavigator.myPageViewModel=this
         readUserInfo()
     }
@@ -47,8 +48,10 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
                 }else{
                     navigator.startLogin()
                 }
+                progressVisible.value=View.INVISIBLE
             },{
                 navigator.startLogin()
+                progressVisible.value=View.INVISIBLE
             })
     }
 

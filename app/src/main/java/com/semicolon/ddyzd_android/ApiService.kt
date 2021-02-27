@@ -101,7 +101,7 @@ interface ApiService {
 
     @GET("users/{user_gcn}")
     fun readUserInfo(
-        @Header("Authorization")accessToken: String,
+        @Header("Authorization")accessToken: String?,
         @Path("user_gcn")gcn:String
     ):Single<Response<UserInfoData>>
 

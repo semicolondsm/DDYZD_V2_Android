@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import com.semicolon.ddyzd_android.ActivityNavigator
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.databinding.FragmentMypageBinding
-import com.semicolon.ddyzd_android.ul.activity.MainActivity
 import com.semicolon.ddyzd_android.viewmodel.MyPageViewModel
 
 class MyPage: Fragment() {

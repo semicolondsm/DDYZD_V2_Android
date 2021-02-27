@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
-            android:text="@{vm.userInfo.userName.length()>0?vm.userInfo.userName:`로그인 안됨`}"
+            android:text="@{vm.userInfo.userName.length()>0?vm.userInfo.userName:`로딩실패`}"
             android:textColor="@color/black"
             android:textSize="25sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -124,6 +124,18 @@
             android:layout_marginTop="10dp"
             android:onClick="@{()->vm.onBackClicked()}"
             android:src="@drawable/ic_baseline_arrow_back_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateDrawable="@drawable/progress_circle"
+            android:indeterminateDuration="1000"
+            android:visibility="@{vm.progressVisible}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
