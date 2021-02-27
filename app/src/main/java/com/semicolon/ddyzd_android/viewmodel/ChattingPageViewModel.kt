@@ -1,6 +1,7 @@
 package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.semicolon.ddyzd_android.BaseApi
@@ -17,6 +18,7 @@ import io.socket.emitter.Emitter
 import io.socket.engineio.client.Transport
 import org.json.JSONObject
 import java.net.URISyntaxException
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -128,15 +130,17 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     }
 
     fun helper1(){ // 동아리 지원
-        val getPart=navigater.selectPart(applyTag)
-        if(getPart.isNotEmpty()){
+        val setPartCallback:(part:String)->Unit={
+        if(it.isNotEmpty()){
             val data = JSONObject()
             data.put("room_token",roomToken)
-            data.put("major",getPart)
+            data.put("major",it)
             socket.emit("helper_apply",data)
             socket.on("recv_chat",helper1)
             socket.on("error",helper1)
         }
+    }
+        navigater.selectPart(applyTag,setPartCallback)
     }
 
     fun helper2(){ // 스케줄
@@ -211,14 +215,20 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             println("$data 이거는 데이터입니다")
 
             chatting = data.split("{\"title\":"  ,",\"msg\":\"" , "\",\"user_type\":\"" , "\",\"date\":\"" , "\"}").toTypedArray()
-                try {
-                    chatInfo = ChattingData(chatting[1],chatting[2],chatting[3],chatting[4])
-                    possingChat.add(chatInfo)
-                    chattingList.value = possingChat
-                    chattingListAdapter.notifyDataSetChanged()
-                }catch (e: Throwable){}
 
-
+            println("$chatting asdf")
+            for(a : String in chatting){
+                println("$a 이게 어떤 값?")
+            }
+            try {
+                val format=SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz")
+                val date=format.parse(chatting[4])
+                chatInfo = ChattingData(chatting[1],chatting[2],chatting[3],date)
+                possingChat.add(chatInfo)
+                chattingList.value = possingChat
+                chattingListAdapter.notifyDataSetChanged()
+            }catch (e:Throwable){
+            }
         }
 
 }
