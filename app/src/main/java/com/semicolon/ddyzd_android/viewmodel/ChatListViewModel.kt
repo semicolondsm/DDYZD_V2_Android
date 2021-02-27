@@ -53,6 +53,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
         allList.postValue(null)
         section.postValue(null)
         readChatList.clear()
+        list.postValue(null)
         callChatList(navigater)
         //accessToken.value?.let { startSocket(it) }
     }

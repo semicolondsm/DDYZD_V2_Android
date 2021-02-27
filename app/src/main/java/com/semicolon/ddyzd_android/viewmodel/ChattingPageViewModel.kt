@@ -3,6 +3,7 @@ package com.semicolon.ddyzd_android.viewmodel
 import android.annotation.SuppressLint
 import android.os.Build
 import android.util.Log
+import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,8 +27,8 @@ import kotlin.collections.ArrayList
 
 class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
 
-    val userVisible = MutableLiveData<Boolean>()
-    val clubVisible = MutableLiveData<Boolean>()
+    val userVisible = MutableLiveData<Int>(View.VISIBLE)
+    val clubVisible = MutableLiveData<Int>(View.INVISIBLE)
     val chattingList = MutableLiveData<List<ChattingData>>()
     val roomid = navigater.roomId
     val clubImage = navigater.clubImage
@@ -50,12 +51,12 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         getRoomToken()
         getApplyTag()
         if(index != 0){
-            userVisible.value = false
-            clubVisible.value = true
+            userVisible.value = View.INVISIBLE
+            clubVisible.value = View.VISIBLE
         }
         else{
-            userVisible.value = true
-            clubVisible.value = false
+            userVisible.value = View.VISIBLE
+            clubVisible.value = View.INVISIBLE
         }
     }
     fun onCreate(){
