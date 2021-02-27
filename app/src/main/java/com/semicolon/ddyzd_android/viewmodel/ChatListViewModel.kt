@@ -109,13 +109,6 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
             })
     }
 
-<<<<<<< HEAD
-    fun selectPeople(){ // 스피너
-        readChatList =  mutableListOf()
-            for (i in 0 until everyRoom.size) {
-                if (everyRoom[i].index == index.value) {
-                        readChatList.add(everyRoom[i])
-=======
     fun selectPeople() {
         if (allList.value != null) {
             readChatList.clear()
@@ -123,16 +116,16 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
             for (i in 0 until (allList.value?.rooms?.size ?: 0)) {
                 if (allList.value!!.rooms[i].index == index.value) {
                     readChatList.add(allList.value!!.rooms[i])
->>>>>>> develop
                 }
             }
             list.value = readChatList as ArrayList<RoomData>
             clubListAdapter.notifyDataSetChanged()
+        }
     }
-
     fun goChatting(data: RoomData, section: ArrayList<String>) {
         navigater.startChating(data, section)
     }
+
 
     //소켓 부분
     fun startSocket(accessToken: String) {
