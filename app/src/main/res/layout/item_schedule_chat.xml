@@ -57,16 +57,32 @@
                 tools:text="날짜" />
 
             <TextView
+                android:id="@+id/textView23"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="9dp"
                 android:layout_marginTop="39dp"
-                android:text="@{vm.chattingList[position].msg}"
-                android:textColor="@color/black"
+
                 android:textSize="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="학번 이름님의 동아리 면접 일정입니다" />
+                android:text="당신의 동아리 면접 일정입니다" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="10dp"
+                android:textColor="@color/black"
+                android:text="@{vm.chattingList[position].msg}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
