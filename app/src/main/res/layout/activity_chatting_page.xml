@@ -25,23 +25,30 @@
             android:background="@drawable/back_white_view"
             android:gravity="bottom"
             android:orientation="horizontal"
+            android:padding="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
             <EditText
-                android:layout_width="300dp"
-                android:layout_height="42dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_marginTop="0dp"
+                android:layout_weight="8"
                 android:text="@={vm.chatBody}"
                 android:textColor="#000000" />
 
-            <Button
-                android:layout_width="wrap_content"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
+                android:layout_weight="2"
                 android:onClick="@{()->vm.sandChatting()}"
-                android:text="보내기" />
+                android:text="보내기"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textColor="@color/design_default_color_primary"/>
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
