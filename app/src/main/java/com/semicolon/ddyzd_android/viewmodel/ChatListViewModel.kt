@@ -155,7 +155,6 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
             }
             socket.on("response", event)
             socket.on("alarm", alarm)
-            socket.on("recv_chat", event)
             socket.connect()
         } catch (e: URISyntaxException) {
             println(e.reason)
