@@ -45,16 +45,14 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     lateinit var socket: Socket
     var sectionIndex = 0
 
-    init {
-        callChatList(navigater)
-    }
-
     fun onDestroy() {
         //socket.disconnect()
     }
 
     fun onCreate() {
-        allList.value=null
+        allList.postValue(null)
+        section.postValue(null)
+        readChatList.clear()
         callChatList(navigater)
         //accessToken.value?.let { startSocket(it) }
     }
@@ -71,8 +69,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                     if (response.body() != null) {
                         startSocket("${accessToken.value}")
                         allList.value = response.body()
-                        section.value = response.body()!!.club_section
-                        initList = response.body()!!.club_section
+                        section.value = allList.value!!.club_section
                         spinnerAdapter.value = (ArrayAdapter(
                             navigater, R.layout.support_simple_spinner_dropdown_item,
                             section.value!!
