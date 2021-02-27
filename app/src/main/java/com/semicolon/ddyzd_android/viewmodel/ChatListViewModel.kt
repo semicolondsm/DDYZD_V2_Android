@@ -66,6 +66,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
         //accessToken.value?.let { startSocket(it) }
     }
     fun onResume(){
+        println("reSume")
         callChatList(navigater)
     }
 

@@ -21,9 +21,8 @@ object ChattingBindingAdaper {
     @JvmStatic
     @BindingAdapter("verChattingAdapter")
     fun chattingListAdapter(recyclerView: RecyclerView, adapter: ChattingAdapter){
-        val layoutManager= LinearLayoutManager(recyclerView.context)
+        val layoutManager= LinearLayoutManager(recyclerView.context, LinearLayoutManager.VERTICAL,false)
         layoutManager.orientation= RecyclerView.VERTICAL
-        layoutManager.reverseLayout = false
         layoutManager.stackFromEnd = true
         recyclerView.layoutManager=layoutManager
         recyclerView.adapter=adapter

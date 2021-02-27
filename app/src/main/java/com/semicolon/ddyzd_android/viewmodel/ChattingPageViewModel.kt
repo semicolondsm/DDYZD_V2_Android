@@ -54,6 +54,9 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             clubVisible.value = false
         }
     }
+    fun onCreate(){
+        //socket.on("recv_chat",chat)
+    }
 
     @SuppressLint("CheckResult")
     private fun getApplyTag(){
@@ -61,7 +64,10 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe { response ->
-                applyTag = response.major
+                if(response.body()?.major != null){
+                    applyTag = response.body()!!.major
+                }
+
             }
     }
     @SuppressLint("CheckResult")
@@ -114,8 +120,10 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         data.put("room_token",roomToken)
         data.put("msg",message)
         socket.emit("send_chat",data)
-        socket.on("error",chat)
-        socket.on("recv_chat",chat)
+        //socket.on("error",chat)
+        socket.on("recv_chat",chat).apply {
+            println("가나다라마바사아")
+        }
         chatBody.value = null
     }
 
@@ -160,6 +168,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             }
             socket.on("response",connect)
             socket.connect()
+            //socket.on("recv_chat",chat)
         } catch (e: URISyntaxException) {
             println(e.reason)
         }
@@ -196,24 +205,20 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     }
 
     val chat : Emitter.Listener =Emitter.Listener{
-        if(num == 0){
+
             num++
             val data = it[0].toString()
             println("$data 이거는 데이터입니다")
 
             chatting = data.split("{\"title\":"  ,",\"msg\":\"" , "\",\"user_type\":\"" , "\",\"date\":\"" , "\"}").toTypedArray()
-            println("$chatting asdf")
-            for(a : String in chatting){
-                println("$a 이게 어떤 값?")
-            }
-            try {
-                chatInfo = ChattingData(chatting[1],chatting[2],chatting[3],chatting[4])
-                possingChat.add(chatInfo)
-                chattingList.value = possingChat
-                chattingListAdapter.notifyDataSetChanged()
-            }catch (e:Throwable){
-            }
+                try {
+                    chatInfo = ChattingData(chatting[1],chatting[2],chatting[3],chatting[4])
+                    possingChat.add(chatInfo)
+                    chattingList.value = possingChat
+                    chattingListAdapter.notifyDataSetChanged()
+                }catch (e: Throwable){}
+
+
         }
 
-    }
 }
