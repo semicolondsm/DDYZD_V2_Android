@@ -38,8 +38,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/circleImageView2"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{vm.chattingList[position].msg}"
                 android:textSize="15dp"
-                android:padding="5dp"
+                android:padding="10dp"
                 tools:ignore="MissingConstraints"
                 tools:text="상대방이 보낸 채팅" />
 

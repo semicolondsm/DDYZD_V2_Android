@@ -15,13 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <View
-            android:id="@+id/view3"
-            android:layout_width="10dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="400dp"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/textView19"
@@ -32,11 +25,11 @@
             android:layout_marginBottom="2dp"
             android:background="@drawable/back_white_view"
             android:backgroundTint="#E1D6FF"
-            android:padding="5dp"
+            android:padding="10dp"
             android:text="@{vm.chattingList[position].msg}"
             android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/view3"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
             tools:ignore="MissingConstraints"

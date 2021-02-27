@@ -35,6 +35,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="0dp"
                 android:layout_weight="8"
+                android:background="#ffffff"
                 android:text="@={vm.chatBody}"
                 android:textColor="#000000" />
 
@@ -48,7 +49,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textSize="18sp"
-                android:textColor="@color/design_default_color_primary"/>
+                android:textColor="@{vm.chatBody.length()>0?@color/design_default_color_primary:@color/gray}"/>
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
