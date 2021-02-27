@@ -154,9 +154,13 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     }
 
     fun helper3(){ // 면접 결과 보내는 거 입니다!!!! 이거 club result chat에 버튼에다 ㄱㄱㄱㄱ
-        val data = JSONObject()
-        data.put("room_token",roomToken)
-        data.put("result","boolean 값 넣어야되요!! 면접 합격 면접 불합격")
+        val resultCallback:(Boolean)->Unit={
+            val data = JSONObject()
+            data.put("room_token",roomToken)
+            data.put("result",it)
+        }
+        navigater.sendResultDialog(resultCallback)
+
     }
 
 
