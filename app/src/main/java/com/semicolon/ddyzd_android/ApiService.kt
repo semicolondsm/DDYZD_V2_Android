@@ -18,6 +18,7 @@ interface ApiService {
 
     @GET("club/{club_id}/recruitment")
     fun clubRecruit(
+        @Header("Authorization") accessToken: String,
         @Path("club_id") clubId: String
     ): Single<ClubRecruitData>
 

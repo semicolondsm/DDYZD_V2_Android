@@ -22,8 +22,6 @@ import kotlin.collections.ArrayList
 
 class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
 
-
-
     val userVisible = MutableLiveData<Boolean>()
     val clubVisible = MutableLiveData<Boolean>()
     val chattingList = MutableLiveData<List<ChattingData>>()
@@ -57,7 +55,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
 
     @SuppressLint("CheckResult")
     private fun getApplyTag(){
-        adapter.clubRecruit("Bearer ${accessToken.value}" )
+        adapter.clubRecruit("Bearer ${accessToken.value}","")
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe { response ->
@@ -120,10 +118,10 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     }
 
     fun helper1(){ // 동아리 지원
+        applyTag.add("되")
+        applyTag.add("네")
+        val getPart=navigater.selectPart(applyTag)
 
-        var test=ArrayList<String>()//여기에 넣으세요
-        test = applyTag
-        val getPart=navigater.selectPart(test)
         if(getPart.isNotEmpty()){
             val data = JSONObject()
             data.put("room_token",roomToken)
