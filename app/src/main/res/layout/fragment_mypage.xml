@@ -16,30 +16,31 @@
         android:background="#faf9ff">
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/mypage_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:text="마이페이지"
+            android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageView10"
+            android:id="@+id/mypage_profile_iv"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView10"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_title_tv"
             app:profileImage="@{vm.userInfo.imagePath}"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/mypage_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -48,32 +49,32 @@
             android:textColor="@color/black"
             android:textSize="25sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView10"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_profile_iv"
             tools:text="조호원" />
 
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/mypage_gcn_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:text="@{vm.userInfo.userId}"
-            app:layout_constraintBottom_toBottomOf="@+id/textView11"
-            app:layout_constraintStart_toEndOf="@+id/textView11"
+            app:layout_constraintBottom_toBottomOf="@+id/mypage_name_tv"
+            app:layout_constraintStart_toEndOf="@+id/mypage_name_tv"
             tools:text="1111" />
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/mypage_email_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
             android:text="@{vm.userInfo.email}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView11"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_name_tv"
             tools:text="email1234@dsm.hs.kr" />
 
         <TextView
-            android:id="@+id/textView14"
+            android:id="@+id/mypage_intro_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -82,21 +83,21 @@
             android:text="@{vm.userInfo.introduce}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView13"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_email_tv"
             tools:text="안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 " />
 
         <ImageView
-            android:id="@+id/imageView13"
+            android:id="@+id/mypage_git_ic_iv"
             android:layout_width="10dp"
             android:layout_height="10dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="12dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView14"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_intro_tv"
             app:srcCompat="@drawable/ic_git" />
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/mypage_git_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -105,12 +106,12 @@
             android:onClick="@{()->vm.onGithubProfileClicked()}"
             android:text="@{vm.userInfo.github}"
             android:textColor="@color/black"
-            app:layout_constraintStart_toEndOf="@+id/imageView13"
-            app:layout_constraintTop_toBottomOf="@+id/textView14"
+            app:layout_constraintStart_toEndOf="@+id/mypage_git_ic_iv"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_intro_tv"
             tools:text="hwc9169" />
 
         <TextView
-            android:id="@+id/textView17"
+            android:id="@+id/mypage_club_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -119,25 +120,26 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+            app:layout_constraintTop_toBottomOf="@+id/mypage_git_name_tv" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView2"
+            android:id="@+id/mypage_club_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginEnd="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView17"
+            app:layout_constraintTop_toBottomOf="@+id/mypage_club_title_tv"
             app:members_adapter="@{vm.clubAdapter}" />
 
         <ImageView
-            android:id="@+id/imageView14"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
+            android:id="@+id/mypage_more_btn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:padding="5dp"
             android:onClick="@{()->vm.onEditProfileClicked()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

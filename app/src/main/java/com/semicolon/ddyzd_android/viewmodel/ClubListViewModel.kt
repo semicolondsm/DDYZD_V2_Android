@@ -22,10 +22,10 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
     var clubname = mutableListOf<String>() // 동아리 이름
     var clubexample = mutableListOf<String>() //동아리 설명
     val list = ClubList().view?.findViewById<RecyclerView>(R.id.club_list_rv) //
+
     private val adapter = BaseApi.getInstance() // api 연결시 사용
     var proflieList = mutableListOf<ClubProfiles>() // 리스트 뷰에 들어갈 항목
     val liveData1: MutableLiveData<String> = MutableLiveData() // 전공 분야 클릭시 바뀜
-
     val isEmpty = MutableLiveData<Int>(View.INVISIBLE)
     var size: Int = 0 // 리스트의 갯수
     var sub: Int = 0 // 각 동아리의 전공 갯수
@@ -56,8 +56,6 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                 isEmpty.value = View.VISIBLE
             })
     }
-
-
     private fun clubListSet(body: Array<ClubData>) {
         size = body.size
         for (i in 0 until size) {
@@ -85,7 +83,6 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
             clubAdapter = proflieList as ArrayList<ClubProfiles>, viewModel = this
         )
     }
-
     fun changeSelcted(id:Int){
         when (id) {
             0 -> {
