@@ -19,22 +19,28 @@
             android:id="@+id/circleImageView2"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             app:chatImageUrl="@{vm.clubImage}"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteY="8dp" />
-
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
         <TextView
             android:id="@+id/textView18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="46dp"
-            android:layout_marginTop="8dp"
-            android:textSize="18dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:text="@{vm.chattingList[position].msg}"
-            app:layout_constraintStart_toStartOf="parent"
+            app:showTimeAdapter1="@{vm.chattingList[position].create_at}"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/circleImageView2"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
             tools:ignore="MissingConstraints"
             tools:text="상대방이 보낸 채팅" />
 
@@ -42,10 +48,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView18"
-            tools:layout_editor_absoluteY="13dp"
-            tools:text="시간"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints"
+            tools:text="시간" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
