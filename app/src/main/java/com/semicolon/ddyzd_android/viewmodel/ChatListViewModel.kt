@@ -74,6 +74,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                 if (response.isSuccessful) {
                     // 이 부분이 어뎁터
                     if (response.body() != null) {
+                        Log.d("읽어온", "채팅방:${response.body()}")
                         startSocket("${accessToken.value}")
                         allList.value = response.body()
                         section.value = response.body()!!.club_section
@@ -103,16 +104,13 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
             })
     }
 
-    fun selectPeople(){
-        if (allList.value  != null) {
-            section.value = allList.value!!.club_section
-            initList = allList.value!!.club_section
+    fun selectPeople() {
+        if (allList.value != null) {
+            readChatList.clear()
 
             for (i in 0 until (allList.value?.rooms?.size ?: 0)) {
-                when (allList.value!!.rooms[i].index) {
-                    index.value -> {
-                        readChatList.add(allList.value!!.rooms[i])
-                    }
+                if (allList.value!!.rooms[i].index == index.value) {
+                    readChatList.add(allList.value!!.rooms[i])
                 }
             }
             list.value = readChatList
