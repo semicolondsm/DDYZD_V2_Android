@@ -43,10 +43,9 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     )
     val index = MutableLiveData<Int>(0)
     lateinit var socket: Socket
-    var sectionIndex = 0
 
     fun onDestroy() {
-        //socket.disconnect()
+        socket.disconnect()
     }
 
     fun onCreate() {
@@ -55,7 +54,6 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
         readChatList.clear()
         list.postValue(null)
         callChatList(navigater)
-        //accessToken.value?.let { startSocket(it) }
     }
 
 
@@ -113,7 +111,6 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     fun goChatting(data: RoomData) {
         navigater.startChating(data)
     }
-
 
     //소켓 부분
     fun startSocket(accessToken: String) {

@@ -21,8 +21,6 @@ import io.socket.emitter.Emitter
 import io.socket.engineio.client.Transport
 import org.json.JSONObject
 import java.net.URISyntaxException
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
 class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
@@ -169,11 +167,17 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             val data = JSONObject()
             data.put("room_token",roomToken)
             data.put("result",it)
+            socket.emit("helper_result",data)
         }
         navigater.sendResultDialog(resultCallback)
-
     }
 
+    fun helper4(){
+        val data = JSONObject()
+        data.put("room_token",roomToken)
+        data.put("answer","boolean 값 넣어야되요!! 동아리 확정 선택 ")
+        socket.emit("helper_answer")
+    }
 
     fun startSocket(accessToken: String){
         try {
@@ -201,7 +205,6 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
                 println("가나다라마바사아")
             }
             socket.on("error", connect)
-            //socket.on("recv_chat",chat)
         } catch (e: URISyntaxException) {
             println(e.reason)
         }
@@ -248,14 +251,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     val chat : Emitter.Listener =Emitter.Listener{
 
             val data = it[0].toString()
-            println("$data 이거는 데이터입니다")
-
             chatting = data.split("{\"title\":"  ,",\"msg\":\"" , "\",\"user_type\":\"" , "\",\"date\":\"" , "\"}").toTypedArray()
-
-            println("$chatting asdf")
-            for(a : String in chatting){
-                println("$a 이게 어떤 값?")
-            }
             try {
                 chatInfo = ChattingData(chatting[1],chatting[2],chatting[3],chatting[4])
                 possingChat.add(chatInfo)

@@ -10,8 +10,6 @@ import com.semicolon.ddyzd_android.ActivityNavigator
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.databinding.FeedSheetBinding
 import com.semicolon.ddyzd_android.databinding.SheetClubFeedBinding
-import com.semicolon.ddyzd_android.viewmodel.ClubDetailsViewModel
-import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 import kotlin.properties.Delegates
 
 class BottomSheetDialog: BottomSheetDialogFragment() {

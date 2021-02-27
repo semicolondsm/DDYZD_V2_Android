@@ -39,5 +39,4 @@ class MainViewModel(val navigator:MainActivity) :ViewModel(){
             },{
             })
     }
-
 }
