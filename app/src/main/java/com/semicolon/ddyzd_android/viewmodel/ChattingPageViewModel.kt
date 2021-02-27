@@ -157,10 +157,10 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     fun helper4(){
         val data = JSONObject()
         data.put("room_token",roomToken)
-        data.put("answer","boolean 값 넣어야되요!! 면접 합격 면접 불합격")
+        data.put("answer","boolean 값 넣어야되요!! 동아리 확정 선택 ")
         socket.emit("helper_answer")
     }
-    
+
     fun startSocket(accessToken: String){
         try {
             val opts  = IO.Options()
