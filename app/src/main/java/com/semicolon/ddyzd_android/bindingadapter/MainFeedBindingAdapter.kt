@@ -6,11 +6,6 @@ import androidx.databinding.adapters.ListenerUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.semicolon.ddyzd_android.R
-import com.semicolon.ddyzd_android.adapter.ClubDetailAdapter
-import com.semicolon.ddyzd_android.adapter.FeedPagerAdapter
-import com.semicolon.ddyzd_android.adapter.MainFeedAdapter
-import com.semicolon.ddyzd_android.bindingadapter.MainFeedBindingAdapter.onScrollListener
 import java.text.SimpleDateFormat
 import java.util.*
 
