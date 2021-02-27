@@ -28,6 +28,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     val roomid = navigater.roomId
     val clubImage = navigater.clubImage
     val clubName = navigater.clubName
+    val clubId = navigater.clubId
     val index = navigater.index
     val adapter = BaseApi.getInstance()
     val chatBody = MutableLiveData<String>()
@@ -43,6 +44,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     init {
         getChatting()
         getRoomToken()
+        getApplyTag()
         if(index != 0){
             userVisible.value = false
             clubVisible.value = true
@@ -55,7 +57,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
 
     @SuppressLint("CheckResult")
     private fun getApplyTag(){
-        adapter.clubRecruit("Bearer ${accessToken.value}","")
+        adapter.clubRecruit(clubId,"Bearer ${accessToken.value}" )
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe { response ->

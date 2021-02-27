@@ -15,6 +15,7 @@ class ChattingPage : AppCompatActivity() {
     var roomId = ""
     var clubImage = ""
     var clubName = ""
+    var clubId = ""
     var index = 0
 
     //var club_section = ArrayList<String>()
@@ -22,6 +23,7 @@ class ChattingPage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        clubId = intent.getStringExtra("chatClubId").toString()
         roomId = intent.getStringExtra("chatRoomId").toString()
         clubImage = intent.getStringExtra("chatClubImage").toString()
         clubName = intent.getStringExtra("chatClubName").toString()
