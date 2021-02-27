@@ -48,14 +48,15 @@
                 tools:ignore="MissingConstraints" />
 
             <TextView
+                android:layout_marginLeft="5dp"
                 android:id="@+id/textView18"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:background="@drawable/back_white_view"
                 android:layout_height="wrap_content"
-                android:padding="3dp"
+                android:padding="5dp"
                 android:text="@{vm.chattingList[position].msg}"
-                android:textSize="18dp"
+                android:textSize="15dp"
                 tools:ignore="MissingConstraints"
                 tools:text="상대방이 보낸 채팅" />
 
