@@ -89,6 +89,7 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == LOGIN_REQUEST_CODE) {
             if (data != null) {
+
                 accessToken.value = data.getStringExtra("get_access_token").toString()
                 refreshToken.value=data.getStringExtra("get_refresh_token").toString()
                 userGcn.value=data.getStringExtra("get_gcn").toString()
@@ -96,7 +97,9 @@ class MainActivity : AppCompatActivity() {
                 editor.putString("get_gcn", userGcn.value)
                 editor.apply()
                 reLoadFeeds()
-                reLoadUser()
+                if(data.getBooleanExtra("logined",false)){
+                    reLoadUser()
+                }
             }
         }
     }
