@@ -33,9 +33,9 @@ class ChatList : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.onResume()
-
+        viewModel.onCreate()
     }
+
 
     fun startLogin() {
         val intent = Intent(this, LoginActivity::class.java)
@@ -55,7 +55,6 @@ class ChatList : AppCompatActivity() {
                 MainActivity.editor.putString("get_refresh_token", refreshToken.value)
                 MainActivity.editor.putString("get_gcn", MainViewModel.userGcn.value)
                 MainActivity.editor.apply()
-                viewModel.onCreate()
             }
         }
     }

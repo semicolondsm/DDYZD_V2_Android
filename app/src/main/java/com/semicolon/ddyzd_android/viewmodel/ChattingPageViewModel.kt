@@ -1,7 +1,9 @@
 package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.semicolon.ddyzd_android.BaseApi
@@ -139,11 +141,15 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         navigater.selectPart(applyTag,setPartCallback)
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     fun helper2(){ // 스케줄
-        val data = JSONObject()
-        data.put("room_token",roomToken)
-        data.put("date", "면접 날짜 넣어야됨")
-        data.put("location","면접 장소 넣어야됨")
+        val setTimeCallback:(String,String?)->Unit={ date: String, place: String? ->
+            val data = JSONObject()
+            data.put("room_token",roomToken)
+            data.put("date", date)
+            data.put("location",place)
+        }
+        navigater.selectDate(setTimeCallback)
     }
 
     fun helper3(){ // 면접 결과 보내는 거 입니다!!!! 이거 club result chat에 버튼에다 ㄱㄱㄱㄱ

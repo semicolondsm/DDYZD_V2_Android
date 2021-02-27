@@ -25,23 +25,30 @@
             android:background="@drawable/back_white_view"
             android:gravity="bottom"
             android:orientation="horizontal"
+            android:padding="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
             <EditText
-                android:layout_width="300dp"
-                android:layout_height="42dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_marginTop="0dp"
+                android:layout_weight="8"
                 android:text="@={vm.chatBody}"
                 android:textColor="#000000" />
 
-            <Button
-                android:layout_width="wrap_content"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
+                android:layout_weight="2"
                 android:onClick="@{()->vm.sandChatting()}"
-                android:text="보내기" />
+                android:text="보내기"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textColor="@color/design_default_color_primary"/>
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -66,7 +73,6 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/back_white_view"
             android:backgroundTint="#ffffff"
-            android:onClick="@{()->vm.helper2()}"
             android:text="결과보내기"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
@@ -78,10 +84,10 @@
             android:id="@+id/circleImageView"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
             app:chatImageUrl="@{vm.clubImage}"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView17"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
@@ -97,16 +103,28 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView3"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
             app:layout_constraintBottom_toTopOf="@+id/button9"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/circleImageView"
             app:layout_constraintVertical_bias="0.0"
             app:verChattingAdapter="@{vm.chattingListAdapter}">
 
         </androidx.recyclerview.widget.RecyclerView>
+
+        <ImageView
+            android:id="@+id/imageView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:onClick="@{()->vm.navigater.finish()}"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerView3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

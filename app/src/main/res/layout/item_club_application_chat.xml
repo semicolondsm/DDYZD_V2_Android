@@ -70,6 +70,7 @@
                 android:layout_height="20dp"
                 android:background="@drawable/follow_btn_background"
                 android:text="면접 일정 보내기"
+                android:onClick="@{()->vm.helper2()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
