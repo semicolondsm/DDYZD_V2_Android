@@ -155,6 +155,6 @@ class ChattingPage : AppCompatActivity() {
             .setNegativeButton("불합격"){_,_->
                 Toast.makeText(this,"불합격 시켰습니다",Toast.LENGTH_SHORT).show()
                 callback(false)
-            }
+            }.show()
     }
 }
