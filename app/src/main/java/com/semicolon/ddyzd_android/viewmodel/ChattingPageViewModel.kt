@@ -59,9 +59,6 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             clubVisible.value = View.INVISIBLE
         }
     }
-    fun onCreate(){
-        //socket.on("recv_chat",chat)
-    }
 
     @SuppressLint("CheckResult")
     private fun getApplyTag(){

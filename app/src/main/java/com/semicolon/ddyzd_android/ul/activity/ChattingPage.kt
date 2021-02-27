@@ -39,7 +39,6 @@ class ChattingPage : AppCompatActivity() {
 
         binding = ActivityChattingPageBinding.inflate(layoutInflater)
         val viewModel = ChattingPageViewModel(this)
-        viewModel.onCreate()
         binding.vm = viewModel
         binding.lifecycleOwner = this
         setContentView(binding.root)
