@@ -144,13 +144,11 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
             }
             socket.on("response", event)
             socket.on("alarm", alarm)
-            socket.on("recv_chat", event)
             socket.connect()
         } catch (e: URISyntaxException) {
             println(e.reason)
         }
     }
-
 
     val event: Emitter.Listener = Emitter.Listener {
         val size = it.size - 1
@@ -167,9 +165,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
         }
         callChatList(navigater)
     }
-
     fun onBackClicked() {
         navigater.finish()
     }
-
 }
