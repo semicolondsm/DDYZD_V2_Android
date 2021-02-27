@@ -55,6 +55,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{vm.chattingList[position].msg}"
                 android:textSize="15dp"
+                android:textColor="@color/black"
                 android:padding="10dp"
                 tools:ignore="MissingConstraints"
                 tools:text="상대방이 보낸 채팅" />
