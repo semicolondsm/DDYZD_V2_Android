@@ -18,6 +18,7 @@ import io.socket.engineio.client.Transport
 import org.json.JSONObject
 import java.net.URISyntaxException
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
 
@@ -37,18 +38,13 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     var roomToken : String = ""
     lateinit var chatInfo :ChattingData
     lateinit var chatting :Array<String>
-
     val chattingListAdapter = ChattingAdapter(chattingList, this,index,clubName)
-
     private lateinit var socket : Socket
-
-
+    var num = 0
+    var applyTag = ArrayList<String>()
     init {
         getChatting()
         getRoomToken()
-
-
-
         if(index != 0){
             userVisible.value = false
             clubVisible.value = true
@@ -57,6 +53,16 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             userVisible.value = true
             clubVisible.value = false
         }
+    }
+
+    @SuppressLint("CheckResult")
+    private fun getApplyTag(){
+        adapter.clubRecruit("Bearer ${accessToken.value}" )
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe { response ->
+                applyTag = response.major
+            }
     }
     @SuppressLint("CheckResult")
     private fun getChatting() { // 채팅 데이터 가져오기
@@ -98,7 +104,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         socket.emit("join_room",data)
         socket.on("response",join)
     }
-    var num = 0
+
 
     fun sandChatting(){ // 보내기 버튼 누르면 실행 소켓
         num = 0
@@ -110,13 +116,13 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         socket.emit("send_chat",data)
         socket.on("error",chat)
         socket.on("recv_chat",chat)
+        chatBody.value = null
     }
 
     fun helper1(){ // 동아리 지원
-        val test=ArrayList<String>()//여기에 넣으세요
-        test.add("웹")
-        test.add("앱")
-        test.add("푸시")
+
+        var test=ArrayList<String>()//여기에 넣으세요
+        test = applyTag
         val getPart=navigater.selectPart(test)
         if(getPart.isNotEmpty()){
             val data = JSONObject()
@@ -209,7 +215,6 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
                 chattingList.value = possingChat
                 chattingListAdapter.notifyDataSetChanged()
             }catch (e:Throwable){
-
             }
         }
 

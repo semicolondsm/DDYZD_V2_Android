@@ -33,8 +33,9 @@ import kotlin.collections.ArrayList
 
 class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     private val apiAdapter = BaseApi.getInstance()
-    private var readChatList = ArrayList<RoomData>()
+    private var readChatList = mutableListOf<RoomData>()
     val allList = MutableLiveData<ChatListData>()
+
     val list = MutableLiveData<List<RoomData>>()
     val clubListAdapter = ChatListAdapter(list, this)
     val value = listOf<String>()
@@ -64,6 +65,9 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
         callChatList(navigater)
         //accessToken.value?.let { startSocket(it) }
     }
+    fun onResume(){
+        callChatList(navigater)
+    }
 
     @SuppressLint("CheckResult")
     fun callChatList(navigater: ChatList) {
@@ -86,12 +90,12 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
 
                         for (i in 0 until (allList.value?.rooms?.size ?: 0)) {
                             when (response.body()!!.rooms[i].index) {
-                                index.value -> {
+                                0 -> {
                                     readChatList.add(response.body()!!.rooms[i])
                                 }
                             }
                         }
-                        list.value = readChatList
+                        list.value = readChatList as ArrayList<RoomData>
                         clubListAdapter.notifyDataSetChanged()
 
                     }
@@ -115,22 +119,19 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                     readChatList.add(allList.value!!.rooms[i])
                 }
             }
+
             Log.d("인덱스","list:${readChatList}")
             list.value=readChatList
             clubListAdapter.notifyDataSetChanged()
-
         }
     }
-
     fun goChatting(data: RoomData, section: ArrayList<String>) {
         navigater.startChating(data, section)
     }
 
+
     //소켓 부분
     fun startSocket(accessToken: String) {
-        val value = mutableListOf<String>("Bearer${accessToken}").apply {
-            println("${accessToken} 가나다라마바사")
-        }
         try {
             val opts = IO.Options()
             opts.transports =
@@ -145,6 +146,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                     mHeaders["Authorization"] = Arrays.asList("Bearer ${accessToken}")
                 }
             })
+
             socket.on(Socket.EVENT_CONNECT) {
                 println("성공")
             }.on(Socket.EVENT_CONNECT_ERROR) {
@@ -152,7 +154,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                 println(it.contentToString())
             }
             socket.on("response", event)
-            socket.on("alarm", event)
+            socket.on("alarm", alarm)
             socket.on("recv_chat", event)
             socket.connect()
         } catch (e: URISyntaxException) {
@@ -167,6 +169,14 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
         for (i in 0..size) {
             println("${data[i]} 이게 결과값1")
         }
+    }
+    val alarm: Emitter.Listener = Emitter.Listener {
+        val size = it.size - 1
+        val data = it
+        for (i in 0..size) {
+            println("${data[i]} 이게 결과값1")
+        }
+        callChatList(navigater)
     }
 
     fun onBackClicked() {
