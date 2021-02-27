@@ -77,10 +77,10 @@
             android:id="@+id/circleImageView"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
             app:chatImageUrl="@{vm.clubImage}"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView17"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
@@ -106,6 +106,17 @@
             app:verChattingAdapter="@{vm.chattingListAdapter}">
 
         </androidx.recyclerview.widget.RecyclerView>
+
+        <ImageView
+            android:id="@+id/imageView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:onClick="@{()->vm.navigater.finish()}"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerView3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
