@@ -150,7 +150,6 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
         }
     }
 
-
     val event: Emitter.Listener = Emitter.Listener {
         val size = it.size - 1
         val data = it
@@ -166,9 +165,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
         }
         callChatList(navigater)
     }
-
     fun onBackClicked() {
         navigater.finish()
     }
-
 }

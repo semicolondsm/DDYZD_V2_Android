@@ -123,9 +123,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         data.put("msg",message)
         socket.emit("send_chat",data)
         //socket.on("error",chat)
-        socket.on("recv_chat",chat).apply {
-            println("가나다라마바사아")
-        }
+
         chatBody.value = null
     }
 
@@ -136,8 +134,6 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             data.put("room_token",roomToken)
             data.put("major",it)
             socket.emit("helper_apply",data)
-            socket.on("recv_chat",helper1)
-            socket.on("error",helper1)
         }
     }
         navigater.selectPart(applyTag,setPartCallback)
@@ -148,6 +144,12 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         data.put("room_token",roomToken)
         data.put("date", "면접 날짜 넣어야됨")
         data.put("location","면접 장소 넣어야됨")
+    }
+
+    fun helper3(){ // 면접 결과 보내는 거 입니다!!!! 이거 club result chat에 버튼에다 ㄱㄱㄱㄱ
+        val data = JSONObject()
+        data.put("room_token",roomToken)
+        data.put("result","boolean 값 넣어야되요!! 면접 합격 면접 불합격")
     }
 
 
@@ -172,6 +174,11 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             }
             socket.on("response",connect)
             socket.connect()
+
+            socket.on("recv_chat",chat).apply {
+                println("가나다라마바사아")
+            }
+            socket.on("error", connect)
             //socket.on("recv_chat",chat)
         } catch (e: URISyntaxException) {
             println(e.reason)
@@ -192,7 +199,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             println("${data[i]} 이게 조인 결과값")
         }
     }
-    val helper1 : Emitter.Listener =Emitter.Listener{
+    /*val helper1 : Emitter.Listener =Emitter.Listener{
         val size = it.size-1
         val data  = it
         for(i in 0..size){
@@ -207,6 +214,13 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             println("${data[i]} 이게 helper2 결과값")
         }
     }
+    val helper3 : Emitter.Listener =Emitter.Listener{
+        val size = it.size-1
+        val data  = it
+        for(i in 0..size){
+            println("${data[i]} 이게 helper3 결과값")
+        }
+    }*/
 
     val chat : Emitter.Listener =Emitter.Listener{
 
