@@ -41,18 +41,13 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     var roomToken : String = ""
     lateinit var chatInfo :ChattingData
     lateinit var chatting :Array<String>
-
     val chattingListAdapter = ChattingAdapter(chattingList, this,index,clubName)
-
     private lateinit var socket : Socket
-
+    var num = 0
 
     init {
         getChatting()
         getRoomToken()
-
-
-
         if(index != 0){
             userVisible.value = false
             clubVisible.value = true
@@ -62,6 +57,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             clubVisible.value = false
         }
     }
+
     @SuppressLint("CheckResult")
     private fun getChatting() { // 채팅 데이터 가져오기
         adapter.getChatting(roomid,"Bearer ${accessToken.value}" )
@@ -102,7 +98,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         socket.emit("join_room",data)
         socket.on("response",join)
     }
-    var num = 0
+
 
     fun sandChatting(){ // 보내기 버튼 누르면 실행 소켓
         num = 0
@@ -114,9 +110,11 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         socket.emit("send_chat",data)
         socket.on("error",chat)
         socket.on("recv_chat",chat)
+        chatBody.value = null
     }
 
     fun helper1(){ // 동아리 지원
+
         val data = JSONObject()
         data.put("room_token",roomToken)
         data.put("major","웹")
@@ -206,7 +204,6 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
                 chattingList.value = possingChat
                 chattingListAdapter.notifyDataSetChanged()
             }catch (e:Throwable){
-
             }
         }
 
