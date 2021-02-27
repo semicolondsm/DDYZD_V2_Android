@@ -96,7 +96,9 @@ class MainActivity : AppCompatActivity() {
                 editor.putString("get_gcn", userGcn.value)
                 editor.apply()
                 reLoadFeeds()
-                reLoadUser()
+                if(data.getBooleanExtra("logined",false)){
+                    reLoadUser()
+                }
             }
         }
     }
