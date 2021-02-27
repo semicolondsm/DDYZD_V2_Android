@@ -259,9 +259,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
                 println("$a 이게 어떤 값?")
             }
             try {
-                val format=SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz")
-                val date=format.parse(chatting[4])
-                chatInfo = ChattingData(chatting[1],chatting[2],chatting[3],date)
+                chatInfo = ChattingData(chatting[1],chatting[2],chatting[3],chatting[4])
                 possingChat.add(chatInfo)
                 chattingList.value = possingChat
                 chattingListAdapter.notifyDataSetChanged()
