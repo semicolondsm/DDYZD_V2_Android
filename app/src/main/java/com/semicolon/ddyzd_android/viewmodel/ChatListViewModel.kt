@@ -2,18 +2,12 @@ package com.semicolon.ddyzd_android.viewmodel
 
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.content.ContentValues.TAG
-import android.content.DialogInterface
-import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.adapter.ChatListAdapter
-import com.semicolon.ddyzd_android.generated.callback.OnClickListener
-import com.semicolon.ddyzd_android.model.AccessTokenData
 import com.semicolon.ddyzd_android.model.ChatListData
 import com.semicolon.ddyzd_android.model.RoomData
 import com.semicolon.ddyzd_android.ul.activity.ChatList
@@ -25,8 +19,6 @@ import io.socket.client.Manager
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import io.socket.engineio.client.Transport
-import org.json.JSONObject
-import java.net.URI
 import java.net.URISyntaxException
 import java.util.*
 import kotlin.collections.ArrayList
@@ -78,7 +70,6 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                 if (response.isSuccessful) {
                     // 이 부분이 어뎁터
                     if (response.body() != null) {
-                        Log.d("읽어온", "채팅방:${response.body()}")
                         startSocket("${accessToken.value}")
                         allList.value = response.body()
                         section.value = response.body()!!.club_section
@@ -111,7 +102,6 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     fun selectPeople() {
         if (allList.value != null) {
             readChatList.clear()
-            Log.d("인덱스",index.value.toString())
 
             var rotate=allList.value?.rooms?.size ?: 1
             for (i in 0 until (--rotate)) {
@@ -119,8 +109,6 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                     readChatList.add(allList.value!!.rooms[i])
                 }
             }
-
-            Log.d("인덱스","list:${readChatList}")
             list.value=readChatList
             clubListAdapter.notifyDataSetChanged()
         }

@@ -1,6 +1,7 @@
 package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.semicolon.ddyzd_android.BaseApi
@@ -120,15 +121,17 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     }
 
     fun helper1(){ // 동아리 지원
-        val getPart=navigater.selectPart(applyTag)
-        if(getPart.isNotEmpty()){
+        val setPartCallback:(part:String)->Unit={
+        if(it.isNotEmpty()){
             val data = JSONObject()
             data.put("room_token",roomToken)
-            data.put("major",getPart)
+            data.put("major",it)
             socket.emit("helper_apply",data)
             socket.on("recv_chat",helper1)
             socket.on("error",helper1)
         }
+    }
+        navigater.selectPart(applyTag,setPartCallback)
     }
 
     fun helper2(){ // 스케줄

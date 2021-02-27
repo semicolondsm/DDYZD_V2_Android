@@ -43,7 +43,7 @@ class ChattingPage : AppCompatActivity() {
     /**
      * 배열을 받아와서 dialog 띄우는 함수
      */
-    fun selectPart(items: ArrayList<String>): String {
+    fun selectPart(items: ArrayList<String>,callback:(part:String)->Unit) {
         Log.d("분야", "리스트:${items}")
         var selected = ""
         if (items.size > 0) {
@@ -60,6 +60,8 @@ class ChattingPage : AppCompatActivity() {
                 .setPositiveButton("확인") { _, _ ->
                     if (selected.isEmpty()) {
                         Toast.makeText(this, "분야를 선택해주세요", Toast.LENGTH_SHORT).show()
+                    }else{
+                        callback(selected)
                     }
                 }
                 .setNegativeButton("취소") { _, _ ->
@@ -70,6 +72,6 @@ class ChattingPage : AppCompatActivity() {
             Toast.makeText(this, "등록된 분야가 없습니다", Toast.LENGTH_SHORT).show()
         }
 
-        return selected
+
     }
 }
