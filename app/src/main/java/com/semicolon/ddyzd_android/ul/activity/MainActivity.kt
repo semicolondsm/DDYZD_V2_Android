@@ -217,7 +217,7 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton("예") { _, _ ->
                 showToast("로그아웃 하셨습니다")
                 editor.clear().apply()
-                accessToken.value=""
+                accessToken.value=null
                 reLoadFeeds()
             }
             .setNegativeButton("아니요") { _, _ ->

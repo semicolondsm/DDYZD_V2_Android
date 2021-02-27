@@ -1,6 +1,8 @@
 package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
+import android.view.View
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.ul.activity.LoginActivity
@@ -17,8 +19,10 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity,private va
     lateinit var userName:String
     lateinit var userEmail:String
     lateinit var userGcn:String
+    val loading=MutableLiveData<Int>(View.INVISIBLE)
 
     fun startLogin() {
+        loading.value=View.VISIBLE
         val tokenCallback: (DTOtoken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
             } else if (token != null) {
@@ -60,6 +64,7 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity,private va
         refreshToken:String,
         accessToken: String
     ) {
+        loading.value=View.INVISIBLE
         addDeviceToken(accessToken)
         context.finish(name, email, gcn, accessToken, refreshToken)
     }
@@ -74,7 +79,6 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity,private va
             },{
             })
     }
-
 
     fun startWithoutLogin() {
         context.finish()

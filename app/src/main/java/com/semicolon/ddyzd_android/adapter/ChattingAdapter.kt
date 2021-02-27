@@ -5,11 +5,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.semicolon.ddyzd_android.databinding.*
-import com.semicolon.ddyzd_android.model.ChatListData
 import com.semicolon.ddyzd_android.model.ChattingData
-import com.semicolon.ddyzd_android.viewmodel.ChatListViewModel
 import com.semicolon.ddyzd_android.viewmodel.ChattingPageViewModel
-import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 
 @Suppress("UNREACHABLE_CODE")
 class ChattingAdapter(val chatting  : MutableLiveData<List<ChattingData>>, val viewModel: ChattingPageViewModel, val index : Int,val name : String) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -75,38 +72,37 @@ class ChattingAdapter(val chatting  : MutableLiveData<List<ChattingData>>, val v
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-
          when(viewType){
             MY_CHAT ->{
-                val binding = ItemMyChatBinding.inflate(LayoutInflater.from(parent.context))
+                val binding = ItemMyChatBinding.inflate(LayoutInflater.from(parent.context),parent,false)
                 return MyChatViewHolder(binding)
             }
             YOUR_CHAT ->{
-                val binding = ItemYourChatBinding.inflate(LayoutInflater.from(parent.context))
+                val binding = ItemYourChatBinding.inflate(LayoutInflater.from(parent.context),parent,false)
                 return YourChatViewHolder(binding)
             }
             SCHEDULE_CHAT->{
-                val binding = ItemScheduleChatBinding.inflate(LayoutInflater.from(parent.context))
+                val binding = ItemScheduleChatBinding.inflate(LayoutInflater.from(parent.context),parent,false)
                 return ScheduleChatViewHolder(binding)
             }
             CLUB_APPLICATION->{
-                val binding = ItemClubApplicationChatBinding.inflate(LayoutInflater.from(parent.context))
+                val binding = ItemClubApplicationChatBinding.inflate(LayoutInflater.from(parent.context),parent,false)
                 return ClubApplicationChatViewHolder(binding)
             }
             USER_APPLICATION->{
-                val binding = ItemUserApplicationChatBinding.inflate(LayoutInflater.from(parent.context))
+                val binding = ItemUserApplicationChatBinding.inflate(LayoutInflater.from(parent.context),parent,false)
                 return UserApplicationChatViewHolder(binding)
             }
             CLUB_RESULT->{
-                val binding = ItemClubResultChatBinding.inflate(LayoutInflater.from(parent.context))
+                val binding = ItemClubResultChatBinding.inflate(LayoutInflater.from(parent.context),parent,false)
                 return ClubResultViewHolder(binding)
             }
             USER_RESULT->{
-                val binding = ItemUserResultChatBinding.inflate(LayoutInflater.from(parent.context))
+                val binding = ItemUserResultChatBinding.inflate(LayoutInflater.from(parent.context),parent,false)
                 return UserResultViewHolder(binding)
             }
             else -> { // else 안뜨게 처리 함
-                val binding = ItemMyChatBinding.inflate(LayoutInflater.from(parent.context))
+                val binding = ItemMyChatBinding.inflate(LayoutInflater.from(parent.context),parent,false)
                 return MyChatViewHolder(binding)
             }
         }
