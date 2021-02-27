@@ -12,7 +12,7 @@
     android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/feed_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -31,13 +31,13 @@
             android:layout_marginEnd="10dp"
             android:onClick="@{()->vm.onChattingClicked()}"
             android:padding="5dp"
-            app:layout_constraintBottom_toTopOf="@+id/main_recyclerview"
+            app:layout_constraintBottom_toTopOf="@+id/feed_rv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/chatting" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/main_recyclerview"
+            android:id="@+id/feed_rv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
@@ -56,8 +56,8 @@
             android:layout_marginBottom="100dp"
             android:text="게시물이 없습니다"
             android:visibility="@{vm.isEmpty}"
-            app:layout_constraintBottom_toBottomOf="@+id/main_recyclerview"
-            app:layout_constraintEnd_toEndOf="@+id/main_recyclerview"
+            app:layout_constraintBottom_toBottomOf="@+id/feed_rv"
+            app:layout_constraintEnd_toEndOf="@+id/feed_rv"
             app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.core.widget.ContentLoadingProgressBar
@@ -77,7 +77,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="5dp"
-            app:layout_constraintBottom_toTopOf="@+id/main_recyclerview"
+            app:layout_constraintBottom_toTopOf="@+id/feed_rv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ddyzd_icon" />
