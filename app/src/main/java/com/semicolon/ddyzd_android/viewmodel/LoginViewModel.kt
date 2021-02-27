@@ -66,7 +66,7 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity,private va
     ) {
         loading.value=View.INVISIBLE
         addDeviceToken(accessToken)
-        context.finish(name, email, gcn, accessToken, refreshToken)
+        context.finish(true,name, email, gcn, accessToken, refreshToken)
     }
 
     @SuppressLint("CheckResult")
@@ -81,6 +81,6 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity,private va
     }
 
     fun startWithoutLogin() {
-        context.finish()
+       context.finish(false,"","","","","")
     }
 }

@@ -46,7 +46,7 @@ class ChatList : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CODE) {
             if (data != null) {
-                if (data.getStringExtra("get_access_token").isNullOrEmpty()) {
+                if (!data.getBooleanExtra("logined",false)) {
                     finish()
                 }
                 MainViewModel.accessToken.value = data.getStringExtra("get_access_token").toString()
