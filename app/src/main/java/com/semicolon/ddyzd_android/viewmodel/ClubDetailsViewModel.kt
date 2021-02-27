@@ -58,7 +58,6 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
         readTime()
         readClubInfo()
         readMembers()
-
     }
 
     private fun readTime() {
@@ -263,5 +262,3 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
         navigator.showUserInfo(userGcn)
     }
 }
-
-

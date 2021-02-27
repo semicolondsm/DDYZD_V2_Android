@@ -1,7 +1,6 @@
 package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.semicolon.ddyzd_android.BaseApi
@@ -55,9 +54,6 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             userVisible.value = true
             clubVisible.value = false
         }
-    }
-    fun onCreate(){
-        //socket.on("recv_chat",chat)
     }
 
     @SuppressLint("CheckResult")
@@ -187,7 +183,6 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
                 println("가나다라마바사아")
             }
             socket.on("error", connect)
-            //socket.on("recv_chat",chat)
         } catch (e: URISyntaxException) {
             println(e.reason)
         }
@@ -230,10 +225,9 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         }
     }*/
 
+    @SuppressLint("SimpleDateFormat")
     val chat : Emitter.Listener =Emitter.Listener{
-
-            num++
-            val data = it[0].toString()
+         val data = it[0].toString()
             println("$data 이거는 데이터입니다")
 
             chatting = data.split("{\"title\":"  ,",\"msg\":\"" , "\",\"user_type\":\"" , "\",\"date\":\"" , "\"}").toTypedArray()

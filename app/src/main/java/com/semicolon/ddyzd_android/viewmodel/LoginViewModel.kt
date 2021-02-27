@@ -17,7 +17,6 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity,private va
     lateinit var userName:String
     lateinit var userEmail:String
     lateinit var userGcn:String
-
     fun startLogin() {
         val tokenCallback: (DTOtoken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
@@ -26,7 +25,6 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity,private va
                 refreshToken = token.refresh_token
             }
         }
-
         val loginCallback: (DTOuser?) -> Unit = {
             if (it != null) {
                 userName = it.name
@@ -37,7 +35,6 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity,private va
         }
         instance.loginWithAuth(context, tokenCallback, loginCallback)
     }
-
     @SuppressLint("CheckResult")
     private fun readToken(accessToken: String) {
         adapter.readToken("Bearer $accessToken")
@@ -52,7 +49,6 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity,private va
             }, {
             })
     }
-
     private fun finishLogin(
         name: String,
         email: String,
@@ -63,7 +59,6 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity,private va
         addDeviceToken(accessToken)
         context.finish(name, email, gcn, accessToken, refreshToken)
     }
-
     @SuppressLint("CheckResult")
     private fun addDeviceToken(accessToken: String){
         adapter.addDeviceToken("Bearer $accessToken","Bearer $deviceToken")
@@ -74,8 +69,6 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity,private va
             },{
             })
     }
-
-
     fun startWithoutLogin() {
         context.finish()
     }
