@@ -31,8 +31,7 @@
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:orientation="horizontal"
-            android:padding="5dp"
-
+            android:padding="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -54,9 +53,9 @@
                 android:layout_width="wrap_content"
                 android:background="@drawable/back_white_view"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
                 android:text="@{vm.chattingList[position].msg}"
                 android:textSize="15dp"
+                android:padding="5dp"
                 tools:ignore="MissingConstraints"
                 tools:text="상대방이 보낸 채팅" />
 
