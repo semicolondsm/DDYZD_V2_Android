@@ -47,7 +47,7 @@ class ChattingPage : AppCompatActivity() {
         if (items.size>0){
             var doneOk = false
             val array= items.toTypedArray()
-            for(index in 0..items.size){
+            for(index in 0 until items.size){
                 array[index]=items[index]
             }
 

@@ -118,10 +118,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     }
 
     fun helper1(){ // 동아리 지원
-        applyTag.add("되")
-        applyTag.add("네")
         val getPart=navigater.selectPart(applyTag)
-
         if(getPart.isNotEmpty()){
             val data = JSONObject()
             data.put("room_token",roomToken)
