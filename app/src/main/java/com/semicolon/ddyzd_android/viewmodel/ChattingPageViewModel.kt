@@ -26,7 +26,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
-
     val userVisible = MutableLiveData<Int>(View.VISIBLE)
     val clubVisible = MutableLiveData<Int>(View.INVISIBLE)
     val chattingList = MutableLiveData<List<ChattingData>>()
@@ -58,6 +57,23 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             userVisible.value = View.VISIBLE
             clubVisible.value = View.INVISIBLE
         }
+        readClub()
+    }
+
+    @SuppressLint("CheckResult")
+    private fun readClub(){
+        adapter.readClubInfo("Bearer ${accessToken.value}",clubId.toInt(),System.currentTimeMillis().toString())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                if(it.body()?.recruitment == true){
+                    userVisible.value=View.VISIBLE
+                }else{
+                    userVisible.value=View.INVISIBLE
+                }
+            },{
+
+            })
     }
 
     @SuppressLint("CheckResult")
@@ -171,7 +187,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
                 trans.on(Transport.EVENT_REQUEST_HEADERS){ // request 해더 넣는 부분
                         args->val mHeaders = args[0] as MutableMap<String, List<String>>
                     println("여기가 실행${accessToken}")
-                    mHeaders["Authorization"] = Arrays.asList("Bearer ${accessToken}")
+                    mHeaders["Authorization"] = listOf("Bearer $accessToken")
                 }
             })
             socket.on(Socket.EVENT_CONNECT) {
