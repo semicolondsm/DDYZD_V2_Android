@@ -39,12 +39,6 @@ object ChattingBindingAdaper {
     }
 
     @JvmStatic
-    @BindingAdapter("visible")
-    fun setVisible(view: View, isVisible: Boolean) {
-        view.visibility = if (isVisible) View.VISIBLE else View.GONE
-    }
-
-    @JvmStatic
     @BindingAdapter("spinner_adapter")
     fun spinnerAdapter(spinner: Spinner, adapter: SpinnerAdapter?) {
         spinner.adapter = adapter

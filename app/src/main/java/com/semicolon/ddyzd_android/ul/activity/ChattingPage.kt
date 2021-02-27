@@ -2,6 +2,7 @@ package com.semicolon.ddyzd_android.ul.activity
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.DialogInterface
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -138,5 +139,22 @@ class ChattingPage : AppCompatActivity() {
             nowDay
         )
         dateDialog.show()
+    }
+
+    /**
+     * 합격||불합격 통지하는 dialog
+     */
+    fun sendResultDialog(callback:(result:Boolean)->Unit){
+        AlertDialog.Builder(this,R.style.myDialog)
+            .setTitle("결과")
+            .setMessage("합격 여부를 선택해주세요")
+            .setPositiveButton("합격"){ _, _ ->
+                Toast.makeText(this,"합격 시켰습니다",Toast.LENGTH_SHORT).show()
+                callback(true)
+            }
+            .setNegativeButton("불합격"){_,_->
+                Toast.makeText(this,"불합격 시켰습니다",Toast.LENGTH_SHORT).show()
+                callback(false)
+            }
     }
 }

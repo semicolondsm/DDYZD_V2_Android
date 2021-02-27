@@ -3,6 +3,7 @@ package com.semicolon.ddyzd_android.viewmodel
 import android.annotation.SuppressLint
 import android.os.Build
 import android.util.Log
+import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,8 +27,8 @@ import kotlin.collections.ArrayList
 
 class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
 
-    val userVisible = MutableLiveData<Boolean>()
-    val clubVisible = MutableLiveData<Boolean>()
+    val userVisible = MutableLiveData<Int>(View.VISIBLE)
+    val clubVisible = MutableLiveData<Int>(View.INVISIBLE)
     val chattingList = MutableLiveData<List<ChattingData>>()
     val roomid = navigater.roomId
     val clubImage = navigater.clubImage
@@ -50,12 +51,12 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         getRoomToken()
         getApplyTag()
         if(index != 0){
-            userVisible.value = false
-            clubVisible.value = true
+            userVisible.value = View.INVISIBLE
+            clubVisible.value = View.VISIBLE
         }
         else{
-            userVisible.value = true
-            clubVisible.value = false
+            userVisible.value = View.VISIBLE
+            clubVisible.value = View.INVISIBLE
         }
     }
     fun onCreate(){
@@ -153,9 +154,13 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     }
 
     fun helper3(){ // 면접 결과 보내는 거 입니다!!!! 이거 club result chat에 버튼에다 ㄱㄱㄱㄱ
-        val data = JSONObject()
-        data.put("room_token",roomToken)
-        data.put("result","boolean 값 넣어야되요!! 면접 합격 면접 불합격")
+        val resultCallback:(Boolean)->Unit={
+            val data = JSONObject()
+            data.put("room_token",roomToken)
+            data.put("result",it)
+        }
+        navigater.sendResultDialog(resultCallback)
+
     }
 
 
