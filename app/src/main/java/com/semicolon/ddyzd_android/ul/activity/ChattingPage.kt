@@ -9,7 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.databinding.ActivityChattingPageBinding
 import com.semicolon.ddyzd_android.viewmodel.ChattingPageViewModel
-import java.util.ArrayList
+import java.util.*
 
 class ChattingPage : AppCompatActivity() {
     var roomId = ""
@@ -45,7 +45,6 @@ class ChattingPage : AppCompatActivity() {
      * 배열을 받아와서 dialog 띄우는 함수
      */
     fun selectPart(items: ArrayList<String>,callback:(part:String)->Unit) {
-        Log.d("분야", "리스트:${items}")
         var selected = ""
         if (items.size > 0) {
             val array = items.toTypedArray()
@@ -72,7 +71,11 @@ class ChattingPage : AppCompatActivity() {
         } else {
             Toast.makeText(this, "등록된 분야가 없습니다", Toast.LENGTH_SHORT).show()
         }
-
+    }
+    /**
+     * 면접일정 날짜 dialog 를 뛰워주는 함수
+     */
+    fun selectDate(callback:(date: Date)->Unit){
 
     }
 }
