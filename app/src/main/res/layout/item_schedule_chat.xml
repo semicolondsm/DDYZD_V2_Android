@@ -12,15 +12,20 @@
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="92dp"
-            android:layout_marginStart="48dp"
-            android:layout_marginEnd="12dp"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/chatting_btn_bacground"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints">
 
             <TextView
@@ -29,8 +34,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="9dp"
                 android:layout_marginTop="10dp"
-                android:textSize="15dp"
                 android:text="@{vm.chattingList[position].title}"
+                android:textColor="@color/black"
+                android:textSize="15dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="면접 일정" />
@@ -42,12 +48,12 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="250dp"
                 android:layout_marginBottom="64dp"
-                android:textSize="15dp"
-                app:showTimeAdapter="@{vm.chattingList[position].create_at}"
+                android:textSize="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView6"
                 app:layout_constraintTop_toTopOf="parent"
+                app:showTimeAdapter="@{vm.chattingList[position].create_at}"
                 tools:text="날짜" />
 
             <TextView
@@ -55,12 +61,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="9dp"
                 android:layout_marginTop="39dp"
-                android:textSize="10dp"
                 android:text="@{vm.chattingList[position].msg}"
+                android:textColor="@color/black"
+                android:textSize="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="학번 이름님의 동아리 면접 일정입니다" />
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
