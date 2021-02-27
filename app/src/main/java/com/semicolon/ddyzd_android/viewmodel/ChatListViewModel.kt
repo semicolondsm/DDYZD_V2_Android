@@ -45,22 +45,19 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     lateinit var socket: Socket
     var sectionIndex = 0
 
-    init {
-        callChatList(navigater)
-    }
-
     fun onDestroy() {
         //socket.disconnect()
     }
 
     fun onCreate() {
+        allList.postValue(null)
+        section.postValue(null)
+        readChatList.clear()
+        list.postValue(null)
         callChatList(navigater)
         //accessToken.value?.let { startSocket(it) }
     }
-    fun onResume(){
-        println("reSume")
-        callChatList(navigater)
-    }
+
 
     @SuppressLint("CheckResult")
     fun callChatList(navigater: ChatList) {
@@ -73,8 +70,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                     if (response.body() != null) {
                         startSocket("${accessToken.value}")
                         allList.value = response.body()
-                        section.value = response.body()!!.club_section
-                        initList = response.body()!!.club_section
+                        section.value = allList.value!!.club_section
                         spinnerAdapter.value = (ArrayAdapter(
                             navigater, R.layout.support_simple_spinner_dropdown_item,
                             section.value!!
@@ -114,8 +110,8 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
             clubListAdapter.notifyDataSetChanged()
         }
     }
-    fun goChatting(data: RoomData, section: ArrayList<String>) {
-        navigater.startChating(data, section)
+    fun goChatting(data: RoomData) {
+        navigater.startChating(data)
     }
 
 

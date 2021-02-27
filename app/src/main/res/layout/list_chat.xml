@@ -15,7 +15,7 @@
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
-            android:onClick="@{()->vm.goChatting(vm.allList.rooms[position],vm.allList.club_section)}"
+            android:onClick="@{()->vm.goChatting(vm.list[position])}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
