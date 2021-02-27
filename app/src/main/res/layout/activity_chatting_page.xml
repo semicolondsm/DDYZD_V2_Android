@@ -63,7 +63,7 @@
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:visible="@{vm.userVisible}"
+            android:visibility="@{vm.userVisible}"
             tools:ignore="MissingConstraints" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -77,7 +77,7 @@
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:visible="@{vm.clubVisible}"
+            android:visibility="@{vm.clubVisible}"
             tools:ignore="MissingConstraints" />
 
         <de.hdodenhof.circleimageview.CircleImageView
