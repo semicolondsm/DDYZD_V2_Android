@@ -9,7 +9,7 @@ import com.semicolon.ddyzd_android.model.ChatListData
 import com.semicolon.ddyzd_android.model.RoomData
 import com.semicolon.ddyzd_android.viewmodel.ChatListViewModel
 
-class ChatListAdapter(private val list: MutableLiveData<ArrayList<RoomData>>, val viewModel: ChatListViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+class ChatListAdapter(private val list: MutableLiveData<List<RoomData>>, val viewModel: ChatListViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     inner class ImageViewHolder(private val binding : ListChatBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int, viewModel: ChatListViewModel){
             binding.vm = viewModel
