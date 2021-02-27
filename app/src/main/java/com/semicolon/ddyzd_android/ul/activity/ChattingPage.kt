@@ -1,10 +1,14 @@
 package com.semicolon.ddyzd_android.ul.activity
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.databinding.ActivityChattingPageBinding
@@ -44,7 +48,7 @@ class ChattingPage : AppCompatActivity() {
     /**
      * 배열을 받아와서 dialog 띄우는 함수
      */
-    fun selectPart(items: ArrayList<String>,callback:(part:String)->Unit) {
+    fun selectPart(items: ArrayList<String>, callback: (part: String) -> Unit) {
         var selected = ""
         if (items.size > 0) {
             val array = items.toTypedArray()
@@ -60,7 +64,7 @@ class ChattingPage : AppCompatActivity() {
                 .setPositiveButton("확인") { _, _ ->
                     if (selected.isEmpty()) {
                         Toast.makeText(this, "분야를 선택해주세요", Toast.LENGTH_SHORT).show()
-                    }else{
+                    } else {
                         callback(selected)
                     }
                 }
@@ -72,10 +76,52 @@ class ChattingPage : AppCompatActivity() {
             Toast.makeText(this, "등록된 분야가 없습니다", Toast.LENGTH_SHORT).show()
         }
     }
+
     /**
      * 면접일정 날짜 dialog 를 뛰워주는 함수
      */
-    fun selectDate(callback:(date: Date)->Unit){
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun selectDate(callback: (date: String, place: String?) -> Unit) {
+        var setDate = ""
+        val cal = Calendar.getInstance()
+        val nowYear = cal.get(Calendar.YEAR)
+        val nowMonth = cal.get(Calendar.MONTH)
+        val nowDay = cal.get(Calendar.DAY_OF_MONTH)
 
+        /**
+         * 시간 가져오는 dialog
+         */
+        val timeDialog = TimePickerDialog(
+            this,
+            TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                var onTwelve=""
+                if(hourOfDay>12) {
+                    onTwelve = "오후"
+                    hourOfDay-12
+                }else{
+                    onTwelve="오전"
+                }
+                setDate+=" $onTwelve $hourOfDay 시 $minute 분"
+            },
+            0,
+            0,
+            false
+        )
+
+        /**
+         * 날짜 가져오는 dialog
+         */
+        val dateDialog = DatePickerDialog(
+            this,
+            DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                setDate =
+                    "$month 월${dayOfMonth}일"
+                timeDialog.show()
+            },
+            nowYear,
+            nowMonth,
+            nowDay
+        )
+        dateDialog.show()
     }
 }

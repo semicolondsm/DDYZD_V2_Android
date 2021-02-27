@@ -54,6 +54,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     }
 
     fun onCreate() {
+
         callChatList(navigater)
         //accessToken.value?.let { startSocket(it) }
     }
