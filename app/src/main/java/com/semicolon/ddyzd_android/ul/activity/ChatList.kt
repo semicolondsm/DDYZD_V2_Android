@@ -31,11 +31,6 @@ class ChatList : AppCompatActivity() {
         viewModel.onDestroy()
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.onResume()
-
-    }
 
     fun startLogin() {
         val intent = Intent(this, LoginActivity::class.java)
