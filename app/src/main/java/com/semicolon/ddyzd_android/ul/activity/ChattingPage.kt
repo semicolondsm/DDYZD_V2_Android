@@ -42,41 +42,30 @@ class ChattingPage : AppCompatActivity() {
      * 배열을 받아와서 dialog 띄우는 함수
      */
     fun selectPart(items: ArrayList<String>): String {
-        Log.d("분야","리스트:${items}")
+        Log.d("분야", "리스트:${items}")
         var selected = ""
-        if (items.size>0){
-            var doneOk = false
-            val array= items.toTypedArray()
-            for(index in 0 until items.size){
-                array[index]=items[index]
+        if (items.size > 0) {
+            val array = items.toTypedArray()
+            for (index in 0 until items.size) {
+                array[index] = items[index]
             }
-
-            val dialog = AlertDialog.Builder(
+            AlertDialog.Builder(
                 this, R.style.myDialog
-            )
-                .setTitle("분야선택")
-                .setSingleChoiceItems(array,-1){ _, which ->
-                    selected= array[which].toString()
+            ).setTitle("분야선택")
+                .setSingleChoiceItems(array, -1) { _, which ->
+                    selected = array[which].toString()
                 }
                 .setPositiveButton("확인") { _, _ ->
                     if (selected.isEmpty()) {
                         Toast.makeText(this, "분야를 선택해주세요", Toast.LENGTH_SHORT).show()
-                    } else {
-                        doneOk = true
                     }
                 }
                 .setNegativeButton("취소") { _, _ ->
                     selected = ""
                 }.show()
 
-            val positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-            positiveButton.setOnClickListener {
-                if (doneOk) {
-                    dialog.dismiss()
-                }
-            }
-        }else{
-            Toast.makeText(this,"등록된 분야가 없습니다",Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "등록된 분야가 없습니다", Toast.LENGTH_SHORT).show()
         }
 
         return selected
