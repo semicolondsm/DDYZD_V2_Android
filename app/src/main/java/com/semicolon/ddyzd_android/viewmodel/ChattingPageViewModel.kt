@@ -1,6 +1,7 @@
 package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.semicolon.ddyzd_android.BaseApi
@@ -17,6 +18,7 @@ import io.socket.emitter.Emitter
 import io.socket.engineio.client.Transport
 import org.json.JSONObject
 import java.net.URISyntaxException
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -54,6 +56,9 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             clubVisible.value = false
         }
     }
+    fun onCreate(){
+        //socket.on("recv_chat",chat)
+    }
 
     @SuppressLint("CheckResult")
     private fun getApplyTag(){
@@ -61,7 +66,10 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe { response ->
-                applyTag = response.major
+                if(response.body()?.major != null){
+                    applyTag = response.body()!!.major
+                }
+
             }
     }
     @SuppressLint("CheckResult")
@@ -114,21 +122,25 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         data.put("room_token",roomToken)
         data.put("msg",message)
         socket.emit("send_chat",data)
-        socket.on("error",chat)
-        socket.on("recv_chat",chat)
+        //socket.on("error",chat)
+        socket.on("recv_chat",chat).apply {
+            println("가나다라마바사아")
+        }
         chatBody.value = null
     }
 
     fun helper1(){ // 동아리 지원
-        val getPart=navigater.selectPart(applyTag)
-        if(getPart.isNotEmpty()){
+        val setPartCallback:(part:String)->Unit={
+        if(it.isNotEmpty()){
             val data = JSONObject()
             data.put("room_token",roomToken)
-            data.put("major",getPart)
+            data.put("major",it)
             socket.emit("helper_apply",data)
             socket.on("recv_chat",helper1)
             socket.on("error",helper1)
         }
+    }
+        navigater.selectPart(applyTag,setPartCallback)
     }
 
     fun helper2(){ // 스케줄
@@ -160,6 +172,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             }
             socket.on("response",connect)
             socket.connect()
+            //socket.on("recv_chat",chat)
         } catch (e: URISyntaxException) {
             println(e.reason)
         }
@@ -196,18 +209,21 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     }
 
     val chat : Emitter.Listener =Emitter.Listener{
-        if(num == 0){
+
             num++
             val data = it[0].toString()
             println("$data 이거는 데이터입니다")
 
             chatting = data.split("{\"title\":"  ,",\"msg\":\"" , "\",\"user_type\":\"" , "\",\"date\":\"" , "\"}").toTypedArray()
+
             println("$chatting asdf")
             for(a : String in chatting){
                 println("$a 이게 어떤 값?")
             }
             try {
-                chatInfo = ChattingData(chatting[1],chatting[2],chatting[3],chatting[4])
+                val format=SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz")
+                val date=format.parse(chatting[4])
+                chatInfo = ChattingData(chatting[1],chatting[2],chatting[3],date)
                 possingChat.add(chatInfo)
                 chattingList.value = possingChat
                 chattingListAdapter.notifyDataSetChanged()
@@ -215,5 +231,4 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             }
         }
 
-    }
 }
