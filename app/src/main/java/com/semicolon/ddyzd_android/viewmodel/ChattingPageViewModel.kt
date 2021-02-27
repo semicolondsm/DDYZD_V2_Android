@@ -144,15 +144,23 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         data.put("room_token",roomToken)
         data.put("date", "면접 날짜 넣어야됨")
         data.put("location","면접 장소 넣어야됨")
+        socket.emit("helper_schedule",data)
     }
 
     fun helper3(){ // 면접 결과 보내는 거 입니다!!!! 이거 club result chat에 버튼에다 ㄱㄱㄱㄱ
         val data = JSONObject()
         data.put("room_token",roomToken)
         data.put("result","boolean 값 넣어야되요!! 면접 합격 면접 불합격")
+        socket.emit("helper_result",data)
     }
 
-
+    fun helper4(){
+        val data = JSONObject()
+        data.put("room_token",roomToken)
+        data.put("answer","boolean 값 넣어야되요!! 면접 합격 면접 불합격")
+        socket.emit("helper_answer")
+    }
+    
     fun startSocket(accessToken: String){
         try {
             val opts  = IO.Options()
