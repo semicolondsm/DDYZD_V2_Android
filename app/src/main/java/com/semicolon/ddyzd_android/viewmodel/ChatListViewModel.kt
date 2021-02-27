@@ -110,8 +110,8 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
             clubListAdapter.notifyDataSetChanged()
         }
     }
-    fun goChatting(data: RoomData, section: ArrayList<String>) {
-        navigater.startChating(data, section)
+    fun goChatting(data: RoomData) {
+        navigater.startChating(data)
     }
 
 

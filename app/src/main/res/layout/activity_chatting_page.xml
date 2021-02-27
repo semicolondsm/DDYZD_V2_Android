@@ -74,6 +74,7 @@
             android:background="@drawable/back_white_view"
             android:backgroundTint="#ffffff"
             android:text="결과보내기"
+            android:onClick="@{()->vm.helper3()}"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
