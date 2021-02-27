@@ -168,7 +168,7 @@ class ChattingAdapter(val chatting  : MutableLiveData<List<ChattingData>>, val v
                     "C" -> MY_CHAT
                     "H1" -> CLUB_APPLICATION
                     "H2" -> SCHEDULE_CHAT
-                    "H3" -> USER_RESULT
+                    "H3" -> CLUB_RESULT
                     else -> 1
                 }
             }

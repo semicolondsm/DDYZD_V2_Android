@@ -44,7 +44,6 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     lateinit var chatting :Array<String>
     val chattingListAdapter = ChattingAdapter(chattingList, this,index,clubName)
     private lateinit var socket : Socket
-    var num = 0
     var applyTag = ArrayList<String>()
     init {
         getChatting()
@@ -118,7 +117,6 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
 
 
     fun sandChatting(){ // 보내기 버튼 누르면 실행 소켓
-        num = 0
         val message = chatBody.value
         println("이게 과연 몇번 출력이 될까?")
         val data = JSONObject()
@@ -233,9 +231,9 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         }
     }*/
 
+    @SuppressLint("SimpleDateFormat")
     val chat : Emitter.Listener =Emitter.Listener{
 
-            num++
             val data = it[0].toString()
             println("$data 이거는 데이터입니다")
 
@@ -255,5 +253,4 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             }catch (e:Throwable){
             }
         }
-
 }
