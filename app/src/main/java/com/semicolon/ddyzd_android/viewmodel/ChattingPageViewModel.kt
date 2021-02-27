@@ -143,7 +143,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
 
     @RequiresApi(Build.VERSION_CODES.N)
     fun helper2(){ // 스케줄
-        val setTimeCallback:(Date,String?)->Unit={ date: Date, place: String? ->
+        val setTimeCallback:(String,String?)->Unit={ date: String, place: String? ->
             val data = JSONObject()
             data.put("room_token",roomToken)
             data.put("date", date)

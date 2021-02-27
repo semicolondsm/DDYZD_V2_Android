@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
@@ -88,6 +89,19 @@ class ChattingPage : AppCompatActivity() {
         val nowMonth = cal.get(Calendar.MONTH)
         val nowDay = cal.get(Calendar.DAY_OF_MONTH)
 
+        val placeText= EditText(this)
+        val placeDialog=AlertDialog.Builder(
+            this,R.style.myDialog
+        ).setTitle("면접장소입력")
+            .setMessage("면접을 진행할 장소를 입력해주세요")
+            .setView(placeText)
+            .setPositiveButton("확인"){_,_->
+                if(placeText.text.isNullOrEmpty()){
+                    Toast.makeText(this,"장소를 입력해주세요",Toast.LENGTH_SHORT).show()
+                }else{
+                    callback(setDate,placeText.text.toString())
+                }
+            }
         /**
          * 시간 가져오는 dialog
          */
@@ -102,6 +116,7 @@ class ChattingPage : AppCompatActivity() {
                     onTwelve="오전"
                 }
                 setDate+=" $onTwelve $hourOfDay 시 $minute 분"
+                placeDialog.show()
             },
             0,
             0,
