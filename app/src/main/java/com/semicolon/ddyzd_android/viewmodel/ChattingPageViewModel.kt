@@ -18,6 +18,7 @@ import io.socket.emitter.Emitter
 import io.socket.engineio.client.Transport
 import org.json.JSONObject
 import java.net.URISyntaxException
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -210,7 +211,9 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
                 println("$a 이게 어떤 값?")
             }
             try {
-                chatInfo = ChattingData(chatting[1],chatting[2],chatting[3],chatting[4])
+                val format=SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz")
+                val date=format.parse(chatting[4])
+                chatInfo = ChattingData(chatting[1],chatting[2],chatting[3],date)
                 possingChat.add(chatInfo)
                 chattingList.value = possingChat
                 chattingListAdapter.notifyDataSetChanged()
