@@ -13,18 +13,18 @@
         android:background="#faf9ff">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageView10"
+            android:id="@+id/user_profile_iv"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView15"
+            app:layout_constraintTop_toBottomOf="@+id/user_back_btn"
             app:profileImage="@{vm.userInfo.imagePath}"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/user_profile_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -33,28 +33,28 @@
             android:textColor="@color/black"
             android:textSize="25sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView10"
+            app:layout_constraintTop_toBottomOf="@+id/user_profile_iv"
             tools:text="조호원" />
 
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/user_gcn_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:text="@{vm.userInfo.userId}"
-            app:layout_constraintBottom_toBottomOf="@+id/textView11"
-            app:layout_constraintStart_toEndOf="@+id/textView11"
+            app:layout_constraintBottom_toBottomOf="@+id/user_profile_name_tv"
+            app:layout_constraintStart_toEndOf="@+id/user_profile_name_tv"
             tools:text="1111" />
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/user_email_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
             android:text="@{vm.userInfo.email}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView11"
+            app:layout_constraintTop_toBottomOf="@+id/user_profile_name_tv"
             tools:text="email1234@dsm.hs.kr" />
 
         <TextView
@@ -67,35 +67,28 @@
             android:text="@{vm.userInfo.introduce}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView13"
+            app:layout_constraintTop_toBottomOf="@+id/user_email_tv"
             tools:text="안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 " />
 
-        <ImageView
-            android:id="@+id/imageView13"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView14"
-            app:srcCompat="@drawable/ic_git" />
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/user_git_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:drawableEnd="@drawable/ic_baseline_insert_link_24"
+            android:drawablePadding="5dp"
             android:onClick="@{()->vm.onGithubProfileClicked()}"
             android:text="@{vm.userInfo.github}"
             android:textColor="@color/black"
-            app:layout_constraintStart_toEndOf="@+id/imageView13"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14"
-            tools:text="hwc9169" />
+            tools:text="hwc9169"
+            app:drawableStartCompat="@drawable/ic_git"
+            app:drawableEndCompat="@drawable/ic_baseline_insert_link_24" />
 
         <TextView
-            android:id="@+id/textView17"
+            android:id="@+id/user_club_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -104,7 +97,7 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+            app:layout_constraintTop_toBottomOf="@+id/user_git_name_tv" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="0dp"
@@ -113,17 +106,17 @@
             android:layout_marginEnd="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView17"
+            app:layout_constraintTop_toBottomOf="@+id/user_club_title_tv"
             app:members_adapter="@{vm.clubAdapter}" />
 
-        <ImageView
-            android:id="@+id/imageView15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/user_back_btn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:onClick="@{()->vm.onBackClicked()}"
-            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:background="@drawable/ic_baseline_arrow_back_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
