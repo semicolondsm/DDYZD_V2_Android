@@ -39,7 +39,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:chatImageUrl="@{vm.allList.rooms[position].image}"
+                app:chatImageUrl="@{vm.list[position].image}"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-                android:text="@{vm.allList.rooms[position].name}"
+                android:text="@{vm.list[position].name}"
                 app:layout_constraintStart_toEndOf="@+id/image"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="동아리 이름" />
@@ -60,7 +60,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@{vm.allList.rooms[position].lastmessage}"
+                android:text="@{vm.list[position].lastmessage}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/image"
                 app:layout_constraintTop_toTopOf="parent"

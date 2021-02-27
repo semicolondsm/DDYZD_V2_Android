@@ -35,8 +35,8 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     private val apiAdapter = BaseApi.getInstance()
     private var readChatList = mutableListOf<RoomData>()
     val allList = MutableLiveData<ChatListData>()
-    var everyRoom = mutableListOf<RoomData>()
-    val list = MutableLiveData<ArrayList<RoomData>>()
+
+    val list = MutableLiveData<List<RoomData>>()
     val clubListAdapter = ChatListAdapter(list, this)
     val value = listOf<String>()
 
@@ -81,7 +81,6 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                         Log.d("읽어온", "채팅방:${response.body()}")
                         startSocket("${accessToken.value}")
                         allList.value = response.body()
-                        everyRoom = response.body()!!.rooms
                         section.value = response.body()!!.club_section
                         initList = response.body()!!.club_section
                         spinnerAdapter.value = (ArrayAdapter(
@@ -112,13 +111,17 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     fun selectPeople() {
         if (allList.value != null) {
             readChatList.clear()
+            Log.d("인덱스",index.value.toString())
 
-            for (i in 0 until (allList.value?.rooms?.size ?: 0)) {
+            var rotate=allList.value?.rooms?.size ?: 1
+            for (i in 0 until (--rotate)) {
                 if (allList.value!!.rooms[i].index == index.value) {
                     readChatList.add(allList.value!!.rooms[i])
                 }
             }
-            list.value = readChatList as ArrayList<RoomData>
+
+            Log.d("인덱스","list:${readChatList}")
+            list.value=readChatList
             clubListAdapter.notifyDataSetChanged()
         }
     }
