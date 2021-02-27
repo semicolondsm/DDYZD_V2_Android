@@ -25,12 +25,13 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
-    fun finish(name:String,email:String,gcn:String,accessToken:String,refreshToken:String){
+    fun finish(logined:Boolean,name:String,email:String,gcn:String,accessToken:String,refreshToken:String){
         intent.putExtra("get_name",name)
         intent.putExtra("get_email",email)
         intent.putExtra("get_gcn",gcn)
         intent.putExtra("get_access_token",accessToken)
         intent.putExtra("get_refresh_token",refreshToken)
+        intent.putExtra("logined",logined)
         setResult(Activity.RESULT_OK,intent)
         finish()
     }

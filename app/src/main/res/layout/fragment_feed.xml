@@ -24,8 +24,8 @@
             app:layout_constraintStart_toEndOf="@+id/feed_logo_iv"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageView2"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/feed_chat_btn"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginEnd="10dp"
@@ -34,7 +34,7 @@
             app:layout_constraintBottom_toTopOf="@+id/feed_rv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/chatting" />
+            android:background="@drawable/chatting" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/feed_rv"
