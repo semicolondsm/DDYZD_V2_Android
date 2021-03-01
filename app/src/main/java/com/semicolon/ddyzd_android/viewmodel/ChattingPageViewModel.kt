@@ -96,7 +96,6 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
                     roomToken = response.body()!!.room_token
                     startSocket("${accessToken.value}")
                     joinRoom()
-
                 }
             }, {
             })
@@ -106,7 +105,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         val data = JSONObject()
         data.put("room_token",roomToken)
         socket.emit("join_room",data)
-        socket.on("response",join)
+        //socket.on("response",join)
     }
 
 
@@ -119,10 +118,8 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         data.put("msg",message)
         socket.emit("send_chat",data)
         //socket.on("error",chat)
-
         chatBody.value = null
     }
-
     fun helper1(){ // 동아리 지원
         val setPartCallback:(part:String)->Unit={
         if(it.isNotEmpty()){
