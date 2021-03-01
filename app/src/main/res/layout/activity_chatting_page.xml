@@ -2,7 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="vm"
             type="com.semicolon.ddyzd_android.viewmodel.ChattingPageViewModel" />
@@ -10,13 +12,13 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:backgroundTint="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:backgroundTint="#ffffff"
         tools:context=".ul.activity.ChattingPage">
 
         <LinearLayout
-            android:id="@+id/linearLayout"
+            android:id="@+id/chat_page_send_container"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="10dp"
@@ -25,27 +27,35 @@
             android:background="@drawable/back_white_view"
             android:gravity="bottom"
             android:orientation="horizontal"
+            android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
             <EditText
-                android:layout_width="300dp"
-                android:layout_height="42dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_marginTop="0dp"
+                android:layout_weight="8"
+                android:background="#ffffff"
                 android:text="@={vm.chatBody}"
                 android:textColor="#000000" />
 
-            <Button
-                android:layout_width="wrap_content"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="0dp"
+                android:layout_weight="2"
+                android:gravity="center"
                 android:onClick="@{()->vm.sandChatting()}"
-                android:text="보내기" />
+                android:text="보내기"
+                android:textColor="@{vm.chatBody.length()>0?@color/design_default_color_primary:@color/gray}"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button9"
+            android:id="@+id/chat_page_support_btn"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -53,35 +63,35 @@
             android:backgroundTint="#ffffff"
             android:onClick="@{()->vm.helper1()}"
             android:text="지원하기"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            android:visibility="@{vm.userVisible}"
+            app:layout_constraintBottom_toTopOf="@+id/chat_page_send_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:visible="@{vm.userVisible}"
             tools:ignore="MissingConstraints" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button8"
+            android:id="@+id/chat_page_result_btn"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:background="@drawable/back_white_view"
             android:backgroundTint="#ffffff"
-            android:onClick="@{()->vm.helper2()}"
+            android:onClick="@{()->vm.helper3()}"
             android:text="결과보내기"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            android:visibility="@{vm.clubVisible}"
+            app:layout_constraintBottom_toTopOf="@+id/chat_page_send_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:visible="@{vm.clubVisible}"
             tools:ignore="MissingConstraints" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/circleImageView"
+            android:id="@+id/chat_page_profile_iv"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
             app:chatImageUrl="@{vm.clubImage}"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/chat_page_bc_btn"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
@@ -91,23 +101,36 @@
             android:layout_marginStart="10dp"
             android:text="@{vm.clubName}"
             android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="@+id/circleImageView"
-            app:layout_constraintStart_toEndOf="@+id/circleImageView"
-            app:layout_constraintTop_toTopOf="@+id/circleImageView" />
+            app:layout_constraintBottom_toBottomOf="@+id/chat_page_profile_iv"
+            app:layout_constraintStart_toEndOf="@+id/chat_page_profile_iv"
+            app:layout_constraintTop_toTopOf="@+id/chat_page_profile_iv" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView3"
-            android:layout_width="match_parent"
+            android:id="@+id/chat_page_rv"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/button9"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/chat_page_send_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/circleImageView"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintTop_toBottomOf="@+id/chat_page_profile_iv"
+            app:layout_constraintVertical_bias="1.0"
             app:verChattingAdapter="@{vm.chattingListAdapter}">
 
         </androidx.recyclerview.widget.RecyclerView>
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/chat_page_bc_btn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/ic_baseline_arrow_back_24"
+            android:onClick="@{()->vm.navigater.finish()}"
+            app:layout_constraintBottom_toTopOf="@+id/chat_page_rv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -33,9 +33,9 @@ class ChatList : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.onResume()
-
+        viewModel.onCreate()
     }
+
 
     fun startLogin() {
         val intent = Intent(this, LoginActivity::class.java)
@@ -46,7 +46,7 @@ class ChatList : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CODE) {
             if (data != null) {
-                if (data.getStringExtra("get_access_token").isNullOrEmpty()) {
+                if (!data.getBooleanExtra("logined",false)) {
                     finish()
                 }
                 MainViewModel.accessToken.value = data.getStringExtra("get_access_token").toString()
@@ -55,12 +55,11 @@ class ChatList : AppCompatActivity() {
                 MainActivity.editor.putString("get_refresh_token", refreshToken.value)
                 MainActivity.editor.putString("get_gcn", MainViewModel.userGcn.value)
                 MainActivity.editor.apply()
-                viewModel.onCreate()
             }
         }
     }
 
-    fun startChating(data: RoomData, club_section: ArrayList<String>) {
+    fun startChating(data: RoomData) {
         viewModel.socket.disconnect()
         val intent = Intent(this, ChattingPage::class.java)
         intent.putExtra("chatClubId", data.id)
@@ -69,7 +68,6 @@ class ChatList : AppCompatActivity() {
         intent.putExtra("chatLastMessage", data.lastmessage)
         intent.putExtra("chatRoomId", data.roomid)
         intent.putExtra("chatIndex", data.index)
-        intent.putExtra("chatClubSection", club_section)
         startActivity(intent)
     }
 

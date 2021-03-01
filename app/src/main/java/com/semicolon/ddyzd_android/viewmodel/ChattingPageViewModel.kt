@@ -1,6 +1,10 @@
 package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
+import android.os.Build
+import android.util.Log
+import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.semicolon.ddyzd_android.BaseApi
@@ -17,14 +21,11 @@ import io.socket.emitter.Emitter
 import io.socket.engineio.client.Transport
 import org.json.JSONObject
 import java.net.URISyntaxException
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
 class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
-
-    val userVisible = MutableLiveData<Boolean>()
-    val clubVisible = MutableLiveData<Boolean>()
+    val userVisible = MutableLiveData<Int>(View.VISIBLE)
+    val clubVisible = MutableLiveData<Int>(View.INVISIBLE)
     val chattingList = MutableLiveData<List<ChattingData>>()
     val roomid = navigater.roomId
     val clubImage = navigater.clubImage
@@ -40,20 +41,36 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     lateinit var chatting :Array<String>
     val chattingListAdapter = ChattingAdapter(chattingList, this,index,clubName)
     private lateinit var socket : Socket
-    var num = 0
     var applyTag = ArrayList<String>()
     init {
         getChatting()
         getRoomToken()
         getApplyTag()
         if(index != 0){
-            userVisible.value = false
-            clubVisible.value = true
+            userVisible.value = View.INVISIBLE
+            clubVisible.value = View.VISIBLE
         }
         else{
-            userVisible.value = true
-            clubVisible.value = false
+            userVisible.value = View.VISIBLE
+            clubVisible.value = View.INVISIBLE
         }
+        readClub()
+    }
+
+    @SuppressLint("CheckResult")
+    private fun readClub(){
+        adapter.readClubInfo("Bearer ${accessToken.value}",clubId.toInt(),System.currentTimeMillis().toString())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                if(it.body()?.recruitment == true){
+                    userVisible.value=View.VISIBLE
+                }else{
+                    userVisible.value=View.INVISIBLE
+                }
+            },{
+
+            })
     }
 
     @SuppressLint("CheckResult")
@@ -110,7 +127,6 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
 
 
     fun sandChatting(){ // 보내기 버튼 누르면 실행 소켓
-        num = 0
         val message = chatBody.value
         println("이게 과연 몇번 출력이 될까?")
         val data = JSONObject()
@@ -132,19 +148,25 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         navigater.selectPart(applyTag,setPartCallback)
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     fun helper2(){ // 스케줄
-        val data = JSONObject()
-        data.put("room_token",roomToken)
-        data.put("date", "면접 날짜 넣어야됨")
-        data.put("location","면접 장소 넣어야됨")
-        socket.emit("helper_schedule",data)
+        val setTimeCallback:(String,String?)->Unit={ date: String, place: String? ->
+            val data = JSONObject()
+            data.put("room_token",roomToken)
+            data.put("date", date)
+            data.put("location",place)
+        }
+        navigater.selectDate(setTimeCallback)
     }
 
     fun helper3(){ // 면접 결과 보내는 거 입니다!!!! 이거 club result chat에 버튼에다 ㄱㄱㄱㄱ
-        val data = JSONObject()
-        data.put("room_token",roomToken)
-        data.put("result","boolean 값 넣어야되요!! 면접 합격 면접 불합격")
-        socket.emit("helper_result",data)
+        val resultCallback:(Boolean)->Unit={
+            val data = JSONObject()
+            data.put("room_token",roomToken)
+            data.put("result",it)
+            socket.emit("helper_result",data)
+        }
+        navigater.sendResultDialog(resultCallback)
     }
 
     fun helper4(){
@@ -164,7 +186,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
                 trans.on(Transport.EVENT_REQUEST_HEADERS){ // request 해더 넣는 부분
                         args->val mHeaders = args[0] as MutableMap<String, List<String>>
                     println("여기가 실행${accessToken}")
-                    mHeaders["Authorization"] = Arrays.asList("Bearer ${accessToken}")
+                    mHeaders["Authorization"] = listOf("Bearer $accessToken")
                 }
             })
             socket.on(Socket.EVENT_CONNECT) {
@@ -224,24 +246,15 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
 
     @SuppressLint("SimpleDateFormat")
     val chat : Emitter.Listener =Emitter.Listener{
-         val data = it[0].toString()
-            println("$data 이거는 데이터입니다")
 
+            val data = it[0].toString()
             chatting = data.split("{\"title\":"  ,",\"msg\":\"" , "\",\"user_type\":\"" , "\",\"date\":\"" , "\"}").toTypedArray()
-
-            println("$chatting asdf")
-            for(a : String in chatting){
-                println("$a 이게 어떤 값?")
-            }
             try {
-                val format=SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz")
-                val date=format.parse(chatting[4])
-                chatInfo = ChattingData(chatting[1],chatting[2],chatting[3],date)
+                chatInfo = ChattingData(chatting[1],chatting[2],chatting[3],chatting[4])
                 possingChat.add(chatInfo)
                 chattingList.value = possingChat
                 chattingListAdapter.notifyDataSetChanged()
             }catch (e:Throwable){
             }
         }
-
 }

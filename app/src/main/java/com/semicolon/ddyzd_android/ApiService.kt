@@ -10,12 +10,6 @@ interface ApiService {
     @GET("club/list")
     fun clublist(): Single<Response<Array<ClubData>>>
 
-    @GET("club/{club_id}/info")
-    fun clubInfo(
-        @Path("club_id") club_id: String
-
-    ): Single<ClubDetailData>
-
     @GET("club/{club_id}/recruitment")
     fun clubRecruit(
         @Path("club_id") clubId: String,

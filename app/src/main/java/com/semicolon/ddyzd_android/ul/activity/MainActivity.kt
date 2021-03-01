@@ -40,22 +40,22 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.vm = viewModel
         setContentView(binding.root)
-        binding.bottomNavigation.setOnNavigationItemSelectedListener {
+        binding.mainBtmNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_home -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment, MainFeed()).commit()
+                        .replace(R.id.main_container, MainFeed()).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
 
                 R.id.nav_club -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment, ClubList()).commit()
+                        .replace(R.id.main_container, ClubList()).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.nav_my -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment, MyPage()).commit()
+                        .replace(R.id.main_container, MyPage()).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> return@setOnNavigationItemSelectedListener false
@@ -71,18 +71,18 @@ class MainActivity : AppCompatActivity() {
 
     fun createFeeds(){
         supportFragmentManager.beginTransaction()
-            .add(R.id.fragment, MainFeed()).commit()
+            .add(R.id.main_container, MainFeed()).commit()
     }
 
     fun reLoadFeeds() {
-        binding.bottomNavigation.selectedItemId=R.id.nav_home
+        binding.mainBtmNav.selectedItemId=R.id.nav_home
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment, MainFeed()).commit()
+            .replace(R.id.main_container, MainFeed()).commit()
     }
 
     private fun reLoadUser(){
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment, MyPage()).commit()
+            .replace(R.id.main_container, MyPage()).commit()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -96,7 +96,9 @@ class MainActivity : AppCompatActivity() {
                 editor.putString("get_gcn", userGcn.value)
                 editor.apply()
                 reLoadFeeds()
-                reLoadUser()
+                if(data.getBooleanExtra("logined",false)){
+                    reLoadUser()
+                }
             }
         }
     }
@@ -217,7 +219,7 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton("예") { _, _ ->
                 showToast("로그아웃 하셨습니다")
                 editor.clear().apply()
-                accessToken.value=""
+                accessToken.value=null
                 reLoadFeeds()
             }
             .setNegativeButton("아니요") { _, _ ->
