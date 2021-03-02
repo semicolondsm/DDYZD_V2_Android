@@ -9,7 +9,7 @@ import com.semicolon.ddyzd_android.databinding.ItemImageFeedBinding
 import com.semicolon.ddyzd_android.databinding.ItemPageImageBinding
 import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 
-class FeedPagerAdapter(private val images: List<String>,private val feedPosition:Int,private val imageBinding:ItemImageFeedBinding) :
+class FeedPagerAdapter(private val images: List<String?>,private val feedPosition:Int,private val imageBinding:ItemImageFeedBinding) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class ImageViewHolder(private val imageView: ItemPageImageBinding) :
         RecyclerView.ViewHolder(imageView.root) {
@@ -40,7 +40,7 @@ class FeedPagerAdapter(private val images: List<String>,private val feedPosition
         (holder as ImageViewHolder).bind(position)
     }
 }
-class ClubFeedPagerAdapter(private val images: List<String>,private val feedPosition:Int,private val imageBinding:ItemClubImageFeedBinding) :
+class ClubFeedPagerAdapter(private val images: List<String?>,private val feedPosition:Int,private val imageBinding:ItemClubImageFeedBinding) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class ImageViewHolder(private val imageView: ItemPageImageBinding) :
         RecyclerView.ViewHolder(imageView.root) {

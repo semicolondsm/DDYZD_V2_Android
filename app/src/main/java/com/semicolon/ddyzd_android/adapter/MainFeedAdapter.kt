@@ -41,7 +41,6 @@ class MainFeedAdapter(private val feeds: MutableLiveData<List<MainFeedData>>, pr
             binding.vm = viewModel
             binding.headerWebview.settings.javaScriptEnabled=true
             binding.headerWebview.loadUrl("https://semicolondsm.xyz/mobile/banner")
-            binding.executePendingBindings()
         }
     }
 
