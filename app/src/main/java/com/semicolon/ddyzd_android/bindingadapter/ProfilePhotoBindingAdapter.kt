@@ -17,9 +17,11 @@ object ProfilePhotoBindingAdapter {
     @JvmStatic
     @BindingAdapter("slideImageUrl")
     fun loadSlideImage(imageView: ImageView,url: String?){
-        Glide.with(imageView.context)
-            .load("https://api.eungyeol.live/file/$url")
-            .error(R.drawable.image).into(imageView)
+        if(!url.isNullOrEmpty()){
+            Glide.with(imageView.context)
+                .load("https://api.eungyeol.live/file/$url")
+                .error(R.drawable.image).into(imageView)
+        }
     }
 
     @JvmStatic
