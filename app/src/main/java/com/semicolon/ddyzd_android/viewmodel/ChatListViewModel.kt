@@ -89,11 +89,10 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                                 }
                             }
                         }
+                        println("${allList.value}")
                         list.value = readChatList as ArrayList<RoomData>
                         clubListAdapter.notifyDataSetChanged()
-
                     }
-
                 } else {
                     navigater.startLogin()
                 }
@@ -159,12 +158,12 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
         }
     }
     val alarm: Emitter.Listener = Emitter.Listener {
+        callChatList(navigater)
         val size = it.size - 1
         val data = it
         for (i in 0..size) {
             println("${data[i]} 이게 결과값1")
         }
-        callChatList(navigater)
     }
     fun onBackClicked() {
         navigater.finish()
