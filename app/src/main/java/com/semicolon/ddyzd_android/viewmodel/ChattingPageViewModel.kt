@@ -122,7 +122,6 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         val data = JSONObject()
         data.put("room_token",roomToken)
         socket.emit("join_room",data)
-        //socket.on("response",join)
     }
 
 
@@ -133,7 +132,6 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         data.put("room_token",roomToken)
         data.put("msg",message)
         socket.emit("send_chat",data)
-        //socket.on("error",chat)
         chatBody.value = null
         chattingListAdapter.notifyDataSetChanged()
     }

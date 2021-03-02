@@ -16,7 +16,7 @@ class LoginActivity : AppCompatActivity() {
         val deviceToken=sharedPreference.getString("device_token","").toString()
         super.onCreate(savedInstanceState)
         val instance= DsmSdk.instance
-        instance.initSDK("qwer","qwer","http://www.google.com")
+        instance.initSDK("e20961403e0b43009c5dc070a8245e2e","b1336493014a4cef8a480712c2be4bcf","https://semicolondsm.xyz/")
         val viewModel=LoginViewModel(instance,this,deviceToken)
         binding= ActivityLoginBinding.inflate(layoutInflater)
         binding.vm=viewModel
