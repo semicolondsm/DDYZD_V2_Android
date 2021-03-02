@@ -94,6 +94,8 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == LOGIN_REQUEST_CODE) {
@@ -229,13 +231,19 @@ class MainActivity : AppCompatActivity() {
                 showToast("로그아웃 하셨습니다")
                 editor.clear().apply()
                 accessToken.value=null
-                reLoadUser()
-                reLoadFeeds()
+                logOutViewModel()
             }
             .setNegativeButton("아니요") { _, _ ->
                 showToast("취소하셨습니다")
             }
             .show()
+    }
+    private fun logOutViewModel(){
+        reLoadFeeds()
+        myPageViewModel.logOut()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main_container, MainFeed()).commit()
+        binding.mainBtmNav.selectedItemId=R.id.nav_home
     }
 
 }

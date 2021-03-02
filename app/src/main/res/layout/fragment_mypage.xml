@@ -86,27 +86,20 @@
             app:layout_constraintTop_toBottomOf="@+id/mypage_email_tv"
             tools:text="안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 안녕 난 조호원 " />
 
-        <ImageView
-            android:id="@+id/mypage_git_ic_iv"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mypage_intro_tv"
-            app:srcCompat="@drawable/ic_git" />
 
         <TextView
             android:id="@+id/mypage_git_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
+            android:drawableStart="@drawable/ic_git"
             android:drawableEnd="@drawable/ic_baseline_insert_link_24"
+            android:drawablePadding="5dp"
             android:onClick="@{()->vm.onGithubProfileClicked()}"
             android:text="@{vm.userInfo.github}"
             android:textColor="@color/black"
-            app:layout_constraintStart_toEndOf="@+id/mypage_git_ic_iv"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mypage_intro_tv"
             tools:text="hwc9169" />
 

@@ -33,6 +33,14 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
         readUserInfo()
     }
 
+    fun logOut(){
+        userInfo.value=null
+        userClubs.value=null
+        modifyGit.value=null
+        modifyIntro.value=null
+        clubAdapter.notifyDataSetChanged()
+    }
+
     @SuppressLint("CheckResult")
     private fun readUserInfo(){
         adapter.readUserInfo("Bearer ${accessToken.value}",userGcn.value.toString())
@@ -65,7 +73,11 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
      * 수정 선택하는 코드
      */
     fun onEditProfileClicked(){
-        navigator.modifyInfo()
+        if(accessToken.value.isNullOrEmpty()){
+            navigator.showToast("로그인 후 사용할수있는 기능입니다")
+        }else{
+            navigator.modifyInfo()
+        }
     }
 
     /**
@@ -134,6 +146,11 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
     }
 
     fun onGithubProfileClicked(){
-        navigator.startGithub(modifyGit.value)
+        if(accessToken.value.isNullOrEmpty()){
+            navigator.showToast("로그인 후 사용할수있는 기능입니다")
+        }else{
+            navigator.startGithub(modifyGit.value)
+        }
+
     }
 }
