@@ -29,7 +29,7 @@ class ClubList: Fragment() {
         val viewModel = ClubListViewModel(navigator)
         mContext=navigator.applicationContext
         binding= DataBindingUtil.inflate(inflater, R.layout.fragment_clublist,container,false)
-        binding.frag1 = viewModel
+        binding.vm = viewModel
         binding.clubTabLayout.addOnTabSelectedListener(object :TabLayout.OnTabSelectedListener{
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 viewModel.changeSelcted(tab!!.position)
