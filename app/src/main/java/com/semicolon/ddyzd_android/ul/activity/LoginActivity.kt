@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.semicolon.ddyzd_android.databinding.ActivityLoginBinding
 import com.semicolon.ddyzd_android.viewmodel.LoginViewModel
 import com.semicolon.dsm_sdk_v1.DsmSdk
@@ -31,8 +32,9 @@ class LoginActivity : AppCompatActivity() {
         intent.putExtra("get_gcn",gcn)
         intent.putExtra("get_access_token",accessToken)
         intent.putExtra("get_refresh_token",refreshToken)
+        Log.d("억세스토큰",accessToken)
         intent.putExtra("logined",logined)
         setResult(Activity.RESULT_OK,intent)
         finish()
     }
-}
+};
