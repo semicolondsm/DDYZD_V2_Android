@@ -135,6 +135,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         socket.emit("send_chat",data)
         //socket.on("error",chat)
         chatBody.value = null
+        chattingListAdapter.notifyDataSetChanged()
     }
     fun helper1(){ // 동아리 지원
         val setPartCallback:(part:String)->Unit={
@@ -155,6 +156,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             data.put("room_token",roomToken)
             data.put("date", date)
             data.put("location",place)
+            socket.emit("helper_schedule",data)
         }
         navigater.selectDate(setTimeCallback)
     }
@@ -197,16 +199,13 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             }
             socket.on("response",connect)
             socket.connect()
-
             socket.on("recv_chat",chat).apply {
-                println("가나다라마바사아")
             }
             socket.on("error", connect)
         } catch (e: URISyntaxException) {
             println(e.reason)
         }
     }
-
     val connect : Emitter.Listener =Emitter.Listener{
         val size = it.size-1
         val data  = it
@@ -214,43 +213,23 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             println("${data[i]} 이게 연결 결과값")
         }
     }
-    val join : Emitter.Listener =Emitter.Listener{
+  /*  val join : Emitter.Listener =Emitter.Listener{
         val size = it.size-1
         val data  = it
         for(i in 0..size){
             println("${data[i]} 이게 조인 결과값")
         }
-    }
-    /*val helper1 : Emitter.Listener =Emitter.Listener{
-        val size = it.size-1
-        val data  = it
-        for(i in 0..size){
-            println("${data[i]} 이게 helper1 결과값")
-        }
-    }
-
-    val helper2 : Emitter.Listener =Emitter.Listener{
-        val size = it.size-1
-        val data  = it
-        for(i in 0..size){
-            println("${data[i]} 이게 helper2 결과값")
-        }
-    }
-    val helper3 : Emitter.Listener =Emitter.Listener{
-        val size = it.size-1
-        val data  = it
-        for(i in 0..size){
-            println("${data[i]} 이게 helper3 결과값")
-        }
     }*/
-
     @SuppressLint("SimpleDateFormat")
     val chat : Emitter.Listener =Emitter.Listener{
 
             val data = it[0].toString()
-            chatting = data.split("{\"title\":"  ,",\"msg\":\"" , "\",\"user_type\":\"" , "\",\"date\":\"" , "\"}").toTypedArray()
+
+            println("${it[0]} ㅁㅇㄹㅁㅇㄴㄹㅁㄴㅇㄹ")
+            chatting = data.split("{\"title\":" ,",\"msg\":\"" , "\",\"user_type\":\"" , "\",\"date\":\"" , "\"}").toTypedArray()
             try {
                 chatInfo = ChattingData(chatting[1],chatting[2],chatting[3],chatting[4])
+                println("ㅣ${chatting[4]} 시간")
                 possingChat.add(chatInfo)
                 chattingList.value = possingChat
                 chattingListAdapter.notifyDataSetChanged()

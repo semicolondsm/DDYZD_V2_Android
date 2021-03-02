@@ -45,7 +45,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     lateinit var socket: Socket
 
     fun onDestroy() {
-        socket.disconnect()
+        //socket.disconnect()
     }
 
     fun onCreate() {
