@@ -1,6 +1,7 @@
 package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -34,10 +35,10 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
     }
 
     fun logOut(){
-        userInfo.value=null
-        userClubs.value=null
-        modifyGit.value=null
-        modifyIntro.value=null
+        userInfo.postValue(null)
+        userClubs.postValue(null)
+        modifyGit.postValue(null)
+        modifyIntro.postValue(null)
         clubAdapter.notifyDataSetChanged()
     }
 

@@ -16,7 +16,6 @@ class MyPage: Fragment() {
     lateinit var binding:FragmentMypageBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding=DataBindingUtil.inflate(inflater,R.layout.fragment_mypage,container,false)
-        myPageViewModel.onCreate()
         binding.vm=myPageViewModel
         binding.lifecycleOwner=this
         return binding.root

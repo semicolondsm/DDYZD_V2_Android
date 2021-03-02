@@ -61,6 +61,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_my -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.main_container, MyPage()).commit()
+                    myPageViewModel.onCreate()
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> return@setOnNavigationItemSelectedListener false
@@ -92,8 +93,6 @@ class MainActivity : AppCompatActivity() {
     private fun reLoadUser(){
         myPageViewModel.onCreate()
     }
-
-
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -231,6 +230,8 @@ class MainActivity : AppCompatActivity() {
                 showToast("로그아웃 하셨습니다")
                 editor.clear().apply()
                 accessToken.value=null
+                userGcn.value=null
+                refreshToken.value=null
                 logOutViewModel()
             }
             .setNegativeButton("아니요") { _, _ ->
@@ -240,10 +241,10 @@ class MainActivity : AppCompatActivity() {
     }
     private fun logOutViewModel(){
         reLoadFeeds()
-        myPageViewModel.logOut()
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_container, MainFeed()).commit()
         binding.mainBtmNav.selectedItemId=R.id.nav_home
+        myPageViewModel.logOut()
     }
 
 }
