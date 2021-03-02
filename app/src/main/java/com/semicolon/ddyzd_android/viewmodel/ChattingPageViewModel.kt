@@ -135,7 +135,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         data.put("msg",message)
         socket.emit("send_chat",data)
         chatBody.value = null
-        chattingListAdapter.notifyDataSetChanged()
+        //chattingListAdapter.notifyDataSetChanged()
     }
     fun helper1(){ // 동아리 지원
         val setPartCallback:(part:String)->Unit={
@@ -223,17 +223,24 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
     @SuppressLint("SimpleDateFormat")
     val chat : Emitter.Listener =Emitter.Listener{
 
+
             val data = it[0].toString()
 
             println("${it[0]} ㅁㅇㄹㅁㅇㄴㄹㅁㄴㅇㄹ")
             chatting = data.split("{\"title\":" ,",\"msg\":\"" , "\",\"user_type\":\"" , "\",\"date\":\"" , "\"}").toTypedArray()
-            try {
+
+      try {
                 chatInfo = ChattingData(chatting[1],chatting[2],chatting[3],chatting[4])
-                println("ㅣ${chatting[4]} 시간")
+
                 possingChat.add(chatInfo)
-                chattingList.value = possingChat
+          //
+
+              chattingList.postValue(possingChat)
+              println("ㅣ${chatting[4]} 시간")
                 chattingListAdapter.notifyDataSetChanged()
+                println("조호원 ㄱㄴㄷㄹㅁㅂㅅ")
             }catch (e:Throwable){
+
             }
         }
 }
