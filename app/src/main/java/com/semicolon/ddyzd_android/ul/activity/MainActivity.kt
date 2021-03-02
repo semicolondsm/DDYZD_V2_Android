@@ -72,7 +72,6 @@ class MainActivity : AppCompatActivity() {
     private fun initViewModels(){
         feedViewModel= MainFeedViewModel(this)
         myPageViewModel= MyPageViewModel(this)
-        viewModel.onCreate()
     }
 
     override fun onResume() {
