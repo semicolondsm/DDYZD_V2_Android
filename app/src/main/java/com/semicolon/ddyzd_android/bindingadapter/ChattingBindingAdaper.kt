@@ -84,10 +84,8 @@ object ChattingBindingAdaper {
     @JvmStatic
     @BindingAdapter("string_time_adapter")
     fun timeAdapter(textView: TextView, time: String?) {
-        Log.d("시간","is null")
         if (time != null) {
             val subTime=time.substring(0,18)
-            Log.d("시간","sub:$subTime")
             val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
             val currentDateTime= System.currentTimeMillis()
             val currentDate=Date(currentDateTime)
