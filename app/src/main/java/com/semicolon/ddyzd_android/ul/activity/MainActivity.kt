@@ -61,6 +61,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_my -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.main_container, MyPage()).commit()
+                    myPageViewModel.onCreate()
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> return@setOnNavigationItemSelectedListener false
@@ -229,13 +230,21 @@ class MainActivity : AppCompatActivity() {
                 showToast("로그아웃 하셨습니다")
                 editor.clear().apply()
                 accessToken.value=null
-                reLoadUser()
-                reLoadFeeds()
+                userGcn.value=null
+                refreshToken.value=null
+                logOutViewModel()
             }
             .setNegativeButton("아니요") { _, _ ->
                 showToast("취소하셨습니다")
             }
             .show()
+    }
+    private fun logOutViewModel(){
+        reLoadFeeds()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main_container, MainFeed()).commit()
+        binding.mainBtmNav.selectedItemId=R.id.nav_home
+        myPageViewModel.logOut()
     }
 
 }

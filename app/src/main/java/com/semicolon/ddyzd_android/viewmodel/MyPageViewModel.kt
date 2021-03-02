@@ -1,6 +1,7 @@
 package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -31,6 +32,14 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
         progressVisible.value=View.VISIBLE
         ActivityNavigator.myPageViewModel=this
         readUserInfo()
+    }
+
+    fun logOut(){
+        userInfo.postValue(null)
+        userClubs.postValue(null)
+        modifyGit.postValue(null)
+        modifyIntro.postValue(null)
+        clubAdapter.notifyDataSetChanged()
     }
 
     @SuppressLint("CheckResult")
@@ -65,7 +74,11 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
      * 수정 선택하는 코드
      */
     fun onEditProfileClicked(){
-        navigator.modifyInfo()
+        if(accessToken.value.isNullOrEmpty()){
+            navigator.showToast("로그인 후 사용할수있는 기능입니다")
+        }else{
+            navigator.modifyInfo()
+        }
     }
 
     /**
@@ -134,6 +147,11 @@ class MyPageViewModel(val navigator: MainActivity) : ViewModel() {
     }
 
     fun onGithubProfileClicked(){
-        navigator.startGithub(modifyGit.value)
+        if(accessToken.value.isNullOrEmpty()){
+            navigator.showToast("로그인 후 사용할수있는 기능입니다")
+        }else{
+            navigator.startGithub(modifyGit.value)
+        }
+
     }
 }
