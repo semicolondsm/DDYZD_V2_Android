@@ -60,7 +60,6 @@ class LoginViewModel(val instance: DsmSdk, val context: LoginActivity,private va
         refreshToken:String,
         accessToken: String
     ) {
-        loading.value=View.INVISIBLE
         addDeviceToken(accessToken)
         context.finish(true,name, email, gcn, accessToken, refreshToken)
     }
