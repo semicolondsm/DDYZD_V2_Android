@@ -57,18 +57,45 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/example"
-            android:layout_width="0dp"
+            android:layout_width="200dp"
             android:layout_height="20dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
-            app:autoSizeTextType="uniform"
             android:text="@{vm.list[position].lastmessage}"
+            app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toBottomOf="@+id/image"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/image"
             app:layout_constraintTop_toBottomOf="@+id/clubname"
-            tools:text="마지막 시간 + 읽음 표시" />
+            tools:text="마지막 메세지" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/time"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            android:text="@{vm.list[position].lastdate}"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintBottom_toBottomOf="@+id/image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.796"
+            app:layout_constraintStart_toEndOf="@+id/image"
+            app:layout_constraintTop_toBottomOf="@+id/clubname"
+            app:layout_constraintVertical_bias="0.625"
+            tools:text="시간" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="3dp"
+            android:layout_height="3dp"
+            tools:ignore="MissingConstraints"
+            android:visibility="@{vm.visibilty}"
+            tools:layout_editor_absoluteX="355dp"
+            tools:layout_editor_absoluteY="49dp" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

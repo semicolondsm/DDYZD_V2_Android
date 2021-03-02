@@ -2,6 +2,7 @@ package com.semicolon.ddyzd_android.viewmodel
 
 
 import android.annotation.SuppressLint
+import android.view.View
 import android.widget.ArrayAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,6 +27,7 @@ import kotlin.collections.ArrayList
 class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     private val apiAdapter = BaseApi.getInstance()
     private var readChatList = mutableListOf<RoomData>()
+    val visibilty = MutableLiveData(View.VISIBLE)
     val allList = MutableLiveData<ChatListData>()
 
     val list = MutableLiveData<List<RoomData>>()
@@ -78,6 +80,12 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                             when (response.body()!!.rooms[i].index) {
                                 0 -> {
                                     readChatList.add(response.body()!!.rooms[i])
+                                    if(allList.value?.rooms?.get(i)?.isRead == true){
+                                        visibilty.value = View.INVISIBLE
+                                    }
+                                    else{
+                                        visibilty.value = View.VISIBLE
+                                    }
                                 }
                             }
                         }

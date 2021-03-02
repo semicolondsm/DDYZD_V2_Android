@@ -57,6 +57,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
         readClub()
     }
 
+
     @SuppressLint("CheckResult")
     private fun readClub(){
         adapter.readClubInfo("Bearer ${accessToken.value}",clubId.toInt(),System.currentTimeMillis().toString())

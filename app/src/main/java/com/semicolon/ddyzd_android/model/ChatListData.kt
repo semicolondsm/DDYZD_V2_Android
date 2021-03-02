@@ -8,5 +8,5 @@ data class RoomData(val roomid: String,
                     val image: String,
                     val lastdate : String?,
                     val lastmessage: String?,
-                    val isRead : String,
+                    val isRead : Boolean,
                     val index : Int)
