@@ -72,7 +72,6 @@ class MainActivity : AppCompatActivity() {
     private fun initViewModels(){
         feedViewModel= MainFeedViewModel(this)
         myPageViewModel= MyPageViewModel(this)
-        viewModel.onCreate()
     }
 
     override fun onResume() {
@@ -91,8 +90,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun reLoadUser(){
-        viewModel.onCreate()
+        myPageViewModel.onCreate()
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

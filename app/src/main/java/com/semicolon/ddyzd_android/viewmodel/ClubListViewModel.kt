@@ -29,17 +29,20 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
     val isEmpty = MutableLiveData<Int>(View.INVISIBLE)
     var size: Int = 0 // 리스트의 갯수
     var sub: Int = 0 // 각 동아리의 전공 갯수
+
+    val progressView=MutableLiveData<Int>(View.INVISIBLE)
     init {
         readClubList()
     }
     @SuppressLint("CheckResult")
     private fun readClubList(){
+        progressView.value=View.VISIBLE
         adapter.clublist()
             .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
                 if (it.isSuccessful) {
-                    isEmpty.value = View.INVISIBLE
+                    progressView.value=View.INVISIBLE
                     if(it.body()!=null){
                         isEmpty.value = View.INVISIBLE
                         body = it.body()!!
@@ -53,6 +56,7 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                 }
 
             }, {
+                progressView.value=View.INVISIBLE
                 isEmpty.value = View.VISIBLE
             })
     }
