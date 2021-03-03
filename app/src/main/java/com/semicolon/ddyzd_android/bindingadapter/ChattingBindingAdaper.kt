@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.*
+import androidx.core.view.size
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,9 +22,10 @@ object ChattingBindingAdaper {
     @BindingAdapter("verChattingAdapter")
     fun chattingListAdapter(recyclerView: RecyclerView, adapter: ChattingAdapter) {
         val layoutManager =
-            LinearLayoutManager(recyclerView.context, LinearLayoutManager.VERTICAL, false)
+        LinearLayoutManager(recyclerView.context, LinearLayoutManager.VERTICAL, false)
         layoutManager.orientation = RecyclerView.VERTICAL
         layoutManager.stackFromEnd = true
+        recyclerView.scrollToPosition(recyclerView.size)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
     }
