@@ -32,7 +32,6 @@ class LoginActivity : AppCompatActivity() {
         intent.putExtra("get_gcn",gcn)
         intent.putExtra("get_access_token",accessToken)
         intent.putExtra("get_refresh_token",refreshToken)
-        Log.d("억세스토큰",accessToken)
         intent.putExtra("logined",logined)
         setResult(Activity.RESULT_OK,intent)
         finish()
