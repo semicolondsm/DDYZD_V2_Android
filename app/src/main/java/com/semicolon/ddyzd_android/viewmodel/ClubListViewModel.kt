@@ -1,6 +1,7 @@
 package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -52,6 +53,7 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                     }
 
                 } else {
+                    progressView.value=View.INVISIBLE
                     isEmpty.value = View.VISIBLE
                 }
 

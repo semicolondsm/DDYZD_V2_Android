@@ -2,6 +2,7 @@ package com.semicolon.ddyzd_android.viewmodel
 
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.lifecycle.MutableLiveData
@@ -66,9 +67,8 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->allList.value = response.body()
                 if (response.isSuccessful) {
-                    readChatList.clear()
 
-                    // 이 부분이 어뎁터
+                    Log.d("채팅","=${response.body()}")
                     if (response.body() != null) {
                         startSocket("${accessToken.value}")
 
