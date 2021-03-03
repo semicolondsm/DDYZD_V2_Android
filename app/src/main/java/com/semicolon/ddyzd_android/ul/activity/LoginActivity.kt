@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.semicolon.ddyzd_android.databinding.ActivityLoginBinding
 import com.semicolon.ddyzd_android.viewmodel.LoginViewModel
 import com.semicolon.dsm_sdk_v1.DsmSdk
@@ -16,7 +17,7 @@ class LoginActivity : AppCompatActivity() {
         val deviceToken=sharedPreference.getString("device_token","").toString()
         super.onCreate(savedInstanceState)
         val instance= DsmSdk.instance
-        instance.initSDK("qwer","qwer","http://www.google.com")
+        instance.initSDK("e20961403e0b43009c5dc070a8245e2e","b1336493014a4cef8a480712c2be4bcf","https://semicolondsm.xyz/")
         val viewModel=LoginViewModel(instance,this,deviceToken)
         binding= ActivityLoginBinding.inflate(layoutInflater)
         binding.vm=viewModel
@@ -31,8 +32,9 @@ class LoginActivity : AppCompatActivity() {
         intent.putExtra("get_gcn",gcn)
         intent.putExtra("get_access_token",accessToken)
         intent.putExtra("get_refresh_token",refreshToken)
+        Log.d("억세스토큰",accessToken)
         intent.putExtra("logined",logined)
         setResult(Activity.RESULT_OK,intent)
         finish()
     }
-}
+};

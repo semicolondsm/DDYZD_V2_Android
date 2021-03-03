@@ -2,6 +2,7 @@ package com.semicolon.ddyzd_android.viewmodel
 
 
 import android.annotation.SuppressLint
+import android.view.View
 import android.widget.ArrayAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,6 +27,7 @@ import kotlin.collections.ArrayList
 class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     private val apiAdapter = BaseApi.getInstance()
     private var readChatList = mutableListOf<RoomData>()
+    val visibilty = MutableLiveData(View.VISIBLE)
     val allList = MutableLiveData<ChatListData>()
 
     val list = MutableLiveData<List<RoomData>>()
@@ -45,7 +47,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     lateinit var socket: Socket
 
     fun onDestroy() {
-        socket.disconnect()
+        //socket.disconnect()
     }
 
     fun onCreate() {
@@ -78,14 +80,19 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                             when (response.body()!!.rooms[i].index) {
                                 0 -> {
                                     readChatList.add(response.body()!!.rooms[i])
+                                    if(allList.value?.rooms?.get(i)?.isRead == true){
+                                        visibilty.value = View.INVISIBLE
+                                    }
+                                    else{
+                                        visibilty.value = View.VISIBLE
+                                    }
                                 }
                             }
                         }
+                        println("${allList.value}")
                         list.value = readChatList as ArrayList<RoomData>
                         clubListAdapter.notifyDataSetChanged()
-
                     }
-
                 } else {
                     navigater.startLogin()
                 }
@@ -151,12 +158,12 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
         }
     }
     val alarm: Emitter.Listener = Emitter.Listener {
+        callChatList(navigater)
         val size = it.size - 1
         val data = it
         for (i in 0..size) {
             println("${data[i]} 이게 결과값1")
         }
-        callChatList(navigater)
     }
     fun onBackClicked() {
         navigater.finish()

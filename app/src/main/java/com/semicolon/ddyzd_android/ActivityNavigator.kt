@@ -10,8 +10,6 @@ import com.semicolon.ddyzd_android.viewmodel.MyPageViewModel
 object ActivityNavigator {
     lateinit var mainActivity: MainActivity
     lateinit var clubDetailActivity:ClubDetails
-
-    lateinit var chatListViewModel: ChatListViewModel
     lateinit var myPageViewModel:MyPageViewModel
     lateinit var mainFeedViewModel:MainFeedViewModel
     lateinit var clubDetailViewModel:ClubDetailsViewModel

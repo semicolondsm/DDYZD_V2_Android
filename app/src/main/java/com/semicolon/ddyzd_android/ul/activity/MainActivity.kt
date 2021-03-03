@@ -11,12 +11,16 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import com.semicolon.ddyzd_android.ActivityNavigator
 import com.semicolon.ddyzd_android.R
+import com.semicolon.ddyzd_android.ViewModels.feedViewModel
+import com.semicolon.ddyzd_android.ViewModels.myPageViewModel
 import com.semicolon.ddyzd_android.databinding.ActivityMainBinding
 import com.semicolon.ddyzd_android.ul.fragment.*
+import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.refreshToken
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.userGcn
+import com.semicolon.ddyzd_android.viewmodel.MyPageViewModel
 
 class MainActivity : AppCompatActivity() {
     private val LOGIN_REQUEST_CODE = 12
@@ -31,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         initSharedPreference()
         ActivityNavigator.mainActivity=this
+        initViewModels()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
@@ -56,6 +61,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_my -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.main_container, MyPage()).commit()
+                    myPageViewModel.onCreate()
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> return@setOnNavigationItemSelectedListener false
@@ -64,26 +70,30 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun initViewModels(){
+        feedViewModel= MainFeedViewModel(this)
+        myPageViewModel= MyPageViewModel(this)
+    }
+
     override fun onResume() {
         super.onResume()
         reLoadFeeds()
     }
 
     fun createFeeds(){
-        supportFragmentManager.beginTransaction()
-            .add(R.id.main_container, MainFeed()).commit()
-    }
-
-    fun reLoadFeeds() {
-        binding.mainBtmNav.selectedItemId=R.id.nav_home
+        feedViewModel.onCreate()
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_container, MainFeed()).commit()
     }
 
-    private fun reLoadUser(){
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, MyPage()).commit()
+    fun reLoadFeeds() {
+        feedViewModel.onCreate()
     }
+
+    private fun reLoadUser(){
+        myPageViewModel.onCreate()
+    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -220,12 +230,21 @@ class MainActivity : AppCompatActivity() {
                 showToast("로그아웃 하셨습니다")
                 editor.clear().apply()
                 accessToken.value=null
-                reLoadFeeds()
+                userGcn.value=null
+                refreshToken.value=null
+                logOutViewModel()
             }
             .setNegativeButton("아니요") { _, _ ->
                 showToast("취소하셨습니다")
             }
             .show()
+    }
+    private fun logOutViewModel(){
+        reLoadFeeds()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main_container, MainFeed()).commit()
+        binding.mainBtmNav.selectedItemId=R.id.nav_home
+        myPageViewModel.logOut()
     }
 
 }

@@ -50,7 +50,7 @@
                 android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView9"
                 app:layout_constraintStart_toEndOf="@+id/textView9"
-                app:string_time_adapter="@{vm.chattingList[position].create_at}"
+                app:string_time_adapter="@{vm.chattingList[position].created_at}"
                 tools:text="시간" />
 
             <TextView
@@ -73,6 +73,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/follow_btn_background"
+                android:onClick="@{()->vm.helper4()}"
                 android:text="동아리 확정하기"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -43,7 +43,7 @@ class ClubDetailAdapter(private val feeds:MutableLiveData<List<MainFeedData>>,pr
     inner class ClubImageFeedViewHolder(val binding: ItemClubImageFeedBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int){
-            pageAdapter=ClubFeedPagerAdapter(feeds.value?.get(position-2)!!.media,position-1,binding)
+            pageAdapter=ClubFeedPagerAdapter(feeds.value?.get(position-2)!!.media,binding)
             binding.vm = viewModel
             binding.position = position-2
             binding.executePendingBindings()
