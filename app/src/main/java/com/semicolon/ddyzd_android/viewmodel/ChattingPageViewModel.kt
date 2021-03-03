@@ -99,6 +99,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
             .subscribeOn(Schedulers.io())
             .subscribe({ response ->
                 if (response.isSuccessful) {
+                    Log.d("채팅","=${response.body()}")
                     println("${response.body()} 이게 채팅 ")
                     response.body()?.let { readChattingList.addAll(it) }
                     possingChat = readChattingList.asReversed()
