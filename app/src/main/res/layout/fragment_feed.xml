@@ -34,7 +34,7 @@
             app:layout_constraintBottom_toTopOf="@+id/feed_rv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/chatting" />
+            android:background="@drawable/ic_messenger" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/feed_rv"

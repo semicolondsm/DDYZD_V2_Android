@@ -60,6 +60,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     }
 
 
+
     @SuppressLint("CheckResult")
     fun callChatList(navigater: ChatList) {
         apiAdapter.chatList("Bearer ${accessToken.value}")
