@@ -34,6 +34,8 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
     val clubId = navigater.clubId
     val index = navigater.index
     var status = navigater.status
+
+    val emptyButton=MutableLiveData<Boolean>(false)
     val adapter = BaseApi.getInstance()
     val chatBody = MutableLiveData<String>()
     private var readChattingList = mutableListOf<ChattingData>()
@@ -45,6 +47,9 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
     private lateinit var socket: Socket
     var applyTag = ArrayList<String>()
 
+    val chattingSendContainer=navigater.binding.chatPageSendContainer
+    val sendButton=navigater.binding.chatPageBcBtn
+
     init {
         getChatting()
         getRoomToken()
@@ -53,15 +58,20 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
             userVisible.value = View.INVISIBLE
             if(status == "S"){
                 clubVisible.value = View.VISIBLE
+                emptyButton.value=false
             }else{
                 clubVisible.value = View.INVISIBLE
+                emptyButton.value=true
             }
         } else {
+            clubVisible.value=View.INVISIBLE
             if(status == "N"){
                 userVisible.value = View.VISIBLE
+                emptyButton.value=false
 
             }else{
                 clubVisible.value = View.INVISIBLE
+                emptyButton.value=true
             }
         }
         readClub()
