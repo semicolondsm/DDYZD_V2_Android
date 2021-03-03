@@ -22,7 +22,7 @@ object ProfilePhotoBindingAdapter {
         if(!url.isNullOrEmpty()) {
             Log.d("사진", "url:$url")
             Glide.with(imageView.context)
-                .load(url)
+                .load("https://api.semicolon.live/file/$url")
                 .error(R.drawable.image).into(imageView)
         }else{
             Log.d("사진","is null")

@@ -42,3 +42,36 @@ class FeedPagerAdapter(
         (holder as ImageViewHolder).bind(position)
     }
 }
+class ClubFeedPagerAdapter(
+    private val images: List<String?>,
+    private val imageBinding: ItemClubImageFeedBinding
+) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    inner class ImageViewHolder(private val imageView: ItemPageImageBinding) :
+        RecyclerView.ViewHolder(imageView.root) {
+        fun bind(position: Int) {
+            TabLayoutMediator(
+                imageBinding.indicator,
+                imageBinding.imageView4
+            ) { tab, position ->
+                imageBinding.imageView4.currentItem = tab.position
+            }.attach()
+            imageView.image=images[position]
+            imageView.executePendingBindings()
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val binding =
+            ItemPageImageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ImageViewHolder(binding)
+    }
+
+    override fun getItemCount(): Int {
+        return images.size
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        (holder as ImageViewHolder).bind(position)
+    }
+}

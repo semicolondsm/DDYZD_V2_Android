@@ -238,6 +238,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
               chattingList.postValue(possingChat)
               println("ㅣ${chatting[4]} 시간")
                 chattingListAdapter.notifyDataSetChanged()
+            navigater.binding.chatPageRv.scrollToPosition(possingChat.size)
                 println("조호원 ㄱㄴㄷㄹㅁㅂㅅ")
             }catch (e:Throwable){
 
