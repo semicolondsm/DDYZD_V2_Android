@@ -33,6 +33,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
     val clubName = navigater.clubName
     val clubId = navigater.clubId
     val index = navigater.index
+    var status = navigater.status
     val adapter = BaseApi.getInstance()
     val chatBody = MutableLiveData<String>()
     private var readChattingList = mutableListOf<ChattingData>()
@@ -50,10 +51,19 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
         getApplyTag()
         if (index != 0) {
             userVisible.value = View.INVISIBLE
-            clubVisible.value = View.VISIBLE
+            if(status == "S"){
+                clubVisible.value = View.VISIBLE
+            }else{
+                clubVisible.value = View.INVISIBLE
+            }
         } else {
-            userVisible.value = View.VISIBLE
-            clubVisible.value = View.INVISIBLE
+            if(status == "N"){
+                userVisible.value = View.VISIBLE
+
+            }else{
+                clubVisible.value = View.INVISIBLE
+
+            }
         }
         readClub()
     }
@@ -78,6 +88,10 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
 
             })
     }
+
+
+
+
 
     @SuppressLint("CheckResult")
     private fun getApplyTag() {
@@ -151,6 +165,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
                 data.put("room_token", roomToken)
                 data.put("major", it)
                 socket.emit("helper_apply", data)
+                status = "A"
             }
         }
         navigater.selectPart(applyTag, setPartCallback)
@@ -164,6 +179,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
             data.put("date", date)
             data.put("location", place)
             socket.emit("helper_schedule", data)
+            status = "S"
         }
         navigater.selectDate(setTimeCallback)
     }
@@ -174,6 +190,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
             data.put("room_token", roomToken)
             data.put("result", it)
             socket.emit("helper_result", data)
+            status = "R"
         }
         navigater.sendResultDialog(resultCallback)
     }

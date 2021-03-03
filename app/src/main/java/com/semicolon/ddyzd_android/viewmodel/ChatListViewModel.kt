@@ -30,7 +30,6 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     val visibilty = View.VISIBLE
     val inVisibility=View.INVISIBLE
     val allList = MutableLiveData<ChatListData>()
-
     val list = MutableLiveData<List<RoomData>>()
     val clubListAdapter = ChatListAdapter(list, this)
     val value = listOf<String>()
@@ -49,7 +48,6 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
 
     fun onDestroy() {
         //socket.disconnect()
-
     }
 
     fun onCreate() {
@@ -73,7 +71,6 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                     // 이 부분이 어뎁터
                     if (response.body() != null) {
                         startSocket("${accessToken.value}")
-
 
                         section.value = allList.value!!.club_section
                         spinnerAdapter.value = (ArrayAdapter(
@@ -104,7 +101,6 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     fun selectPeople() {
         if (allList.value != null) {
             readChatList.clear()
-
             var rotate=allList.value?.rooms?.size ?: 1
             for (i in 0 until (--rotate)) {
                 if (allList.value!!.rooms[i].index == index.value) {
