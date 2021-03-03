@@ -9,26 +9,28 @@ import com.semicolon.ddyzd_android.databinding.ItemImageFeedBinding
 import com.semicolon.ddyzd_android.databinding.ItemPageImageBinding
 import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 
-class FeedPagerAdapter(private val images: List<String?>,private val feedPosition:Int,private val imageBinding:ItemImageFeedBinding) :
+class FeedPagerAdapter(
+    private val images: List<String?>,
+    private val imageBinding: ItemImageFeedBinding
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class ImageViewHolder(private val imageView: ItemPageImageBinding) :
         RecyclerView.ViewHolder(imageView.root) {
-        fun bind(position: Int){
+        fun bind(position: Int) {
             TabLayoutMediator(
                 imageBinding.indicator,
                 imageBinding.imageView4
-            ){
-                    tab, position ->
+            ) { tab, position ->
                 imageBinding.imageView4.currentItem = tab.position
             }.attach()
-            imageView.position=feedPosition
-            imageView.pagePosition=position
+            imageView.image=images[position]
             imageView.executePendingBindings()
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding=ItemPageImageBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding =
+            ItemPageImageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ImageViewHolder(binding)
     }
 
@@ -40,26 +42,28 @@ class FeedPagerAdapter(private val images: List<String?>,private val feedPositio
         (holder as ImageViewHolder).bind(position)
     }
 }
-class ClubFeedPagerAdapter(private val images: List<String?>,private val feedPosition:Int,private val imageBinding:ItemClubImageFeedBinding) :
+class ClubFeedPagerAdapter(
+    private val images: List<String?>,
+    private val imageBinding: ItemClubImageFeedBinding
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class ImageViewHolder(private val imageView: ItemPageImageBinding) :
         RecyclerView.ViewHolder(imageView.root) {
-        fun bind(position: Int){
+        fun bind(position: Int) {
             TabLayoutMediator(
                 imageBinding.indicator,
                 imageBinding.imageView4
-            ){
-                    tab, position ->
+            ) { tab, position ->
                 imageBinding.imageView4.currentItem = tab.position
             }.attach()
-            imageView.position=feedPosition
-            imageView.pagePosition=position
+            imageView.image=images[position]
             imageView.executePendingBindings()
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding=ItemPageImageBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding =
+            ItemPageImageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ImageViewHolder(binding)
     }
 
@@ -70,5 +74,4 @@ class ClubFeedPagerAdapter(private val images: List<String?>,private val feedPos
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as ImageViewHolder).bind(position)
     }
-
 }

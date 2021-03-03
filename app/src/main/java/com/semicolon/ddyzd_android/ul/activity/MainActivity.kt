@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
     fun createFeeds(){
         feedViewModel.onCreate()
         supportFragmentManager.beginTransaction()
-            .add(R.id.main_container, MainFeed()).commit()
+            .replace(R.id.main_container, MainFeed()).commit()
     }
 
     fun reLoadFeeds() {
