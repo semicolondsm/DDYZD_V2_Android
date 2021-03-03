@@ -93,6 +93,7 @@
             android:layout_height="3dp"
             tools:ignore="MissingConstraints"
             android:visibility="@{vm.visibilty}"
+            android:src="@drawable/yellow_dot"
             tools:layout_editor_absoluteX="355dp"
             tools:layout_editor_absoluteY="49dp" />
 

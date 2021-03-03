@@ -46,4 +46,5 @@
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowSoftInputMode">adjustResize|stateVisible</item>
     </style>
+
 </resources>
