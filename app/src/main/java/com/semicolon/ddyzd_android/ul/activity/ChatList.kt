@@ -48,13 +48,15 @@ class ChatList : AppCompatActivity() {
             if (data != null) {
                 if (!data.getBooleanExtra("logined",false)) {
                     finish()
+                }else{
+                    MainViewModel.accessToken.value = data.getStringExtra("get_access_token").toString()
+                    refreshToken.value = data.getStringExtra("get_refresh_token")
+                    MainViewModel.userGcn.value = data.getStringExtra("get_gcn").toString()
+                    MainActivity.editor.putString("get_refresh_token", refreshToken.value)
+                    MainActivity.editor.putString("get_gcn", MainViewModel.userGcn.value)
+                    MainActivity.editor.apply()
                 }
-                MainViewModel.accessToken.value = data.getStringExtra("get_access_token").toString()
-                refreshToken.value = data.getStringExtra("get_refresh_token")
-                MainViewModel.userGcn.value = data.getStringExtra("get_gcn").toString()
-                MainActivity.editor.putString("get_refresh_token", refreshToken.value)
-                MainActivity.editor.putString("get_gcn", MainViewModel.userGcn.value)
-                MainActivity.editor.apply()
+
             }
         }
     }

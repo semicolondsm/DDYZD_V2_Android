@@ -154,4 +154,21 @@ class ChattingPage : AppCompatActivity() {
                 callback(false)
             }.show()
     }
+
+    /**
+     * 동아리 확정하는 dialog
+     */
+    fun sendClubDialog(callback:(result:Boolean)->Unit){
+        AlertDialog.Builder(this,R.style.myDialog)
+            .setTitle("확인")
+            .setMessage("동아리에 들어가시겠습니까?")
+            .setPositiveButton("예"){ _, _ ->
+                Toast.makeText(this,"동아리에 소속되었습니다",Toast.LENGTH_SHORT).show()
+                callback(true)
+            }
+            .setNegativeButton("아니요"){_,_->
+                Toast.makeText(this,"동아리를 취소하셨습니다",Toast.LENGTH_SHORT).show()
+                callback(false)
+            }.show()
+    }
 }
