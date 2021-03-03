@@ -21,7 +21,6 @@ class FeedPagerAdapter(
                 imageBinding.indicator,
                 imageBinding.imageView4
             ) { tab, position ->
-                imageBinding.imageView4.currentItem = tab.position
             }.attach()
             imageView.image=images[position]
         }
@@ -52,8 +51,7 @@ class ClubFeedPagerAdapter(
             TabLayoutMediator(
                 imageBinding.indicator,
                 imageBinding.imageView4
-            ) { tab, position ->
-                imageBinding.imageView4.currentItem = tab.position
+            ) { tab, positions ->
             }.attach()
             imageView.image=images[position]
         }
