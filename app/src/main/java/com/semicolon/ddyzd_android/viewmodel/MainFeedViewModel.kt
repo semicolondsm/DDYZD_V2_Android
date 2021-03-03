@@ -19,29 +19,30 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
     var readFeed = ArrayList<MainFeedData>()
     val feeds = MutableLiveData<List<MainFeedData>>()
     val feedAdapter = MainFeedAdapter(feeds, this)
-    var callApi = 0
     val adapter = BaseApi.getInstance()
     val isEmpty = MutableLiveData<Int>(View.INVISIBLE)
-    val scrollListener: RecyclerView.OnScrollListener= object : RecyclerView.OnScrollListener() {
-        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            super.onScrolled(recyclerView, dx, dy)
-            val manager = (recyclerView.layoutManager) as LinearLayoutManager
-            val totalItem = manager.itemCount
-            val lastVisible = manager.findLastCompletelyVisibleItemPosition()
-            if (lastVisible >= totalItem - 1) {
-                readFeeds()
-            }
-        }
-    }
+    var callApi = -1
+    lateinit var  scrollListener: RecyclerView.OnScrollListener
 
     val progressVisible=MutableLiveData<Int>(View.INVISIBLE)
     fun onCreate() {
-        progressVisible.value=View.VISIBLE
-        ActivityNavigator.mainFeedViewModel=this
-        callApi = 0
         readFeed.clear()
         feeds.value=readFeed
-        readFeeds()
+        progressVisible.value=View.VISIBLE
+        ActivityNavigator.mainFeedViewModel=this
+        feedAdapter.notifyDataSetChanged()
+        callApi = 0
+        scrollListener= object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val manager = (recyclerView.layoutManager) as LinearLayoutManager
+                val totalItem = manager.itemCount
+                val lastVisible = manager.findLastCompletelyVisibleItemPosition()
+                if (lastVisible >= totalItem - 1) {
+                    readFeeds()
+                }
+            }
+        }
     }
 
     @SuppressLint("CheckResult")
@@ -74,25 +75,28 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
 
     @SuppressLint("CheckResult")
     private fun readFeeds() {
-        adapter.readFeed("Bearer ${accessToken.value}", callApi.toString(),System.currentTimeMillis().toString())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe({ response ->
-                if (response.isSuccessful) {
-                    isEmpty.value = View.INVISIBLE
-                    response.body()?.let { readFeed.addAll(it) }
-                    feeds.value = readFeed
-                    feedAdapter.notifyDataSetChanged()
-                    callApi += 1
-                } else {
+        if(callApi>=0){
+            adapter.readFeed("Bearer ${accessToken.value}", callApi.toString(),System.currentTimeMillis().toString())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe({ response ->
+                    if (response.isSuccessful) {
+                        isEmpty.value = View.INVISIBLE
+                        response.body()?.let { readFeed.addAll(it) }
+                        feeds.value = readFeed
+                        feedAdapter.notifyDataSetChanged()
+                        callApi += 1
+                    } else {
+                        isEmpty.value = View.VISIBLE
+                    }
+                    progressVisible.value=View.INVISIBLE
+                }, {
                     isEmpty.value = View.VISIBLE
-                }
-                progressVisible.value=View.INVISIBLE
-            }, {
-                isEmpty.value = View.VISIBLE
-                navigator.showToast("인터넷 문제가 발생하였습니다")
-                progressVisible.value=View.INVISIBLE
-            })
+                    navigator.showToast("인터넷 문제가 발생하였습니다")
+                    progressVisible.value=View.INVISIBLE
+                })
+        }
+
     }
 
     fun onMoreClicked(owner:Boolean,id:String){

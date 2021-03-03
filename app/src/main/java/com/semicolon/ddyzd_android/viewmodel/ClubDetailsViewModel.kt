@@ -28,7 +28,7 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
     val members = MutableLiveData<List<MembersData>>()
     val memberAdapter: ClubMemberAdapter = ClubMemberAdapter(members, this)
     val detailAdapter = ClubDetailAdapter(feeds, this)
-    var callApi = 0
+    var callApi = -1
     val isEmpty = MutableLiveData<Int>(View.INVISIBLE)
     var time = ""
     val visible = View.VISIBLE
@@ -38,13 +38,15 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
 
     lateinit var scrollListener: RecyclerView.OnScrollListener
     val adapter = BaseApi.getInstance()
-
     fun onCreate() {
         ActivityNavigator.clubDetailViewModel=this
         callApi = 0
         readFeeds.clear()
         readMembers.clear()
-        scrollListener = object : RecyclerView.OnScrollListener() {
+        readTime()
+        readClubInfo()
+        readMembers()
+        scrollListener=object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val manager = (recyclerView.layoutManager) as LinearLayoutManager
@@ -55,9 +57,6 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
                 }
             }
         }
-        readTime()
-        readClubInfo()
-        readMembers()
     }
 
     private fun readTime() {

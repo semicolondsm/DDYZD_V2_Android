@@ -113,6 +113,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
             .subscribeOn(Schedulers.io())
             .subscribe({ response ->
                 if (response.isSuccessful) {
+                    Log.d("채팅","=${response.body()}")
                     println("${response.body()} 이게 채팅 ")
                     response.body()?.let { readChattingList.addAll(it) }
                     possingChat = readChattingList.asReversed()
@@ -196,10 +197,14 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
     }
 
     fun helper4() {
-        val data = JSONObject()
-        data.put("room_token", roomToken)
-        data.put("answer", "boolean 값 넣어야되요!! 동아리 확정 선택 ")
-        socket.emit("helper_answer")
+        val resultCallback:(Boolean)->Unit={
+            val data = JSONObject()
+            data.put("room_token", roomToken)
+            data.put("answer", it)
+            socket.emit("helper_answer")
+        }
+        navigater.sendClubDialog(resultCallback)
+
     }
 
     fun startSocket(accessToken: String) {

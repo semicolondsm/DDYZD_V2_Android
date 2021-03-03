@@ -25,7 +25,7 @@ import com.semicolon.ddyzd_android.viewmodel.MyPageViewModel
 class MainActivity : AppCompatActivity() {
     private val LOGIN_REQUEST_CODE = 12
     val viewModel = MainViewModel(this)
-    lateinit var binding:ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
 
     companion object {
         lateinit var startShared: SharedPreferences
@@ -34,14 +34,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         initSharedPreference()
-        ActivityNavigator.mainActivity=this
+        ActivityNavigator.mainActivity = this
         initViewModels()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
-        viewModel.onCreate()
-        binding=
+        binding =
             ActivityMainBinding.inflate(layoutInflater)
+        viewModel.onCreate()
         binding.lifecycleOwner = this
         binding.vm = viewModel
         setContentView(binding.root)
@@ -70,9 +70,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun initViewModels(){
-        feedViewModel= MainFeedViewModel(this)
-        myPageViewModel= MyPageViewModel(this)
+    private fun initViewModels() {
+        feedViewModel = MainFeedViewModel(this)
+        myPageViewModel = MyPageViewModel(this)
     }
 
     override fun onResume() {
@@ -80,8 +80,9 @@ class MainActivity : AppCompatActivity() {
         reLoadFeeds()
     }
 
-    fun createFeeds(){
+    fun createFeeds() {
         feedViewModel.onCreate()
+        binding.mainBtmNav.selectedItemId = R.id.nav_home
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_container, MainFeed()).commit()
     }
@@ -90,7 +91,7 @@ class MainActivity : AppCompatActivity() {
         feedViewModel.onCreate()
     }
 
-    private fun reLoadUser(){
+    private fun reLoadUser() {
         myPageViewModel.onCreate()
     }
 
@@ -100,14 +101,16 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == LOGIN_REQUEST_CODE) {
             if (data != null) {
                 accessToken.value = data.getStringExtra("get_access_token").toString()
-                refreshToken.value=data.getStringExtra("get_refresh_token").toString()
-                userGcn.value=data.getStringExtra("get_gcn").toString()
+                refreshToken.value = data.getStringExtra("get_refresh_token").toString()
+                userGcn.value = data.getStringExtra("get_gcn").toString()
                 editor.putString("get_refresh_token", refreshToken.value)
                 editor.putString("get_gcn", userGcn.value)
                 editor.apply()
-                reLoadFeeds()
-                if(data.getBooleanExtra("logined",false)){
+                if (data.getBooleanExtra("logined", false)) {
+                    reLoadFeeds()
                     reLoadUser()
+                }else{
+                    createFeeds()
                 }
             }
         }
@@ -115,7 +118,7 @@ class MainActivity : AppCompatActivity() {
 
     fun startClubDetail(club: String) {
         val intent = Intent(this, ClubDetails::class.java)
-        intent.putExtra("club_id",club)
+        intent.putExtra("club_id", club)
         startActivity(intent)
     }
 
@@ -138,89 +141,90 @@ class MainActivity : AppCompatActivity() {
             getSharedPreferences("auto_login", Context.MODE_PRIVATE)
         editor = startShared.edit()
         refreshToken.value = startShared.getString("get_refresh_token", "").toString()
-        userGcn.value= startShared.getString("get_gcn","").toString()
+        userGcn.value = startShared.getString("get_gcn", "").toString()
     }
 
-    private val showSheet=BottomSheetDialog()
-    fun showMore(id:Int){
-        showSheet.clubId=id
-        if(!showSheet.isAdded){
-            showSheet.show(supportFragmentManager,"more")
+    private val showSheet = BottomSheetDialog()
+    fun showMore(id: Int) {
+        showSheet.clubId = id
+        if (!showSheet.isAdded) {
+            showSheet.show(supportFragmentManager, "more")
         }
     }
-    fun closeSheet():Boolean{
+
+    fun closeSheet(): Boolean {
         showSheet.dismiss()
-        var start=false
+        var start = false
         AlertDialog.Builder(
             this, R.style.myDialog
         )
             .setTitle("확인")
             .setMessage("정말 삭제하시겠습니까?")
             .setPositiveButton("예") { _, _ ->
-               start=true
+                start = true
             }
             .setNegativeButton("아니요") { _, _ ->
-                Toast.makeText(this,"취소하셨습니다",Toast.LENGTH_LONG).show()
-                start=false
+                Toast.makeText(this, "취소하셨습니다", Toast.LENGTH_LONG).show()
+                start = false
             }
             .show()
         return start
     }
 
-    fun notShowMore(){
-        val showSheet=NotSheetDialog()
-        if(!showSheet.isAdded){
-            showSheet.show(supportFragmentManager,"not more")
+    fun notShowMore() {
+        val showSheet = NotSheetDialog()
+        if (!showSheet.isAdded) {
+            showSheet.show(supportFragmentManager, "not more")
         }
     }
 
-    private val chooseModify=ChooseModifyDialog()
-    private val modifySheet=ModifySheet()
-    private val editGit=GitSheetDialog()
+    private val chooseModify = ChooseModifyDialog()
+    private val modifySheet = ModifySheet()
+    private val editGit = GitSheetDialog()
 
-    fun modifyInfo(){
-        if(!chooseModify.isAdded){
-            chooseModify.show(supportFragmentManager,"choose")
+    fun modifyInfo() {
+        if (!chooseModify.isAdded) {
+            chooseModify.show(supportFragmentManager, "choose")
         }
     }
 
-    fun disModifyInfo(){
-        if(chooseModify.isAdded){
+    fun disModifyInfo() {
+        if (chooseModify.isAdded) {
             chooseModify.dismiss()
         }
     }
 
-    fun showModifyIntro(){
-        if(!modifySheet.isAdded){
-            modifySheet.show(supportFragmentManager,"introduce")
+    fun showModifyIntro() {
+        if (!modifySheet.isAdded) {
+            modifySheet.show(supportFragmentManager, "introduce")
         }
     }
 
-    fun disModifyIntro(){
-        if(modifySheet.isAdded){
+    fun disModifyIntro() {
+        if (modifySheet.isAdded) {
             modifySheet.dismiss()
         }
     }
 
-    fun showEditGit(){
-        if(!editGit.isAdded){
-            editGit.show(supportFragmentManager,"git")
+    fun showEditGit() {
+        if (!editGit.isAdded) {
+            editGit.show(supportFragmentManager, "git")
         }
     }
 
-    fun disEditGit(){
-        if(editGit.isAdded){
+    fun disEditGit() {
+        if (editGit.isAdded) {
             editGit.dismiss()
         }
     }
 
-    fun startGithub(id:String?){
-        val intent=Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/$id"))
+    fun startGithub(id: String?) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/$id"))
         startActivity(intent)
     }
 
 
-    fun logOut(){
+    fun logOut() {
         AlertDialog.Builder(
             this, R.style.logOutDialog
         )
@@ -229,9 +233,9 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton("예") { _, _ ->
                 showToast("로그아웃 하셨습니다")
                 editor.clear().apply()
-                accessToken.value=null
-                userGcn.value=null
-                refreshToken.value=null
+                accessToken.value = null
+                userGcn.value = null
+                refreshToken.value = null
                 logOutViewModel()
             }
             .setNegativeButton("아니요") { _, _ ->
@@ -239,11 +243,12 @@ class MainActivity : AppCompatActivity() {
             }
             .show()
     }
-    private fun logOutViewModel(){
+
+    private fun logOutViewModel() {
         reLoadFeeds()
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_container, MainFeed()).commit()
-        binding.mainBtmNav.selectedItemId=R.id.nav_home
+        binding.mainBtmNav.selectedItemId = R.id.nav_home
         myPageViewModel.logOut()
     }
 
