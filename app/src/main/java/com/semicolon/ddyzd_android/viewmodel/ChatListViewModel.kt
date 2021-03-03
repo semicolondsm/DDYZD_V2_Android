@@ -58,6 +58,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
         list.postValue(null)
         callChatList(navigater)
     }
+    
 
 
     @SuppressLint("CheckResult")
