@@ -1,13 +1,13 @@
 package com.semicolon.ddyzd_android.bindingadapter
 
 import android.annotation.SuppressLint
-import android.util.Log
+import android.os.Build
 import android.view.MotionEvent
 import android.view.View
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.core.view.size
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -15,6 +15,8 @@ import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.adapter.ChattingAdapter
 import com.semicolon.ddyzd_android.viewmodel.ChatListViewModel
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 object ChattingBindingAdaper {
@@ -22,7 +24,7 @@ object ChattingBindingAdaper {
     @BindingAdapter("verChattingAdapter")
     fun chattingListAdapter(recyclerView: RecyclerView, adapter: ChattingAdapter) {
         val layoutManager =
-        LinearLayoutManager(recyclerView.context, LinearLayoutManager.VERTICAL, false)
+            LinearLayoutManager(recyclerView.context, LinearLayoutManager.VERTICAL, false)
         layoutManager.orientation = RecyclerView.VERTICAL
         layoutManager.stackFromEnd = true
         recyclerView.scrollToPosition(recyclerView.size)
@@ -83,24 +85,25 @@ object ChattingBindingAdaper {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @JvmStatic
     @BindingAdapter("string_time_adapter")
     fun timeAdapter(textView: TextView, time: String?) {
         if (time != null) {
-            val subTime=time.substring(0,18)
-            val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-            val currentDateTime= System.currentTimeMillis()
-            val currentDate=Date(currentDateTime)
-            val currentFormat=format.format(currentDate)
-            val getTime = format.format(subTime)
-            val longCurrentTime = format.parse(currentFormat).time
-            val longGetTime = format.parse(getTime).time
-            val diff = (longCurrentTime - longGetTime) / 1000
-            val dayDiff = (diff / 86400)
-            if (dayDiff < 0 || dayDiff >= 31) {
-                val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA)
-                textView.text = dateFormat.format(subTime)
-            } else {
+            val dateFormat=SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz", Locale.KOREA)
+            val subTime= dateFormat.parse(time)
+            val currentDateTime=System.currentTimeMillis()
+            val date=Date(currentDateTime)
+            val currentTime=dateFormat.format(date)
+            val getTime=dateFormat.format(subTime)
+            val longCurrentTime=dateFormat.parse(currentTime).time
+            val longGetTime=dateFormat.parse(getTime).time
+            val diff=(longCurrentTime-longGetTime)/1000
+            val dayDiff=(diff/86400)
+            if(dayDiff<0||dayDiff>=31){
+                val dateFormat=SimpleDateFormat("yyyy-MM-dd",Locale.KOREA)
+                textView.text=dateFormat.format(subTime)
+            }else {
                 if (dayDiff <= 0) {
                     when (diff) {
                         in 0..60 ->

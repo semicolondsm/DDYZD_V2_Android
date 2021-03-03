@@ -70,6 +70,7 @@ class ChatList : AppCompatActivity() {
         intent.putExtra("chatLastMessage", data.lastmessage)
         intent.putExtra("chatRoomId", data.roomid)
         intent.putExtra("chatIndex", data.index)
+        intent.putExtra("status",data.status)
         startActivity(intent)
     }
 

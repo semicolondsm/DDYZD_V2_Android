@@ -57,45 +57,42 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/example"
-            android:layout_width="200dp"
+            android:layout_width="0dp"
             android:layout_height="20dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
             android:text="@{vm.list[position].lastmessage}"
             app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toBottomOf="@+id/image"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintEnd_toStartOf="@+id/time"
             app:layout_constraintStart_toEndOf="@+id/image"
             app:layout_constraintTop_toBottomOf="@+id/clubname"
             tools:text="마지막 메세지" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/time"
-            android:layout_width="40dp"
+            android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"
-            android:text="@{vm.list[position].lastdate}"
             app:autoSizeTextType="uniform"
-            app:layout_constraintBottom_toBottomOf="@+id/image"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.796"
-            app:layout_constraintStart_toEndOf="@+id/image"
-            app:layout_constraintTop_toBottomOf="@+id/clubname"
-            app:layout_constraintVertical_bias="0.625"
+            app:layout_constraintBottom_toBottomOf="@+id/example"
+            app:layout_constraintEnd_toStartOf="@+id/circleImageView"
+            app:layout_constraintTop_toTopOf="@+id/example"
+            app:layout_constraintVertical_bias="0.875"
+            app:string_time_adapter="@{vm.list[position].lastdate}"
             tools:text="시간" />
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleImageView"
             android:layout_width="3dp"
             android:layout_height="3dp"
-            tools:ignore="MissingConstraints"
-            android:visibility="@{vm.visibilty}"
+            android:layout_marginEnd="10dp"
             android:src="@drawable/yellow_dot"
-            tools:layout_editor_absoluteX="355dp"
-            tools:layout_editor_absoluteY="49dp" />
+            android:visibility="@{vm.allList.component2[position].isread?vm.inVisibility:vm.visibilty}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

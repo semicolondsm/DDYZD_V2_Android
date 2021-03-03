@@ -2,6 +2,7 @@ package com.semicolon.ddyzd_android.viewmodel
 
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.lifecycle.MutableLiveData
@@ -27,9 +28,9 @@ import kotlin.collections.ArrayList
 class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     private val apiAdapter = BaseApi.getInstance()
     private var readChatList = mutableListOf<RoomData>()
-    val visibilty = MutableLiveData(View.VISIBLE)
+    val visibilty = View.VISIBLE
+    val inVisibility=View.INVISIBLE
     val allList = MutableLiveData<ChatListData>()
-
     val list = MutableLiveData<List<RoomData>>()
     val clubListAdapter = ChatListAdapter(list, this)
     val value = listOf<String>()
@@ -64,12 +65,13 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
         apiAdapter.chatList("Bearer ${accessToken.value}")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ response ->
+            .subscribe({ response ->allList.value = response.body()
                 if (response.isSuccessful) {
-                    // 이 부분이 어뎁터
+
+                    Log.d("채팅","=${response.body()}")
                     if (response.body() != null) {
                         startSocket("${accessToken.value}")
-                        allList.value = response.body()
+
                         section.value = allList.value!!.club_section
                         spinnerAdapter.value = (ArrayAdapter(
                             navigater, R.layout.support_simple_spinner_dropdown_item,
@@ -80,16 +82,11 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                             when (response.body()!!.rooms[i].index) {
                                 0 -> {
                                     readChatList.add(response.body()!!.rooms[i])
-                                    if(allList.value?.rooms?.get(i)?.isRead == true){
-                                        visibilty.value = View.INVISIBLE
-                                    }
-                                    else{
-                                        visibilty.value = View.VISIBLE
-                                    }
+                                    clubListAdapter.notifyDataSetChanged()
                                 }
                             }
                         }
-                        println("${allList.value}")
+                        println("${allList.value}ㄱㄴㄷㄹ")
                         list.value = readChatList as ArrayList<RoomData>
                         clubListAdapter.notifyDataSetChanged()
                     }
@@ -104,9 +101,8 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     fun selectPeople() {
         if (allList.value != null) {
             readChatList.clear()
-
             var rotate=allList.value?.rooms?.size ?: 1
-            for (i in 0 until (--rotate)) {
+            for (i in 0 until rotate) {
                 if (allList.value!!.rooms[i].index == index.value) {
                     readChatList.add(allList.value!!.rooms[i])
                 }
