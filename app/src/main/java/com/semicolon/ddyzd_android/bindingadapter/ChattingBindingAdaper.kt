@@ -91,8 +91,7 @@ object ChattingBindingAdaper {
     fun timeAdapter(textView: TextView, time: String?) {
         if (time != null) {
             val dateFormat=SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSz", Locale.KOREA)
-            val stringFormatter=DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSz")
-            val subTime= LocalDate.parse(time,stringFormatter)
+            val subTime= dateFormat.parse(time)
             val currentDateTime=System.currentTimeMillis()
             val date=Date(currentDateTime)
             val currentTime=dateFormat.format(date)
