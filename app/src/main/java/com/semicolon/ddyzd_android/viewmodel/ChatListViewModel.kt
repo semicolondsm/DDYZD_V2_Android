@@ -102,7 +102,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
         if (allList.value != null) {
             readChatList.clear()
             var rotate=allList.value?.rooms?.size ?: 1
-            for (i in 0 until (--rotate)) {
+            for (i in 0 until rotate) {
                 if (allList.value!!.rooms[i].index == index.value) {
                     readChatList.add(allList.value!!.rooms[i])
                 }

@@ -62,7 +62,6 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
 
             }else{
                 clubVisible.value = View.INVISIBLE
-
             }
         }
         readClub()
