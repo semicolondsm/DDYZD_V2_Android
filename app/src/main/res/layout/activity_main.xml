@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="viewModel"
+            name="vm"
             type="com.semicolon.ddyzd_android.viewmodel.MainViewModel" />
     </data>
 
@@ -15,52 +15,24 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-
         <FrameLayout
-            android:id="@+id/fragment"
-            android:layout_width="match_parent"
+            android:id="@+id/main_container"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/changeelse"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="-93dp">
-        </FrameLayout>
+            app:layout_constraintBottom_toTopOf="@+id/main_btm_nav"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-
-        <Button
-            android:id="@+id/changeclub"
-            android:layout_width="wrap_content"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/main_btm_nav"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{()->viewModel.changeclub()}"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="fragment1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/changechat"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/changechat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{()->viewModel.changechat()}"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="fragment2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/changeclub"
-            app:layout_constraintStart_toEndOf="@+id/changeelse" />
-
-        <Button
-            android:id="@+id/changeelse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{()->viewModel.changeelse()}"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="fragment3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/changechat" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_menu" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

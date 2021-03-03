@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="vm"
+            type="com.semicolon.ddyzd_android.viewmodel.ChattingPageViewModel" />
+        <variable
+            name="position"
+            type="Integer" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+            tools:ignore="MissingConstraints"
+            tools:text="시간" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:padding="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circleImageView2"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                app:chatImageUrl="@{vm.clubImage}"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:id="@+id/textView18"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:background="@drawable/back_white_view"
+                android:layout_height="wrap_content"
+                android:text="@{vm.chattingList[position].msg}"
+                android:textSize="15dp"
+                android:textColor="@color/black"
+                android:padding="10dp"
+                tools:ignore="MissingConstraints"
+                tools:text="상대방이 보낸 채팅" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
