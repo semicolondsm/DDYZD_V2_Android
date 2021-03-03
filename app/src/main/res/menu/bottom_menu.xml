@@ -10,7 +10,6 @@
         android:id="@+id/nav_club"
         android:enabled="true"
         android:title="동아리"
-
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/nav_my"

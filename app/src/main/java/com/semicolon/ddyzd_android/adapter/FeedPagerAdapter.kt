@@ -24,7 +24,6 @@ class FeedPagerAdapter(
                 imageBinding.imageView4.currentItem = tab.position
             }.attach()
             imageView.image=images[position]
-            imageView.executePendingBindings()
         }
     }
 
@@ -57,7 +56,6 @@ class ClubFeedPagerAdapter(
                 imageBinding.imageView4.currentItem = tab.position
             }.attach()
             imageView.image=images[position]
-            imageView.executePendingBindings()
         }
     }
 
