@@ -239,8 +239,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
 
         println("${it[0]} ㅁㅇㄹㅁㅇㄴㄹㅁㄴㅇㄹ")
         chatting =
-            data.split("{\"title\":", ",\"msg\":\"", "\",\"user_type\":\"", "\",\"date\":\"", "\"}")
-                .toTypedArray()
+            data.split("{\"title\":", ",\"msg\":\"", "\",\"user_type\":\"", "\",\"date\":\"", "\"}").toTypedArray()
 
         try {
             chatInfo = ChattingData(chatting[1], chatting[2], chatting[3], chatting[4])
@@ -249,16 +248,8 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
             chattingList.postValue(possingChat)
             chattingListAdapter.notifyDataSetChanged()
             navigater.binding.chatPageRv.scrollToPosition(possingChat.size)
-
-<<<<<<< HEAD
             }catch (e:Throwable){
             }
             navigater.binding.chatPageRv.smoothScrollToPosition(possingChat.size)
-=======
-        } catch (e: Throwable) {
-        }
-        navigater.binding.chatPageRv.smoothScrollToPosition(possingChat.size)
->>>>>>> origin/develop
-
     }
 }

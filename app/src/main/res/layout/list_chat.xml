@@ -89,13 +89,19 @@
             tools:text="시간" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="3dp"
-            android:layout_height="3dp"
-            tools:ignore="MissingConstraints"
-            android:visibility="@{vm.visibilty}"
+            android:layout_width="0dp"
+            android:layout_height="6dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="49dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="25dp"
             android:src="@drawable/yellow_dot"
-            tools:layout_editor_absoluteX="355dp"
-            tools:layout_editor_absoluteY="49dp" />
+            android:visibility="@{vm.list[position].isRead?vm.inVisibility:vm.visibilty}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/time"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

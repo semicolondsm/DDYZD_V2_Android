@@ -27,7 +27,8 @@ import kotlin.collections.ArrayList
 class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     private val apiAdapter = BaseApi.getInstance()
     private var readChatList = mutableListOf<RoomData>()
-    val visibilty = MutableLiveData(View.VISIBLE)
+    val visibilty = View.VISIBLE
+    val inVisibility=View.INVISIBLE
     val allList = MutableLiveData<ChatListData>()
 
     val list = MutableLiveData<List<RoomData>>()
@@ -81,12 +82,8 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                             when (response.body()!!.rooms[i].index) {
                                 0 -> {
                                     readChatList.add(response.body()!!.rooms[i])
-                                    if(allList.value?.rooms?.get(i)?.isRead == true){
-                                        visibilty.value = View.INVISIBLE
-                                    }
-                                    else{
-                                        visibilty.value = View.VISIBLE
-                                    }
+                                    clubListAdapter.notifyDataSetChanged()
+
                                 }
                             }
                         }
