@@ -66,6 +66,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
                 if (response.isSuccessful) {
+                    readChatList.clear()
                     // 이 부분이 어뎁터
                     if (response.body() != null) {
                         startSocket("${accessToken.value}")

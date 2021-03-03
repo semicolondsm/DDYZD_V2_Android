@@ -240,7 +240,7 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
 
             }catch (e:Throwable){
             }
-      navigater.binding.chatPageRv.smoothScrollToPosition(possingChat.size)
+            navigater.binding.chatPageRv.smoothScrollToPosition(possingChat.size)
 
   }
 }
