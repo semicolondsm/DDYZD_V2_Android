@@ -49,6 +49,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
 
     fun onDestroy() {
         //socket.disconnect()
+
     }
 
     fun onCreate() {
@@ -65,13 +66,15 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
         apiAdapter.chatList("Bearer ${accessToken.value}")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ response ->
+            .subscribe({ response ->allList.value = response.body()
                 if (response.isSuccessful) {
                     readChatList.clear()
+
                     // 이 부분이 어뎁터
                     if (response.body() != null) {
                         startSocket("${accessToken.value}")
-                        allList.value = response.body()
+
+
                         section.value = allList.value!!.club_section
                         spinnerAdapter.value = (ArrayAdapter(
                             navigater, R.layout.support_simple_spinner_dropdown_item,
@@ -83,11 +86,10 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                                 0 -> {
                                     readChatList.add(response.body()!!.rooms[i])
                                     clubListAdapter.notifyDataSetChanged()
-
                                 }
                             }
                         }
-                        println("${allList.value}")
+                        println("${allList.value}ㄱㄴㄷㄹ")
                         list.value = readChatList as ArrayList<RoomData>
                         clubListAdapter.notifyDataSetChanged()
                     }

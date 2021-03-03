@@ -44,6 +44,11 @@ class ChattingPage : AppCompatActivity() {
         setContentView(binding.root)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding.vm?.onDestroy()
+    }
+
     /**
      * 배열을 받아와서 dialog 띄우는 함수
      */

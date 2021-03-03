@@ -224,6 +224,13 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
         }
     }
 
+    fun onDestroy(){
+
+        val data = JSONObject()
+        data.put("room_token", roomToken)
+        socket.emit("leave_room", data)
+    }
+
     /*  val join : Emitter.Listener =Emitter.Listener{
           val size = it.size-1
           val data  = it
@@ -236,8 +243,6 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
 
 
         val data = it[0].toString()
-
-        println("${it[0]} ㅁㅇㄹㅁㅇㄴㄹㅁㄴㅇㄹ")
         chatting =
             data.split("{\"title\":", ",\"msg\":\"", "\",\"user_type\":\"", "\",\"date\":\"", "\"}").toTypedArray()
 
@@ -248,8 +253,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
             chattingList.postValue(possingChat)
             chattingListAdapter.notifyDataSetChanged()
             navigater.binding.chatPageRv.scrollToPosition(possingChat.size)
-            }catch (e:Throwable){
-            }
+            }catch (e:Throwable){}
             navigater.binding.chatPageRv.smoothScrollToPosition(possingChat.size)
     }
 }
