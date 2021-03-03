@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.adapter.ChattingAdapter
+import com.semicolon.ddyzd_android.bindingadapter.ChattingBindingAdaper
 import com.semicolon.ddyzd_android.model.ChattingData
 import com.semicolon.ddyzd_android.ul.activity.ChattingPage
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
@@ -230,17 +231,16 @@ class ChattingPageViewModel(val navigater : ChattingPage) : ViewModel() {
             chatting = data.split("{\"title\":" ,",\"msg\":\"" , "\",\"user_type\":\"" , "\",\"date\":\"" , "\"}").toTypedArray()
 
       try {
-                chatInfo = ChattingData(chatting[1],chatting[2],chatting[3],chatting[4])
+            chatInfo = ChattingData(chatting[1],chatting[2],chatting[3],chatting[4])
 
-                possingChat.add(chatInfo)
-          //
+            possingChat.add(chatInfo)
+            chattingList.postValue(possingChat)
+            println("ㅣ${chatting[4]} 시간")
+            chattingListAdapter.notifyDataSetChanged()
 
-              chattingList.postValue(possingChat)
-              println("ㅣ${chatting[4]} 시간")
-                chattingListAdapter.notifyDataSetChanged()
-                println("조호원 ㄱㄴㄷㄹㅁㅂㅅ")
             }catch (e:Throwable){
-
             }
-        }
+      navigater.binding.chatPageRv.smoothScrollToPosition(possingChat.size)
+
+  }
 }

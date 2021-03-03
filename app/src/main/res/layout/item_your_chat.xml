@@ -22,7 +22,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/linearLayout2"
             tools:ignore="MissingConstraints"
-            app:string_time_adapter="@{vm.chattingList[position].created_at}"
             tools:text="시간" />
 
         <LinearLayout
