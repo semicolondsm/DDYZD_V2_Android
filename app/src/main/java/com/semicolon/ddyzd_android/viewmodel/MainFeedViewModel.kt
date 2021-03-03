@@ -22,7 +22,17 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
     var callApi = 0
     val adapter = BaseApi.getInstance()
     val isEmpty = MutableLiveData<Int>(View.INVISIBLE)
-    lateinit var scrollListener: RecyclerView.OnScrollListener
+    val scrollListener: RecyclerView.OnScrollListener= object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            val manager = (recyclerView.layoutManager) as LinearLayoutManager
+            val totalItem = manager.itemCount
+            val lastVisible = manager.findLastCompletelyVisibleItemPosition()
+            if (lastVisible >= totalItem - 1) {
+                readFeeds()
+            }
+        }
+    }
 
     val progressVisible=MutableLiveData<Int>(View.INVISIBLE)
     fun onCreate() {
@@ -31,17 +41,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
         callApi = 0
         readFeed.clear()
         feeds.value=readFeed
-        scrollListener = object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val manager = (recyclerView.layoutManager) as LinearLayoutManager
-                val totalItem = manager.itemCount
-                val lastVisible = manager.findLastCompletelyVisibleItemPosition()
-                if (lastVisible >= totalItem - 1) {
-                    readFeeds()
-                }
-            }
-        }
+        readFeeds()
     }
 
     @SuppressLint("CheckResult")

@@ -28,7 +28,7 @@ class MainFeedAdapter(private val feeds: MutableLiveData<List<MainFeedData>>, pr
     inner class ImageFeedViewHolder(private val binding: ItemImageFeedBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int, viewModel: MainFeedViewModel) {
-            pageAdapter=FeedPagerAdapter(feeds.value?.get(position-1)!!.media,position-1,binding)
+            pageAdapter=FeedPagerAdapter(feeds.value?.get(position-1)!!.media,binding)
             binding.vm = viewModel
             binding.position = position-1
             binding.executePendingBindings()
