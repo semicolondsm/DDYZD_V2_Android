@@ -2,6 +2,7 @@ package com.semicolon.ddyzd_android.viewmodel
 
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
@@ -35,15 +36,17 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     val clubListAdapter = ChatListAdapter(list, this)
     val value = listOf<String>()
 
+    val gray= Color.GRAY
+    val black=Color.BLACK
+
     private var initList = arrayListOf("")
     var section = MutableLiveData<ArrayList<String>>(initList)
 
-    var spinnerAdapter = MutableLiveData<ArrayAdapter<String>>(
-        ArrayAdapter(
+    val spinnerAdapter = ArrayAdapter(
             navigater, R.layout.support_simple_spinner_dropdown_item,
             section.value!!
         )
-    )
+
     val index = MutableLiveData<Int>(0)
     lateinit var socket: Socket
 
@@ -66,19 +69,16 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
         apiAdapter.chatList("Bearer ${accessToken.value}")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ response ->allList.value = response.body()
+            .subscribe({ response ->
+                allList.value = response.body()
                 if (response.isSuccessful) {
 
                     Log.d("채팅","=${response.body()}")
                     if (response.body() != null) {
                         startSocket("${accessToken.value}")
-
                         section.value = allList.value!!.club_section
-                        spinnerAdapter.value = (ArrayAdapter(
-                            navigater, R.layout.support_simple_spinner_dropdown_item,
-                            section.value!!
-                        ))
-
+                        spinnerAdapter.clear()
+                        spinnerAdapter.addAll(section.value!!)
                         for (i in 0 until (allList.value?.rooms?.size ?: 0)) {
                             when (response.body()!!.rooms[i].index) {
                                 0 -> {
