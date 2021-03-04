@@ -35,7 +35,6 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
     val index = navigater.index
     var status = navigater.status
 
-    val emptyButton=MutableLiveData<Boolean>(false)
     val adapter = BaseApi.getInstance()
     val chatBody = MutableLiveData<String>()
     private var readChattingList = mutableListOf<ChattingData>()
@@ -56,8 +55,6 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
         if (index != 0) {
             if(status == "S"){
                 clubVisible.value = View.VISIBLE
-                userVisible.value = View.GONE
-
             }
             else{
                 userVisible.value = View.GONE
@@ -68,12 +65,10 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
         else {
             if(status == "N"){
                 userVisible.value = View.VISIBLE
-                clubVisible.value=View.GONE
             }
             else{
                 userVisible.value = View.GONE
                 clubVisible.value=View.GONE
-
             }
         }
     }
