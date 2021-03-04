@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.semicolon.ddyzd_android.ActivityNavigator
@@ -60,6 +61,7 @@ class ClubDetails : AppCompatActivity() {
         val intent=Intent(this,ChattingPage::class.java)
         intent.putExtra("chatClubId",clubId)
         intent.putExtra("chatClubImage", viewModel.clubDetail.value?.clubimage)
+        Log.d("사진","보냄=${viewModel.clubDetail.value?.clubimage}")
         intent.putExtra("chatClubName", viewModel.clubDetail.value?.clubname)
         intent.putExtra("chatRoomId",roomId)
         startActivity(intent)

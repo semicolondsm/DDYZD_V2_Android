@@ -181,9 +181,70 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                                 )
                             )
                         }
+                        break
                     }
                 }
                 liveData1.value = "5"
+            }
+            5 -> {
+                proflieList = mutableListOf()
+                for (i in 0 until size) {
+                    sub = body[i].clubtag.size
+                    for (j in 0 until sub) {
+                        if (body[i].clubtag[j] == "창체") {
+                            proflieList.add(
+                                ClubProfiles(
+                                    body[i].clubimage,
+                                    body[i].clubname,
+                                    body[i].clubdescription,
+                                    body[i].clubid,
+                                    body[i].backimage
+                                )
+                            )
+                        }
+                    }
+                }
+                liveData1.value = "6"
+            }
+            6 -> {
+                proflieList = mutableListOf()
+                for (i in 0 until size) {
+                    sub = body[i].clubtag.size
+                    for (j in 0 until sub) {
+                        if (body[i].clubtag[j] == "자율") {
+                            proflieList.add(
+                                ClubProfiles(
+                                    body[i].clubimage,
+                                    body[i].clubname,
+                                    body[i].clubdescription,
+                                    body[i].clubid,
+                                    body[i].backimage
+                                )
+                            )
+                        }
+                    }
+                }
+                liveData1.value = "7"
+            }
+            7 -> {
+                proflieList = mutableListOf()
+                for (i in 0 until size) {
+                    sub = body[i].clubtag.size
+                    for (j in 0 until sub) {
+                        if (body[i].clubtag[j] == "위원회") {
+                            proflieList.add(
+                                ClubProfiles(
+                                    body[i].clubimage,
+                                    body[i].clubname,
+                                    body[i].clubdescription,
+                                    body[i].clubid,
+                                    body[i].backimage
+                                )
+                            )
+                        }
+                    }
+                }
+                liveData1.value = "8"
             }
         }
     }

@@ -59,6 +59,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="기타" />
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/creative"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="창체" />
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/free"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="자율" />
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/chairman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="위원회" />
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.recyclerview.widget.RecyclerView
