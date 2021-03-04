@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.semicolon.dsm_sdk_v1:dsmauth:1.3.7@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f76f05ae70b07e3477b50f64413669f9/jetified-dsmauth-1.3.7/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f76f05ae70b07e3477b50f64413669f9/jetified-dsmauth-1.3.7/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f76f05ae70b07e3477b50f64413669f9/jetified-dsmauth-1.3.7/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.semicolon.dsm_sdk_v1/dsmauth/1.3.7/5eb9b80ed9c03e2fdaa9fcf0d55492b6365eb677/dsmauth-1.3.7-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.semicolon.dsm_sdk_v1/dsmauth/1.3.7/c443b33bdb4290b5d0db952ae92b60007d9cd847/dsmauth-1.3.7-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
