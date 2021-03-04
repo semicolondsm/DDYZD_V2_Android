@@ -212,7 +212,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
             val data = JSONObject()
             data.put("room_token", roomToken)
             data.put("answer", it)
-            socket.emit("helper_answer")
+            socket.emit("helper_answer", it)
         }
         navigater.sendClubDialog(resultCallback)
 
