@@ -85,8 +85,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/circleImageView"
-            android:layout_width="5dp"
-            android:layout_height="5dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
             android:layout_marginEnd="10dp"
             android:src="@drawable/yellow_dot"
             android:visibility="@{vm.allList.component2[position].isread?vm.inVisibility:vm.visibilty}"

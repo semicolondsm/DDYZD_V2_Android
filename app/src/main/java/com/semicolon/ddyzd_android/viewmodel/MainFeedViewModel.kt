@@ -122,7 +122,6 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun deleteFeed(id: Int) {
-        Log.d("삭제","클릭")
         val deleteCallback:(Boolean)->Unit={
             if(it){
                 adapter.deleteFeed("Bearer ${accessToken.value}", id)
