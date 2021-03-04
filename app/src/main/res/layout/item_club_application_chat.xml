@@ -61,6 +61,7 @@
                 android:layout_marginTop="10dp"
                 android:text="@{vm.chattingList[position].msg}"
                 android:textSize="12dp"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView9"
                 tools:text="000님이 000동아리에 000 분야로 지원하셨습니다" />
