@@ -181,6 +181,7 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                                 )
                             )
                         }
+                        break
                     }
                 }
                 liveData1.value = "5"

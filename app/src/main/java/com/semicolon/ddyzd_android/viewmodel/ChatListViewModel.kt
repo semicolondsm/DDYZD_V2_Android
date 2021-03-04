@@ -72,7 +72,6 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->allList.value = response.body()
                 readChatList.clear()
-
                 if (response.isSuccessful) {
                     Log.d("채팅","=${response.body()}")
                     if (response.body() != null) {

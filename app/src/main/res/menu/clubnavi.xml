@@ -27,6 +27,24 @@
         app:showAsAction="ifRoom"
         />
     <item
+        android:id="@+id/creative"
+        android:title="창체"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/free"
+        android:title="자율"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/chairman"
+        android:title="위원회"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        />
+    <item
         android:id="@+id/guitar"
         android:title="기타"
         android:enabled="true"

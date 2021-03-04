@@ -5,6 +5,7 @@
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
 
+
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
