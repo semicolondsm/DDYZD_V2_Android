@@ -25,7 +25,7 @@ import java.net.URISyntaxException
 import kotlin.collections.ArrayList
 
 class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
-    val userVisible = MutableLiveData<Int>(View.VISIBLE)
+    val userVisible = MutableLiveData<Int>(View.INVISIBLE)
     val clubVisible = MutableLiveData<Int>(View.INVISIBLE)
     val chattingList = MutableLiveData<List<ChattingData>>()
     val roomid = navigater.roomId
@@ -47,38 +47,39 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
     private lateinit var socket: Socket
     var applyTag = ArrayList<String>()
 
-    val chattingSendContainer=navigater.binding.chatPageSendContainer
-    val sendButton=navigater.binding.chatPageBcBtn
 
     init {
+        println("$status 채팅 ㄱㄷㅈㅁㄱㅂ")
         getChatting()
         getRoomToken()
         getApplyTag()
         if (index != 0) {
-            userVisible.value = View.INVISIBLE
             if(status == "S"){
                 clubVisible.value = View.VISIBLE
-                emptyButton.value=false
-            }else{
-                clubVisible.value = View.INVISIBLE
-                emptyButton.value=true
-            }
-        } else {
-            clubVisible.value=View.INVISIBLE
-            if(status == "N"){
-                userVisible.value = View.VISIBLE
-                emptyButton.value=false
+                userVisible.value = View.GONE
 
-            }else{
-                clubVisible.value = View.INVISIBLE
-                emptyButton.value=true
+            }
+            else{
+                userVisible.value = View.GONE
+                clubVisible.value = View.GONE
+
             }
         }
-        readClub()
+        else {
+            if(status == "N"){
+                userVisible.value = View.VISIBLE
+                clubVisible.value=View.GONE
+            }
+            else{
+                userVisible.value = View.GONE
+                clubVisible.value=View.GONE
+
+            }
+        }
     }
 
 
-    @SuppressLint("CheckResult")
+    /*@SuppressLint("CheckResult")
     private fun readClub() {
         adapter.readClubInfo(
             "Bearer ${accessToken.value}",
@@ -89,14 +90,14 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
             .subscribeOn(Schedulers.io())
             .subscribe({
                 if (it.body()?.recruitment == true) {
-                    userVisible.value = View.VISIBLE
+                    userVisible.value = View.INVISIBLE
                 } else {
                     userVisible.value = View.INVISIBLE
                 }
             }, {
 
             })
-    }
+    }*/
 
 
 
@@ -176,6 +177,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
                 data.put("major", it)
                 socket.emit("helper_apply", data)
                 status = "A"
+                userVisible.value = View.GONE
             }
         }
         navigater.selectPart(applyTag, setPartCallback)
@@ -201,6 +203,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
             data.put("result", it)
             socket.emit("helper_result", data)
             status = "R"
+            clubVisible.value = View.GONE
         }
         navigater.sendResultDialog(resultCallback)
     }
