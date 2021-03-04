@@ -23,6 +23,7 @@ class ModifySheet: BottomSheetDialogFragment() {
         setStyle(DialogFragment.STYLE_NORMAL, R.style.ModifyIntroStyle)
         binding = DataBindingUtil.inflate(inflater, R.layout.sheet_modify_intro, container, false)
         binding.vm = viewModel
+        binding.lifecycleOwner=this
         return binding.root
     }
 }
