@@ -170,7 +170,7 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                 for (i in 0 until size) {
                     sub = body[i].clubtag.size
                     for (j in 0 until sub) {
-                        if (body[i].clubtag[j] != "앱" && body[i].clubtag[j] != "웹" && body[i].clubtag[j] != "임베디드") {
+                        if (body[i].clubtag[j] != "앱" && body[i].clubtag[j] != "웹" && body[i].clubtag[j] != "임베디드" && body[i].clubtag[j] != "창체" && body[i].clubtag[j] != "학생부") {
                             proflieList.add(
                                 ClubProfiles(
                                     body[i].clubimage,
