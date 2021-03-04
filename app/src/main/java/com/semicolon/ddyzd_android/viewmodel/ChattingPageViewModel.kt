@@ -52,6 +52,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
         getRoomToken()
         getApplyTag()
         if (index != 0) {
+            println("$status aasdfasdf")
             if(status == "S"){
                 clubVisible.value = View.VISIBLE
             }
@@ -253,11 +254,15 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
         }
     }
 
-    fun onDestroy(){
+    fun leaveRoom(){
 
         val data = JSONObject()
         data.put("room_token", roomToken)
         socket.emit("leave_room", data)
+    }
+
+    fun onPause(){
+
     }
 
     /*  val join : Emitter.Listener =Emitter.Listener{

@@ -3,6 +3,7 @@ package com.semicolon.ddyzd_android.ul.activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -49,8 +50,17 @@ class ChattingPage : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        binding.vm?.onDestroy()
+        binding.vm?.leaveRoom()
     }
+
+  /*  override fun onPause() {
+        super.onPause()
+        println("여기서 앱이 다운")
+        binding.vm?.leaveRoom()
+        val intent  = Intent(this,ChatList::class.java)
+        startActivity(intent)
+
+    }*/
 
     /**
      * 배열을 받아와서 dialog 띄우는 함수

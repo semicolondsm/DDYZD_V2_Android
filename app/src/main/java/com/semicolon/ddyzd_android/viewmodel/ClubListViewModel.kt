@@ -22,8 +22,7 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
     var clubimage = mutableListOf<String>() // 동아리 이미지
     var clubname = mutableListOf<String>() // 동아리 이름
     var clubexample = mutableListOf<String>() //동아리 설명
-    val list = ClubList().view?.findViewById<RecyclerView>(R.id.club_list_rv) //
-
+    val list = ClubList().view?.findViewById<RecyclerView>(R.id.club_list_rv)
     private val adapter = BaseApi.getInstance() // api 연결시 사용
     var proflieList = mutableListOf<ClubProfiles>() // 리스트 뷰에 들어갈 항목
     val liveData1: MutableLiveData<String> = MutableLiveData() // 전공 분야 클릭시 바뀜
