@@ -43,22 +43,26 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/clubname"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:textColor="@color/black"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="10dp"
             android:text="@{vm.proflieList[position].name}"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/example"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/image"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/example"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="10dp"
             android:text="@{vm.proflieList[position].example}"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/image"
             app:layout_constraintTop_toBottomOf="@+id/clubname" />
     </androidx.constraintlayout.widget.ConstraintLayout>
