@@ -1,6 +1,5 @@
 package com.semicolon.ddyzd_android.bindingadapter
 
-import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
