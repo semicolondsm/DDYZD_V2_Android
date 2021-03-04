@@ -22,7 +22,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
     val adapter = BaseApi.getInstance()
     val isEmpty = MutableLiveData<Int>(View.INVISIBLE)
     var callApi = -1
-    lateinit var  scrollListener: RecyclerView.OnScrollListener
+    lateinit var scrollListener: RecyclerView.OnScrollListener
 
     val progressVisible=MutableLiveData<Int>(View.INVISIBLE)
     fun onCreate() {
