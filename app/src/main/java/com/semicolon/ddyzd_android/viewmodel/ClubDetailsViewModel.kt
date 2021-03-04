@@ -36,13 +36,19 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
 
     val chatBtnText=MutableLiveData<CharSequence>("채팅보내기")
 
-    lateinit var scrollListener: RecyclerView.OnScrollListener
+    var scrollListener: RecyclerView.OnScrollListener=object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+        }
+    }
     val adapter = BaseApi.getInstance()
     fun onCreate() {
         ActivityNavigator.clubDetailViewModel=this
         callApi = 0
         readFeeds.clear()
         readMembers.clear()
+        members.value=null
+        clubDetail.value=null
         readTime()
         readClubInfo()
         readMembers()

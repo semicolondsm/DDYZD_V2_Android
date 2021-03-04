@@ -44,27 +44,17 @@
                 tools:text="합격을 축하드립니다" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:textSize="12dp"
-                app:string_time_adapter="@{vm.chattingList[position].created_at}"
-                app:layout_constraintBottom_toBottomOf="@+id/textView9"
-                app:layout_constraintStart_toEndOf="@+id/textView9"
-                android:text="@{vm.chattingList[position].created_at}"
-                tools:text="시간" />
-
-            <TextView
-                android:id="@+id/textView21"
+                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:textColor="@color/black"
+                android:text="@{vm.chattingList[position].created_at}"
                 android:textSize="12dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView9"
-                tools:text="합격하셨습니다" />
+                app:string_time_adapter="@{vm.chattingList[position].created_at}"
+                tools:text="시간" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="0dp"
@@ -78,8 +68,9 @@
                 android:text="동아리 확정하기"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView21" />
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

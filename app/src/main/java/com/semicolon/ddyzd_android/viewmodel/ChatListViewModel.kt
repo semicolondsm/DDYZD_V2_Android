@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.R
+import com.semicolon.ddyzd_android.ViewModels.objectRoomToken
 import com.semicolon.ddyzd_android.adapter.ChatListAdapter
 import com.semicolon.ddyzd_android.model.ChatListData
 import com.semicolon.ddyzd_android.model.RoomData
@@ -22,6 +23,7 @@ import io.socket.client.Manager
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import io.socket.engineio.client.Transport
+import org.json.JSONObject
 import java.net.URISyntaxException
 import java.util.*
 import kotlin.collections.ArrayList
@@ -35,7 +37,6 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     val list = MutableLiveData<List<RoomData>>()
     val clubListAdapter = ChatListAdapter(list, this)
     val value = listOf<String>()
-
     val gray= Color.GRAY
     val black=Color.BLACK
 
@@ -58,10 +59,11 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
         allList.postValue(null)
         section.postValue(null)
         readChatList.clear()
+        //leaveRoom()
         list.postValue(null)
         callChatList(navigater)
     }
-    
+
 
 
 
@@ -115,6 +117,14 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     fun goChatting(data: RoomData) {
         navigater.startChating(data)
     }
+    fun leaveRoom(){
+        if(objectRoomToken.isNotEmpty()){
+            val data = JSONObject()
+            data.put("room_token", objectRoomToken)
+            socket.emit("leave_room", data)
+        }
+
+    }
 
     //소켓 부분
     fun startSocket(accessToken: String) {
@@ -146,6 +156,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
             println(e.reason)
         }
     }
+
 
     val event: Emitter.Listener = Emitter.Listener {
         val size = it.size - 1

@@ -62,7 +62,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginBottom="5dp"
             app:sub_string="@{vm.list[position].lastmessage}"
-            android:textColor="@{vm.allList.component2[position].isread?vm.gray:vm.black}"
+            android:textColor="@{vm.list[position].isread?vm.gray:vm.black}"
             app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toBottomOf="@+id/image"
             app:layout_constraintEnd_toStartOf="@+id/time"
@@ -85,11 +85,11 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/circleImageView"
-            android:layout_width="5dp"
-            android:layout_height="5dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
             android:layout_marginEnd="10dp"
             android:src="@drawable/yellow_dot"
-            android:visibility="@{vm.allList.component2[position].isread?vm.inVisibility:vm.visibilty}"
+            android:visibility="@{vm.list[position].isread?vm.inVisibility:vm.visibilty}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

@@ -129,4 +129,10 @@ interface ApiService {
         @Header("Authorization")accessToken: String,
         @Path("room_id")roomId : String
     ):Single<Response<RoomTokenData>>
+
+    @GET("room/{room_id}/info")
+    fun getRoomInfo(
+        @Header("Authorization")accessToken: String,
+        @Path("room_id")roomId : String
+    ):Single<Response<RoomInfoData>>
 }

@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.semicolon.ddyzd_android.BaseApi
+import com.semicolon.ddyzd_android.ViewModels.objectRoomToken
 import com.semicolon.ddyzd_android.adapter.ChattingAdapter
 import com.semicolon.ddyzd_android.bindingadapter.ChattingBindingAdaper
 import com.semicolon.ddyzd_android.model.ChattingData
@@ -25,15 +26,15 @@ import java.net.URISyntaxException
 import kotlin.collections.ArrayList
 
 class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
-    val userVisible = MutableLiveData<Int>(View.INVISIBLE)
-    val clubVisible = MutableLiveData<Int>(View.INVISIBLE)
+    val user=MutableLiveData<Boolean>(true)
+    val userVisible = MutableLiveData<Int>(View.GONE)
     val chattingList = MutableLiveData<List<ChattingData>>()
     val roomid = navigater.roomId
     val clubImage = navigater.clubImage
     val clubName = navigater.clubName
     val clubId = navigater.clubId
     val index = navigater.index
-    var status = navigater.status
+    var status = ""
     val adapter = BaseApi.getInstance()
     val chatBody = MutableLiveData<String>()
     private var readChattingList = mutableListOf<ChattingData>()
@@ -51,24 +52,14 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
         getChatting()
         getRoomToken()
         getApplyTag()
-        if (index != 0) {
-            if(status == "S"){
-                clubVisible.value = View.VISIBLE
-            }
-            else{
-                userVisible.value = View.GONE
-                clubVisible.value = View.GONE
+        getRoomInfo()
+    }
 
-            }
-        }
-        else {
-            if(status == "N"){
-                userVisible.value = View.VISIBLE
-            }
-            else{
-                userVisible.value = View.GONE
-                clubVisible.value=View.GONE
-            }
+    fun chooseHelper(){
+        if(user.value != false){
+            helper1()
+        }else{
+            helper3()
         }
     }
 
@@ -95,10 +86,37 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
 
 
 
+    @SuppressLint("CheckResult")
+     fun getRoomInfo() {
+        adapter.getRoomInfo("Bearer ${accessToken.value}",roomid)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe { response ->
+                status = response.body()?.status.toString()
 
+                if (index != 0) {
+                    user.value=false
+                    if(status == "S"){
+                        userVisible.value=View.VISIBLE
+                    }
+                    else{
+                        userVisible.value = View.GONE
+                    }
+                }
+                else {
+                    user.value=true
+                    if(status == "N"){
+                        userVisible.value = View.VISIBLE
+                    }
+                    else{
+                        userVisible.value = View.GONE
+                    }
+                }
+            }
+    }
 
     @SuppressLint("CheckResult")
-    private fun getApplyTag() {
+    fun getApplyTag() {
         adapter.clubRecruit(clubId, "Bearer ${accessToken.value}")
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
@@ -137,6 +155,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
             .subscribe({ response ->
                 if (response.isSuccessful) {
                     roomToken = response.body()!!.room_token
+                    objectRoomToken=roomToken
                     startSocket("${accessToken.value}")
                     joinRoom()
                 }
@@ -152,15 +171,17 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
 
 
     fun sandChatting() { // 보내기 버튼 누르면 실행 소켓
-        val message = chatBody.value
-        println("$roomToken ㄱㄴㄷㄹㅁ")
-        println("이게 과연 몇번 출력이 될까?")
-        val data = JSONObject()
-        data.put("room_token", roomToken)
-        data.put("msg", message)
-        socket.emit("send_chat", data)
-        chatBody.value = null
-        //chattingListAdapter.notifyDataSetChanged()
+        if(!chatBody.value.isNullOrEmpty()){
+            val message = chatBody.value
+            println("$roomToken ㄱㄴㄷㄹㅁ")
+            println("이게 과연 몇번 출력이 될까?")
+            val data = JSONObject()
+            data.put("room_token", roomToken)
+            data.put("msg", message)
+            socket.emit("send_chat", data)
+            chatBody.value = null
+            //chattingListAdapter.notifyDataSetChanged()
+        }
     }
 
     fun helper1() { // 동아리 지원
@@ -186,7 +207,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
             data.put("location", place)
             socket.emit("helper_schedule", data)
             status = "S"
-            clubVisible.value = View.VISIBLE
+            userVisible.value = View.VISIBLE
         }
         navigater.selectDate(setTimeCallback)
     }
@@ -198,17 +219,19 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
             data.put("result", it)
             socket.emit("helper_result", data)
             status = "R"
-            clubVisible.value = View.GONE
+            userVisible.value = View.GONE
         }
         navigater.sendResultDialog(resultCallback)
     }
 
     fun helper4() {
+        println("")
         val resultCallback:(Boolean)->Unit={
             val data = JSONObject()
+            println("${it} 블리언 값")
             data.put("room_token", roomToken)
             data.put("answer", it)
-            socket.emit("helper_answer")
+            socket.emit("helper_answer", data)
         }
         navigater.sendClubDialog(resultCallback)
 
@@ -246,6 +269,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
     }
 
     val connect: Emitter.Listener = Emitter.Listener {
+        println("헬퍼 성공?")
         val size = it.size - 1
         val data = it
         for (i in 0..size) {

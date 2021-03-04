@@ -29,11 +29,15 @@ class ClubDetails : AppCompatActivity() {
         clubId=intent.getStringExtra("club_id").toString()
         viewModel= ClubDetailsViewModel(clubId,this)
         showSheet= BottomClubSheetDialog()
-        viewModel.onCreate()
         binding  = ActivityClubDetailsBinding.inflate(layoutInflater)
         binding.vm = viewModel
         binding.lifecycleOwner=this
         setContentView(binding.root)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.onCreate()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -60,8 +64,7 @@ class ClubDetails : AppCompatActivity() {
     fun startChatting(roomId:String){
         val intent=Intent(this,ChattingPage::class.java)
         intent.putExtra("chatClubId",clubId)
-        intent.putExtra("chatClubImage", viewModel.clubDetail.value?.clubimage)
-        Log.d("사진","보냄=${viewModel.clubDetail.value?.clubimage}")
+        intent.putExtra("chatClubImage", "https://api.semicolon.live/file/${viewModel.clubDetail.value?.clubimage}")
         intent.putExtra("chatClubName", viewModel.clubDetail.value?.clubname)
         intent.putExtra("chatRoomId",roomId)
         startActivity(intent)
@@ -100,10 +103,7 @@ class ClubDetails : AppCompatActivity() {
     }
 
     fun closeUser(){
-        val fragment=supportFragmentManager.findFragmentByTag("user_fragment")
-        if (fragment != null) {
-            supportFragmentManager.beginTransaction().remove(fragment).commit()
-        }
+        finish()
     }
 
     fun startGithub(id:String?){

@@ -71,6 +71,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+    }
     private fun initViewModels() {
         feedViewModel = MainFeedViewModel(this)
         myPageViewModel = MyPageViewModel(this)
@@ -153,23 +157,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun closeSheet(): Boolean {
+    fun closeSheet(callback:(result:Boolean)->Unit){
         showSheet.dismiss()
-        var start = false
         AlertDialog.Builder(
             this, R.style.myDialog
         )
             .setTitle("확인")
             .setMessage("정말 삭제하시겠습니까?")
             .setPositiveButton("예") { _, _ ->
-                start = true
+                callback(true)
             }
             .setNegativeButton("아니요") { _, _ ->
                 Toast.makeText(this, "취소하셨습니다", Toast.LENGTH_LONG).show()
-                start = false
-            }
-            .show()
-        return start
+                callback(false)
+            }.show()
     }
 
     fun notShowMore() {

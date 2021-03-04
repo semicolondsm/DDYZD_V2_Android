@@ -1,6 +1,7 @@
 package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -121,21 +122,27 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
 
     @SuppressLint("CheckResult")
     fun deleteFeed(id: Int) {
-        if (navigator.closeSheet()) {
-            adapter.deleteFeed("Bearer ${accessToken.value}", id)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe({
-                    if (it.isSuccessful) {
-                        navigator.showToast("피드삭제가 완료되었습니다")
-                        navigator.reLoadFeeds()
-                    } else {
+        val deleteCallback:(Boolean)->Unit={
+            if(it){
+                adapter.deleteFeed("Bearer ${accessToken.value}", id)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe({
+                        Log.d("삭제",it.raw().toString())
+                        if (it.isSuccessful) {
+                            navigator.showToast("피드삭제가 완료되었습니다")
+                            navigator.reLoadFeeds()
+                        } else {
+                            navigator.showToast("피드삭제를 실패하였습니다")
+                        }
+                    }, {
                         navigator.showToast("피드삭제를 실패하였습니다")
-                    }
-                }, {
-                    navigator.showToast("피드삭제를 실패하였습니다")
-                })
+                    })
+            }
+
         }
+        navigator.closeSheet(deleteCallback)
+
     }
 
 }
