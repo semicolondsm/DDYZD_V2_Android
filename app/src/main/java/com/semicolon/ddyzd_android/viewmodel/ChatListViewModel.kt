@@ -68,8 +68,8 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->allList.value = response.body()
+                readChatList.clear()
                 if (response.isSuccessful) {
-
                     Log.d("채팅","=${response.body()}")
                     if (response.body() != null) {
                         startSocket("${accessToken.value}")
@@ -88,7 +88,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                                 }
                             }
                         }
-                        println("${allList.value}ㄱㄴㄷㄹ")
+                        println("${allList.value}ㄱㅁㄷㅈㄱ")
                         list.value = readChatList as ArrayList<RoomData>
                         clubListAdapter.notifyDataSetChanged()
                     }
