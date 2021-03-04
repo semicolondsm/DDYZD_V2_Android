@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ul.activity.AddFeedActivity"></activity>
+        <activity android:name=".ul.activity.AddFeedActivity"/>
         <activity android:name=".ul.activity.ChattingPage" />
         <activity android:name=".ul.activity.ChatList" />
         <activity android:name=".ul.activity.LoginActivity" />

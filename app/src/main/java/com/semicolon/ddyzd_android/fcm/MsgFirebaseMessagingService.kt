@@ -7,6 +7,7 @@ import android.content.Intent
 import android.media.RingtoneManager
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.semicolon.ddyzd_android.R
@@ -37,6 +38,9 @@ class MsgFirebaseMessagingService : FirebaseMessagingService() {
         if(remoteMessage.notification != null) {
             Log.d(TAG, "Notification Message Body: ${remoteMessage.notification?.body}")
             sendNotification(remoteMessage.notification?.body)
+            val intent=Intent("alert_data")
+            intent.putExtra("msg",remoteMessage.notification?.body)
+            LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
         }
     }
 
@@ -46,10 +50,10 @@ class MsgFirebaseMessagingService : FirebaseMessagingService() {
             putExtra("Notification", body)
         }
 
-        var pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
         val notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 
-        var notificationBuilder = NotificationCompat.Builder(this,"Notification")
+        val notificationBuilder = NotificationCompat.Builder(this,"Notification")
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle("Push Notification FCM")
             .setContentText(body)
@@ -57,7 +61,7 @@ class MsgFirebaseMessagingService : FirebaseMessagingService() {
             .setSound(notificationSound)
             .setContentIntent(pendingIntent)
 
-        var notificationManager: NotificationManager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager: NotificationManager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify(0, notificationBuilder.build())
     }
 }

@@ -5,7 +5,7 @@ import com.firebase.jobdispatcher.JobService
 
 class JobService :JobService(){
     override fun onStopJob(job: JobParameters?): Boolean {
-        return false
+        return true
     }
 
     override fun onStartJob(job: JobParameters?): Boolean {
