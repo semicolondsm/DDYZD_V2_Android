@@ -34,7 +34,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
     val clubName = navigater.clubName
     val clubId = navigater.clubId
     val index = navigater.index
-    var status = navigater.status
+    var status = ""
     val adapter = BaseApi.getInstance()
     val chatBody = MutableLiveData<String>()
     private var readChattingList = mutableListOf<ChattingData>()
@@ -52,28 +52,10 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
         getChatting()
         getRoomToken()
         getApplyTag()
-        if (index != 0) {
-            if(status == "S"){
-                clubVisible.value = View.VISIBLE
-                userVisible.value=View.INVISIBLE
-            }
-            else{
-                userVisible.value = View.GONE
-                clubVisible.value = View.GONE
-
-            }
-        }
-        else {
-            if(status == "N"){
-                userVisible.value = View.VISIBLE
-                clubVisible.value=View.INVISIBLE
-            }
-            else{
-                userVisible.value = View.GONE
-                clubVisible.value=View.GONE
-            }
-        }
+        getRoomInfo()
     }
+
+
 
 
     /*@SuppressLint("CheckResult")
@@ -98,10 +80,40 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
 
 
 
+    @SuppressLint("CheckResult")
+     fun getRoomInfo() {
+        adapter.getRoomInfo("Bearer ${accessToken.value}",roomid)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe { response ->
+                status = response.body()?.status.toString()
 
+                if (index != 0) {
+                    if(status == "S"){
+                        clubVisible.value = View.VISIBLE
+                        userVisible.value=View.INVISIBLE
+                    }
+                    else{
+                        userVisible.value = View.GONE
+                        clubVisible.value = View.GONE
+
+                    }
+                }
+                else {
+                    if(status == "N"){
+                        userVisible.value = View.VISIBLE
+                        clubVisible.value=View.INVISIBLE
+                    }
+                    else{
+                        userVisible.value = View.GONE
+                        clubVisible.value=View.GONE
+                    }
+                }
+            }
+    }
 
     @SuppressLint("CheckResult")
-    private fun getApplyTag() {
+    fun getApplyTag() {
         adapter.clubRecruit(clubId, "Bearer ${accessToken.value}")
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
@@ -210,11 +222,13 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
     }
 
     fun helper4() {
+        println("")
         val resultCallback:(Boolean)->Unit={
             val data = JSONObject()
+            println("${it} 블리언 값")
             data.put("room_token", roomToken)
             data.put("answer", it)
-            socket.emit("helper_answer")
+            socket.emit("helper_answer", data)
         }
         navigater.sendClubDialog(resultCallback)
 
@@ -252,6 +266,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
     }
 
     val connect: Emitter.Listener = Emitter.Listener {
+        println("헬퍼 성공?")
         val size = it.size - 1
         val data = it
         for (i in 0..size) {
