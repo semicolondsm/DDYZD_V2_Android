@@ -37,7 +37,6 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     val list = MutableLiveData<List<RoomData>>()
     val clubListAdapter = ChatListAdapter(list, this)
     val value = listOf<String>()
-
     val gray= Color.GRAY
     val black=Color.BLACK
 
@@ -64,7 +63,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
         list.postValue(null)
         callChatList(navigater)
     }
-    
+
 
 
 
