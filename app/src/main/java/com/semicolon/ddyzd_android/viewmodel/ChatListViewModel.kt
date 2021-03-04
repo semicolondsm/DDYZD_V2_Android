@@ -82,7 +82,7 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                         spinnerAdapter.addAll(section.value!!)
                         for (i in 0 until (allList.value?.rooms?.size ?: 0)) {
                             when (response.body()!!.rooms[i].index) {
-                                0 -> {
+                                index.value!! -> {
                                     readChatList.add(response.body()!!.rooms[i])
                                     clubListAdapter.notifyDataSetChanged()
                                 }
