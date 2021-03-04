@@ -132,8 +132,8 @@ object ChattingBindingAdaper {
     fun subString(textView: TextView,string:String?){
         if(!string.isNullOrEmpty()){
             var changeString=string
-            if(string.length>10){
-                changeString=string.substring(0,8)+"..."
+            if(string.length>18){
+                changeString=string.substring(0,18)+"..."
             }
             textView.text=changeString
         }else{
