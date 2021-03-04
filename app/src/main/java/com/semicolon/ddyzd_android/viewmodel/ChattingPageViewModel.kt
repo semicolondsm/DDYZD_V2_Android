@@ -35,7 +35,6 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
     val index = navigater.index
     var status = navigater.status
 
-    val emptyButton=MutableLiveData<Boolean>(false)
     val adapter = BaseApi.getInstance()
     val chatBody = MutableLiveData<String>()
     private var readChattingList = mutableListOf<ChattingData>()

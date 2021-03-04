@@ -127,5 +127,15 @@ object ChattingBindingAdaper {
 
     }
 
+    @JvmStatic
+    @BindingAdapter("sub_string")
+    fun subString(textView: TextView,string:String){
+        var changeString=string
+        if(string.length>10){
+            changeString=string.substring(0,8)+"..."
+        }
+        textView.text=changeString
+
+    }
 
 }
