@@ -34,7 +34,6 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
     val clubId = navigater.clubId
     val index = navigater.index
     var status = navigater.status
-
     val adapter = BaseApi.getInstance()
     val chatBody = MutableLiveData<String>()
     private var readChattingList = mutableListOf<ChattingData>()
@@ -187,6 +186,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
             data.put("location", place)
             socket.emit("helper_schedule", data)
             status = "S"
+            clubVisible.value = View.VISIBLE
         }
         navigater.selectDate(setTimeCallback)
     }
