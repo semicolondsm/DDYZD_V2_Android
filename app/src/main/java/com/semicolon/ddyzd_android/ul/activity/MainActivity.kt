@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         binding.mainBtmNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_home -> {
+                    feedViewModel.onCreate()
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.main_container, MainFeed()).commit()
                     return@setOnNavigationItemSelectedListener true
@@ -59,9 +60,9 @@ class MainActivity : AppCompatActivity() {
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.nav_my -> {
+                    myPageViewModel.onCreate()
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.main_container, MyPage()).commit()
-                    myPageViewModel.onCreate()
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> return@setOnNavigationItemSelectedListener false

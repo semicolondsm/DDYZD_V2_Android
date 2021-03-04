@@ -22,17 +22,18 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
     val adapter = BaseApi.getInstance()
     val isEmpty = MutableLiveData<Int>(View.INVISIBLE)
     var callApi = -1
-    lateinit var  scrollListener: RecyclerView.OnScrollListener
+    var scrollListener: RecyclerView.OnScrollListener= object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+        }
+    }
 
-    val progressVisible=MutableLiveData<Int>(View.INVISIBLE)
+    val progressVisible = MutableLiveData<Int>(View.INVISIBLE)
     fun onCreate() {
         readFeed.clear()
-        feeds.value=readFeed
-        progressVisible.value=View.VISIBLE
-        ActivityNavigator.mainFeedViewModel=this
-        feedAdapter.notifyDataSetChanged()
+        ActivityNavigator.mainFeedViewModel = this
         callApi = 0
-        scrollListener= object : RecyclerView.OnScrollListener() {
+        scrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 val manager = (recyclerView.layoutManager) as LinearLayoutManager
@@ -43,6 +44,9 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
                 }
             }
         }
+        feeds.value = readFeed
+        progressVisible.value = View.VISIBLE
+        feedAdapter.notifyDataSetChanged()
     }
 
     @SuppressLint("CheckResult")
@@ -75,8 +79,12 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
 
     @SuppressLint("CheckResult")
     private fun readFeeds() {
-        if(callApi>=0){
-            adapter.readFeed("Bearer ${accessToken.value}", callApi.toString(),System.currentTimeMillis().toString())
+        if (callApi >= 0) {
+            adapter.readFeed(
+                "Bearer ${accessToken.value}",
+                callApi.toString(),
+                System.currentTimeMillis().toString()
+            )
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe({ response ->
@@ -89,20 +97,20 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
                     } else {
                         isEmpty.value = View.VISIBLE
                     }
-                    progressVisible.value=View.INVISIBLE
+                    progressVisible.value = View.INVISIBLE
                 }, {
                     isEmpty.value = View.VISIBLE
                     navigator.showToast("인터넷 문제가 발생하였습니다")
-                    progressVisible.value=View.INVISIBLE
+                    progressVisible.value = View.INVISIBLE
                 })
         }
 
     }
 
-    fun onMoreClicked(owner:Boolean,id:String){
-        if(owner){
+    fun onMoreClicked(owner: Boolean, id: String) {
+        if (owner) {
             navigator.showMore(id.toInt())
-        }else{
+        } else {
             navigator.notShowMore()
         }
     }
@@ -112,19 +120,19 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
     }
 
     @SuppressLint("CheckResult")
-    fun deleteFeed(id:Int){
-        if(navigator.closeSheet()){
-            adapter.deleteFeed("Bearer ${accessToken.value}",id)
+    fun deleteFeed(id: Int) {
+        if (navigator.closeSheet()) {
+            adapter.deleteFeed("Bearer ${accessToken.value}", id)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe({
-                    if(it.isSuccessful){
+                    if (it.isSuccessful) {
                         navigator.showToast("피드삭제가 완료되었습니다")
                         navigator.reLoadFeeds()
-                    }else{
+                    } else {
                         navigator.showToast("피드삭제를 실패하였습니다")
                     }
-                },{
+                }, {
                     navigator.showToast("피드삭제를 실패하였습니다")
                 })
         }

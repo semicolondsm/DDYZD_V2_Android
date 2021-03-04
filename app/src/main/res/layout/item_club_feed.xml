@@ -60,6 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     app:showTimeAdapter="@{vm.feeds[position].uploadAt}"
+                    android:textColor="#999999"
                     android:textSize="12sp"
                     app:layout_constraintStart_toEndOf="@+id/imageView3"
                     app:layout_constraintTop_toBottomOf="@+id/textView2"
