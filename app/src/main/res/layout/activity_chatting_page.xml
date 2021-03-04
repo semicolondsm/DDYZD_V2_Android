@@ -65,28 +65,14 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/back_white_view"
             android:backgroundTint="#ffffff"
-            android:onClick="@{()->vm.helper1()}"
-            android:text="지원하기"
+            android:onClick="@{()->vm.chooseHelper()}"
+            android:text="@{vm.user?`지원하기`:`결과보내기`}"
             android:visibility="@{vm.userVisible}"
             app:layout_constraintBottom_toTopOf="@+id/chat_page_send_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="MissingConstraints" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/chat_page_result_btn"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/back_white_view"
-            android:backgroundTint="#ffffff"
-            android:onClick="@{()->vm.helper3()}"
-            android:text="결과보내기"
-            android:visibility="@{vm.clubVisible}"
-            app:layout_constraintBottom_toTopOf="@+id/chat_page_send_container"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="MissingConstraints" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/chat_page_profile_iv"

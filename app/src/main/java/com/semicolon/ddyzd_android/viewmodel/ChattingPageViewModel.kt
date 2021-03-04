@@ -26,8 +26,8 @@ import java.net.URISyntaxException
 import kotlin.collections.ArrayList
 
 class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
-    val userVisible = MutableLiveData<Int>(View.INVISIBLE)
-    val clubVisible = MutableLiveData<Int>(View.INVISIBLE)
+    val user=MutableLiveData<Boolean>(true)
+    val userVisible = MutableLiveData<Int>(View.GONE)
     val chattingList = MutableLiveData<List<ChattingData>>()
     val roomid = navigater.roomId
     val clubImage = navigater.clubImage
@@ -55,7 +55,13 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
         getRoomInfo()
     }
 
-
+    fun chooseHelper(){
+        if(user.value != false){
+            helper1()
+        }else{
+            helper3()
+        }
+    }
 
 
     /*@SuppressLint("CheckResult")
@@ -89,24 +95,21 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
                 status = response.body()?.status.toString()
 
                 if (index != 0) {
+                    user.value=false
                     if(status == "S"){
-                        clubVisible.value = View.VISIBLE
-                        userVisible.value=View.INVISIBLE
+                        userVisible.value=View.VISIBLE
                     }
                     else{
                         userVisible.value = View.GONE
-                        clubVisible.value = View.GONE
-
                     }
                 }
                 else {
+                    user.value=true
                     if(status == "N"){
                         userVisible.value = View.VISIBLE
-                        clubVisible.value=View.INVISIBLE
                     }
                     else{
                         userVisible.value = View.GONE
-                        clubVisible.value=View.GONE
                     }
                 }
             }
@@ -204,7 +207,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
             data.put("location", place)
             socket.emit("helper_schedule", data)
             status = "S"
-            clubVisible.value = View.VISIBLE
+            userVisible.value = View.VISIBLE
         }
         navigater.selectDate(setTimeCallback)
     }
@@ -216,7 +219,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
             data.put("result", it)
             socket.emit("helper_result", data)
             status = "R"
-            clubVisible.value = View.GONE
+            userVisible.value = View.GONE
         }
         navigater.sendResultDialog(resultCallback)
     }
