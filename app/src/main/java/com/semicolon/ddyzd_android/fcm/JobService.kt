@@ -9,7 +9,7 @@ class JobService :JobService(){
     }
 
     override fun onStartJob(job: JobParameters?): Boolean {
-        return false
+        return true
     }
 
 }
