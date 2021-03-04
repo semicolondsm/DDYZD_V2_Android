@@ -55,6 +55,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
         if (index != 0) {
             if(status == "S"){
                 clubVisible.value = View.VISIBLE
+                userVisible.value=View.INVISIBLE
             }
             else{
                 userVisible.value = View.GONE
@@ -65,6 +66,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
         else {
             if(status == "N"){
                 userVisible.value = View.VISIBLE
+                clubVisible.value=View.INVISIBLE
             }
             else{
                 userVisible.value = View.GONE

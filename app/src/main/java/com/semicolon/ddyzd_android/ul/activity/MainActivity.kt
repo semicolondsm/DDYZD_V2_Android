@@ -71,6 +71,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+    }
     private fun initViewModels() {
         feedViewModel = MainFeedViewModel(this)
         myPageViewModel = MyPageViewModel(this)
