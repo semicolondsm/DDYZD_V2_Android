@@ -60,8 +60,7 @@ class ClubDetails : AppCompatActivity() {
     fun startChatting(roomId:String){
         val intent=Intent(this,ChattingPage::class.java)
         intent.putExtra("chatClubId",clubId)
-        intent.putExtra("chatClubImage", viewModel.clubDetail.value?.clubimage)
-        Log.d("사진","보냄=${viewModel.clubDetail.value?.clubimage}")
+        intent.putExtra("chatClubImage", "https://api.semicolon.live/file/${viewModel.clubDetail.value?.clubimage}")
         intent.putExtra("chatClubName", viewModel.clubDetail.value?.clubname)
         intent.putExtra("chatRoomId",roomId)
         startActivity(intent)

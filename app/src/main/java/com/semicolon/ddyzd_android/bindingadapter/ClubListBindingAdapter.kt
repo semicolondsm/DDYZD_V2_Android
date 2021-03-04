@@ -25,7 +25,7 @@ object ClubListBindingAdapter {
     fun loadImage(imageView: ImageView, url:String?){
         if(url != null){
             Glide.with(imageView.context)
-                .load("$url")
+                .load(url)
                 .error(R.drawable.group).into(imageView)
         }
     }
