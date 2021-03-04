@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.semicolon.ddyzd_android.BaseApi
+import com.semicolon.ddyzd_android.ViewModels.objectRoomToken
 import com.semicolon.ddyzd_android.adapter.ChattingAdapter
 import com.semicolon.ddyzd_android.bindingadapter.ChattingBindingAdaper
 import com.semicolon.ddyzd_android.model.ChattingData
@@ -137,6 +138,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
             .subscribe({ response ->
                 if (response.isSuccessful) {
                     roomToken = response.body()!!.room_token
+                    objectRoomToken=roomToken
                     startSocket("${accessToken.value}")
                     joinRoom()
                 }
@@ -152,15 +154,17 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
 
 
     fun sandChatting() { // 보내기 버튼 누르면 실행 소켓
-        val message = chatBody.value
-        println("$roomToken ㄱㄴㄷㄹㅁ")
-        println("이게 과연 몇번 출력이 될까?")
-        val data = JSONObject()
-        data.put("room_token", roomToken)
-        data.put("msg", message)
-        socket.emit("send_chat", data)
-        chatBody.value = null
-        //chattingListAdapter.notifyDataSetChanged()
+        if(!chatBody.value.isNullOrEmpty()){
+            val message = chatBody.value
+            println("$roomToken ㄱㄴㄷㄹㅁ")
+            println("이게 과연 몇번 출력이 될까?")
+            val data = JSONObject()
+            data.put("room_token", roomToken)
+            data.put("msg", message)
+            socket.emit("send_chat", data)
+            chatBody.value = null
+            //chattingListAdapter.notifyDataSetChanged()
+        }
     }
 
     fun helper1() { // 동아리 지원
