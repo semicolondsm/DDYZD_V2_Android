@@ -24,6 +24,7 @@ class BottomSheetDialog: BottomSheetDialogFragment() {
         binding=DataBindingUtil.inflate(inflater, R.layout.feed_sheet,container,false)
         binding.vm=viewModel
         binding.id=clubId
+        binding.lifecycleOwner=this
         return binding.root
     }
 }
@@ -39,6 +40,7 @@ class BottomClubSheetDialog: BottomSheetDialogFragment() {
         binding=DataBindingUtil.inflate(inflater, R.layout.sheet_club_feed,container,false)
         binding.vm=viewModel
         binding.id=clubId
+        binding.lifecycleOwner=this
         return binding.root
     }
 }
