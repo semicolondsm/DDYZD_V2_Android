@@ -23,7 +23,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView9"
+            app:layout_constraintTop_toBottomOf="@+id/club_list_title_tv"
             app:tabGravity="fill"
             app:tabIndicatorColor="@color/design_default_color_primary"
             app:tabMode="scrollable"

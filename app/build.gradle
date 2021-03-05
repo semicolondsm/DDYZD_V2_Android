@@ -9,7 +9,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.example.ddyzd_android"
+        applicationId "com.semicolon.ddyzd_android"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
