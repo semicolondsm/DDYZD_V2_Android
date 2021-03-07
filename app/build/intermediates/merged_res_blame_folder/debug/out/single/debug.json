@@ -1,27 +1,19 @@
 [
     {
-        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_group.png.flat",
-        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\group.png"
-    },
-    {
-        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_viewmore.png.flat",
-        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\viewmore.png"
-    },
-    {
         "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_user_profile.xml.flat",
         "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\ic_user_profile.xml"
     },
     {
-        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_maintitle.png.flat",
-        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\maintitle.png"
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\menu_clubnavi.xml.flat",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\menu\\clubnavi.xml"
     },
     {
         "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic______.png.flat",
         "source": "D:\\Github\\DDYZD_V2_Android\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\ic______.png"
     },
     {
-        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\menu_clubnavi.xml.flat",
-        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\menu\\clubnavi.xml"
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_git.jpg.flat",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\ic_git.jpg"
     },
     {
         "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_club_image_feed.xml.flat",
@@ -80,16 +72,8 @@
         "source": "D:\\Github\\DDYZD_V2_Android\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic______.png"
     },
     {
-        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_clicked_flag.png.flat",
-        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\clicked_flag.png"
-    },
-    {
         "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher.png.flat",
         "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
-    },
-    {
-        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_unclicked_flag.png.flat",
-        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\unclicked_flag.png"
     },
     {
         "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher_round.png.flat",
@@ -120,16 +104,24 @@
         "source": "D:\\Github\\DDYZD_V2_Android\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v24\\ic______.xml"
     },
     {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_image.jpg.flat",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\image.jpg"
+    },
+    {
         "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v24_ic_launcher_foreground.xml.flat",
         "source": "D:\\Github\\DDYZD_V2_Android\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v24\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_start_login.jpg.flat",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\start_login.jpg"
     },
     {
         "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_dot_selected.xml.flat",
         "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\ic_dot_selected.xml"
     },
     {
-        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_user.png.flat",
-        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\user.png"
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_unclicked_flag.jpg.flat",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\unclicked_flag.jpg"
     },
     {
         "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_image_feed.xml.flat",
@@ -138,10 +130,6 @@
     {
         "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\layout_sheet_git_edit.xml.flat",
         "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\sheet_git_edit.xml"
-    },
-    {
-        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_yellow_dot.png.flat",
-        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable-v24\\yellow_dot.png"
     },
     {
         "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher_foreground.png.flat",
@@ -170,6 +158,10 @@
     {
         "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic______.png.flat",
         "source": "D:\\Github\\DDYZD_V2_Android\\app\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\ic______.png"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_yellow_dot.jpg.flat",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\yellow_dot.jpg"
     },
     {
         "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_my_chat.xml.flat",
@@ -208,16 +200,24 @@
         "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\item_club_feed.xml"
     },
     {
-        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_git.png.flat",
-        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\ic_git.png"
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_clicked_flag.jpg.flat",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\clicked_flag.jpg"
     },
     {
         "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_page_image.xml.flat",
         "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\item_page_image.xml"
     },
     {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_maintitle.jpg.flat",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\maintitle.jpg"
+    },
+    {
         "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_round.png.flat",
         "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_group.jpg.flat",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\group.jpg"
     },
     {
         "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher_foreground.png.flat",
@@ -230,10 +230,6 @@
     {
         "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_git_icon.xml.flat",
         "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\ic_git_icon.xml"
-    },
-    {
-        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_start_login.png.flat",
-        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\start_login.png"
     },
     {
         "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_ic______.png.flat",
@@ -280,6 +276,10 @@
         "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\custom_et.xml"
     },
     {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_user.jpg.flat",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\user.jpg"
+    },
+    {
         "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_back_white_view.xml.flat",
         "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\back_white_view.xml"
     },
@@ -296,16 +296,8 @@
         "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_round.png"
     },
     {
-        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ddyzd_icon.png.flat",
-        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\ddyzd_icon.png"
-    },
-    {
         "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_chat_list.xml.flat",
         "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\activity_chat_list.xml"
-    },
-    {
-        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_image.png.flat",
-        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\image.png"
     },
     {
         "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_main_logo.xml.flat",
@@ -314,6 +306,10 @@
     {
         "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_foreground.png.flat",
         "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_foreground.png"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ddyzd_icon.jpg.flat",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\ddyzd_icon.jpg"
     },
     {
         "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_feed.xml.flat",
@@ -330,10 +326,6 @@
     {
         "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_chatting_btn_bacground.xml.flat",
         "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable\\chatting_btn_bacground.xml"
-    },
-    {
-        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_chatting.png.flat",
-        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\drawable-v24\\chatting.png"
     },
     {
         "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_add_feed.xml.flat",

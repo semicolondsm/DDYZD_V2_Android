@@ -1,7 +1,11 @@
 package com.semicolon.ddyzd_android.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.webkit.ConsoleMessage
+import android.webkit.WebChromeClient
+import android.webkit.WebViewClient
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.semicolon.ddyzd_android.databinding.ItemFeedBinding
@@ -41,6 +45,14 @@ class MainFeedAdapter(private val feeds: MutableLiveData<List<MainFeedData>>, pr
             binding.vm = viewModel
             binding.headerWebview.settings.javaScriptEnabled=true
             binding.headerWebview.loadUrl("https://semicolondsm.xyz/mobile/banner")
+            binding.headerWebview.webChromeClient=object:WebChromeClient(){
+                override fun onConsoleMessage(consoleMessage: ConsoleMessage?): Boolean {
+                    consoleMessage?.apply {
+                        Log.d("MyApplication", "${message()} -- From line ${lineNumber()} of ${sourceId()}")
+                    }
+                    return true
+                }
+            }
         }
     }
 

@@ -1,6 +1,6 @@
 1<?xml version="1.0" encoding="utf-8"?>
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-3    package="com.example.ddyzd_android"
+3    package="com.semicolon.ddyzd_android"
 4    android:versionCode="1"
 5    android:versionName="1.0" >
 6
@@ -250,7 +250,7 @@
 140-->[com.google.firebase:firebase-common:19.5.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\3809d98ec793b46a64e021ae2336d243\jetified-firebase-common-19.5.0\AndroidManifest.xml:26:9-31:39
 141            android:name="com.google.firebase.provider.FirebaseInitProvider"
 141-->[com.google.firebase:firebase-common:19.5.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\3809d98ec793b46a64e021ae2336d243\jetified-firebase-common-19.5.0\AndroidManifest.xml:27:13-77
-142            android:authorities="com.example.ddyzd_android.firebaseinitprovider"
+142            android:authorities="com.semicolon.ddyzd_android.firebaseinitprovider"
 142-->[com.google.firebase:firebase-common:19.5.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\3809d98ec793b46a64e021ae2336d243\jetified-firebase-common-19.5.0\AndroidManifest.xml:28:13-72
 143            android:directBootAware="true"
 143-->[com.google.firebase:firebase-common:19.5.0] C:\Users\user\.gradle\caches\transforms-2\files-2.1\3809d98ec793b46a64e021ae2336d243\jetified-firebase-common-19.5.0\AndroidManifest.xml:29:13-43

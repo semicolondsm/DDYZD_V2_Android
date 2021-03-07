@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ddyzd_android"
+    package="com.semicolon.ddyzd_android"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -139,7 +139,7 @@
 
         <provider
             android:name="com.google.firebase.provider.FirebaseInitProvider"
-            android:authorities="com.example.ddyzd_android.firebaseinitprovider"
+            android:authorities="com.semicolon.ddyzd_android.firebaseinitprovider"
             android:directBootAware="true"
             android:exported="false"
             android:initOrder="100" />
