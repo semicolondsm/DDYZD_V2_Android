@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.webkit.WebViewClient
 import com.semicolon.ddyzd_android.databinding.ActivityLoginBinding
 import com.semicolon.ddyzd_android.viewmodel.LoginViewModel
 import com.semicolon.dsm_sdk_v1.DsmSdk
@@ -22,6 +23,8 @@ class LoginActivity : AppCompatActivity() {
         binding= ActivityLoginBinding.inflate(layoutInflater)
         binding.vm=viewModel
         binding.loginWebView.settings.javaScriptEnabled=true
+        binding.loginWebView.webViewClient= WebViewClient()
+        binding.loginWebView.settings.domStorageEnabled=true
         binding.loginWebView.loadUrl("https://semicolondsm.xyz/mobile/loginslide")
         setContentView(binding.root)
     }

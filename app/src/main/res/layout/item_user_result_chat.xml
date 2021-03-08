@@ -57,6 +57,7 @@
                 tools:text="시간" />
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/result_btn"
                 android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_marginStart="10dp"
@@ -66,6 +67,7 @@
                 android:background="@drawable/follow_btn_background"
                 android:onClick="@{()->vm.helper4()}"
                 android:text="동아리 확정하기"
+                android:visibility="@{vm.userResult2?vm.visible:vm.gone}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

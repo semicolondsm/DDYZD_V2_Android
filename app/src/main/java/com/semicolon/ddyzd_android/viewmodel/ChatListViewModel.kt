@@ -40,6 +40,8 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     val gray= Color.GRAY
     val black=Color.BLACK
 
+    val progressVisible=MutableLiveData<Int>(View.VISIBLE)
+
     private var initList = arrayListOf("")
     var section = MutableLiveData<ArrayList<String>>(initList)
 
@@ -56,12 +58,14 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
     }
 
     fun onCreate() {
+        progressVisible.value=View.VISIBLE
         allList.postValue(null)
         section.postValue(null)
         readChatList.clear()
         //leaveRoom()
         list.postValue(null)
         callChatList(navigater)
+        clubListAdapter.notifyDataSetChanged()
     }
 
 
@@ -93,10 +97,13 @@ class ChatListViewModel(val navigater: ChatList) : ViewModel() {
                         list.value = readChatList as ArrayList<RoomData>
                         clubListAdapter.notifyDataSetChanged()
                     }
+                    progressVisible.value=View.GONE
                 } else {
+                    progressVisible.value=View.GONE
                     navigater.startLogin()
                 }
             }, { throwable ->
+                progressVisible.value=View.GONE
                 println("${throwable.message}")
             })
     }

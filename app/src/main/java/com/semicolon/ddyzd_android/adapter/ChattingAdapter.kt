@@ -1,6 +1,8 @@
 package com.semicolon.ddyzd_android.adapter
 
 import android.view.LayoutInflater
+import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
@@ -66,6 +68,15 @@ class ChattingAdapter(val chatting  : MutableLiveData<List<ChattingData>>, val v
         fun bind(position: Int, viewModel: ChattingPageViewModel){
             binding.vm = viewModel
             binding.position = position
+            if(chatting.value?.get(position)?.msg?.contains("불합격") == true) {
+                viewModel.userResult2.value = false
+            }else{
+                println("2번")
+                //binding.resultBtn.visibility= View.VISIBLE
+                //binding.vm.userResult.value = GONE
+                viewModel.userResult2.value = true
+            }
+
             binding.executePendingBindings()
         }
     }

@@ -46,6 +46,12 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
     private lateinit var socket: Socket
     var applyTag = ArrayList<String>()
 
+    val userResult=MutableLiveData<Boolean>(true)
+    val userResult2 = MutableLiveData<Boolean>(true)
+
+    val visible=View.VISIBLE
+    val gone=View.GONE
+
 
     init {
         println("$status 채팅 ㄱㄷㅈㅁㄱㅂ")
@@ -141,7 +147,6 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
                     possingChat = readChattingList.asReversed()
                     chattingList.value = possingChat
                     chattingListAdapter.notifyDataSetChanged()
-
                 }
             }, {
             })
@@ -301,7 +306,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
 
         try {
             chatInfo = ChattingData(chatting[1], chatting[2], chatting[3], chatting[4])
-
+            //userResult.value = !chatting[2].contains("불합격")
             possingChat.add(chatInfo)
             chattingList.postValue(possingChat)
             chattingListAdapter.notifyDataSetChanged()

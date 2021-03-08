@@ -2,6 +2,7 @@ package com.semicolon.ddyzd_android.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.webkit.WebViewClient
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.semicolon.ddyzd_android.databinding.ItemFeedBinding
@@ -40,6 +41,8 @@ class MainFeedAdapter(private val feeds: MutableLiveData<List<MainFeedData>>, pr
         fun bind(viewModel: MainFeedViewModel) {
             binding.vm = viewModel
             binding.headerWebview.settings.javaScriptEnabled=true
+            binding.headerWebview.webViewClient= WebViewClient()
+            binding.headerWebview.settings.domStorageEnabled=true
             binding.headerWebview.loadUrl("https://semicolondsm.xyz/mobile/banner")
         }
     }
