@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModel
 import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.ViewModels.objectRoomToken
 import com.semicolon.ddyzd_android.adapter.ChattingAdapter
-import com.semicolon.ddyzd_android.bindingadapter.ChattingBindingAdaper
 import com.semicolon.ddyzd_android.model.ChattingData
 import com.semicolon.ddyzd_android.ul.activity.ChattingPage
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
@@ -299,13 +298,26 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
     @SuppressLint("SimpleDateFormat")
     val chat: Emitter.Listener = Emitter.Listener {
 
+        val json = JSONObject(it[0].toString())
+        var result = true
+            val title = json.getString("title")
+            val msg = json.getString("msg")
+            val user_type = json.getString("user_type")
+            val date = json.getString("date")
+            if(json.isNull("result")){
+            }else{
+                result = json.getBoolean("result")
+                userResult2.value = result
+            }
 
-        val data = it[0].toString()
-        chatting =
-            data.split("{\"title\":", ",\"msg\":\"", "\",\"user_type\":\"", "\",\"date\":\"", "\"}").toTypedArray()
+       // val plusChat = ChattingData(title, msg, user_type,result,data)
+
+        //chatting =
+            //data.split("{\"title\":", ",\"msg\":\"", "\",\"user_type\":\"", "\",\"date\":\"", "\"}").toTypedArray()
 
         try {
-            chatInfo = ChattingData(chatting[1], chatting[2], chatting[3], chatting[4])
+            chatInfo = ChattingData(title,msg,result,user_type,date)
+            // chatInfo = ChattingData(chatting[1], chatting[2], chatting[3], chatting[4])
             //userResult.value = !chatting[2].contains("불합격")
             possingChat.add(chatInfo)
             chattingList.postValue(possingChat)

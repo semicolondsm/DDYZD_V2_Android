@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
         binding.mainBtmNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_home -> {
-                    feedViewModel.onCreate()
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.main_container, MainFeed()).commit()
                     return@setOnNavigationItemSelectedListener true
@@ -86,7 +85,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun createFeeds() {
-        feedViewModel.onCreate()
         binding.mainBtmNav.selectedItemId = R.id.nav_home
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_container, MainFeed()).commit()

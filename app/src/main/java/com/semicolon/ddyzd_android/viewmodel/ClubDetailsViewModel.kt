@@ -2,6 +2,7 @@ package com.semicolon.ddyzd_android.viewmodel
 
 import android.annotation.SuppressLint
 import android.text.Html
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -28,7 +29,7 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
     val members = MutableLiveData<List<MembersData>>()
     val memberAdapter: ClubMemberAdapter = ClubMemberAdapter(members, this)
     val detailAdapter = ClubDetailAdapter(feeds, this)
-    var callApi = -1
+    var callApi = 0
     val isEmpty = MutableLiveData<Int>(View.INVISIBLE)
     var time = ""
     val visible = View.VISIBLE
@@ -36,33 +37,27 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
 
     val chatBtnText=MutableLiveData<CharSequence>("채팅보내기")
 
-    var scrollListener: RecyclerView.OnScrollListener=object : RecyclerView.OnScrollListener() {
+    val scrollListener: RecyclerView.OnScrollListener=object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
+            if (!recyclerView.canScrollVertically(1)) {
+                readClubFeeds()
+            }
         }
     }
     val adapter = BaseApi.getInstance()
     fun onCreate() {
         ActivityNavigator.clubDetailViewModel=this
-        callApi = 0
         readFeeds.clear()
+        feeds.value = readFeeds
         readMembers.clear()
         members.value=null
         clubDetail.value=null
+        detailAdapter.notifyDataSetChanged()
+        callApi = 0
         readTime()
         readClubInfo()
         readMembers()
-        scrollListener=object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val manager = (recyclerView.layoutManager) as LinearLayoutManager
-                val totalItem = manager.itemCount
-                val lastVisible = manager.findLastCompletelyVisibleItemPosition()
-                if (lastVisible >= totalItem - 1) {
-                    readFeeds()
-                }
-            }
-        }
     }
 
     private fun readTime() {
@@ -79,6 +74,7 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
+                Log.d("동아리","=${it.raw()}")
                 clubDetail.value = it.body()
                 if(clubDetail.value!=null){
                     if(clubDetail.value!!.recruitment){
@@ -111,11 +107,13 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
     }
 
     @SuppressLint("CheckResult")
-    private fun readFeeds() {
+    private fun readClubFeeds() {
+        Log.d("동아리리스트","함수시작")
         adapter.readClubFeeds("Bearer ${accessToken.value}", club, callApi,System.currentTimeMillis().toString())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({ it ->
+                Log.d("동아리리스트","부름${it.raw()}")
                 if (it.isSuccessful) {
                     isEmpty.value = View.INVISIBLE
                     it.body()?.let { readFeeds.addAll(it) }
