@@ -102,6 +102,7 @@
             android:id="@+id/club_list_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:text="동아리리스트"

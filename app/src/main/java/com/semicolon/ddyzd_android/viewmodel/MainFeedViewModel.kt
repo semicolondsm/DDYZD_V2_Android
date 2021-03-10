@@ -72,6 +72,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
 
     @SuppressLint("CheckResult")
     private fun readFeeds() {
+        progressVisible.value = View.VISIBLE
         if (callApi >= 0) {
             adapter.readFeed(
                 "Bearer ${accessToken.value}",

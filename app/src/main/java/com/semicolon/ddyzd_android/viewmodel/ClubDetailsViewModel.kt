@@ -37,7 +37,7 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
 
     val chatBtnText=MutableLiveData<CharSequence>("채팅보내기")
 
-    val scrollListener: RecyclerView.OnScrollListener=object : RecyclerView.OnScrollListener() {
+    val clubScrollListener: RecyclerView.OnScrollListener=object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
             if (!recyclerView.canScrollVertically(1)) {
@@ -47,14 +47,14 @@ class ClubDetailsViewModel(val club: String, val navigator: ClubDetails) : ViewM
     }
     val adapter = BaseApi.getInstance()
     fun onCreate() {
-        ActivityNavigator.clubDetailViewModel=this
         readFeeds.clear()
         feeds.value = readFeeds
         readMembers.clear()
+        ActivityNavigator.clubDetailViewModel=this
+        callApi = 0
         members.value=null
         clubDetail.value=null
         detailAdapter.notifyDataSetChanged()
-        callApi = 0
         readTime()
         readClubInfo()
         readMembers()

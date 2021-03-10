@@ -307,7 +307,9 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
             if(json.isNull("result")){
             }else{
                 result = json.getBoolean("result")
-                userResult2.value = result
+                try {
+                    userResult2.value = result
+                }catch (e: Throwable){}
             }
 
        // val plusChat = ChattingData(title, msg, user_type,result,data)
