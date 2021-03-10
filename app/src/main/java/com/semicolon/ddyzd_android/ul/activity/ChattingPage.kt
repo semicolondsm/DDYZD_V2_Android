@@ -135,7 +135,7 @@ class ChattingPage : AppCompatActivity() {
             this,
             DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
                 setDate =
-                    "$month 월${dayOfMonth}일"
+                    "${month+1} 월${dayOfMonth}일"
                 timeDialog.show()
             },
             nowYear,

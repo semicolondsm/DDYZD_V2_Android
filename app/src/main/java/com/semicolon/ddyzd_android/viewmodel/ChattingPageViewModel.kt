@@ -69,27 +69,6 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
     }
 
 
-    /*@SuppressLint("CheckResult")
-    private fun readClub() {
-        adapter.readClubInfo(
-            "Bearer ${accessToken.value}",
-            clubId.toInt(),
-            System.currentTimeMillis().toString()
-        )
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe({
-                if (it.body()?.recruitment == true) {
-                    userVisible.value = View.INVISIBLE
-                } else {
-                    userVisible.value = View.INVISIBLE
-                }
-            }, {
-
-            })
-    }*/
-
-
 
     @SuppressLint("CheckResult")
      fun getRoomInfo() {
@@ -288,13 +267,6 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
         socket.emit("leave_room", data)
     }
 
-    /*  val join : Emitter.Listener =Emitter.Listener{
-          val size = it.size-1
-          val data  = it
-          for(i in 0..size){
-              println("${data[i]} 이게 조인 결과값")
-          }
-      }*/
     @SuppressLint("SimpleDateFormat")
     val chat: Emitter.Listener = Emitter.Listener {
 
@@ -312,15 +284,8 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
                 }catch (e: Throwable){}
             }
 
-       // val plusChat = ChattingData(title, msg, user_type,result,data)
-
-        //chatting =
-            //data.split("{\"title\":", ",\"msg\":\"", "\",\"user_type\":\"", "\",\"date\":\"", "\"}").toTypedArray()
-
         try {
             chatInfo = ChattingData(title,msg,result,user_type,date)
-            // chatInfo = ChattingData(chatting[1], chatting[2], chatting[3], chatting[4])
-            //userResult.value = !chatting[2].contains("불합격")
             possingChat.add(chatInfo)
             chattingList.postValue(possingChat)
             chattingListAdapter.notifyDataSetChanged()
