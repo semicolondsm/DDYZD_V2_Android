@@ -41,28 +41,27 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding =
             ActivityMainBinding.inflate(layoutInflater)
-        viewModel.onCreate()
         binding.lifecycleOwner = this
         binding.vm = viewModel
         setContentView(binding.root)
+        createFeeds()
         binding.mainBtmNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_home -> {
-                    feedViewModel.onCreate()
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_container, MainFeed()).commit()
+                        .replace(R.id.main_container, MainFeed()).commitAllowingStateLoss()
                     return@setOnNavigationItemSelectedListener true
                 }
 
                 R.id.nav_club -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_container, ClubList()).commit()
+                        .replace(R.id.main_container, ClubList()).commitAllowingStateLoss()
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.nav_my -> {
                     myPageViewModel.onCreate()
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_container, MyPage()).commit()
+                        .replace(R.id.main_container, MyPage()).commitAllowingStateLoss()
                     return@setOnNavigationItemSelectedListener true
                 }
                 else -> return@setOnNavigationItemSelectedListener false
@@ -82,14 +81,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        viewModel.onCreate()
         reLoadFeeds()
     }
 
     fun createFeeds() {
-        feedViewModel.onCreate()
         binding.mainBtmNav.selectedItemId = R.id.nav_home
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, MainFeed()).commit()
+            .replace(R.id.main_container, MainFeed()).commitAllowingStateLoss()
     }
 
     fun reLoadFeeds() {
@@ -249,7 +248,7 @@ class MainActivity : AppCompatActivity() {
     private fun logOutViewModel() {
         reLoadFeeds()
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, MainFeed()).commit()
+            .replace(R.id.main_container, MainFeed()).commitAllowingStateLoss()
         binding.mainBtmNav.selectedItemId = R.id.nav_home
         myPageViewModel.logOut()
     }

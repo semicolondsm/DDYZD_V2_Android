@@ -22,32 +22,24 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
     val feedAdapter = MainFeedAdapter(feeds, this)
     val adapter = BaseApi.getInstance()
     val isEmpty = MutableLiveData<Int>(View.INVISIBLE)
-    var callApi = -1
-    var scrollListener: RecyclerView.OnScrollListener= object : RecyclerView.OnScrollListener() {
+    var callApi = 0
+    var scrollListener: RecyclerView.OnScrollListener=object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
+            if (!recyclerView.canScrollVertically(1)) {
+                readFeeds()
+            }
         }
     }
 
     val progressVisible = MutableLiveData<Int>(View.INVISIBLE)
     fun onCreate() {
         readFeed.clear()
+        feeds.value = readFeed
+        feedAdapter.notifyDataSetChanged()
         ActivityNavigator.mainFeedViewModel = this
         callApi = 0
-        scrollListener = object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val manager = (recyclerView.layoutManager) as LinearLayoutManager
-                val totalItem = manager.itemCount
-                val lastVisible = manager.findLastCompletelyVisibleItemPosition()
-                if (lastVisible >= totalItem - 1) {
-                    readFeeds()
-                }
-            }
-        }
-        feeds.value = readFeed
         progressVisible.value = View.VISIBLE
-        feedAdapter.notifyDataSetChanged()
     }
 
     @SuppressLint("CheckResult")
@@ -80,6 +72,7 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
 
     @SuppressLint("CheckResult")
     private fun readFeeds() {
+        progressVisible.value = View.VISIBLE
         if (callApi >= 0) {
             adapter.readFeed(
                 "Bearer ${accessToken.value}",
@@ -95,6 +88,11 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
                         feeds.value = readFeed
                         feedAdapter.notifyDataSetChanged()
                         callApi += 1
+                        if(readFeed.size==0){
+                            isEmpty.value = View.VISIBLE
+                        }else{
+                            isEmpty.value = View.INVISIBLE
+                        }
                     } else {
                         isEmpty.value = View.VISIBLE
                     }
@@ -143,6 +141,10 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
         }
         navigator.closeSheet(deleteCallback)
 
+    }
+
+    fun onProfileClicked(id:Int){
+        navigator.startClubDetail(id.toString())
     }
 
 }

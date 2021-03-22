@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModel
 import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.ViewModels.objectRoomToken
 import com.semicolon.ddyzd_android.adapter.ChattingAdapter
-import com.semicolon.ddyzd_android.bindingadapter.ChattingBindingAdaper
 import com.semicolon.ddyzd_android.model.ChattingData
 import com.semicolon.ddyzd_android.ul.activity.ChattingPage
 import com.semicolon.ddyzd_android.viewmodel.MainViewModel.Companion.accessToken
@@ -46,6 +45,12 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
     private lateinit var socket: Socket
     var applyTag = ArrayList<String>()
 
+    val userResult=MutableLiveData<Boolean>(true)
+    val userResult2 = MutableLiveData<Boolean>(true)
+
+    val visible=View.VISIBLE
+    val gone=View.GONE
+
 
     init {
         println("$status 채팅 ㄱㄷㅈㅁㄱㅂ")
@@ -62,27 +67,6 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
             helper3()
         }
     }
-
-
-    /*@SuppressLint("CheckResult")
-    private fun readClub() {
-        adapter.readClubInfo(
-            "Bearer ${accessToken.value}",
-            clubId.toInt(),
-            System.currentTimeMillis().toString()
-        )
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe({
-                if (it.body()?.recruitment == true) {
-                    userVisible.value = View.INVISIBLE
-                } else {
-                    userVisible.value = View.INVISIBLE
-                }
-            }, {
-
-            })
-    }*/
 
 
 
@@ -141,7 +125,6 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
                     possingChat = readChattingList.asReversed()
                     chattingList.value = possingChat
                     chattingListAdapter.notifyDataSetChanged()
-
                 }
             }, {
             })
@@ -284,24 +267,25 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
         socket.emit("leave_room", data)
     }
 
-    /*  val join : Emitter.Listener =Emitter.Listener{
-          val size = it.size-1
-          val data  = it
-          for(i in 0..size){
-              println("${data[i]} 이게 조인 결과값")
-          }
-      }*/
     @SuppressLint("SimpleDateFormat")
     val chat: Emitter.Listener = Emitter.Listener {
 
-
-        val data = it[0].toString()
-        chatting =
-            data.split("{\"title\":", ",\"msg\":\"", "\",\"user_type\":\"", "\",\"date\":\"", "\"}").toTypedArray()
+        val json = JSONObject(it[0].toString())
+        var result = true
+            val title = json.getString("title")
+            val msg = json.getString("msg")
+            val user_type = json.getString("user_type")
+            val date = json.getString("date")
+            if(json.isNull("result")){
+            }else{
+                result = json.getBoolean("result")
+                try {
+                    userResult2.value = result
+                }catch (e: Throwable){}
+            }
 
         try {
-            chatInfo = ChattingData(chatting[1], chatting[2], chatting[3], chatting[4])
-
+            chatInfo = ChattingData(title,msg,result,user_type,date)
             possingChat.add(chatInfo)
             chattingList.postValue(possingChat)
             chattingListAdapter.notifyDataSetChanged()

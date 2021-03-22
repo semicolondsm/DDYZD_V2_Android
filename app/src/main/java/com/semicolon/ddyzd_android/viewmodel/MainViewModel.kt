@@ -20,8 +20,6 @@ class MainViewModel(val navigator:MainActivity) :ViewModel(){
     fun onCreate(){
         if(!refreshToken.value.isNullOrEmpty()){
             readAccessToken(refreshToken.value!!)
-        }else{
-            navigator.createFeeds()
         }
         return
     }
@@ -35,7 +33,7 @@ class MainViewModel(val navigator:MainActivity) :ViewModel(){
                 if(it.isSuccessful){
                     accessToken.value=it.body()!!.accessToken
                 }
-                navigator.createFeeds()
+                navigator.reLoadFeeds()
             },{
             })
     }

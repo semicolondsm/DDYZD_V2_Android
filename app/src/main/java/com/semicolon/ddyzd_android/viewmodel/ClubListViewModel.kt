@@ -92,6 +92,7 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
     fun changeSelcted(id:Int){
         when (id) {
             0 -> {
+                proflieList = mutableListOf()
                 for (i in 0 until size) {
                     proflieList.add(
                         ClubProfiles(

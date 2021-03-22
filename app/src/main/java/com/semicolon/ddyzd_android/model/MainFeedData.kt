@@ -7,6 +7,7 @@ import kotlin.collections.ArrayList
 data class MainFeedData(
     @SerializedName("feedId") val feedId:String,
     @SerializedName("clubName")val clubName:String,
+    @SerializedName("clubId")val clubId:Int,
     @SerializedName("profileImage")val profileImage:String,
     @SerializedName("uploadAt")val uploadAt: Date,
     @SerializedName("content")val content:String,

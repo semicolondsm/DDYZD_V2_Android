@@ -11,17 +11,12 @@ import java.util.*
 
 object MainFeedBindingAdapter {
     @JvmStatic
-    @BindingAdapter("adapter")
-    fun mainFeedAdapter(recyclerView: RecyclerView,adapter:RecyclerView.Adapter<RecyclerView.ViewHolder>){
+    @BindingAdapter(value=["adapter","scroll"])
+    fun mainFeedAdapter(recyclerView: RecyclerView,adapter:RecyclerView.Adapter<RecyclerView.ViewHolder>,listener:RecyclerView.OnScrollListener?){
         val layoutManager=LinearLayoutManager(recyclerView.context)
         layoutManager.orientation=RecyclerView.VERTICAL
         recyclerView.layoutManager=layoutManager
         recyclerView.adapter=adapter
-    }
-
-    @JvmStatic
-    @BindingAdapter("onScrollListener")
-    fun onScrollListener(recyclerView: RecyclerView,listener:RecyclerView.OnScrollListener?){
         val oldValue=ListenerUtil.trackListener(recyclerView,listener, recyclerView.id)
         if(oldValue!=null){
             recyclerView.removeOnScrollListener(oldValue)

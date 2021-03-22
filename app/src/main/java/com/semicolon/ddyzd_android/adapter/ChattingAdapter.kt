@@ -1,6 +1,8 @@
 package com.semicolon.ddyzd_android.adapter
 
 import android.view.LayoutInflater
+import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
@@ -66,6 +68,8 @@ class ChattingAdapter(val chatting  : MutableLiveData<List<ChattingData>>, val v
         fun bind(position: Int, viewModel: ChattingPageViewModel){
             binding.vm = viewModel
             binding.position = position
+            viewModel.userResult2.value=chatting.value?.get(position)?.result
+            println("${chatting.value?.get(position)?.result} 블리언 값입니다!!")
             binding.executePendingBindings()
         }
     }
