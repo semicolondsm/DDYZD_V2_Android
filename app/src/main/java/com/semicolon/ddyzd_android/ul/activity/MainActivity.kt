@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.vm = viewModel
         setContentView(binding.root)
+        createFeeds()
         binding.mainBtmNav.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_home -> {
