@@ -25,7 +25,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textView19"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -35,8 +35,7 @@
                 android:layout_marginBottom="2dp"
                 android:background="@drawable/back_white_view"
                 android:backgroundTint="#E1D6FF"
-                android:maxLines="4"
-                android:padding="10dp"
+                android:padding="13dp"
                 android:text="@{vm.chattingList[position].msg}"
                 android:textColor="@color/black"
                 android:textSize="15dp" />
