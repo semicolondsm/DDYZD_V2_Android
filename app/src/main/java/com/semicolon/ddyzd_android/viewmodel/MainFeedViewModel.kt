@@ -143,4 +143,8 @@ class MainFeedViewModel(private val navigator: MainActivity) : ViewModel() {
 
     }
 
+    fun onProfileClicked(id:Int){
+        navigator.startClubDetail(id.toString())
+    }
+
 }
