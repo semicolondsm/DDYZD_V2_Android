@@ -1,8 +1,13 @@
 package com.semicolon.ddyzd_android.adapter
 
+import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.webkit.ConsoleMessage
+import android.webkit.WebChromeClient
 import android.webkit.WebViewClient
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.semicolon.ddyzd_android.databinding.ItemFeedBinding
@@ -11,17 +16,20 @@ import com.semicolon.ddyzd_android.databinding.ItemImageFeedBinding
 import com.semicolon.ddyzd_android.model.MainFeedData
 import com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel
 
-class MainFeedAdapter(private val feeds: MutableLiveData<List<MainFeedData>>, private val viewModel: MainFeedViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MainFeedAdapter(
+    private val feeds: MutableLiveData<List<MainFeedData>>,
+    private val viewModel: MainFeedViewModel
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val MAIN_FEED_TYPE = 0
     private val IMAGE_FEED_TYPE = 1
     private val HEADER_FEED_TYPE = 2
-    lateinit var pageAdapter:FeedPagerAdapter
+    lateinit var pageAdapter: FeedPagerAdapter
 
     inner class MainFeedViewHolder(private val binding: ItemFeedBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int, viewModel: MainFeedViewModel) {
             binding.vm = viewModel
-            binding.position = position-1
+            binding.position = position - 1
             binding.executePendingBindings()
         }
     }
@@ -29,21 +37,33 @@ class MainFeedAdapter(private val feeds: MutableLiveData<List<MainFeedData>>, pr
     inner class ImageFeedViewHolder(private val binding: ItemImageFeedBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(position: Int, viewModel: MainFeedViewModel) {
-            pageAdapter=FeedPagerAdapter(feeds.value?.get(position-1)!!.media,binding)
+            pageAdapter = FeedPagerAdapter(feeds.value?.get(position - 1)!!.media, binding)
             binding.vm = viewModel
-            binding.position = position-1
+            binding.position = position - 1
             binding.executePendingBindings()
         }
     }
 
     inner class HeaderFeedViewHolder(private val binding: ItemFeedHeaderBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        @RequiresApi(Build.VERSION_CODES.O)
         fun bind(viewModel: MainFeedViewModel) {
             binding.vm = viewModel
-            binding.headerWebview.settings.javaScriptEnabled=true
-            binding.headerWebview.webViewClient= WebViewClient()
+            binding.headerWebview.settings.javaScriptEnabled = true
+            binding.headerWebview.webViewClient=WebViewClient()
             binding.headerWebview.settings.domStorageEnabled=true
             binding.headerWebview.loadUrl("https://semicolondsm.xyz/mobile/banner")
+            binding.headerWebview.webChromeClient = object : WebChromeClient() {
+                override fun onConsoleMessage(consoleMessage: ConsoleMessage?): Boolean {
+                    consoleMessage?.apply {
+                        Log.d(
+                            "MyApplication",
+                            "${message()} -- From line ${lineNumber()} of ${sourceId()}"
+                        )
+                    }
+                    return true
+                }
+            }
         }
     }
 
@@ -65,19 +85,20 @@ class MainFeedAdapter(private val feeds: MutableLiveData<List<MainFeedData>>, pr
 
     override fun getItemCount(): Int {
         return if (feeds.value != null) {
-            feeds.value!!.size+1
+            feeds.value!!.size + 1
         } else {
             1
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (position == 0) {
             (holder as HeaderFeedViewHolder).bind(viewModel)
         } else {
-            val obj = feeds.value?.get(position-1)
+            val obj = feeds.value?.get(position - 1)
             if (obj != null) {
-                if (obj.media.size>0) {
+                if (obj.media.size > 0) {
                     (holder as ImageFeedViewHolder).bind(position, viewModel)
                 } else {
                     (holder as MainFeedViewHolder).bind(position, viewModel)
@@ -89,7 +110,7 @@ class MainFeedAdapter(private val feeds: MutableLiveData<List<MainFeedData>>, pr
     override fun getItemViewType(position: Int): Int {
         return if (position == 0) {
             HEADER_FEED_TYPE
-        } else if (feeds.value?.get(position-1)?.media?.size!! >0) {
+        } else if (feeds.value?.get(position - 1)?.media?.size!! > 0) {
             IMAGE_FEED_TYPE
         } else {
             MAIN_FEED_TYPE

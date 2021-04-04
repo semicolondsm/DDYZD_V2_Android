@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.uber.rxdogtag2:rxdogtag:2.0.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.uber.rxdogtag2/rxdogtag/2.0.1/753750122287c3da73278da3132f6dceae62dcb9/rxdogtag-2.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.uber.rxdogtag2/rxdogtag/2.0.1/4afcdea66bce7afe1d366ccdb6c2b27443b59f4/rxdogtag-2.0.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.uber.rxdogtag2/rxdogtag/2.0.1/c0df211fd515958472f8f272f9b16677215fce7d/rxdogtag-2.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

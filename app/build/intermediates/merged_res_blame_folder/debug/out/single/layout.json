@@ -1,0 +1,146 @@
+[
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\sheet_club_feed.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\sheet_club_feed.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\item_member_list.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\item_member_list.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\item_user_club.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\item_user_club.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\feed_no_sheet.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\feed_no_sheet.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\item_user_application_chat.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\item_user_application_chat.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\item_user_result_chat.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\item_user_result_chat.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\item_image_feed.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\item_image_feed.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_clublist.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\fragment_clublist.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_chatting_page.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\activity_chatting_page.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\item_club_feed.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\item_club_feed.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\sheet_choice_modify.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\sheet_choice_modify.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_user_info.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\fragment_user_info.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\item_your_chat.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\item_your_chat.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\item_feed.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\item_feed.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_mypage.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\fragment_mypage.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_club_details.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\activity_club_details.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_login.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\activity_login.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\item_my_chat.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\item_my_chat.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\item_schedule_chat.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\item_schedule_chat.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\item_club_image_feed.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\item_club_image_feed.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\item_club.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\item_club.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\list_chat.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\list_chat.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\fragment_feed.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\fragment_feed.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\item_inclub_user_club.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\item_inclub_user_club.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\sheet_modify_intro.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\sheet_modify_intro.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\sheet_git_edit.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\sheet_git_edit.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\item_club_result_chat.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\item_club_result_chat.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_main.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\item_member_profile.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\item_member_profile.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\item_club_detail_header.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\item_club_detail_header.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\feed_sheet.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\feed_sheet.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\item_page_image.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\item_page_image.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\item_club_application_chat.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\item_club_application_chat.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_add_feed.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\activity_add_feed.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\item_feed_header.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\item_feed_header.xml"
+    },
+    {
+        "merged": "D:\\Github\\DDYZD_V2_Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_chat_list.xml",
+        "source": "D:\\Github\\DDYZD_V2_Android\\app\\src\\main\\res\\layout\\activity_chat_list.xml"
+    }
+]
