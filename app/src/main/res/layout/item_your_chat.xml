@@ -45,6 +45,8 @@
                 android:text="@{vm.chattingList[position].msg}"
                 android:textColor="@color/black"
                 android:textSize="15dp"
+                android:linksClickable="true"
+                android:autoLink="web"
                 tools:ignore="MissingConstraints"
                 tools:text="상대방이 보낸 채팅" />
 

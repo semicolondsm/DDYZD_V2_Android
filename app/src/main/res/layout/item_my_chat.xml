@@ -38,6 +38,8 @@
                 android:padding="13dp"
                 android:text="@{vm.chattingList[position].msg}"
                 android:textColor="@color/black"
+                android:linksClickable="true"
+                android:autoLink="web"
                 android:textSize="15dp" />
         </FrameLayout>
 
