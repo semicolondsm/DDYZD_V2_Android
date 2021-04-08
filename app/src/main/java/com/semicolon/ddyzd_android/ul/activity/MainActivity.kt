@@ -101,7 +101,6 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         viewModel.onCreate()
-        reLoadFeeds()
     }
 
     private fun createFeeds() {

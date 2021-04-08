@@ -33,6 +33,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
     val clubName = navigater.clubName
     val clubId = navigater.clubId
     val index = navigater.index
+    val fcmClicked = navigater.fcmClicked
     var status = ""
     val adapter = BaseApi.getInstance()
     val chatBody = MutableLiveData<String>()
@@ -96,6 +97,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
                         userVisible.value = View.GONE
                     }
                 }
+                chattingListAdapter.notifyDataSetChanged()
             }
     }
 
