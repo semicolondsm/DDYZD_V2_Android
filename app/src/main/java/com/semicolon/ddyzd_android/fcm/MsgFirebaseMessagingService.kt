@@ -13,6 +13,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.semicolon.ddyzd_android.R
+import com.semicolon.ddyzd_android.ul.activity.ChattingPage
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
 
 class MsgFirebaseMessagingService : FirebaseMessagingService() {
@@ -24,11 +25,9 @@ class MsgFirebaseMessagingService : FirebaseMessagingService() {
      * this is new on firebase-messaging:17.1.0
      */
     override fun onNewToken(p0: String) {
-        Log.d(TAG, "new Token: $p0")
         val startShared =
             getSharedPreferences("device", Context.MODE_PRIVATE)
         startShared.edit().putString("device_token",p0).apply()
-
     }
 
     /**
@@ -37,11 +36,12 @@ class MsgFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         if(remoteMessage.notification != null) {
             val getMessage=remoteMessage.notification!!.body
-            val getTitle=remoteMessage.notification!!.title
-            val hashMap=HashMap<String,String>()
+            val getTitle = remoteMessage.notification!!.title
+            val getRoomId = remoteMessage.data["room_id"]
+            val hashMap = HashMap<String, String>()
             hashMap["body"]=getMessage!!
-            hashMap["title"]=getTitle!!
-
+            hashMap["title"] = getTitle!!
+            hashMap["roomId"] = getRoomId.toString()
             sendNotification(hashMap)
 
             val intent=Intent("alert_data")
@@ -51,23 +51,36 @@ class MsgFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     private fun sendNotification(data:Map<String,String>?) {
-        var message=""
-        var title=""
-        val intent = Intent(this, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            flags=Intent.FLAG_ACTIVITY_SINGLE_TOP
-        }
-
-        if(data!=null&& data.isNotEmpty()){
+        var message = ""
+        var title = ""
+        var roomId = ""
+        var intent = Intent()
+        if (data != null && data.isNotEmpty()) {
             message = data["body"] ?: error("")
-            title =data["title"] ?: error("")
+            title = data["title"] ?: error("")
+            if (!data["roomId"].isNullOrEmpty()) {
+                roomId = data["roomId"] ?: error("")
+            }
+        }
+        if (roomId.isEmpty()) {
+            intent = Intent(this, MainActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+            }
+        } else if (roomId.isNotEmpty()) {
+            intent = Intent(this, ChattingPage::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+            }
+            intent.putExtra("chatRoomId", roomId)
+            intent.putExtra("chatClubName", title)
         }
 
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
-        val channelId=getString(R.string.default_notification_channel_id)
+        val channelId = getString(R.string.default_notification_channel_id)
         val notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
 
-        val notificationBuilder = NotificationCompat.Builder(this,channelId)
+        val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle(title)
             .setContentText(message)
