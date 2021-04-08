@@ -4,9 +4,9 @@ package com.semicolon.ddyzd_android.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
@@ -21,7 +21,7 @@ public abstract class ItemYourChatBinding extends ViewDataBinding {
   public final CircleImageView circleImageView2;
 
   @NonNull
-  public final TextView textView18;
+  public final AppCompatTextView textView18;
 
   @Bindable
   protected ChattingPageViewModel mVm;
@@ -30,7 +30,7 @@ public abstract class ItemYourChatBinding extends ViewDataBinding {
   protected Integer mPosition;
 
   protected ItemYourChatBinding(Object _bindingComponent, View _root, int _localFieldCount,
-      CircleImageView circleImageView2, TextView textView18) {
+      CircleImageView circleImageView2, AppCompatTextView textView18) {
     super(_bindingComponent, _root, _localFieldCount);
     this.circleImageView2 = circleImageView2;
     this.textView18 = textView18;

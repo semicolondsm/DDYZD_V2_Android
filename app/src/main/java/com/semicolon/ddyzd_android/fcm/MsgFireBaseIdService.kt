@@ -8,6 +8,5 @@ class MsgFireBaseIdService: FirebaseInstanceIdService() {
     override fun onTokenRefresh() {
         super.onTokenRefresh()
         val refreshToken=FirebaseInstanceId.getInstance().token
-        Log.d("Firebase", "Refreshed token: $refreshToken")
     }
 }

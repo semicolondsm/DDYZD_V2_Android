@@ -20,7 +20,7 @@ public class ItemMemberProfileBindingImpl extends ItemMemberProfileBinding imple
     private final android.widget.LinearLayout mboundView0;
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback25;
+    private final android.view.View.OnClickListener mCallback29;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -41,7 +41,7 @@ public class ItemMemberProfileBindingImpl extends ItemMemberProfileBinding imple
         this.profileImage.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback25 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 1);
+        mCallback29 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
@@ -209,7 +209,7 @@ public class ItemMemberProfileBindingImpl extends ItemMemberProfileBinding imple
         if ((dirtyFlags & 0x8L) != 0) {
             // api target 1
 
-            this.mboundView0.setOnClickListener(mCallback25);
+            this.mboundView0.setOnClickListener(mCallback29);
         }
         if ((dirtyFlags & 0xfL) != 0) {
             // api target 1

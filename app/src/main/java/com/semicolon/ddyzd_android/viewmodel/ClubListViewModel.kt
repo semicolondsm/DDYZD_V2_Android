@@ -74,7 +74,8 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                     body[i].clubname,
                     body[i].clubdescription,
                     body[i].clubid,
-                    body[i].backimage
+                    body[i].backimage,
+                    body[i].clubrecruitment
                 )
             )
         }
@@ -100,7 +101,8 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                             body[i].clubname,
                             body[i].clubdescription,
                             body[i].clubid,
-                            body[i].backimage
+                            body[i].backimage,
+                            body[i].clubrecruitment
                         )
                     )
                 }
@@ -118,7 +120,8 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                                     body[i].clubname,
                                     body[i].clubdescription,
                                     body[i].clubid,
-                                    body[i].backimage
+                                    body[i].backimage,
+                                    body[i].clubrecruitment
                                 )
                             )
                         }
@@ -138,7 +141,8 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                                     body[i].clubname,
                                     body[i].clubdescription,
                                     body[i].clubid,
-                                    body[i].backimage
+                                    body[i].backimage,
+                                    body[i].clubrecruitment
                                 )
                             )
                         }
@@ -158,7 +162,8 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                                     body[i].clubname,
                                     body[i].clubdescription,
                                     body[i].clubid,
-                                    body[i].backimage
+                                    body[i].backimage,
+                                    body[i].clubrecruitment
                                 )
                             )
                         }
@@ -178,7 +183,8 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                                     body[i].clubname,
                                     body[i].clubdescription,
                                     body[i].clubid,
-                                    body[i].backimage
+                                    body[i].backimage,
+                                    body[i].clubrecruitment
                                 )
                             )
                         }
@@ -199,7 +205,8 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                                     body[i].clubname,
                                     body[i].clubdescription,
                                     body[i].clubid,
-                                    body[i].backimage
+                                    body[i].backimage,
+                                    body[i].clubrecruitment
                                 )
                             )
                         }
@@ -219,7 +226,8 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                                     body[i].clubname,
                                     body[i].clubdescription,
                                     body[i].clubid,
-                                    body[i].backimage
+                                    body[i].backimage,
+                                    body[i].clubrecruitment
                                 )
                             )
                         }
@@ -239,7 +247,8 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
                                     body[i].clubname,
                                     body[i].clubdescription,
                                     body[i].clubid,
-                                    body[i].backimage
+                                    body[i].backimage,
+                                    body[i].clubrecruitment
                                 )
                             )
                         }

@@ -1,6 +1,7 @@
 package com.semicolon.ddyzd_android.bindingadapter
 
 import android.text.TextUtils
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -46,6 +47,16 @@ object ClubListBindingAdapter {
             return
         }
         textView.text=text
+    }
+
+    @JvmStatic
+    @BindingAdapter("booleanToVisible")
+    fun setBooleanVisible(view: View,bool:Boolean){
+        if(bool){
+            view.visibility=View.VISIBLE
+        }else{
+            view.visibility=View.INVISIBLE
+        }
     }
 
 

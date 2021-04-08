@@ -28,7 +28,7 @@ public class ItemMyChatBindingImpl extends ItemMyChatBinding  {
     }
     private ItemMyChatBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 1
-            , (android.widget.TextView) bindings[1]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[1]
             );
         this.mboundView0 = (androidx.constraintlayout.widget.ConstraintLayout) bindings[0];
         this.mboundView0.setTag(null);

@@ -19,8 +19,6 @@ public class ItemClubResultChatBindingImpl extends ItemClubResultChatBinding  {
     // views
     @NonNull
     private final androidx.constraintlayout.widget.ConstraintLayout mboundView0;
-    @NonNull
-    private final android.widget.TextView mboundView3;
     // variables
     // values
     // listeners
@@ -32,13 +30,13 @@ public class ItemClubResultChatBindingImpl extends ItemClubResultChatBinding  {
     private ItemClubResultChatBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 1
             , (androidx.constraintlayout.widget.ConstraintLayout) bindings[4]
+            , (android.widget.TextView) bindings[3]
             , (android.widget.TextView) bindings[2]
             , (android.widget.TextView) bindings[1]
             );
         this.mboundView0 = (androidx.constraintlayout.widget.ConstraintLayout) bindings[0];
         this.mboundView0.setTag(null);
-        this.mboundView3 = (android.widget.TextView) bindings[3];
-        this.mboundView3.setTag(null);
+        this.textView10.setTag(null);
         this.textView7.setTag(null);
         this.textView9.setTag(null);
         setRootTag(root);
@@ -169,7 +167,7 @@ public class ItemClubResultChatBindingImpl extends ItemClubResultChatBinding  {
         if ((dirtyFlags & 0xfL) != 0) {
             // api target 1
 
-            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.mboundView3, vmChattingListPositionMsg);
+            androidx.databinding.adapters.TextViewBindingAdapter.setText(this.textView10, vmChattingListPositionMsg);
             com.semicolon.ddyzd_android.bindingadapter.ChattingBindingAdaper.timeAdapter(this.textView7, vmChattingListPositionCreatedAt);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.textView9, vmChattingListPositionTitle);
         }

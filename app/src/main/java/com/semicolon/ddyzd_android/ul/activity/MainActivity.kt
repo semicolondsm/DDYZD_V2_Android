@@ -9,6 +9,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
 import com.semicolon.ddyzd_android.ActivityNavigator
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.ViewModels.feedViewModel
@@ -24,6 +27,7 @@ import com.semicolon.ddyzd_android.viewmodel.MyPageViewModel
 
 class MainActivity : AppCompatActivity() {
     private val LOGIN_REQUEST_CODE = 12
+    private val UPDATE_LOGIN_CODE=47
     val viewModel = MainViewModel(this)
     lateinit var binding: ActivityMainBinding
 
@@ -38,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         initViewModels()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setTheme(R.style.AppTheme)
+        checkUpdate()
         super.onCreate(savedInstanceState)
         binding =
             ActivityMainBinding.inflate(layoutInflater)
@@ -70,6 +75,20 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * 업데이트 확인하는 함수
+     */
+    private fun checkUpdate(){
+        val appUpdateManager=AppUpdateManagerFactory.create(applicationContext)
+        val appUpdateInfoTask=appUpdateManager.appUpdateInfo
+        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo->
+            if(appUpdateInfo.updateAvailability()==UpdateAvailability.UPDATE_AVAILABLE&&appUpdateInfo.isUpdateTypeAllowed(
+                    AppUpdateType.IMMEDIATE)){
+                appUpdateManager.startUpdateFlowForResult(appUpdateInfo,AppUpdateType.IMMEDIATE,this,LOGIN_REQUEST_CODE)
+            }
+        }
+    }
+
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         setIntent(intent)
@@ -85,7 +104,7 @@ class MainActivity : AppCompatActivity() {
         reLoadFeeds()
     }
 
-    fun createFeeds() {
+    private fun createFeeds() {
         binding.mainBtmNav.selectedItemId = R.id.nav_home
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_container, MainFeed()).commitAllowingStateLoss()

@@ -110,11 +110,11 @@ public class ActivityClubDetailsBindingImpl extends ActivityClubDetailsBinding i
             mDirtyFlags = 0;
         }
         java.lang.Integer vmIsEmptyGetValue = null;
-        com.semicolon.ddyzd_android.viewmodel.ClubDetailsViewModel vm = mVm;
-        int androidxDatabindingViewDataBindingSafeUnboxVmIsEmptyGetValue = 0;
         com.semicolon.ddyzd_android.adapter.ClubDetailAdapter vmDetailAdapter = null;
         androidx.lifecycle.MutableLiveData<java.lang.Integer> vmIsEmpty = null;
-        androidx.recyclerview.widget.RecyclerView.OnScrollListener vmScrollListener = null;
+        com.semicolon.ddyzd_android.viewmodel.ClubDetailsViewModel vm = mVm;
+        int androidxDatabindingViewDataBindingSafeUnboxVmIsEmptyGetValue = 0;
+        androidx.recyclerview.widget.RecyclerView.OnScrollListener vmClubScrollListener = null;
 
         if ((dirtyFlags & 0x7L) != 0) {
 
@@ -124,8 +124,8 @@ public class ActivityClubDetailsBindingImpl extends ActivityClubDetailsBinding i
                     if (vm != null) {
                         // read vm.detailAdapter
                         vmDetailAdapter = vm.getDetailAdapter();
-                        // read vm.scrollListener
-                        vmScrollListener = vm.getScrollListener();
+                        // read vm.clubScrollListener
+                        vmClubScrollListener = vm.getClubScrollListener();
                     }
             }
 
@@ -154,8 +154,7 @@ public class ActivityClubDetailsBindingImpl extends ActivityClubDetailsBinding i
         if ((dirtyFlags & 0x6L) != 0) {
             // api target 1
 
-            com.semicolon.ddyzd_android.bindingadapter.MainFeedBindingAdapter.mainFeedAdapter(this.clubDetailsRc, vmDetailAdapter);
-            com.semicolon.ddyzd_android.bindingadapter.MainFeedBindingAdapter.onScrollListener(this.clubDetailsRc, vmScrollListener);
+            com.semicolon.ddyzd_android.bindingadapter.MainFeedBindingAdapter.mainFeedAdapter(this.clubDetailsRc, vmDetailAdapter, vmClubScrollListener);
         }
         if ((dirtyFlags & 0x7L) != 0) {
             // api target 1
