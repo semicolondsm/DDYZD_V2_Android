@@ -25,11 +25,9 @@ class MsgFirebaseMessagingService : FirebaseMessagingService() {
      * this is new on firebase-messaging:17.1.0
      */
     override fun onNewToken(p0: String) {
-        Log.d(TAG, "new Token: $p0")
         val startShared =
             getSharedPreferences("device", Context.MODE_PRIVATE)
         startShared.edit().putString("device_token",p0).apply()
-
     }
 
     /**

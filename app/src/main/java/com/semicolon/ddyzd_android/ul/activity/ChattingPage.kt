@@ -32,7 +32,6 @@ class ChattingPage : AppCompatActivity() {
 
         clubId = intent.getStringExtra("chatClubId").toString()
         roomId = intent.getStringExtra("chatRoomId").toString()
-        clubImage = intent.getStringExtra("chatClubImage").toString()
         clubName = intent.getStringExtra("chatClubName").toString()
         status = intent.getStringExtra("status").toString()
         index = intent.getIntExtra("chatIndex", 0)

@@ -29,7 +29,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
     val userVisible = MutableLiveData<Int>(View.GONE)
     val chattingList = MutableLiveData<List<ChattingData>>()
     val roomid = navigater.roomId
-    val clubImage = navigater.clubImage
+    val clubImage = MutableLiveData<String>()
     val clubName = navigater.clubName
     val clubId = navigater.clubId
     val index = navigater.index
@@ -77,7 +77,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
             .subscribeOn(Schedulers.io())
             .subscribe { response ->
                 status = response.body()?.status.toString()
-
+                clubImage.value = response.body()?.image.toString()
                 if (index != 0) {
                     user.value=false
                     if(status == "S"){
@@ -162,8 +162,7 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
             data.put("room_token", roomToken)
             data.put("msg", message)
             socket.emit("send_chat", data)
-            chatBody.value = null
-            //chattingListAdapter.notifyDataSetChanged()
+            chatBody.value = ""
         }
     }
 
