@@ -35,10 +35,7 @@ class MsgFirebaseMessagingService : FirebaseMessagingService() {
      * this method will be triggered every time there is new FCM Message.
      */
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        Log.d(TAG, "From: " + remoteMessage.from)
-
         if(remoteMessage.notification != null) {
-            Log.d(TAG, "Notification Message Body: ${remoteMessage.notification?.body}")
             val getMessage=remoteMessage.notification!!.body
             val getTitle=remoteMessage.notification!!.title
             val hashMap=HashMap<String,String>()
