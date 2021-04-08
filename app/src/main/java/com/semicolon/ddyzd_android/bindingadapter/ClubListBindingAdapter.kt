@@ -55,7 +55,7 @@ object ClubListBindingAdapter {
         if(bool){
             view.visibility=View.VISIBLE
         }else{
-            view.visibility=View.VISIBLE
+            view.visibility=View.INVISIBLE
         }
     }
 
