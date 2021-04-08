@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
@@ -21,6 +22,9 @@ public abstract class ItemUserResultChatBinding extends ViewDataBinding {
   public final ConstraintLayout constraintLayout3;
 
   @NonNull
+  public final AppCompatButton resultBtn;
+
+  @NonNull
   public final TextView textView;
 
   @NonNull
@@ -33,9 +37,11 @@ public abstract class ItemUserResultChatBinding extends ViewDataBinding {
   protected Integer mPosition;
 
   protected ItemUserResultChatBinding(Object _bindingComponent, View _root, int _localFieldCount,
-      ConstraintLayout constraintLayout3, TextView textView, TextView textView9) {
+      ConstraintLayout constraintLayout3, AppCompatButton resultBtn, TextView textView,
+      TextView textView9) {
     super(_bindingComponent, _root, _localFieldCount);
     this.constraintLayout3 = constraintLayout3;
+    this.resultBtn = resultBtn;
     this.textView = textView;
     this.textView9 = textView9;
   }

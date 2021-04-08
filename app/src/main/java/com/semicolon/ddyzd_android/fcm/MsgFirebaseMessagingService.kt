@@ -40,6 +40,7 @@ class MsgFirebaseMessagingService : FirebaseMessagingService() {
         if(remoteMessage.notification != null) {
             Log.d(TAG, "Notification Message Body: ${remoteMessage.notification?.body}")
             val getMessage=remoteMessage.notification!!.body
+            Log.d("fcm_message",getMessage.toString())
             val hashMap=HashMap<String,String>()
             hashMap["key"]=getMessage!!
 

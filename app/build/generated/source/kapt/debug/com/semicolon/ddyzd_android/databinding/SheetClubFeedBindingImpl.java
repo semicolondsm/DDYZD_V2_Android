@@ -20,7 +20,7 @@ public class SheetClubFeedBindingImpl extends SheetClubFeedBinding implements co
     private final android.widget.LinearLayout mboundView0;
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback15;
+    private final android.view.View.OnClickListener mCallback17;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -37,7 +37,7 @@ public class SheetClubFeedBindingImpl extends SheetClubFeedBinding implements co
         this.mboundView0.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback15 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 1);
+        mCallback17 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
@@ -111,7 +111,7 @@ public class SheetClubFeedBindingImpl extends SheetClubFeedBinding implements co
         if ((dirtyFlags & 0x4L) != 0) {
             // api target 1
 
-            this.deleteBtn.setOnClickListener(mCallback15);
+            this.deleteBtn.setOnClickListener(mCallback17);
         }
     }
     // Listener Stub Implementations

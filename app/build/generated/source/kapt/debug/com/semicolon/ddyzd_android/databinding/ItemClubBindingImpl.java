@@ -18,7 +18,7 @@ public class ItemClubBindingImpl extends ItemClubBinding implements com.semicolo
     // views
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback30;
+    private final android.view.View.OnClickListener mCallback34;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -39,7 +39,7 @@ public class ItemClubBindingImpl extends ItemClubBinding implements com.semicolo
         this.image.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback30 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 1);
+        mCallback34 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
@@ -147,7 +147,7 @@ public class ItemClubBindingImpl extends ItemClubBinding implements com.semicolo
         if ((dirtyFlags & 0x4L) != 0) {
             // api target 1
 
-            this.clubName.setOnClickListener(mCallback30);
+            this.clubName.setOnClickListener(mCallback34);
         }
         if ((dirtyFlags & 0x7L) != 0) {
             // api target 1

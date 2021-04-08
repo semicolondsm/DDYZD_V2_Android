@@ -27,11 +27,11 @@ public class ActivityChattingPageBindingImpl extends ActivityChattingPageBinding
     private final android.widget.TextView mboundView5;
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback23;
+    private final android.view.View.OnClickListener mCallback27;
     @Nullable
-    private final android.view.View.OnClickListener mCallback24;
+    private final android.view.View.OnClickListener mCallback28;
     @Nullable
-    private final android.view.View.OnClickListener mCallback22;
+    private final android.view.View.OnClickListener mCallback26;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -98,9 +98,9 @@ public class ActivityChattingPageBindingImpl extends ActivityChattingPageBinding
         this.mboundView5.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback23 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 2);
-        mCallback24 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 3);
-        mCallback22 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 1);
+        mCallback27 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 2);
+        mCallback28 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 3);
+        mCallback26 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
@@ -310,10 +310,10 @@ public class ActivityChattingPageBindingImpl extends ActivityChattingPageBinding
         if ((dirtyFlags & 0x10L) != 0) {
             // api target 1
 
-            this.chatPageBcBtn.setOnClickListener(mCallback24);
-            this.chatPageSupportBtn.setOnClickListener(mCallback23);
+            this.chatPageBcBtn.setOnClickListener(mCallback28);
+            this.chatPageSupportBtn.setOnClickListener(mCallback27);
             androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.mboundView1, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, mboundView1androidTextAttrChanged);
-            this.mboundView2.setOnClickListener(mCallback22);
+            this.mboundView2.setOnClickListener(mCallback26);
         }
         if ((dirtyFlags & 0x18L) != 0) {
             // api target 1

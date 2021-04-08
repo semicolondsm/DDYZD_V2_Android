@@ -20,9 +20,9 @@ public class ItemClubDetailHeaderBindingImpl extends ItemClubDetailHeaderBinding
     private final androidx.constraintlayout.widget.ConstraintLayout mboundView0;
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback29;
+    private final android.view.View.OnClickListener mCallback33;
     @Nullable
-    private final android.view.View.OnClickListener mCallback28;
+    private final android.view.View.OnClickListener mCallback32;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -51,8 +51,8 @@ public class ItemClubDetailHeaderBindingImpl extends ItemClubDetailHeaderBinding
         this.profileImage.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback29 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 2);
-        mCallback28 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 1);
+        mCallback33 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 2);
+        mCallback32 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
@@ -244,8 +244,8 @@ public class ItemClubDetailHeaderBindingImpl extends ItemClubDetailHeaderBinding
         if ((dirtyFlags & 0x8L) != 0) {
             // api target 1
 
-            this.button3.setOnClickListener(mCallback29);
-            this.followBtn.setOnClickListener(mCallback28);
+            this.button3.setOnClickListener(mCallback33);
+            this.followBtn.setOnClickListener(mCallback32);
         }
         if ((dirtyFlags & 0xeL) != 0) {
             // api target 1

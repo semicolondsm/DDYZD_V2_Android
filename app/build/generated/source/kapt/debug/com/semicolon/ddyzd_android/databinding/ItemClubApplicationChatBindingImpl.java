@@ -25,7 +25,7 @@ public class ItemClubApplicationChatBindingImpl extends ItemClubApplicationChatB
     private final androidx.appcompat.widget.AppCompatButton mboundView4;
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback26;
+    private final android.view.View.OnClickListener mCallback30;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -49,7 +49,7 @@ public class ItemClubApplicationChatBindingImpl extends ItemClubApplicationChatB
         this.textView9.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback26 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 1);
+        mCallback30 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
@@ -183,7 +183,7 @@ public class ItemClubApplicationChatBindingImpl extends ItemClubApplicationChatB
         if ((dirtyFlags & 0x8L) != 0) {
             // api target 1
 
-            this.mboundView4.setOnClickListener(mCallback26);
+            this.mboundView4.setOnClickListener(mCallback30);
         }
     }
     // Listener Stub Implementations

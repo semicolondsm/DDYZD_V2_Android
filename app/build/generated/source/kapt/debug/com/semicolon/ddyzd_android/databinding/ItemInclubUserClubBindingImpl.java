@@ -20,7 +20,7 @@ public class ItemInclubUserClubBindingImpl extends ItemInclubUserClubBinding imp
     private final android.widget.LinearLayout mboundView0;
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback27;
+    private final android.view.View.OnClickListener mCallback31;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -39,7 +39,7 @@ public class ItemInclubUserClubBindingImpl extends ItemInclubUserClubBinding imp
         this.textView16.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback27 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 1);
+        mCallback31 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
@@ -127,7 +127,7 @@ public class ItemInclubUserClubBindingImpl extends ItemInclubUserClubBinding imp
         if ((dirtyFlags & 0x4L) != 0) {
             // api target 1
 
-            this.imageView12.setOnClickListener(mCallback27);
+            this.imageView12.setOnClickListener(mCallback31);
         }
         if ((dirtyFlags & 0x5L) != 0) {
             // api target 1

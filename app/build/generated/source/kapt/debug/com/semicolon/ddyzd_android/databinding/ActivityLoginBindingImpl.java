@@ -23,9 +23,9 @@ public class ActivityLoginBindingImpl extends ActivityLoginBinding implements co
     private final androidx.core.widget.ContentLoadingProgressBar mboundView3;
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback36;
+    private final android.view.View.OnClickListener mCallback39;
     @Nullable
-    private final android.view.View.OnClickListener mCallback35;
+    private final android.view.View.OnClickListener mCallback40;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -47,8 +47,8 @@ public class ActivityLoginBindingImpl extends ActivityLoginBinding implements co
         this.mboundView3.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback36 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 2);
-        mCallback35 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 1);
+        mCallback39 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 1);
+        mCallback40 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 2);
         invalidateAll();
     }
 
@@ -145,8 +145,8 @@ public class ActivityLoginBindingImpl extends ActivityLoginBinding implements co
         if ((dirtyFlags & 0x4L) != 0) {
             // api target 1
 
-            this.loginAuthBtn.setOnClickListener(mCallback36);
-            this.loginNoBtn.setOnClickListener(mCallback35);
+            this.loginAuthBtn.setOnClickListener(mCallback40);
+            this.loginNoBtn.setOnClickListener(mCallback39);
         }
         if ((dirtyFlags & 0x7L) != 0) {
             // api target 1
@@ -158,23 +158,6 @@ public class ActivityLoginBindingImpl extends ActivityLoginBinding implements co
     // callback impls
     public final void _internalCallbackOnClick(int sourceId , android.view.View callbackArg_0) {
         switch(sourceId) {
-            case 2: {
-                // localize variables for thread safety
-                // vm != null
-                boolean vmJavaLangObjectNull = false;
-                // vm
-                com.semicolon.ddyzd_android.viewmodel.LoginViewModel vm = mVm;
-
-
-
-                vmJavaLangObjectNull = (vm) != (null);
-                if (vmJavaLangObjectNull) {
-
-
-                    vm.startLogin();
-                }
-                break;
-            }
             case 1: {
                 // localize variables for thread safety
                 // vm != null
@@ -189,6 +172,23 @@ public class ActivityLoginBindingImpl extends ActivityLoginBinding implements co
 
 
                     vm.startWithoutLogin();
+                }
+                break;
+            }
+            case 2: {
+                // localize variables for thread safety
+                // vm != null
+                boolean vmJavaLangObjectNull = false;
+                // vm
+                com.semicolon.ddyzd_android.viewmodel.LoginViewModel vm = mVm;
+
+
+
+                vmJavaLangObjectNull = (vm) != (null);
+                if (vmJavaLangObjectNull) {
+
+
+                    vm.startLogin();
                 }
                 break;
             }

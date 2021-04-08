@@ -201,8 +201,7 @@ public class FragmentFeedBindingImpl extends FragmentFeedBinding implements com.
         if ((dirtyFlags & 0xcL) != 0) {
             // api target 1
 
-            com.semicolon.ddyzd_android.bindingadapter.MainFeedBindingAdapter.onScrollListener(this.feedRv, vmScrollListener);
-            com.semicolon.ddyzd_android.bindingadapter.MainFeedBindingAdapter.mainFeedAdapter(this.feedRv, vmFeedAdapter);
+            com.semicolon.ddyzd_android.bindingadapter.MainFeedBindingAdapter.mainFeedAdapter(this.feedRv, vmFeedAdapter, vmScrollListener);
         }
         if ((dirtyFlags & 0xdL) != 0) {
             // api target 1

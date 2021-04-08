@@ -2025,6 +2025,7 @@ id progress_horizontal
 id radio
 id ratio
 id rectangles
+id result_btn
 id reverseSawtooth
 id right
 id right_icon
@@ -2105,6 +2106,7 @@ id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
 id textView
+id textView10
 id textView14
 id textView16
 id textView18

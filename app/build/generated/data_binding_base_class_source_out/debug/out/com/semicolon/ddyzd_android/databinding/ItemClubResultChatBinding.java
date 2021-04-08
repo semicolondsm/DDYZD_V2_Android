@@ -21,6 +21,9 @@ public abstract class ItemClubResultChatBinding extends ViewDataBinding {
   public final ConstraintLayout constraintLayout3;
 
   @NonNull
+  public final TextView textView10;
+
+  @NonNull
   public final TextView textView7;
 
   @NonNull
@@ -33,9 +36,11 @@ public abstract class ItemClubResultChatBinding extends ViewDataBinding {
   protected Integer mPosition;
 
   protected ItemClubResultChatBinding(Object _bindingComponent, View _root, int _localFieldCount,
-      ConstraintLayout constraintLayout3, TextView textView7, TextView textView9) {
+      ConstraintLayout constraintLayout3, TextView textView10, TextView textView7,
+      TextView textView9) {
     super(_bindingComponent, _root, _localFieldCount);
     this.constraintLayout3 = constraintLayout3;
+    this.textView10 = textView10;
     this.textView7 = textView7;
     this.textView9 = textView9;
   }

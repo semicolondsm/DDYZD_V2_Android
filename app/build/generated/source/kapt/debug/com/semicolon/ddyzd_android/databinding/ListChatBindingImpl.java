@@ -20,7 +20,7 @@ public class ListChatBindingImpl extends ListChatBinding implements com.semicolo
     private final androidx.constraintlayout.widget.ConstraintLayout mboundView0;
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback19;
+    private final android.view.View.OnClickListener mCallback23;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -45,7 +45,7 @@ public class ListChatBindingImpl extends ListChatBinding implements com.semicolo
         this.time.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback19 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 1);
+        mCallback23 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
@@ -248,7 +248,7 @@ public class ListChatBindingImpl extends ListChatBinding implements com.semicolo
         if ((dirtyFlags & 0x10L) != 0) {
             // api target 1
 
-            this.mboundView0.setOnClickListener(mCallback19);
+            this.mboundView0.setOnClickListener(mCallback23);
         }
     }
     // Listener Stub Implementations

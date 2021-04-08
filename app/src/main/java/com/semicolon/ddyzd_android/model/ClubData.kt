@@ -6,5 +6,6 @@ data class ClubData(
     val clubtag: ArrayList<String>,
     val clubimage: String,
     val backimage: String?,
-    val clubdescription: String
+    val clubdescription: String,
+    val clubrecruitment:Boolean
 )

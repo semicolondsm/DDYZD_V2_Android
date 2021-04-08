@@ -21,7 +21,7 @@ public class SheetModifyIntroBindingImpl extends SheetModifyIntroBinding impleme
     private final androidx.constraintlayout.widget.ConstraintLayout mboundView0;
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback21;
+    private final android.view.View.OnClickListener mCallback25;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -78,7 +78,7 @@ public class SheetModifyIntroBindingImpl extends SheetModifyIntroBinding impleme
         this.mboundView0.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback21 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 1);
+        mCallback25 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
@@ -170,7 +170,7 @@ public class SheetModifyIntroBindingImpl extends SheetModifyIntroBinding impleme
         if ((dirtyFlags & 0x4L) != 0) {
             // api target 1
 
-            this.button2.setOnClickListener(mCallback21);
+            this.button2.setOnClickListener(mCallback25);
             androidx.databinding.adapters.TextViewBindingAdapter.setTextWatcher(this.editTextTextPersonName, (androidx.databinding.adapters.TextViewBindingAdapter.BeforeTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged)null, (androidx.databinding.adapters.TextViewBindingAdapter.AfterTextChanged)null, editTextTextPersonNameandroidTextAttrChanged);
         }
         if ((dirtyFlags & 0x7L) != 0) {

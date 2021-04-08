@@ -19,7 +19,7 @@ public class ItemYourChatBindingImpl extends ItemYourChatBinding  {
     @NonNull
     private final androidx.constraintlayout.widget.ConstraintLayout mboundView0;
     @NonNull
-    private final android.widget.TextView mboundView1;
+    private final android.widget.TextView mboundView3;
     // variables
     // values
     // listeners
@@ -30,14 +30,14 @@ public class ItemYourChatBindingImpl extends ItemYourChatBinding  {
     }
     private ItemYourChatBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 1
-            , (de.hdodenhof.circleimageview.CircleImageView) bindings[2]
-            , (android.widget.TextView) bindings[3]
+            , (de.hdodenhof.circleimageview.CircleImageView) bindings[1]
+            , (androidx.appcompat.widget.AppCompatTextView) bindings[2]
             );
         this.circleImageView2.setTag(null);
         this.mboundView0 = (androidx.constraintlayout.widget.ConstraintLayout) bindings[0];
         this.mboundView0.setTag(null);
-        this.mboundView1 = (android.widget.TextView) bindings[1];
-        this.mboundView1.setTag(null);
+        this.mboundView3 = (android.widget.TextView) bindings[3];
+        this.mboundView3.setTag(null);
         this.textView18.setTag(null);
         setRootTag(root);
         // listeners
@@ -177,7 +177,7 @@ public class ItemYourChatBindingImpl extends ItemYourChatBinding  {
         if ((dirtyFlags & 0xfL) != 0) {
             // api target 1
 
-            com.semicolon.ddyzd_android.bindingadapter.ChattingBindingAdaper.timeAdapter(this.mboundView1, vmChattingListPositionCreatedAt);
+            com.semicolon.ddyzd_android.bindingadapter.ChattingBindingAdaper.timeAdapter(this.mboundView3, vmChattingListPositionCreatedAt);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.textView18, vmChattingListPositionMsg);
         }
     }

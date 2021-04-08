@@ -20,11 +20,11 @@ public class SheetChoiceModifyBindingImpl extends SheetChoiceModifyBinding imple
     private final android.widget.LinearLayout mboundView0;
     // variables
     @Nullable
-    private final android.view.View.OnClickListener mCallback32;
+    private final android.view.View.OnClickListener mCallback36;
     @Nullable
-    private final android.view.View.OnClickListener mCallback33;
+    private final android.view.View.OnClickListener mCallback37;
     @Nullable
-    private final android.view.View.OnClickListener mCallback31;
+    private final android.view.View.OnClickListener mCallback35;
     // values
     // listeners
     // Inverse Binding Event Handlers
@@ -45,9 +45,9 @@ public class SheetChoiceModifyBindingImpl extends SheetChoiceModifyBinding imple
         this.mboundView0.setTag(null);
         setRootTag(root);
         // listeners
-        mCallback32 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 2);
-        mCallback33 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 3);
-        mCallback31 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 1);
+        mCallback36 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 2);
+        mCallback37 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 3);
+        mCallback35 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 1);
         invalidateAll();
     }
 
@@ -109,9 +109,9 @@ public class SheetChoiceModifyBindingImpl extends SheetChoiceModifyBinding imple
         if ((dirtyFlags & 0x2L) != 0) {
             // api target 1
 
-            this.button4.setOnClickListener(mCallback31);
-            this.button5.setOnClickListener(mCallback32);
-            this.button7.setOnClickListener(mCallback33);
+            this.button4.setOnClickListener(mCallback35);
+            this.button5.setOnClickListener(mCallback36);
+            this.button7.setOnClickListener(mCallback37);
         }
     }
     // Listener Stub Implementations

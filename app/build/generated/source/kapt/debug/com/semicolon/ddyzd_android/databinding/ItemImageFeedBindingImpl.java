@@ -23,7 +23,11 @@ public class ItemImageFeedBindingImpl extends ItemImageFeedBinding implements co
     private final androidx.constraintlayout.widget.ConstraintLayout mboundView0;
     // variables
     @Nullable
+    private final android.view.View.OnClickListener mCallback15;
+    @Nullable
     private final android.view.View.OnClickListener mCallback13;
+    @Nullable
+    private final android.view.View.OnClickListener mCallback16;
     @Nullable
     private final android.view.View.OnClickListener mCallback14;
     // values
@@ -59,7 +63,9 @@ public class ItemImageFeedBindingImpl extends ItemImageFeedBinding implements co
         this.textView5.setTag(null);
         setRootTag(root);
         // listeners
+        mCallback15 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 3);
         mCallback13 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 1);
+        mCallback16 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 4);
         mCallback14 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 2);
         invalidateAll();
     }
@@ -223,23 +229,25 @@ public class ItemImageFeedBindingImpl extends ItemImageFeedBinding implements co
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.textView4, vmFeedsPositionContent);
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.textView5, vmFeedsPositionFlagsJavaLangStringFlags);
         }
+        if ((dirtyFlags & 0x8L) != 0) {
+            // api target 1
+
+            this.imageView3.setOnClickListener(mCallback13);
+            this.imageView6.setOnClickListener(mCallback15);
+            this.imageView8.setOnClickListener(mCallback16);
+            this.textView2.setOnClickListener(mCallback14);
+        }
         if ((dirtyFlags & 0xcL) != 0) {
             // api target 1
 
             com.semicolon.ddyzd_android.bindingadapter.MainFeedBindingAdapter.pageAdapter(this.imageView4, vmFeedAdapterPageAdapter);
-        }
-        if ((dirtyFlags & 0x8L) != 0) {
-            // api target 1
-
-            this.imageView6.setOnClickListener(mCallback13);
-            this.imageView8.setOnClickListener(mCallback14);
         }
     }
     // Listener Stub Implementations
     // callback impls
     public final void _internalCallbackOnClick(int sourceId , android.view.View callbackArg_0) {
         switch(sourceId) {
-            case 1: {
+            case 3: {
                 // localize variables for thread safety
                 // vm != null
                 boolean vmJavaLangObjectNull = false;
@@ -299,7 +307,66 @@ public class ItemImageFeedBindingImpl extends ItemImageFeedBinding implements co
                 }
                 break;
             }
-            case 2: {
+            case 1: {
+                // localize variables for thread safety
+                // vm != null
+                boolean vmJavaLangObjectNull = false;
+                // vm.feeds != null
+                boolean vmFeedsJavaLangObjectNull = false;
+                // vm
+                com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel vm = mVm;
+                // position
+                java.lang.Integer position = mPosition;
+                // vm.feeds.getValue()[position]
+                com.semicolon.ddyzd_android.model.MainFeedData vmFeedsPosition = null;
+                // vm.feeds.getValue()
+                java.util.List<com.semicolon.ddyzd_android.model.MainFeedData> vmFeedsGetValue = null;
+                // vm.feeds.getValue()[position] != null
+                boolean vmFeedsPositionJavaLangObjectNull = false;
+                // vm.feeds.getValue()[position].clubId
+                int vmFeedsPositionClubId = 0;
+                // vm.feeds
+                androidx.lifecycle.MutableLiveData<java.util.List<com.semicolon.ddyzd_android.model.MainFeedData>> vmFeeds = null;
+                // vm.feeds.getValue() != null
+                boolean vmFeedsGetValueJavaLangObjectNull = false;
+
+
+
+                vmJavaLangObjectNull = (vm) != (null);
+                if (vmJavaLangObjectNull) {
+
+
+
+
+                    vmFeeds = vm.getFeeds();
+
+                    vmFeedsJavaLangObjectNull = (vmFeeds) != (null);
+                    if (vmFeedsJavaLangObjectNull) {
+
+
+                        vmFeedsGetValue = vmFeeds.getValue();
+
+                        vmFeedsGetValueJavaLangObjectNull = (vmFeedsGetValue) != (null);
+                        if (vmFeedsGetValueJavaLangObjectNull) {
+
+
+
+                            vmFeedsPosition = getFromList(vmFeedsGetValue, position);
+
+                            vmFeedsPositionJavaLangObjectNull = (vmFeedsPosition) != (null);
+                            if (vmFeedsPositionJavaLangObjectNull) {
+
+
+                                vmFeedsPositionClubId = vmFeedsPosition.getClubId();
+
+                                vm.onProfileClicked(vmFeedsPositionClubId);
+                            }
+                        }
+                    }
+                }
+                break;
+            }
+            case 4: {
                 // localize variables for thread safety
                 // vm != null
                 boolean vmJavaLangObjectNull = false;
@@ -364,6 +431,65 @@ public class ItemImageFeedBindingImpl extends ItemImageFeedBinding implements co
                                 vmFeedsPositionFeedId = vmFeedsPosition.getFeedId();
 
                                 vm.onMoreClicked(vmFeedsPositionOwner, vmFeedsPositionFeedId);
+                            }
+                        }
+                    }
+                }
+                break;
+            }
+            case 2: {
+                // localize variables for thread safety
+                // vm != null
+                boolean vmJavaLangObjectNull = false;
+                // vm.feeds != null
+                boolean vmFeedsJavaLangObjectNull = false;
+                // vm
+                com.semicolon.ddyzd_android.viewmodel.MainFeedViewModel vm = mVm;
+                // position
+                java.lang.Integer position = mPosition;
+                // vm.feeds.getValue()[position]
+                com.semicolon.ddyzd_android.model.MainFeedData vmFeedsPosition = null;
+                // vm.feeds.getValue()
+                java.util.List<com.semicolon.ddyzd_android.model.MainFeedData> vmFeedsGetValue = null;
+                // vm.feeds.getValue()[position] != null
+                boolean vmFeedsPositionJavaLangObjectNull = false;
+                // vm.feeds.getValue()[position].clubId
+                int vmFeedsPositionClubId = 0;
+                // vm.feeds
+                androidx.lifecycle.MutableLiveData<java.util.List<com.semicolon.ddyzd_android.model.MainFeedData>> vmFeeds = null;
+                // vm.feeds.getValue() != null
+                boolean vmFeedsGetValueJavaLangObjectNull = false;
+
+
+
+                vmJavaLangObjectNull = (vm) != (null);
+                if (vmJavaLangObjectNull) {
+
+
+
+
+                    vmFeeds = vm.getFeeds();
+
+                    vmFeedsJavaLangObjectNull = (vmFeeds) != (null);
+                    if (vmFeedsJavaLangObjectNull) {
+
+
+                        vmFeedsGetValue = vmFeeds.getValue();
+
+                        vmFeedsGetValueJavaLangObjectNull = (vmFeedsGetValue) != (null);
+                        if (vmFeedsGetValueJavaLangObjectNull) {
+
+
+
+                            vmFeedsPosition = getFromList(vmFeedsGetValue, position);
+
+                            vmFeedsPositionJavaLangObjectNull = (vmFeedsPosition) != (null);
+                            if (vmFeedsPositionJavaLangObjectNull) {
+
+
+                                vmFeedsPositionClubId = vmFeedsPosition.getClubId();
+
+                                vm.onProfileClicked(vmFeedsPositionClubId);
                             }
                         }
                     }
