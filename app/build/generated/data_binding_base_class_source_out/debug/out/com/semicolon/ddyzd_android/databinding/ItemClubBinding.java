@@ -4,6 +4,7 @@ package com.semicolon.ddyzd_android.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -30,6 +31,9 @@ public abstract class ItemClubBinding extends ViewDataBinding {
   @NonNull
   public final CircleImageView image;
 
+  @NonNull
+  public final TextView recurimentTv;
+
   @Bindable
   protected ClubListViewModel mVm;
 
@@ -38,12 +42,13 @@ public abstract class ItemClubBinding extends ViewDataBinding {
 
   protected ItemClubBinding(Object _bindingComponent, View _root, int _localFieldCount,
       ConstraintLayout clubName, MaterialTextView clubname, MaterialTextView example,
-      CircleImageView image) {
+      CircleImageView image, TextView recurimentTv) {
     super(_bindingComponent, _root, _localFieldCount);
     this.clubName = clubName;
     this.clubname = clubname;
     this.example = example;
     this.image = image;
+    this.recurimentTv = recurimentTv;
   }
 
   public abstract void setVm(@Nullable ClubListViewModel vm);

@@ -24,7 +24,7 @@ public class ItemClubBindingImpl extends ItemClubBinding implements com.semicolo
     // Inverse Binding Event Handlers
 
     public ItemClubBindingImpl(@Nullable androidx.databinding.DataBindingComponent bindingComponent, @NonNull View root) {
-        this(bindingComponent, root, mapBindings(bindingComponent, root, 4, sIncludes, sViewsWithIds));
+        this(bindingComponent, root, mapBindings(bindingComponent, root, 5, sIncludes, sViewsWithIds));
     }
     private ItemClubBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
@@ -32,11 +32,13 @@ public class ItemClubBindingImpl extends ItemClubBinding implements com.semicolo
             , (com.google.android.material.textview.MaterialTextView) bindings[2]
             , (com.google.android.material.textview.MaterialTextView) bindings[3]
             , (de.hdodenhof.circleimageview.CircleImageView) bindings[1]
+            , (android.widget.TextView) bindings[4]
             );
         this.clubName.setTag(null);
         this.clubname.setTag(null);
         this.example.setTag(null);
         this.image.setTag(null);
+        this.recurimentTv.setTag(null);
         setRootTag(root);
         // listeners
         mCallback34 = new com.semicolon.ddyzd_android.generated.callback.OnClickListener(this, 1);
@@ -115,6 +117,7 @@ public class ItemClubBindingImpl extends ItemClubBinding implements com.semicolo
         java.lang.String vmProflieListPositionName = null;
         java.lang.String vmProflieListPositionImage = null;
         int androidxDatabindingViewDataBindingSafeUnboxPosition = 0;
+        boolean vmProflieListPositionClubrecuriment = false;
 
         if ((dirtyFlags & 0x7L) != 0) {
 
@@ -141,6 +144,8 @@ public class ItemClubBindingImpl extends ItemClubBinding implements com.semicolo
                     vmProflieListPositionName = vmProflieListPosition.getName();
                     // read vm.proflieList[androidx.databinding.ViewDataBinding.safeUnbox(position)].image
                     vmProflieListPositionImage = vmProflieListPosition.getImage();
+                    // read vm.proflieList[androidx.databinding.ViewDataBinding.safeUnbox(position)].clubrecuriment
+                    vmProflieListPositionClubrecuriment = vmProflieListPosition.getClubrecuriment();
                 }
         }
         // batch finished
@@ -155,6 +160,7 @@ public class ItemClubBindingImpl extends ItemClubBinding implements com.semicolo
             androidx.databinding.adapters.TextViewBindingAdapter.setText(this.clubname, vmProflieListPositionName);
             com.semicolon.ddyzd_android.bindingadapter.ChattingBindingAdaper.subString(this.example, vmProflieListPositionExample);
             com.semicolon.ddyzd_android.bindingadapter.ProfilePhotoBindingAdapter.loadImage(this.image, vmProflieListPositionImage);
+            com.semicolon.ddyzd_android.bindingadapter.ClubListBindingAdapter.setBooleanVisible(this.recurimentTv, vmProflieListPositionClubrecuriment);
         }
     }
     // Listener Stub Implementations
