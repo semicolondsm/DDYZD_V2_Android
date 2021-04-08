@@ -40,9 +40,10 @@ class MsgFirebaseMessagingService : FirebaseMessagingService() {
         if(remoteMessage.notification != null) {
             Log.d(TAG, "Notification Message Body: ${remoteMessage.notification?.body}")
             val getMessage=remoteMessage.notification!!.body
-            Log.d("fcm_message",getMessage.toString())
+            val getTitle=remoteMessage.notification!!.title
             val hashMap=HashMap<String,String>()
-            hashMap["key"]=getMessage!!
+            hashMap["body"]=getMessage!!
+            hashMap["title"]=getTitle!!
 
             sendNotification(hashMap)
 
@@ -54,13 +55,15 @@ class MsgFirebaseMessagingService : FirebaseMessagingService() {
 
     private fun sendNotification(data:Map<String,String>?) {
         var message=""
+        var title=""
         val intent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             flags=Intent.FLAG_ACTIVITY_SINGLE_TOP
         }
 
         if(data!=null&& data.isNotEmpty()){
-            message= data["key"] ?: error("")
+            message = data["body"] ?: error("")
+            title =data["title"] ?: error("")
         }
 
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
@@ -69,7 +72,7 @@ class MsgFirebaseMessagingService : FirebaseMessagingService() {
 
         val notificationBuilder = NotificationCompat.Builder(this,channelId)
             .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle("Semicolon")
+            .setContentTitle(title)
             .setContentText(message)
             .setAutoCancel(true)
             .setSound(notificationSound)
