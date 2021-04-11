@@ -46,7 +46,6 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
     private lateinit var socket: Socket
     var applyTag = ArrayList<String>()
 
-    val userResult=MutableLiveData<Boolean>(true)
     val userResult2 = MutableLiveData<Boolean>(true)
 
     val visible=View.VISIBLE
@@ -54,7 +53,6 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
 
 
     init {
-        println("$status 채팅 ㄱㄷㅈㅁㄱㅂ")
         getChatting()
         getRoomToken()
         getApplyTag()
@@ -121,8 +119,6 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
             .subscribeOn(Schedulers.io())
             .subscribe({ response ->
                 if (response.isSuccessful) {
-                    Log.d("채팅","=${response.body()}")
-                    println("${response.body()} 이게 채팅 ")
                     response.body()?.let { readChattingList.addAll(it) }
                     possingChat = readChattingList.asReversed()
                     chattingList.value = possingChat
@@ -209,10 +205,8 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
     }
 
     fun helper4() {
-        println("")
         val resultCallback:(Boolean)->Unit={
             val data = JSONObject()
-            println("${it} 블리언 값")
             data.put("room_token", roomToken)
             data.put("answer", it)
             socket.emit("helper_answer", data)

@@ -77,7 +77,7 @@ class MsgFirebaseMessagingService : FirebaseMessagingService() {
             intent.putExtra("chatRoomId", roomId)
             intent.putExtra("chatClubName", title)
             intent.putExtra("fcmClicked",true)
-            if(userType == "C"){
+            if(userType == "C"||userType=="H1"||userType=="H4"){
                 intent.putExtra("chatIndex",1)
             }
 
