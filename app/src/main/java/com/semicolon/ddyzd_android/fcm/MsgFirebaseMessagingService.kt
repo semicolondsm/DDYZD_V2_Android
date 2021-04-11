@@ -70,10 +70,8 @@ class MsgFirebaseMessagingService : FirebaseMessagingService() {
                 flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
             }
         } else if (roomId.isNotEmpty()) {
-            intent = Intent(this, ChattingPage::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-            }
+            intent = Intent(this, ChattingPage::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             intent.putExtra("chatRoomId", roomId)
             intent.putExtra("chatClubName", title)
             intent.putExtra("fcmClicked",true)
