@@ -15,8 +15,8 @@
         <activity android:name=".ul.activity.AddFeedActivity"/>
         <activity android:name=".ul.activity.ChattingPage" >
             <intent-filter>
-                <action android:name="CHATING_ACTIVITY"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action  android:name="ChattingPage" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".ul.activity.ChatList" />
