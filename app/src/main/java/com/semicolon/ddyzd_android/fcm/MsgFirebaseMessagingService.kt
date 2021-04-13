@@ -18,8 +18,6 @@ import com.semicolon.ddyzd_android.ul.activity.MainActivity
 
 class MsgFirebaseMessagingService : FirebaseMessagingService() {
 
-    private val TAG = "FirebaseService"
-
     /**
      * FirebaseInstanceIdService is deprecated.
      * this is new on firebase-messaging:17.1.0
@@ -38,10 +36,17 @@ class MsgFirebaseMessagingService : FirebaseMessagingService() {
             val getMessage=remoteMessage.notification!!.body
             val getTitle = remoteMessage.notification!!.title
             val getRoomId = remoteMessage.data["room_id"]
+            val getUserType = remoteMessage.data["user_type"]
             val hashMap = HashMap<String, String>()
             hashMap["body"]=getMessage!!
             hashMap["title"] = getTitle!!
-            hashMap["roomId"] = getRoomId.toString()
+
+            if(!getRoomId.isNullOrEmpty()){
+                hashMap["roomId"] = getRoomId.toString()
+                hashMap["userType"] = getUserType.toString()
+                hashMap["click_action"] = "ChattingPage"
+            }
+
             sendNotification(hashMap)
 
             val intent=Intent("alert_data")
@@ -54,12 +59,16 @@ class MsgFirebaseMessagingService : FirebaseMessagingService() {
         var message = ""
         var title = ""
         var roomId = ""
+        var userType = ""
+        var clickAction = ""
         var intent = Intent()
         if (data != null && data.isNotEmpty()) {
             message = data["body"] ?: error("")
             title = data["title"] ?: error("")
             if (!data["roomId"].isNullOrEmpty()) {
+                clickAction = data["click_action"] ?: error("")
                 roomId = data["roomId"] ?: error("")
+                userType = data["userType"].toString()
             }
         }
         if (roomId.isEmpty()) {
@@ -67,13 +76,17 @@ class MsgFirebaseMessagingService : FirebaseMessagingService() {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
             }
-        } else if (roomId.isNotEmpty()) {
+        } else if (clickAction.isNotEmpty()) {
             intent = Intent(this, ChattingPage::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
             }
             intent.putExtra("chatRoomId", roomId)
             intent.putExtra("chatClubName", title)
+            intent.putExtra("fcmClicked",true)
+            if(userType == "C"||userType=="H1"||userType=="H4"){
+                intent.putExtra("chatIndex",1)
+            }
         }
 
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)

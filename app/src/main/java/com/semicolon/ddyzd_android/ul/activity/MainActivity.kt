@@ -27,7 +27,7 @@ import com.semicolon.ddyzd_android.viewmodel.MyPageViewModel
 
 class MainActivity : AppCompatActivity() {
     private val LOGIN_REQUEST_CODE = 12
-    private val UPDATE_LOGIN_CODE=47
+    private val UPDATE_REQUEST_CODE=47
     val viewModel = MainViewModel(this)
     lateinit var binding: ActivityMainBinding
 
@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo->
             if(appUpdateInfo.updateAvailability()==UpdateAvailability.UPDATE_AVAILABLE&&appUpdateInfo.isUpdateTypeAllowed(
                     AppUpdateType.IMMEDIATE)){
-                appUpdateManager.startUpdateFlowForResult(appUpdateInfo,AppUpdateType.IMMEDIATE,this,LOGIN_REQUEST_CODE)
+                appUpdateManager.startUpdateFlowForResult(appUpdateInfo,AppUpdateType.IMMEDIATE,this,UPDATE_REQUEST_CODE)
             }
         }
     }
@@ -101,10 +101,9 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         viewModel.onCreate()
-        reLoadFeeds()
     }
 
-    private fun createFeeds() {
+    fun createFeeds() {
         binding.mainBtmNav.selectedItemId = R.id.nav_home
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_container, MainFeed()).commitAllowingStateLoss()

@@ -154,7 +154,7 @@ class ChattingAdapter(val chatting  : MutableLiveData<List<ChattingData>>, val v
         return when(index){
             0 ->{
                 return when(chatting.value?.get(position)?.user_type){
-                    "U" ->MY_CHAT
+                    "U" -> MY_CHAT
                     "C" -> YOUR_CHAT
                     "H1" -> USER_APPLICATION
                     "H2" -> SCHEDULE_CHAT

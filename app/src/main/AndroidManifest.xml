@@ -13,7 +13,12 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".ul.activity.AddFeedActivity"/>
-        <activity android:name=".ul.activity.ChattingPage" />
+        <activity android:name=".ul.activity.ChattingPage" >
+            <intent-filter>
+                <action  android:name="ChattingPage" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ul.activity.ChatList" />
         <activity android:name=".ul.activity.LoginActivity" />
         <activity android:name=".ul.activity.ClubDetails" />
@@ -23,7 +28,6 @@
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

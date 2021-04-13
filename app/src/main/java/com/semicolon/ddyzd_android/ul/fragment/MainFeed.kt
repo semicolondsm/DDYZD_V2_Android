@@ -18,6 +18,7 @@ class MainFeed: Fragment() {
         binding=DataBindingUtil.inflate(inflater,R.layout.fragment_feed,container,false)
         binding.vm= feedViewModel
         binding.lifecycleOwner=this
+        feedViewModel.onCreate()
         return binding.root
     }
 

@@ -24,6 +24,7 @@ class ChattingPage : AppCompatActivity() {
     var clubId = ""
     var status = ""
     var index = 0
+    var fcmClicked=false
 
     //var club_section = ArrayList<String>()
     lateinit var binding: ActivityChattingPageBinding
@@ -35,6 +36,7 @@ class ChattingPage : AppCompatActivity() {
         clubName = intent.getStringExtra("chatClubName").toString()
         status = intent.getStringExtra("status").toString()
         index = intent.getIntExtra("chatIndex", 0)
+        fcmClicked = intent.getBooleanExtra("fcmClicked",false)
         //club_section = intent.getStringArrayListExtra("chatClubSection") as ArrayList<String>
         println("$roomId 이게 룸아이디")
 
