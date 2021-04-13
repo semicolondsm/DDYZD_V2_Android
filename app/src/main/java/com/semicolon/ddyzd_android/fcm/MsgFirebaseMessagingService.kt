@@ -40,6 +40,7 @@ class MsgFirebaseMessagingService : FirebaseMessagingService() {
             val hashMap = HashMap<String, String>()
             hashMap["body"]=getMessage!!
             hashMap["title"] = getTitle!!
+
             if(!getRoomId.isNullOrEmpty()){
                 hashMap["roomId"] = getRoomId.toString()
                 hashMap["userType"] = getUserType.toString()
