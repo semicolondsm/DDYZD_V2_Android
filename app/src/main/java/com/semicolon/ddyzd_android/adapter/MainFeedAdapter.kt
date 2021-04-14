@@ -50,9 +50,9 @@ class MainFeedAdapter(
         fun bind(viewModel: MainFeedViewModel) {
             binding.vm = viewModel
             binding.headerWebview.settings.javaScriptEnabled = true
-            binding.headerWebview.webViewClient=WebViewClient()
-            binding.headerWebview.settings.domStorageEnabled=true
-            binding.headerWebview.loadUrl("https://semicolondsm.xyz/mobile/banner")
+            binding.headerWebview.webViewClient = WebViewClient()
+            binding.headerWebview.settings.domStorageEnabled = true
+            binding.headerWebview.loadUrl("https://ddyzd.dsmkr.com/mobile/banner")
             binding.headerWebview.webChromeClient = object : WebChromeClient() {
                 override fun onConsoleMessage(consoleMessage: ConsoleMessage?): Boolean {
                     consoleMessage?.apply {
@@ -68,18 +68,26 @@ class MainFeedAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == MAIN_FEED_TYPE) {
-            val binding =
-                ItemFeedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            MainFeedViewHolder(binding)
-        } else if (viewType == IMAGE_FEED_TYPE) {
-            val binding =
-                ItemImageFeedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            ImageFeedViewHolder(binding)
-        } else {
-            val binding =
-                ItemFeedHeaderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            HeaderFeedViewHolder(binding)
+        return when (viewType) {
+            MAIN_FEED_TYPE -> {
+                val binding =
+                    ItemFeedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                MainFeedViewHolder(binding)
+            }
+            IMAGE_FEED_TYPE -> {
+                val binding =
+                    ItemImageFeedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                ImageFeedViewHolder(binding)
+            }
+            else -> {
+                val binding =
+                    ItemFeedHeaderBinding.inflate(
+                        LayoutInflater.from(parent.context),
+                        parent,
+                        false
+                    )
+                HeaderFeedViewHolder(binding)
+            }
         }
     }
 
