@@ -47,11 +47,10 @@ class MsgFirebaseMessagingService : FirebaseMessagingService() {
                 hashMap["click_action"] = "ChattingPage"
             }
 
-            sendNotification(hashMap)
-
             val intent=Intent("alert_data")
             intent.putExtra("msg",getMessage)
             LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+            sendNotification(hashMap)
         }
     }
 
@@ -74,17 +73,15 @@ class MsgFirebaseMessagingService : FirebaseMessagingService() {
         if (roomId.isEmpty()) {
             intent = Intent(this, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
             }
         } else if (clickAction.isNotEmpty()) {
-            val chattingIntent = Intent(this, ChattingPage::class.java)
-            chattingIntent.putExtra("chatRoomId", roomId)
-            chattingIntent.putExtra("chatClubName", title)
-            chattingIntent.putExtra("fcmClicked",true)
+            intent = Intent(this, ChattingPage::class.java)
+            intent.putExtra("chatRoomId", roomId)
+            intent.putExtra("chatClubName", title)
+            intent.putExtra("fcmClicked",true)
             if(userType == "C"||userType=="H1"||userType=="H4"){
-                chattingIntent.putExtra("chatIndex",1)
+                intent.putExtra("chatIndex",1)
             }
-            startActivity(chattingIntent)
         }
 
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
