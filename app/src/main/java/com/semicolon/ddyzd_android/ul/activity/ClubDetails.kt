@@ -67,6 +67,8 @@ class ClubDetails : AppCompatActivity() {
         intent.putExtra("chatClubImage", "https://api.semicolon.live/file/${viewModel.clubDetail.value?.clubimage}")
         intent.putExtra("chatClubName", viewModel.clubDetail.value?.clubname)
         intent.putExtra("chatRoomId",roomId)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         startActivity(intent)
     }
 
