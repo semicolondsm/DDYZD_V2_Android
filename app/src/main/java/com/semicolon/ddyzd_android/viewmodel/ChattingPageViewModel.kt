@@ -256,10 +256,13 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
     }
 
     fun onDestroy(){
+        try {
+            val data = JSONObject()
+            data.put("room_token", roomToken)
+            socket.emit("leave_room", data)
+        }finally {
 
-        val data = JSONObject()
-        data.put("room_token", roomToken)
-        socket.emit("leave_room", data)
+        }
     }
 
     @SuppressLint("SimpleDateFormat")
