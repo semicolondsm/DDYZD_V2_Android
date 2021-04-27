@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     private val UPDATE_REQUEST_CODE=47
     val viewModel = MainViewModel(this)
     lateinit var binding: ActivityMainBinding
-
+    private var fcmClicked=false
     companion object {
         lateinit var startShared: SharedPreferences
         lateinit var editor: SharedPreferences.Editor
@@ -89,6 +90,35 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * fcm click check
+     */
+    private fun checkFcm(){
+        fcmClicked=intent.getBooleanExtra("fcmClicked",false)
+        //채팅데이터가 있을때
+        if(!intent.getStringExtra("chatRoomId").isNullOrEmpty()&&fcmClicked){
+            val roomId=intent.getStringExtra("chatRoomId")
+            val title = intent.getStringExtra("chatClubName")
+            val userType = intent.getStringExtra("userType")
+            intent=Intent()
+            val intent=Intent(this,ChattingPage::class.java)
+            intent.putExtra("chatRoomId", roomId)
+            intent.putExtra("chatClubName", title)
+            intent.putExtra("fcmClicked", true)
+            if (userType == "C" || userType == "H1" || userType == "H4") {
+                intent.putExtra("chatIndex", 1)
+            }
+            startActivity(intent)
+            fcmClicked=false
+        }
+        //클럽데이터가 있을때
+        else if (!intent.getStringExtra("clubId").isNullOrEmpty()&&fcmClicked){
+            val clubId = intent.getStringExtra("clubId")
+            startClubDetail(clubId!!)
+            fcmClicked=false
+        }
+    }
+
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         setIntent(intent)
@@ -100,6 +130,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        checkFcm()
         viewModel.onCreate()
     }
 

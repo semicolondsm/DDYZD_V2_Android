@@ -37,8 +37,6 @@ class ChattingPage : AppCompatActivity() {
         status = intent.getStringExtra("status").toString()
         index = intent.getIntExtra("chatIndex", 0)
         fcmClicked = intent.getBooleanExtra("fcmClicked",false)
-        //club_section = intent.getStringArrayListExtra("chatClubSection") as ArrayList<String>
-        println("$roomId 이게 룸아이디")
 
         binding = ActivityChattingPageBinding.inflate(layoutInflater)
         val viewModel = ChattingPageViewModel(this)
