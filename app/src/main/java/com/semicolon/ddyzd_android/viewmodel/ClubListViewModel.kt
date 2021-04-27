@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.semicolon.ddyzd_android.ApiService
 import com.semicolon.ddyzd_android.BaseApi
 import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.adapter.ClubAdapter
@@ -25,6 +26,7 @@ class ClubListViewModel(private val navigator: MainActivity) : ViewModel() {
     val list = ClubList().view?.findViewById<RecyclerView>(R.id.club_list_rv) //
 
     private val adapter = BaseApi.getInstance() // api 연결시 사용
+
     var proflieList = mutableListOf<ClubProfiles>() // 리스트 뷰에 들어갈 항목
     val liveData1: MutableLiveData<String> = MutableLiveData() // 전공 분야 클릭시 바뀜
     val isEmpty = MutableLiveData<Int>(View.INVISIBLE)

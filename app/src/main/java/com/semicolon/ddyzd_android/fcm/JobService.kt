@@ -1,7 +1,7 @@
 package com.semicolon.ddyzd_android.fcm
 
-import com.firebase.jobdispatcher.JobParameters
-import com.firebase.jobdispatcher.JobService
+import android.app.job.JobParameters
+import android.app.job.JobService
 
 class JobService :JobService(){
     override fun onStopJob(job: JobParameters?): Boolean {
