@@ -16,7 +16,6 @@
         <activity android:name=".ul.activity.ChattingPage" >
             <intent-filter>
                 <action  android:name="ChattingPage" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".ul.activity.ChatList" />
@@ -27,7 +26,9 @@
             android:theme="@style/splashTheme"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
+                <action android:name="MainActivity"/>
                 <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
@@ -89,6 +90,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * fcm click check
+     */
+    private fun checkFcm(){
+        if(!intent.getStringExtra("chatRoomId").isNullOrEmpty()){
+            val intent=Intent(this,ChattingPage::class.java)
+            val roomId=intent.getStringExtra("chatRoomId")
+            val title = intent.getStringExtra("chatClubName")
+            val userType = intent.getStringExtra("userType")
+            intent.putExtra("chatRoomId", roomId)
+            intent.putExtra("chatClubName", title)
+            intent.putExtra("fcmClicked", true)
+            if (userType == "C" || userType == "H1" || userType == "H4") {
+                intent.putExtra("chatIndex", 1)
+            }
+        }
+    }
+
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         setIntent(intent)
@@ -100,6 +119,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        checkFcm()
         viewModel.onCreate()
     }
 
