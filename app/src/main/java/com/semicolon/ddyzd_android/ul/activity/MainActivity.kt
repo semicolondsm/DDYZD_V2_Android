@@ -43,7 +43,6 @@ class MainActivity : AppCompatActivity() {
         initViewModels()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setTheme(R.style.AppTheme)
-        checkUpdate()
         super.onCreate(savedInstanceState)
         binding =
             ActivityMainBinding.inflate(layoutInflater)
@@ -74,20 +73,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    }
-
-    /**
-     * 업데이트 확인하는 함수
-     */
-    private fun checkUpdate(){
-        val appUpdateManager=AppUpdateManagerFactory.create(applicationContext)
-        val appUpdateInfoTask=appUpdateManager.appUpdateInfo
-        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo->
-            if(appUpdateInfo.updateAvailability()==UpdateAvailability.UPDATE_AVAILABLE&&appUpdateInfo.isUpdateTypeAllowed(
-                    AppUpdateType.IMMEDIATE)){
-                appUpdateManager.startUpdateFlowForResult(appUpdateInfo,AppUpdateType.IMMEDIATE,this,UPDATE_REQUEST_CODE)
-            }
-        }
     }
 
     /**
