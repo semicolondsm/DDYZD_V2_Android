@@ -18,14 +18,14 @@ class LoginActivity : AppCompatActivity() {
         val deviceToken=sharedPreference.getString("device_token","").toString()
         super.onCreate(savedInstanceState)
         val instance= DsmSdk.instance
-        instance.initSDK("e20961403e0b43009c5dc070a8245e2e","b1336493014a4cef8a480712c2be4bcf","https://semicolondsm.xyz/")
+        instance.initSDK("ab840667ddcd41dc81b29f8f128a0e66","adbf21db93f240a8a2d1e4e3b446689c","https://ddyzd.dsmkr.com/")
         val viewModel=LoginViewModel(instance,this,deviceToken)
         binding= ActivityLoginBinding.inflate(layoutInflater)
         binding.vm=viewModel
         binding.loginWebView.settings.javaScriptEnabled=true
         binding.loginWebView.webViewClient= WebViewClient()
         binding.loginWebView.settings.domStorageEnabled=true
-        binding.loginWebView.loadUrl("https://semicolondsm.xyz/mobile/loginslide")
+        binding.loginWebView.loadUrl("https://ddyzd.dsmkr.com/mobile/loginslide")
         setContentView(binding.root)
     }
 

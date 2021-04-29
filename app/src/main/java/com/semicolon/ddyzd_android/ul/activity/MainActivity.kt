@@ -28,7 +28,6 @@ import com.semicolon.ddyzd_android.viewmodel.MyPageViewModel
 
 class MainActivity : AppCompatActivity() {
     private val LOGIN_REQUEST_CODE = 12
-    private val UPDATE_REQUEST_CODE=47
     val viewModel = MainViewModel(this)
     lateinit var binding: ActivityMainBinding
     private var fcmClicked=false
@@ -79,6 +78,7 @@ class MainActivity : AppCompatActivity() {
      * fcm click check
      */
     private fun checkFcm(){
+        Log.d("test","get test=${intent.getStringExtra("test")}")
         fcmClicked=intent.getBooleanExtra("fcmClicked",false)
         //채팅데이터가 있을때
         if(!intent.getStringExtra("chatRoomId").isNullOrEmpty()&&fcmClicked){
