@@ -69,8 +69,6 @@ class MsgFirebaseMessagingService : FirebaseMessagingService() {
             this.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         }
 
-        intent.putExtra("test",userType)
-
         //채팅데이터가 있을때
         if (roomId.isNotEmpty()) {
             intent.putExtra("chatRoomId", roomId)
