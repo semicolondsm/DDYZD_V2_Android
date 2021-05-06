@@ -15,6 +15,8 @@ import com.semicolon.ddyzd_android.R
 import com.semicolon.ddyzd_android.ul.activity.MainActivity
 
 class MsgFirebaseMessagingService : FirebaseMessagingService() {
+    lateinit var getMessage: String
+    lateinit var getTitle: String
 
     /**
      * FirebaseInstanceIdService is deprecated.
@@ -31,24 +33,25 @@ class MsgFirebaseMessagingService : FirebaseMessagingService() {
      */
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         if (remoteMessage.notification != null) {
-            val getMessage = remoteMessage.notification!!.body
-            val getTitle = remoteMessage.notification!!.title
-            val getRoomId = remoteMessage.data["room_id"]
-            val getUserType = remoteMessage.data["user_type"]
-            val hashMap = HashMap<String, String>()
-            hashMap["body"] = getMessage!!
-            hashMap["title"] = getTitle!!
-
-            if (!getRoomId.isNullOrEmpty() || !getUserType.isNullOrEmpty()) {
-                hashMap["roomId"] = getRoomId.toString()
-                hashMap["userType"] = getUserType.toString()
-            }
-
-            val intent = Intent("alert_data")
-            intent.putExtra("msg", getMessage)
-            LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
-            sendNotification(hashMap)
+            getMessage = remoteMessage.notification!!.body!!
+            getTitle = remoteMessage.notification!!.title!!
         }
+        val getRoomId = remoteMessage.data["room_id"]
+        val getUserType = remoteMessage.data["user_type"]
+        val hashMap = HashMap<String, String>()
+        hashMap["body"] = getMessage
+        hashMap["title"] = getTitle
+
+        if (!getRoomId.isNullOrEmpty() || !getUserType.isNullOrEmpty()) {
+            hashMap["roomId"] = getRoomId.toString()
+            hashMap["userType"] = getUserType.toString()
+        }
+
+        val intent = Intent("alert_data")
+        intent.putExtra("msg", getMessage)
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+        sendNotification(hashMap)
+
     }
 
     private fun sendNotification(data: Map<String, String>?) {

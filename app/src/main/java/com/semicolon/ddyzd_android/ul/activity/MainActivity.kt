@@ -115,8 +115,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        checkFcm()
         viewModel.onCreate()
+        checkFcm()
     }
 
     fun createFeeds() {
