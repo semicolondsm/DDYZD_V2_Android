@@ -28,7 +28,6 @@ import com.semicolon.ddyzd_android.viewmodel.MyPageViewModel
 
 class MainActivity : AppCompatActivity() {
     private val LOGIN_REQUEST_CODE = 12
-    private val UPDATE_REQUEST_CODE=47
     val viewModel = MainViewModel(this)
     lateinit var binding: ActivityMainBinding
     private var fcmClicked=false
@@ -43,7 +42,6 @@ class MainActivity : AppCompatActivity() {
         initViewModels()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setTheme(R.style.AppTheme)
-        checkUpdate()
         super.onCreate(savedInstanceState)
         binding =
             ActivityMainBinding.inflate(layoutInflater)
@@ -77,23 +75,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * 업데이트 확인하는 함수
-     */
-    private fun checkUpdate(){
-        val appUpdateManager=AppUpdateManagerFactory.create(applicationContext)
-        val appUpdateInfoTask=appUpdateManager.appUpdateInfo
-        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo->
-            if(appUpdateInfo.updateAvailability()==UpdateAvailability.UPDATE_AVAILABLE&&appUpdateInfo.isUpdateTypeAllowed(
-                    AppUpdateType.IMMEDIATE)){
-                appUpdateManager.startUpdateFlowForResult(appUpdateInfo,AppUpdateType.IMMEDIATE,this,UPDATE_REQUEST_CODE)
-            }
-        }
-    }
-
-    /**
      * fcm click check
      */
     private fun checkFcm(){
+        Log.d("test","get test=${intent.getStringExtra("test")}")
         fcmClicked=intent.getBooleanExtra("fcmClicked",false)
         //채팅데이터가 있을때
         if(!intent.getStringExtra("chatRoomId").isNullOrEmpty()&&fcmClicked){
@@ -130,8 +115,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        checkFcm()
         viewModel.onCreate()
+        checkFcm()
     }
 
     fun createFeeds() {

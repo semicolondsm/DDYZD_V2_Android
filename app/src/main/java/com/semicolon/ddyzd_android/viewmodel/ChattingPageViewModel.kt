@@ -154,8 +154,6 @@ class ChattingPageViewModel(val navigater: ChattingPage) : ViewModel() {
     fun sandChatting() { // 보내기 버튼 누르면 실행 소켓
         if(!chatBody.value.isNullOrEmpty()){
             val message = chatBody.value
-            println("$roomToken ㄱㄴㄷㄹㅁ")
-            println("이게 과연 몇번 출력이 될까?")
             val data = JSONObject()
             data.put("room_token", roomToken)
             data.put("msg", message)

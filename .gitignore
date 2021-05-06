@@ -22,4 +22,3 @@ local.properties
 
 .idea/codeStyles/Project.xml
 
-app/src/main/java/com/semicolon/ddyzd_android/fcm/MsgFirebaseMessagingService.kt
